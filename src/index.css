@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-forest-dark: #0C1D13;
+  --color-brand-forest-mid: #152E1E;
+  --color-brand-charcoal: #1E2229;
+  --color-brand-charcoal-light: #2D3139;
+  --color-brand-leaf: #2E7D32;
+  --color-brand-leaf-accent: #4CAF50;
+  --color-brand-cream: #FAF9F6;
+  --color-brand-cream-dark: #F0EFEA;
+  
+  --font-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+/* Base Styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-brand-cream);
+    color: var(--color-brand-forest-dark);
+    font-family: var(--font-sans);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-brand-forest-dark);
+  }
+
+  /* Selection styling */
+  ::selection {
+    background-color: rgba(46, 125, 50, 0.2); /* Leaf Green selection */
+    color: var(--color-brand-forest-dark);
+  }
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-brand-cream);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-charcoal-light);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-leaf);
+}
+
+/* Slow forest-green radial gradient animation for dark heroes */
+.hero-forest-gradient {
+  background: radial-gradient(circle at 50% 50%, #152E1E 0%, #0C1D13 70%, #060E09 100%);
+  background-size: 200% 200%;
+  animation: slowForestGradient 18s ease infinite;
+}
+
+@keyframes slowForestGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Custom Interactions */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  background-color: var(--color-brand-leaf-accent);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+.btn-hover-shadow {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.btn-hover-shadow:hover {
+  box-shadow: 0 10px 20px rgba(46, 125, 50, 0.15), 0 6px 6px rgba(46, 125, 50, 0.1);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.btn-hover-shadow:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 3px 6px rgba(46, 125, 50, 0.15);
+}
+
+/* Auto-scrolling Marquee */
+.marquee-container {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+  display: flex;
+  animation: scrollMarquee 35s linear infinite;
+  min-width: max-content;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Premium Card Hover Interaction */
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.card-hover:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 10px 15px rgba(0,0,0,0.05);
+  border-color: rgba(76, 175, 80, 0.2);
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
