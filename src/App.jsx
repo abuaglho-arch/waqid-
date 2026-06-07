@@ -87,6 +87,67 @@ export default function App() {
     }
   };
   // ------------------------
+
+  // --- JS Auto-Carousel Engine ---
+  useEffect(() => {
+    const containers = document.querySelectorAll('.marquee-container');
+    if (!containers.length) return;
+
+    const states = Array.from(containers).map(container => ({
+      el: container,
+      isPaused: false,
+      isDragging: false,
+    }));
+
+    states.forEach(state => {
+      const handleEnter = () => state.isPaused = true;
+      const handleLeave = () => state.isPaused = false;
+      const handleTouchStart = () => state.isDragging = true;
+      const handleTouchEnd = () => {
+        // brief delay to allow momentum scroll to finish
+        setTimeout(() => { state.isDragging = false; }, 800);
+      };
+      
+      state.el.addEventListener('mouseenter', handleEnter);
+      state.el.addEventListener('mouseleave', handleLeave);
+      state.el.addEventListener('touchstart', handleTouchStart, { passive: true });
+      state.el.addEventListener('touchend', handleTouchEnd);
+      
+      state.cleanup = () => {
+        state.el.removeEventListener('mouseenter', handleEnter);
+        state.el.removeEventListener('mouseleave', handleLeave);
+        state.el.removeEventListener('touchstart', handleTouchStart);
+        state.el.removeEventListener('touchend', handleTouchEnd);
+      };
+    });
+
+    let animationFrameId;
+    let lastTime = performance.now();
+    const speed = 0.5; // pixels per frame
+
+    const scroll = (time) => {
+      const deltaTime = time - lastTime;
+      lastTime = time;
+
+      states.forEach(state => {
+        if (!state.isPaused && !state.isDragging) {
+          state.el.scrollLeft += speed * (deltaTime / 16);
+          // Loop seamlessly back
+          if (state.el.scrollLeft >= state.el.scrollWidth / 2) {
+            state.el.scrollLeft -= state.el.scrollWidth / 2;
+          }
+        }
+      });
+      animationFrameId = requestAnimationFrame(scroll);
+    };
+
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      states.forEach(state => state.cleanup());
+    };
+  }, []);
   
   // Parallax transform for hero background
   const heroY = useTransform(scrollY, [0, 800], [0, 200]);
@@ -1270,7 +1331,7 @@ export default function App() {
                   </div>
                   
                   {/* Description card */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/90 via-[#0C1D13]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/90 via-[#0C1D13]/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8 pointer-events-none">
                     <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-2 block">
                       {item.category}
                     </span>
