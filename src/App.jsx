@@ -232,13 +232,13 @@ export default function App() {
 
           {/* CTA Header */}
           <div className="hidden md:block">
-            <button
-              onClick={() => document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })}
+            <Link
+              to="/contact"
               className="btn-hover-shadow inline-flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-[#2E7D32] text-[#FAF9F6] text-xs font-sans font-bold uppercase tracking-wider hover:bg-[#4CAF50] hover:text-[#0C1D13] border border-[#2E7D32]/20 shadow-md"
             >
               Partner With Us
               <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Btn */}
@@ -277,15 +277,13 @@ export default function App() {
             </div>
             
             <div className="flex flex-col gap-4">
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" });
-                }}
+              <Link
+                to="/contact"
+                onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full py-4 rounded-xl bg-[#2E7D32] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-center"
               >
                 Partner With Us
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}
@@ -377,12 +375,12 @@ export default function App() {
             variants={fadeUpVariant}
             className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto"
           >
-            <button
-              onClick={() => document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })}
-              className="btn-hover-shadow w-full sm:w-auto px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs border border-[#2E7D32]/20 shadow-md"
+            <Link
+              to="/contact"
+              className="btn-hover-shadow w-full sm:w-auto px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs border border-[#2E7D32]/20 shadow-md flex items-center justify-center"
             >
               Partner With Us
-            </button>
+            </Link>
             <button
               onClick={() => document.getElementById("crisis")?.scrollIntoView({ behavior: "smooth" })}
               className="btn-hover-shadow w-full sm:w-auto px-8 py-4 rounded-xl bg-transparent hover:bg-[#112417] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs border border-[#2E7D32]/40 shadow-sm"
@@ -1235,205 +1233,17 @@ export default function App() {
               </p>
             </div>
             <div className="relative z-10 flex-shrink-0 w-full md:w-auto">
-              <button 
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+              <Link 
+                to="/contact"
                 className="w-full md:w-auto px-8 py-4 bg-[#4CAF50] hover:bg-[#FAF9F6] hover:text-[#0C1D13] text-[#0C1D13] font-sans font-bold uppercase tracking-widest text-xs transition-colors duration-300 rounded-xl shadow-lg flex items-center justify-center gap-3 group"
               >
                 <BookOpen className="w-4 h-4" />
                 Request Pitch Deck
-              </button>
+              </Link>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
-            
-            {/* Left: Proposal Copy (5 columns) */}
-            <div className="lg:col-span-5 bg-[#0C1D13] text-[#FAF9F6] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/25 shadow-xl flex flex-col justify-between min-h-[400px]">
-              <div className="relative z-10">
-                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
-                  Scale The Impact
-                </span>
-                <h3 className="font-display font-extrabold text-2xl md:text-3xl text-[#FAF9F6] mt-3 mb-6">
-                  Partner With Us to Scale the Impact.
-                </h3>
-                <p className="text-xs md:text-sm text-[#FAF9F6]/75 font-sans leading-relaxed mb-8">
-                  Waqid is seeking early-stage partners, agronomic advisors, and catalytic capital to move from prototype to pilot deployment and maintain our vital field research. Join us in building the infrastructure for a regenerative future.
-                </p>
 
-                <div className="flex flex-col gap-5 font-sans text-xs md:text-sm text-[#FAF9F6]/80 mt-6 border-t border-[#FAF9F6]/10 pt-6">
-                  <div className="flex items-center gap-3">
-                    <MapPin className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
-                    <span>Perak & Kedah, Malaysia</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Flame className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
-                    <span>Pioneering Circular Biochar Systems</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Leaf className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
-                    <span>Building a Regenerative Future</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
-                    <a href="mailto:Abuaglho@gmail.com" className="hover:text-[#4CAF50] transition-colors">
-                      Abuaglho@gmail.com
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t border-[#FAF9F6]/10 pt-6 mt-8 text-[11px] font-sans text-[#FAF9F6]/40 leading-relaxed">
-                * Detailed field trial data and early validation reports are available upon request for prospective partners and investors.
-              </div>
-            </div>
-
-            {/* Right: Contact Form (7 columns) */}
-            <div id="contact" className="lg:col-span-7 bg-[#F0EFEA] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/10 shadow-sm">
-              {formSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="h-full flex flex-col items-center justify-center text-center py-12"
-                >
-                  <div className="w-16 h-16 rounded-full bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center mb-6 border border-[#2E7D32]/20">
-                    <Send className="w-6 h-6" />
-                  </div>
-                  <h3 className="font-display font-extrabold text-2xl text-[#0C1D13] mb-3">
-                    Inquiry Received
-                  </h3>
-                  <p className="text-sm text-[#0C1D13]/75 font-sans max-w-sm mb-2 leading-relaxed">
-                    Thank you for reaching out! We have successfully received your inquiry and will be in touch with you shortly.
-                  </p>
-                  <button
-                    onClick={() => setFormSubmitted(false)}
-                    className="mt-8 px-6 py-2.5 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] text-[#2E7D32] text-xs font-sans font-bold uppercase tracking-wider transition-colors"
-                  >
-                    Send Another Inquiry
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
-                  {submitError && (
-                    <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-sans">
-                      {submitError}
-                    </div>
-                  )}
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
-                        Full Name *
-                      </label>
-                      <div className="relative">
-                        <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30" />
-                        <input
-                          type="text"
-                          required
-                          placeholder="Ahmad Bin Ismail"
-                          value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
-                        Email Address *
-                      </label>
-                      <div className="relative">
-                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30" />
-                        <input
-                          type="email"
-                          required
-                          placeholder="ahmad@coop.my"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
-                        Organisation (Optional)
-                      </label>
-                      <div className="relative">
-                        <Factory className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30" />
-                        <input
-                          type="text"
-                          placeholder="Kedah Paddy Coop"
-                          value={formData.org}
-                          onChange={(e) => setFormData({ ...formData, org: e.target.value })}
-                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
-                        Partnership Track *
-                      </label>
-                      <div className="relative">
-                        <Sparkles className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30 pointer-events-none" />
-                        <select
-                          required
-                          value={formData.role}
-                          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans cursor-pointer transition-colors appearance-none"
-                        >
-                          <option value="" disabled>Select track...</option>
-                          <option value="Investor / Funder">Investor / Funder</option>
-                          <option value="Strategic Partner / Advisor">Strategic Partner / Advisor</option>
-                          <option value="Grant Program / NGO">Grant Program / NGO</option>
-                          <option value="Academic / Researcher">Academic / Researcher</option>
-                          <option value="Mill Operator (Pilot Interest)">Mill Operator (Pilot Interest)</option>
-                          <option value="Farmer / Cooperative (Trial Interest)">Farmer / Cooperative (Trial Interest)</option>
-                          <option value="Other">Other</option>
-                        </select>
-                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30 pointer-events-none" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
-                      Message *
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      placeholder="Tell us how you'd like to support, advise, or partner with us on our pilot journey..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="px-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans resize-none transition-colors"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="btn-hover-shadow w-full mt-2 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-widest text-xs transition-colors duration-300 border border-[#2E7D32]/25 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group"
-                  >
-                    {isSubmitting ? (
-                      <span className="flex items-center gap-2">
-                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white group-hover:text-[#0C1D13]" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Sending...
-                      </span>
-                    ) : (
-                      <>
-                        Partner With Us
-                        <Send className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
 
           {/* Accordion FAQ Panel */}
           <div id="faqs" className="max-w-3xl mx-auto mt-32">
