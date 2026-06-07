@@ -58,6 +58,34 @@ export default function App() {
     viewport: { once: true, margin: "-50px" },
     transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
   };
+
+  const blurFadeVariant = {
+    hidden: { opacity: 0, filter: "blur(10px)", y: shouldReduceMotion ? 0 : 20 },
+    visible: { 
+      opacity: 1, 
+      filter: "blur(0px)", 
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
+
+  const popVariant = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1,
+      transition: { duration: 0.6, type: "spring", stiffness: 100 }
+    }
+  };
+
+  const driftVariant = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.8, ease: "easeOut" }
+    }
+  };
   // ------------------------
   
   // Parallax transform for hero background
@@ -603,74 +631,80 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-3 lg:[&>*]:w-auto lg:[&>*]:shrink gap-8 lg:items-stretch">
-            {/* Step 1 */}
-            <div className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E]/5 flex items-center justify-center text-[#2E7D32] mb-6 border border-[#2E7D32]/10">
-                  <Factory className="w-6 h-6" />
-                </div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
-                  01. Decentralized Processing
-                </h4>
-                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Deploying TLUD pyrolysis systems at both mill sites and farm sites to process waste locally, eliminating massive transport logistics.
-                </p>
-              </div>
-              <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
-                <span className="text-[10px] uppercase font-sans font-bold tracking-wider text-[#2E7D32] block">
-                  Logistics Gain
-                </span>
-                <p className="text-[11px] text-[#0C1D13]/60 font-sans mt-0.5 leading-relaxed">
-                  Pyrolysis at source achieves an approximate <strong className="font-bold text-[#0C1D13]">4x reduction</strong> in feedstock volume [Yank et al. 2016].
-                </p>
-              </div>
-            </div>
+          <div className="marquee-container w-full max-w-[100vw]">
+            <div className="marquee-content gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
+              {[1, 2].map((iteration) => (
+                <div key={iteration} className="flex gap-8 shrink-0">
+                  {/* Step 1 */}
+                  <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-[#152E1E]/5 flex items-center justify-center text-[#2E7D32] mb-6 border border-[#2E7D32]/10">
+                        <Factory className="w-6 h-6" />
+                      </div>
+                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
+                        01. Decentralized Processing
+                      </h4>
+                      <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                        Deploying TLUD pyrolysis systems at both mill sites and farm sites to process waste locally, eliminating massive transport logistics.
+                      </p>
+                    </div>
+                    <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
+                      <span className="text-[10px] uppercase font-sans font-bold tracking-wider text-[#2E7D32] block">
+                        Logistics Gain
+                      </span>
+                      <p className="text-[11px] text-[#0C1D13]/60 font-sans mt-0.5 leading-relaxed">
+                        Pyrolysis at source achieves an approximate <strong className="font-bold text-[#0C1D13]">4x reduction</strong> in feedstock volume [Yank et al. 2016].
+                      </p>
+                    </div>
+                  </motion.div>
 
-            {/* Step 2 */}
-            <div className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E]/5 flex items-center justify-center text-[#2E7D32] mb-6 border border-[#2E7D32]/10">
-                  <Zap className="w-6 h-6" />
-                </div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
-                  02. Circular Economics
-                </h4>
-                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Our targeted economic model ensures mills pay a service fee for legal biomass removal, allowing us to offer farmers premium soil-restoring products at a highly accessible, subsidized rate—dramatically undercutting expensive synthetic fertilizers while maintaining strong margins.
-                </p>
-              </div>
-              <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
-                <span className="text-[10px] uppercase font-sans font-bold tracking-wider text-[#2E7D32] block">
-                  Affordable Price Point
-                </span>
-                <p className="text-[11px] text-[#0C1D13]/60 font-sans mt-0.5 leading-relaxed">
-                  Replaces expensive synthetic nitrogen inputs with stable compost-bonded soil amendments.
-                </p>
-              </div>
-            </div>
+                  {/* Step 2 */}
+                  <motion.div variants={popVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-[#152E1E]/5 flex items-center justify-center text-[#2E7D32] mb-6 border border-[#2E7D32]/10">
+                        <Zap className="w-6 h-6" />
+                      </div>
+                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
+                        02. Circular Economics
+                      </h4>
+                      <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                        Our targeted economic model ensures mills pay a service fee for legal biomass removal, allowing us to offer farmers premium soil-restoring products at a highly accessible, subsidized rate—dramatically undercutting expensive synthetic fertilizers while maintaining strong margins.
+                      </p>
+                    </div>
+                    <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
+                      <span className="text-[10px] uppercase font-sans font-bold tracking-wider text-[#2E7D32] block">
+                        Affordable Price Point
+                      </span>
+                      <p className="text-[11px] text-[#0C1D13]/60 font-sans mt-0.5 leading-relaxed">
+                        Replaces expensive synthetic nitrogen inputs with stable compost-bonded soil amendments.
+                      </p>
+                    </div>
+                  </motion.div>
 
-            {/* Step 3 */}
-            <div className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E]/5 flex items-center justify-center text-[#2E7D32] mb-6 border border-[#2E7D32]/10">
-                  <Leaf className="w-6 h-6" />
+                  {/* Step 3 */}
+                  <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div>
+                      <div className="w-12 h-12 rounded-2xl bg-[#152E1E]/5 flex items-center justify-center text-[#2E7D32] mb-6 border border-[#2E7D32]/10">
+                        <Leaf className="w-6 h-6" />
+                      </div>
+                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
+                        03. The Product Innovation
+                      </h4>
+                      <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                        Converting raw biochar into uniform, 3-6mm granular biochar-compost pellets. This format is fully compatible with existing mechanical spreaders and eliminates wind drift.
+                      </p>
+                    </div>
+                    <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
+                      <span className="text-[10px] uppercase font-sans font-bold tracking-wider text-[#2E7D32] block">
+                        Soil Crystalline Stability
+                      </span>
+                      <p className="text-[11px] text-[#0C1D13]/60 font-sans mt-0.5 leading-relaxed">
+                        Guarantees verifiable carbon capture in soils for over 100 years [Lehmann & Joseph 2009].
+                      </p>
+                    </div>
+                  </motion.div>
                 </div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
-                  03. The Product Innovation
-                </h4>
-                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Converting raw biochar into uniform, 3-6mm granular biochar-compost pellets. This format is fully compatible with existing mechanical spreaders and eliminates wind drift.
-                </p>
-              </div>
-              <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
-                <span className="text-[10px] uppercase font-sans font-bold tracking-wider text-[#2E7D32] block">
-                  Soil Crystalline Stability
-                </span>
-                <p className="text-[11px] text-[#0C1D13]/60 font-sans mt-0.5 leading-relaxed">
-                  Guarantees verifiable carbon capture in soils for over 100 years [Lehmann & Joseph 2009].
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -724,44 +758,50 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
-            {/* Revenue Stream 1: Hardware & Energy */}
-            <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
-                <Zap className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
-                01. Hardware & Clean Energy
-              </h4>
-              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                Mills pay a recurring service fee to deploy our decentralized pyrolysis units, instantly solving their strict disposal liabilities while generating free, clean thermal energy to fuel their own operations.
-              </p>
-            </div>
+          <div className="marquee-container w-full max-w-[100vw]">
+            <div className="marquee-content gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
+              {[1, 2].map((iteration) => (
+                <div key={iteration} className="flex gap-8 shrink-0">
+                  {/* Revenue Stream 1: Hardware & Energy */}
+                  <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
+                      <Zap className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
+                      01. Hardware & Clean Energy
+                    </h4>
+                    <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                      Mills pay a recurring service fee to deploy our decentralized pyrolysis units, instantly solving their strict disposal liabilities while generating free, clean thermal energy to fuel their own operations.
+                    </p>
+                  </motion.div>
 
-            {/* Revenue Stream 2: Biochar */}
-            <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
-                <Leaf className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
-                02. Biochar Distribution
-              </h4>
-              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                We aggregate the produced biochar and process it into premium soil-building pellets, selling them directly to agricultural cooperatives and farmers at high margins to restore degraded soils.
-              </p>
-            </div>
+                  {/* Revenue Stream 2: Biochar */}
+                  <motion.div variants={popVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
+                      <Leaf className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
+                      02. Biochar Distribution
+                    </h4>
+                    <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                      We aggregate the produced biochar and process it into premium soil-building pellets, selling them directly to agricultural cooperatives and farmers at high margins to restore degraded soils.
+                    </p>
+                  </motion.div>
 
-            {/* Revenue Stream 3: Briquettes & Carbon */}
-            <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
-                <Hexagon className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
-                03. Solid Fuels & Carbon
-              </h4>
-              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                We sell the sustainable charcoal briquettes as a solid fuel alternative. Simultaneously, because our biochar locks carbon into the earth, we generate verifiable Carbon Removal Credits (CORCs) for the global market.
-              </p>
+                  {/* Revenue Stream 3: Briquettes & Carbon */}
+                  <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
+                      <Hexagon className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">
+                      03. Solid Fuels & Carbon
+                    </h4>
+                    <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                      We sell the sustainable charcoal briquettes as a solid fuel alternative. Simultaneously, because our biochar locks carbon into the earth, we generate verifiable Carbon Removal Credits (CORCs) for the global market.
+                    </p>
+                  </motion.div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -784,57 +824,63 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[400px] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-2 lg:[&>*]:w-auto lg:[&>*]:shrink gap-12 lg:items-stretch">
-            {/* Quote 1: Ahmad */}
-            <div className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
-              <div>
-                <span className="text-6xl font-serif text-[#4CAF50] opacity-35 leading-none font-bold">“</span>
-                <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed mt-2 italic">
-                  The soil needs more every year to produce less, and I know the chemicals are not sustainable. Testing with the Waqid team in the field showed me a real alternative. If these pellets can be produced at scale, they offer a highly practical path to restore our land's health without falling into debt.
-                </p>
-              </div>
-              <div className="flex items-center gap-4 mt-8 border-t border-[#FAF9F6]/10 pt-6">
-                <img 
-                  src="/images/farmer_ahmad.png" 
-                  alt="Ahmad, Smallholder Farmer" 
-                  className="w-14 h-14 shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
-                />
-                <div>
-                  <h4 className="font-display font-bold text-base text-[#FAF9F6]">
-                    Ahmad
-                  </h4>
-                  <p className="text-xs text-[#FAF9F6]/55 font-sans">
-                    Smallholder Farmer, Kedah
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div className="marquee-container w-full max-w-[100vw]">
+            <div className="marquee-content gap-12 items-stretch pr-12" style={{ animationDuration: '40s' }}>
+              {[1, 2].map((iteration) => (
+                <div key={iteration} className="flex gap-12 shrink-0">
+                  {/* Quote 1: Ahmad */}
+                  <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover w-[85vw] sm:w-[400px] shrink-0">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
+                    <div>
+                      <span className="text-6xl font-serif text-[#4CAF50] opacity-35 leading-none font-bold">“</span>
+                      <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed mt-2 italic">
+                        The soil needs more every year to produce less, and I know the chemicals are not sustainable. Testing with the Waqid team in the field showed me a real alternative. If these pellets can be produced at scale, they offer a highly practical path to restore our land's health without falling into debt.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4 mt-8 border-t border-[#FAF9F6]/10 pt-6">
+                      <img 
+                        src="/images/farmer_ahmad.png" 
+                        alt="Ahmad, Smallholder Farmer" 
+                        className="w-14 h-14 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
+                      />
+                      <div>
+                        <h4 className="font-display font-bold text-base text-[#FAF9F6]">
+                          Ahmad
+                        </h4>
+                        <p className="text-xs text-[#FAF9F6]/55 font-sans">
+                          Smallholder Farmer, Kedah
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
 
-            {/* Quote 2: Tim */}
-            <div className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
-              <div>
-                <span className="text-6xl font-serif text-[#4CAF50] opacity-35 leading-none font-bold">“</span>
-                <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed mt-2 italic">
-                  Waqid combines ground-level empathy with technical rigor. Their approach to closing the biomass loop directly at the mill and farm level is the exact pragmatic, farmer-first innovation this region needs. It is a privilege to support a venture so committed to scalable operations.
-                </p>
-              </div>
-              <div className="flex items-center gap-4 mt-8 border-t border-[#FAF9F6]/10 pt-6">
-                <img 
-                  src="/images/tim-asquith.png" 
-                  alt="Tim Asquith, Strategic Advisor" 
-                  className="w-14 h-14 shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
-                />
-                <div>
-                  <h4 className="font-display font-bold text-base text-[#FAF9F6]">
-                    Tim Asquith
-                  </h4>
-                  <p className="text-xs text-[#FAF9F6]/55 font-sans">
-                    Mentor and Strategic Advisor
-                  </p>
+                  {/* Quote 2: Tim */}
+                  <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover w-[85vw] sm:w-[400px] shrink-0">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
+                    <div>
+                      <span className="text-6xl font-serif text-[#4CAF50] opacity-35 leading-none font-bold">“</span>
+                      <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed mt-2 italic">
+                        Waqid combines ground-level empathy with technical rigor. Their approach to closing the biomass loop directly at the mill and farm level is the exact pragmatic, farmer-first innovation this region needs. It is a privilege to support a venture so committed to scalable operations.
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4 mt-8 border-t border-[#FAF9F6]/10 pt-6">
+                      <img 
+                        src="/images/tim-asquith.png" 
+                        alt="Tim Asquith, Strategic Advisor" 
+                        className="w-14 h-14 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
+                      />
+                      <div>
+                        <h4 className="font-display font-bold text-base text-[#FAF9F6]">
+                          Tim Asquith
+                        </h4>
+                        <p className="text-xs text-[#FAF9F6]/55 font-sans">
+                          Mentor and Strategic Advisor
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -859,38 +905,44 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
-            {/* Card 1 */}
-            <div className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group">
-              <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
-                <Globe className="w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-display font-bold text-[#FAF9F6] mb-4">Carbon Sequestration</h3>
-              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                By converting agricultural waste into biochar instead of burning or letting it rot, we securely lock carbon into the soil for hundreds of years, actively cooling the planet.
-              </p>
-            </div>
+          <div className="marquee-container w-full max-w-[100vw]">
+            <div className="marquee-content gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
+              {[1, 2].map((iteration) => (
+                <div key={iteration} className="flex gap-8 shrink-0">
+                  {/* Card 1 */}
+                  <motion.div variants={popVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
+                      <Globe className="w-7 h-7" />
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-[#FAF9F6] mb-4">Carbon Sequestration</h3>
+                    <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                      By converting agricultural waste into biochar instead of burning or letting it rot, we securely lock carbon into the soil for hundreds of years, actively cooling the planet.
+                    </p>
+                  </motion.div>
 
-            {/* Card 2 */}
-            <div className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group">
-              <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
-                <Leaf className="w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-display font-bold text-[#FAF9F6] mb-4">Soil Regeneration</h3>
-              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                Our biochar directly rehabilitates highly degraded, acidic clay soils. It acts as a sponge for water and nutrients, restoring microscopic ecosystems essential for healthy crops.
-              </p>
-            </div>
+                  {/* Card 2 */}
+                  <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
+                      <Leaf className="w-7 h-7" />
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-[#FAF9F6] mb-4">Soil Regeneration</h3>
+                    <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                      Our biochar directly rehabilitates highly degraded, acidic clay soils. It acts as a sponge for water and nutrients, restoring microscopic ecosystems essential for healthy crops.
+                    </p>
+                  </motion.div>
 
-            {/* Card 3 */}
-            <div className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group">
-              <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
-                <Droplets className="w-7 h-7" />
-              </div>
-              <h3 className="text-2xl font-display font-bold text-[#FAF9F6] mb-4">Methane Mitigation</h3>
-              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                Leaving Empty Fruit Bunches (EFB) to decay in landfills produces immense methane emissions. We divert this waste completely, neutralizing a major climate threat.
-              </p>
+                  {/* Card 3 */}
+                  <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
+                      <Droplets className="w-7 h-7" />
+                    </div>
+                    <h3 className="text-2xl font-display font-bold text-[#FAF9F6] mb-4">Methane Mitigation</h3>
+                    <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                      Leaving Empty Fruit Bunches (EFB) to decay in landfills produces immense methane emissions. We divert this waste completely, neutralizing a major climate threat.
+                    </p>
+                  </motion.div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -912,59 +964,65 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
-            {/* Highlight 1 */}
-            <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover">
-              <div>
-                <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#2E7D32]">
-                  Pilot Target
-                </span>
-                <h3 className="text-3xl md:text-4xl font-display font-extrabold text-[#0C1D13] mt-4 flex items-baseline gap-1">
-                  ~<Counter value="10" /> <span className="text-lg font-sans font-medium text-[#0C1D13]/60">tonnes</span>
-                </h3>
-                <h5 className="font-display font-bold text-sm text-[#0C1D13] mt-2">
-                  CO2e Sequestered
-                </h5>
-                <p className="text-xs text-[#0C1D13]/70 font-sans mt-3 leading-relaxed">
-                  Targeting ~10 tonnes of CO2e sequestered in our upcoming V3 pilot.
-                </p>
-              </div>
-            </div>
+          <div className="marquee-container w-full max-w-[100vw]">
+            <div className="marquee-content gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
+              {[1, 2].map((iteration) => (
+                <div key={iteration} className="flex gap-8 shrink-0">
+                  {/* Highlight 1 */}
+                  <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div>
+                      <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#2E7D32]">
+                        Pilot Target
+                      </span>
+                      <h3 className="text-3xl md:text-4xl font-display font-extrabold text-[#0C1D13] mt-4 flex items-baseline gap-1">
+                        ~<Counter value="10" /> <span className="text-lg font-sans font-medium text-[#0C1D13]/60">tonnes</span>
+                      </h3>
+                      <h5 className="font-display font-bold text-sm text-[#0C1D13] mt-2">
+                        CO2e Sequestered
+                      </h5>
+                      <p className="text-xs text-[#0C1D13]/70 font-sans mt-3 leading-relaxed">
+                        Targeting ~10 tonnes of CO2e sequestered in our upcoming V3 pilot.
+                      </p>
+                    </div>
+                  </motion.div>
 
-            {/* Highlight 2 */}
-            <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover">
-              <div>
-                <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#2E7D32]">
-                  Residue Diversion
-                </span>
-                <h3 className="text-3xl md:text-4xl font-display font-extrabold text-[#0C1D13] mt-4 flex items-baseline gap-1">
-                  <Counter value="15000" /> <span className="text-lg font-sans font-medium text-[#0C1D13]/60">kg</span>
-                </h3>
-                <h5 className="font-display font-bold text-sm text-[#0C1D13] mt-2">
-                  Palm Waste Diverted
-                </h5>
-                <p className="text-xs text-[#0C1D13]/70 font-sans mt-3 leading-relaxed">
-                  Diverting 15,000 kg of palm waste from burning or decomposition.
-                </p>
-              </div>
-            </div>
+                  {/* Highlight 2 */}
+                  <motion.div variants={popVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div>
+                      <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#2E7D32]">
+                        Residue Diversion
+                      </span>
+                      <h3 className="text-3xl md:text-4xl font-display font-extrabold text-[#0C1D13] mt-4 flex items-baseline gap-1">
+                        <Counter value="15000" /> <span className="text-lg font-sans font-medium text-[#0C1D13]/60">kg</span>
+                      </h3>
+                      <h5 className="font-display font-bold text-sm text-[#0C1D13] mt-2">
+                        Palm Waste Diverted
+                      </h5>
+                      <p className="text-xs text-[#0C1D13]/70 font-sans mt-3 leading-relaxed">
+                        Diverting 15,000 kg of palm waste from burning or decomposition.
+                      </p>
+                    </div>
+                  </motion.div>
 
-            {/* Highlight 3 */}
-            <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover">
-              <div>
-                <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#2E7D32]">
-                  Soil Hydrology
-                </span>
-                <h3 className="text-3xl md:text-4xl font-display font-extrabold text-[#0C1D13] mt-4 flex items-baseline gap-1">
-                  ~<Counter value="18" />% <span className="text-lg font-sans font-medium text-[#0C1D13]/60">gain</span>
-                </h3>
-                <h5 className="font-display font-bold text-sm text-[#0C1D13] mt-2">
-                  Water Retention Improvement
-                </h5>
-                <p className="text-xs text-[#0C1D13]/70 font-sans mt-3 leading-relaxed">
-                  Improving soil water retention by approximately 18% based on established agronomic data.
-                </p>
-              </div>
+                  {/* Highlight 3 */}
+                  <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
+                    <div>
+                      <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#2E7D32]">
+                        Soil Hydrology
+                      </span>
+                      <h3 className="text-3xl md:text-4xl font-display font-extrabold text-[#0C1D13] mt-4 flex items-baseline gap-1">
+                        ~<Counter value="18" />% <span className="text-lg font-sans font-medium text-[#0C1D13]/60">gain</span>
+                      </h3>
+                      <h5 className="font-display font-bold text-sm text-[#0C1D13] mt-2">
+                        Water Retention Improvement
+                      </h5>
+                      <p className="text-xs text-[#0C1D13]/70 font-sans mt-3 leading-relaxed">
+                        Improving soil water retention by approximately 18% based on established agronomic data.
+                      </p>
+                    </div>
+                  </motion.div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -1129,7 +1187,7 @@ export default function App() {
                   {/* Team Member 1 */}
                   <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-                    <div className="w-32 h-32 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+                    <div className="w-32 h-32 min-w-[128px] min-h-[128px] aspect-square shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
                       <img src="/images/founder.jpg" alt="Osama Mohamed Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
@@ -1142,7 +1200,7 @@ export default function App() {
                   {/* Team Member 2 */}
                   <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-                    <div className="w-32 h-32 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                    <div className="w-32 h-32 min-w-[128px] min-h-[128px] aspect-square shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
                       <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
@@ -1155,7 +1213,7 @@ export default function App() {
                   {/* Team Member 3: Venture Coach */}
                   <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-                    <div className="w-32 h-32 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                    <div className="w-32 h-32 min-w-[128px] min-h-[128px] aspect-square shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
                       <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
@@ -1167,7 +1225,7 @@ export default function App() {
 
                   {/* Team Member 4: Open Call */}
                   <motion.div variants={fadeUpVariant} onClick={() => document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })} className="bg-[#152E1E] p-8 md:p-10 rounded-3xl border border-[#4CAF50]/30 border-dashed shadow-inner flex flex-col items-center text-center group card-hover relative overflow-hidden justify-center cursor-pointer hover:bg-[#1E2229] transition-colors w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-24 h-24 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50]/50 border-dashed mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                    <div className="w-24 h-24 min-w-[96px] min-h-[96px] aspect-square shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50]/50 border-dashed mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
                       <span className="text-[#4CAF50]/50 font-display text-4xl group-hover:scale-125 transition-transform duration-500">+</span>
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Join The Movement</h4>
