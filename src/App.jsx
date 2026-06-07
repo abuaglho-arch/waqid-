@@ -14,8 +14,7 @@ import Accordion from "./components/Accordion";
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeFaq, setActiveFaq] = useState(null);
-  const [activeFaq, setActiveFaq] = useState(null);
+
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const heroRef = useRef(null);
