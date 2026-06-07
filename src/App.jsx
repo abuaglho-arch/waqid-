@@ -97,6 +97,7 @@ export default function App() {
       el: container,
       isPaused: false,
       isDragging: false,
+      exactScrollLeft: container.scrollLeft // Safari Subpixel Bypass
     }));
 
     states.forEach(state => {
@@ -128,7 +129,7 @@ export default function App() {
 
     let animationFrameId;
     let lastTime = performance.now();
-    const speed = 0.5; // pixels per frame
+    const speed = 1.5; // Faster pixels per frame
 
     const scroll = (time) => {
       const deltaTime = time - lastTime;
@@ -136,11 +137,19 @@ export default function App() {
 
       states.forEach(state => {
         if (!state.isPaused && !state.isDragging) {
-          state.el.scrollLeft += speed * (deltaTime / 16);
+          // Accumulate floating point scroll
+          state.exactScrollLeft += speed * (deltaTime / 16);
+          
           // Loop seamlessly back
-          if (state.el.scrollLeft >= state.el.scrollWidth / 2) {
-            state.el.scrollLeft -= state.el.scrollWidth / 2;
+          if (state.exactScrollLeft >= state.el.scrollWidth / 2) {
+            state.exactScrollLeft -= state.el.scrollWidth / 2;
           }
+          
+          // Apply Math.floor to bypass Safari's float truncation bug
+          state.el.scrollLeft = Math.floor(state.exactScrollLeft);
+        } else {
+          // Sync accumulator with manual scroll
+          state.exactScrollLeft = state.el.scrollLeft;
         }
       });
       animationFrameId = requestAnimationFrame(scroll);
@@ -885,69 +894,64 @@ export default function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black leading-tight mt-3">
               Grounded in the field, backed by science
             </h2>
-            <p className="lg:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#4CAF50]/60 animate-pulse mt-4">
-              ← Swipe to explore →
-            </p>
           </div>
 
-          <div className="marquee-container w-full max-w-[100vw]">
-            <div className="marquee-content gap-12 items-stretch pr-12" style={{ animationDuration: '40s' }}>
-              {[1, 2].map((iteration) => (
-                <div key={iteration} className="flex gap-12 shrink-0">
-                  {/* Quote 1: Ahmad */}
-                  <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover w-[85vw] sm:w-[400px] shrink-0">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
-                    <div>
-                      <span className="text-6xl font-serif text-[#4CAF50] opacity-35 leading-none font-bold">“</span>
-                      <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed mt-2 italic">
-                        The soil needs more every year to produce less, and I know the chemicals are not sustainable. Testing with the Waqid team in the field showed me a real alternative. If these pellets can be produced at scale, they offer a highly practical path to restore our land's health without falling into debt.
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4 mt-8 border-t border-[#FAF9F6]/10 pt-6">
-                      <img 
-                        src="/images/farmer_ahmad.png" 
-                        alt="Ahmad, Smallholder Farmer" 
-                        className="w-14 h-14 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
-                      />
-                      <div>
-                        <h4 className="font-display font-bold text-base text-[#FAF9F6]">
-                          Ahmad
-                        </h4>
-                        <p className="text-xs text-[#FAF9F6]/55 font-sans">
-                          Smallholder Farmer, Kedah
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* Quote 2: Tim */}
-                  <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover w-[85vw] sm:w-[400px] shrink-0">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
-                    <div>
-                      <span className="text-6xl font-serif text-[#4CAF50] opacity-35 leading-none font-bold">“</span>
-                      <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed mt-2 italic">
-                        Waqid combines ground-level empathy with technical rigor. Their approach to closing the biomass loop directly at the mill and farm level is the exact pragmatic, farmer-first innovation this region needs. It is a privilege to support a venture so committed to scalable operations.
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-4 mt-8 border-t border-[#FAF9F6]/10 pt-6">
-                      <img 
-                        src="/images/tim-asquith.png" 
-                        alt="Tim Asquith, Strategic Advisor" 
-                        className="w-14 h-14 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
-                      />
-                      <div>
-                        <h4 className="font-display font-bold text-base text-[#FAF9F6]">
-                          Tim Asquith
-                        </h4>
-                        <p className="text-xs text-[#FAF9F6]/55 font-sans">
-                          Mentor and Strategic Advisor
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mt-12 relative pb-12 lg:pb-24">
+            {/* Quote 1: Ahmad */}
+            <motion.div variants={driftVariant} className="bg-[#1E2229] p-8 md:p-14 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
+              <div className="absolute top-4 right-8 md:top-8 md:right-12">
+                <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
+              </div>
+              <div className="relative z-10 mt-6 md:mt-0">
+                <p className="text-base md:text-xl text-[#FAF9F6]/90 font-sans leading-relaxed italic">
+                  The soil needs more every year to produce less, and I know the chemicals are not sustainable. Testing with the Waqid team in the field showed me a real alternative. If these pellets can be produced at scale, they offer a highly practical path to restore our land's health without falling into debt.
+                </p>
+              </div>
+              <div className="flex items-center gap-5 md:gap-6 mt-10 pt-8 border-t border-[#FAF9F6]/10 relative z-10">
+                <img 
+                  src="/images/farmer_ahmad.png" 
+                  alt="Ahmad, Smallholder Farmer" 
+                  className="w-14 h-14 md:w-16 md:h-16 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#4CAF50] shadow-[0_0_15px_rgba(76,175,80,0.3)] grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+                <div>
+                  <h4 className="font-display font-bold text-lg md:text-xl text-[#FAF9F6] tracking-wide">
+                    Ahmad
+                  </h4>
+                  <p className="text-xs md:text-sm text-[#4CAF50] font-sans font-medium mt-1">
+                    Smallholder Farmer, Kedah
+                  </p>
                 </div>
-              ))}
-            </div>
+              </div>
+            </motion.div>
+
+            {/* Quote 2: Tim */}
+            <motion.div variants={blurFadeVariant} className="bg-[#1E2229] p-8 md:p-14 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500 lg:translate-y-16">
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
+              <div className="absolute top-4 right-8 md:top-8 md:right-12">
+                <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
+              </div>
+              <div className="relative z-10 mt-6 md:mt-0">
+                <p className="text-base md:text-xl text-[#FAF9F6]/90 font-sans leading-relaxed italic">
+                  Waqid combines ground-level empathy with technical rigor. Their approach to closing the biomass loop directly at the mill and farm level is the exact pragmatic, farmer-first innovation this region needs. It is a privilege to support a venture so committed to scalable operations.
+                </p>
+              </div>
+              <div className="flex items-center gap-5 md:gap-6 mt-10 pt-8 border-t border-[#FAF9F6]/10 relative z-10">
+                <img 
+                  src="/images/tim-asquith.png" 
+                  alt="Tim Asquith, Strategic Advisor" 
+                  className="w-14 h-14 md:w-16 md:h-16 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#4CAF50] shadow-[0_0_15px_rgba(76,175,80,0.3)] grayscale group-hover:grayscale-0 transition-all duration-500"
+                />
+                <div>
+                  <h4 className="font-display font-bold text-lg md:text-xl text-[#FAF9F6] tracking-wide">
+                    Tim Asquith
+                  </h4>
+                  <p className="text-xs md:text-sm text-[#4CAF50] font-sans font-medium mt-1">
+                    Mentor and Strategic Advisor
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </div>
 
 
