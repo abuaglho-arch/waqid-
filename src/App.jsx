@@ -311,13 +311,11 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo Brand */}
           <a href="#" className="flex items-center group">
-            <div className="bg-[#FAF9F6]/95 p-1.5 md:p-2 rounded-lg shadow-sm border border-[#2E7D32]/20 backdrop-blur-md transition-transform duration-300 group-hover:scale-105">
-              <img 
-                src="/images/logo-new.jpg" 
-                alt="Waqid" 
-                className="h-8 md:h-10 w-auto object-contain mix-blend-multiply"
-              />
-            </div>
+            <img 
+              src="/images/waqid-logo.svg" 
+              alt="Waqid" 
+              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-lighten"
+            />
           </a>
 
           {/* Desktop Nav Links */}
@@ -411,16 +409,16 @@ export default function App() {
           style={{ y: heroY, opacity: heroOpacity }}
           className="absolute inset-0 z-0 pointer-events-none"
         >
-          <svg className="absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="1.5" fill="#4CAF50" />
-                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#4CAF50" strokeWidth="0.5" opacity="0.3" />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0C1D13]/40 via-[#0C1D13]/80 to-[#0C1D13]" />
+          {/* Abstract background image of palm leaves/Malaysian landscape */}
+          <motion.img 
+            initial={{ scale: 1.05 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1920" 
+            alt="Tropical Malaysian Landscape Dawn" 
+            className="w-full h-full object-cover opacity-15 filter grayscale contrast-125"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0C1D13]/40 via-[#0C1D13]/90 to-[#0C1D13]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#0C1D13_90%)]" />
         </motion.div>
 
@@ -1465,13 +1463,11 @@ export default function App() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} 
               className="flex items-center cursor-pointer hover:opacity-80 transition-opacity w-fit focus:outline-none"
             >
-              <div className="bg-[#FAF9F6]/95 p-1.5 md:p-2 rounded-lg shadow-sm border border-[#2E7D32]/20">
-                <img 
-                  src="/images/logo-new.jpg" 
-                  alt="Waqid" 
-                  className="h-10 w-auto object-contain mix-blend-multiply"
-                />
-              </div>
+              <img 
+                src="/images/waqid-logo.svg" 
+                alt="Waqid" 
+                className="h-12 w-auto object-contain mix-blend-lighten"
+              />
             </button>
             <p className="text-[#FAF9F6]/60 text-xs max-w-xs font-sans mt-2 leading-relaxed">
               A circular system converting agricultural palm waste into affordable, soil-restoring biochar for smallholder farmers.
