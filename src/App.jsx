@@ -314,7 +314,7 @@ export default function App() {
             <img 
               src="/images/waqid-logo.svg" 
               alt="Waqid" 
-              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-lighten"
+              className="w-[160px] md:w-[220px] h-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
           </a>
 
@@ -899,9 +899,9 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[400px] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-2 lg:[&>*]:w-auto lg:[&>*]:shrink gap-8 mt-4 relative">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 gap-8 mt-4 relative">
             {/* Quote 1: Ahmad */}
-            <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
+            <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-[85vw] sm:w-[400px] shrink-0 snap-center lg:w-auto lg:shrink bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
               <div className="absolute top-4 right-8 md:top-8 md:right-12">
                 <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
@@ -930,7 +930,7 @@ export default function App() {
             </motion.div>
 
             {/* Quote 2: Tim */}
-            <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
+            <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-[85vw] sm:w-[400px] shrink-0 snap-center lg:w-auto lg:shrink bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
               <div className="absolute top-4 right-8 md:top-8 md:right-12">
                 <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
@@ -1466,7 +1466,7 @@ export default function App() {
               <img 
                 src="/images/waqid-logo.svg" 
                 alt="Waqid" 
-                className="h-12 w-auto object-contain mix-blend-lighten"
+                className="w-[160px] md:w-[220px] h-auto object-contain"
               />
             </button>
             <p className="text-[#FAF9F6]/60 text-xs max-w-xs font-sans mt-2 leading-relaxed">
