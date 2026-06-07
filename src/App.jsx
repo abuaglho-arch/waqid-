@@ -732,7 +732,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:min-w-0 md:[&>*]:shrink gap-8">
             {/* Revenue Stream 1: Hardware & Energy */}
             <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover">
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
@@ -789,7 +789,7 @@ export default function App() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-2 lg:[&>*]:min-w-0 lg:[&>*]:shrink gap-12 items-stretch">
             {/* Quote 1: Ahmad */}
             <div className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
@@ -861,7 +861,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mt-8" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:min-w-0 md:[&>*]:shrink gap-8">
             {/* Card 1 */}
             <div className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group">
               <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
@@ -911,7 +911,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:min-w-0 md:[&>*]:shrink gap-8">
             {/* Highlight 1 */}
             <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover">
               <div>
@@ -1113,7 +1113,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6" />
           </div>
 
-          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:min-w-[85vw] sm:[&>*]:min-w-[45vw] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-4 lg:[&>*]:min-w-0 lg:[&>*]:shrink gap-8 items-stretch">
             {/* Team Member 1 */}
             <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
