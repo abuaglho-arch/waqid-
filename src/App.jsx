@@ -112,12 +112,14 @@ export default function App() {
       state.el.addEventListener('mouseleave', handleLeave);
       state.el.addEventListener('touchstart', handleTouchStart, { passive: true });
       state.el.addEventListener('touchend', handleTouchEnd);
+      state.el.addEventListener('touchcancel', handleTouchEnd);
       
       state.cleanup = () => {
         state.el.removeEventListener('mouseenter', handleEnter);
         state.el.removeEventListener('mouseleave', handleLeave);
         state.el.removeEventListener('touchstart', handleTouchStart);
         state.el.removeEventListener('touchend', handleTouchEnd);
+        state.el.removeEventListener('touchcancel', handleTouchEnd);
       };
     });
 
@@ -1322,7 +1324,7 @@ export default function App() {
                   key={idx}
                   className="relative group overflow-hidden rounded-3xl border border-[#2E7D32]/10 bg-[#0C1D13] shadow-md flex-shrink-0 w-[85vw] sm:w-[50vw] md:w-[35vw] lg:w-[25vw]"
                 >
-                  <div className="w-full aspect-[16/10] md:h-[400px] overflow-hidden">
+                  <div className="w-full h-64 sm:h-[300px] md:h-[400px] aspect-[16/10] overflow-hidden bg-[#152E1E]">
                     <img
                       src={item.image}
                       alt={item.title}
