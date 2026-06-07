@@ -105,7 +105,10 @@ export default function App() {
       const handleTouchStart = () => state.isDragging = true;
       const handleTouchEnd = () => {
         // brief delay to allow momentum scroll to finish
-        setTimeout(() => { state.isDragging = false; }, 800);
+        setTimeout(() => { 
+          state.isDragging = false; 
+          state.isPaused = false; // Mobile fix: clear sticking mouseenter
+        }, 800);
       };
       
       state.el.addEventListener('mouseenter', handleEnter);

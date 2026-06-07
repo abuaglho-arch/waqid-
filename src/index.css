@@ -135,7 +135,6 @@
 .marquee-container {
   display: flex;
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   scroll-behavior: auto;
   position: relative;
   width: 100%;
