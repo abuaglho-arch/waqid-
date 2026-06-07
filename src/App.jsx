@@ -314,7 +314,7 @@ export default function App() {
             <img 
               src="/images/waqid-logo.svg" 
               alt="Waqid" 
-              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-lighten"
+              className="w-[160px] md:w-[220px] h-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-lighten"
             />
           </a>
 
@@ -1466,7 +1466,7 @@ export default function App() {
               <img 
                 src="/images/waqid-logo.svg" 
                 alt="Waqid" 
-                className="h-12 w-auto object-contain mix-blend-lighten"
+                className="w-[160px] md:w-[220px] h-auto object-contain mix-blend-lighten"
               />
             </button>
             <p className="text-[#FAF9F6]/60 text-xs max-w-xs font-sans mt-2 leading-relaxed">
