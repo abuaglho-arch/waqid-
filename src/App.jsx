@@ -311,11 +311,13 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo Brand */}
           <a href="#" className="flex items-center group">
-            <img 
-              src="/images/waqid-logo-final.png" 
-              alt="Waqid" 
-              className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105 mix-blend-lighten"
-            />
+            <div className="bg-[#FAF9F6]/95 p-1.5 md:p-2 rounded-lg shadow-sm border border-[#2E7D32]/20 backdrop-blur-md transition-transform duration-300 group-hover:scale-105">
+              <img 
+                src="/images/logo-new.jpg" 
+                alt="Waqid" 
+                className="h-8 md:h-10 w-auto object-contain mix-blend-multiply"
+              />
+            </div>
           </a>
 
           {/* Desktop Nav Links */}
@@ -409,16 +411,16 @@ export default function App() {
           style={{ y: heroY, opacity: heroOpacity }}
           className="absolute inset-0 z-0 pointer-events-none"
         >
-          {/* Abstract background image of palm leaves/Malaysian landscape */}
-          <motion.img 
-            initial={{ scale: 1.05 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5, ease: "easeOut" }}
-            src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1920" 
-            alt="Tropical Malaysian Landscape Dawn" 
-            className="w-full h-full object-cover opacity-15 filter grayscale contrast-125"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0C1D13]/40 via-[#0C1D13]/90 to-[#0C1D13]" />
+          <svg className="absolute inset-0 w-full h-full opacity-[0.15]" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <circle cx="2" cy="2" r="1.5" fill="#4CAF50" />
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#4CAF50" strokeWidth="0.5" opacity="0.3" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0C1D13]/40 via-[#0C1D13]/80 to-[#0C1D13]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#0C1D13_90%)]" />
         </motion.div>
 
@@ -887,18 +889,21 @@ export default function App() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(46,125,50,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(46,125,50,0.03)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="max-w-xl mb-8">
+          <div className="max-w-xl mb-6">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
               Field Validation and Advisory
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-black leading-tight mt-3">
               Grounded in the field, backed by science
             </h2>
+            <p className="lg:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#4CAF50]/60 animate-pulse mt-4">
+              ← Swipe to explore →
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 mt-12 relative pb-12 lg:pb-24">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[400px] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-2 lg:[&>*]:w-auto lg:[&>*]:shrink gap-8 mt-4 relative">
             {/* Quote 1: Ahmad */}
-            <motion.div variants={driftVariant} className="bg-[#1E2229] p-8 md:p-14 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
+            <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
               <div className="absolute top-4 right-8 md:top-8 md:right-12">
                 <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
@@ -912,7 +917,8 @@ export default function App() {
                 <img 
                   src="/images/farmer_ahmad.png" 
                   alt="Ahmad, Smallholder Farmer" 
-                  className="w-14 h-14 md:w-16 md:h-16 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#4CAF50] shadow-[0_0_15px_rgba(76,175,80,0.3)] grayscale group-hover:grayscale-0 transition-all duration-500"
+                  style={{ width: '64px', height: '64px', minWidth: '64px', minHeight: '64px' }}
+                  className="aspect-square shrink-0 rounded-full object-cover border-2 border-[#4CAF50] shadow-[0_0_15px_rgba(76,175,80,0.3)] grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <div>
                   <h4 className="font-display font-bold text-lg md:text-xl text-[#FAF9F6] tracking-wide">
@@ -926,7 +932,7 @@ export default function App() {
             </motion.div>
 
             {/* Quote 2: Tim */}
-            <motion.div variants={blurFadeVariant} className="bg-[#1E2229] p-8 md:p-14 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500 lg:translate-y-16">
+            <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
               <div className="absolute top-4 right-8 md:top-8 md:right-12">
                 <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
@@ -940,7 +946,8 @@ export default function App() {
                 <img 
                   src="/images/tim-asquith.png" 
                   alt="Tim Asquith, Strategic Advisor" 
-                  className="w-14 h-14 md:w-16 md:h-16 min-w-[56px] min-h-[56px] aspect-square shrink-0 rounded-full object-cover border-2 border-[#4CAF50] shadow-[0_0_15px_rgba(76,175,80,0.3)] grayscale group-hover:grayscale-0 transition-all duration-500"
+                  style={{ width: '64px', height: '64px', minWidth: '64px', minHeight: '64px' }}
+                  className="aspect-square shrink-0 rounded-full object-cover border-2 border-[#4CAF50] shadow-[0_0_15px_rgba(76,175,80,0.3)] grayscale group-hover:grayscale-0 transition-all duration-500"
                 />
                 <div>
                   <h4 className="font-display font-bold text-lg md:text-xl text-[#FAF9F6] tracking-wide">
@@ -1458,11 +1465,13 @@ export default function App() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} 
               className="flex items-center cursor-pointer hover:opacity-80 transition-opacity w-fit focus:outline-none"
             >
-              <img 
-                src="/images/waqid-logo-final.png" 
-                alt="Waqid" 
-                className="h-12 w-auto object-contain mix-blend-lighten"
-              />
+              <div className="bg-[#FAF9F6]/95 p-1.5 md:p-2 rounded-lg shadow-sm border border-[#2E7D32]/20">
+                <img 
+                  src="/images/logo-new.jpg" 
+                  alt="Waqid" 
+                  className="h-10 w-auto object-contain mix-blend-multiply"
+                />
+              </div>
             </button>
             <p className="text-[#FAF9F6]/60 text-xs max-w-xs font-sans mt-2 leading-relaxed">
               A circular system converting agricultural palm waste into affordable, soil-restoring biochar for smallholder farmers.
