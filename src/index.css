@@ -62,6 +62,15 @@
   background: var(--color-brand-leaf);
 }
 
+/* Hide scrollbar for horizontal containers */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Slow forest-green radial gradient animation for dark heroes */
 .hero-forest-gradient {
   background: radial-gradient(circle at 50% 50%, #152E1E 0%, #0C1D13 70%, #060E09 100%);
@@ -122,29 +131,26 @@
   box-shadow: 0 3px 6px rgba(46, 125, 50, 0.15);
 }
 
-/* Auto-scrolling Marquee */
+/* Interactive Auto-scrolling JS Marquee */
 .marquee-container {
   display: flex;
-  overflow: hidden;
+  overflow-x: auto;
+  scroll-behavior: auto;
   position: relative;
   width: 100%;
   mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.marquee-container::-webkit-scrollbar {
+  display: none;
 }
 
 .marquee-content {
   display: flex;
-  animation: scrollMarquee 35s linear infinite;
   min-width: max-content;
-}
-
-.marquee-content:hover {
-  animation-play-state: paused;
-}
-
-@keyframes scrollMarquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
 }
 
 /* Premium Card Hover Interaction */
