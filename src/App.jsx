@@ -249,21 +249,21 @@ export default function App() {
       category: "Material Chemistry",
       image: "/images/organic-biochar.png",
       span: "md:col-span-4",
-      desc: "3–6mm dust-free biochar-compost blend pellets compatible with spreaders."
+      desc: "3–6mm dust free biochar compost blend pellets compatible with spreaders."
     },
     {
       title: "Mobile Biochar Pyrolysis",
       category: "Pilot Infrastructure",
       image: "https://static.wixstatic.com/media/f8695c_cf70bb98f5284b99b54088b2120cac11~mv2.png/v1/fill/w_809,h_744,al_c,q_90,enc_avif,quality_auto/f8695c_cf70bb98f5284b99b54088b2120cac11~mv2.png",
       span: "md:col-span-4",
-      desc: "Semi-automated TLUD reactor featuring active ventilation loops."
+      desc: "Semi automated TLUD reactor featuring active ventilation loops."
     },
     {
       title: "Wild Asia Field Engagement",
       category: "Operational Advisory",
       image: "/images/organic-hero.png",
       span: "md:col-span-8",
-      desc: "Actively gaining on-the-ground operational insights and expert crop diagnostics alongside the Wild Asia network in Perak. Connect with us to explore collaborative opportunities."
+      desc: "Actively gaining on the ground operational insights and expert crop diagnostics alongside the Wild Asia network in Perak. Connect with us to explore collaborative opportunities."
     }
   ];
 
@@ -272,23 +272,23 @@ export default function App() {
   const faqItems = [
     {
       q: "What is biochar?",
-      a: "Biochar is a highly stable form of carbon produced by heating agricultural biomass (such as empty fruit bunches and fronds from palm oil mills) in an oxygen-limited environment. The resulting material is highly porous, resembling charcoal, and resists decomposition for hundreds of years. When applied to agricultural land, it acts as a permanent sponge that retains moisture, hosts beneficial soil microbes, and reduces the leaching of nutrients."
+      a: "Biochar is a highly stable form of carbon produced by heating agricultural biomass (such as empty fruit bunches and fronds from palm oil mills) in an oxygen limited environment. The resulting material is highly porous, resembling charcoal, and resists decomposition for hundreds of years. When applied to agricultural land, it acts as a permanent sponge that retains moisture, hosts beneficial soil microbes, and reduces the leaching of nutrients."
     },
     {
       q: "What is TLUD pyrolysis?",
-      a: "TLUD stands for Top-Lit Updraft pyrolysis. It is a thermochemical process where biomass is packed in a modular reactor and ignited at the top. Air is restricted, forcing a pyrolysis front to migrate downward through the biomass at 500–700°C. This converts volatile gases into clean thermal energy and leaves behind stable, solid carbon (biochar), instead of allowing the biomass to decay or burn openly, which releases methane and carbon dioxide."
+      a: "TLUD stands for Top Lit Updraft pyrolysis. It is a thermochemical process where biomass is packed in a modular reactor and ignited at the top. Air is restricted, forcing a pyrolysis front to migrate downward through the biomass at 500–700°C. This converts volatile gases into clean thermal energy and leaves behind stable, solid carbon (biochar), instead of allowing the biomass to decay or burn openly, which releases methane and carbon dioxide."
     },
     {
       q: "How is Waqid different from synthetic fertilisers?",
-      a: "Synthetic fertilizers feed plants directly with chemical nitrogen, phosphorus, and potassium, but they degrade soil structure, destroy microbial life, and wash away easily. Waqid is a soil rebuilder. Our biochar-compost blend improves the soil's physical structure, holds moisture, and anchors nutrients so plants can absorb them more efficiently. It does not replace nutrients entirely; rather, it makes the soil self-sustaining and cuts chemical fertilizer dependencies by up to 40%."
+      a: "Synthetic fertilizers feed plants directly with chemical nitrogen, phosphorus, and potassium, but they degrade soil structure, destroy microbial life, and wash away easily. Waqid is a soil rebuilder. Our biochar compost blend improves the soil's physical structure, holds moisture, and anchors nutrients so plants can absorb them more efficiently. It does not replace nutrients entirely; rather, it makes the soil self sustaining and cuts chemical fertilizer dependencies by up to 40%."
     },
     {
       q: "What stage is Waqid at?",
-      a: "We are an early-stage circular venture founded in May 2024. Having successfully designed and tested our manual V1 burners and V2 pelletised compost formulations with smallholder farmers, we are now preparing to manufacture our V3 semi-automated TLUD unit. We are actively conducting pilot trials in Perak and Kedah, Malaysia, to validate yield gains and build our carbon credit verification data."
+      a: "We are an early stage circular venture founded in May 2024. Having successfully designed and tested our manual V1 burners and V2 pelletised compost formulations with smallholder farmers, we are now preparing to manufacture our V3 semi automated TLUD unit. We are actively conducting pilot trials in Perak and Kedah, Malaysia, to validate yield gains and build our carbon credit verification data."
     },
     {
       q: "How can I partner with Waqid?",
-      a: "We welcome partnerships along three key tracks: mill operators looking to discard biomass liabilities, farmers or cooperatives looking to trial our compost-biochar pellets for healthier crops, and funders or sustainable programs seeking to support early-stage circular climate ventures. Please select your track or fill out the inquiry form, and our team will be in touch with you."
+      a: "We welcome partnerships along three key tracks: mill operators looking to discard biomass liabilities, farmers or cooperatives looking to trial our compost biochar pellets for healthier crops, and funders or sustainable programs seeking to support early stage circular climate ventures. Please select your track or fill out the inquiry form, and our team will be in touch with you."
     },
     {
       q: "Where does Waqid operate?",
@@ -887,11 +887,11 @@ export default function App() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(46,125,50,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(46,125,50,0.03)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="max-w-xl mb-6">
+          <div className="max-w-xl mb-4">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
               Field Validation and Advisory
             </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black leading-tight mt-3">
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] leading-tight mt-3">
               Grounded in the field, backed by science
             </h2>
             <p className="lg:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#4CAF50]/60 animate-pulse mt-4">
@@ -899,19 +899,19 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 gap-8 mt-4 relative">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 gap-6 mt-2 relative">
             {/* Quote 1: Ahmad */}
-            <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-[85vw] sm:w-[400px] shrink-0 snap-center lg:w-auto lg:shrink bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
+            <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-[85vw] sm:w-[400px] shrink-0 snap-center lg:w-auto lg:shrink bg-gradient-to-br from-[#1E2229]/95 to-[#121519]/95 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-[#FAF9F6]/5 shadow-[0_8px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
               <div className="absolute top-4 right-8 md:top-8 md:right-12">
                 <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
               </div>
               <div className="relative z-10 mt-6 md:mt-0">
-                <p className="text-base md:text-xl text-[#FAF9F6]/90 font-sans leading-relaxed italic">
-                  The soil needs more every year to produce less, and I know the chemicals are not sustainable. Testing with the Waqid team in the field showed me a real alternative. If these pellets can be produced at scale, they offer a highly practical path to restore our land's health without falling into debt.
+                <p className="text-base md:text-lg text-[#FAF9F6]/95 font-serif font-medium leading-relaxed italic tracking-wide">
+                  The soil needs more every year to produce less, and I know the chemicals are not sustainable. Testing with the Waqid team in the field showed me a real alternative. If these pellets can be produced at scale, they offer a highly practical path to restore our lands health without falling into debt.
                 </p>
               </div>
-              <div className="flex items-center gap-5 md:gap-6 mt-10 pt-8 border-t border-[#FAF9F6]/10 relative z-10">
+              <div className="flex items-center gap-5 md:gap-6 mt-8 pt-6 border-t border-[#FAF9F6]/5 relative z-10">
                 <img 
                   src="/images/farmer_ahmad.png" 
                   alt="Ahmad, Smallholder Farmer" 
@@ -930,17 +930,17 @@ export default function App() {
             </motion.div>
 
             {/* Quote 2: Tim */}
-            <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-[85vw] sm:w-[400px] shrink-0 snap-center lg:w-auto lg:shrink bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/20 shadow-2xl flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
+            <motion.div variants={blurFadeVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="w-[85vw] sm:w-[400px] shrink-0 snap-center lg:w-auto lg:shrink bg-gradient-to-br from-[#1E2229]/95 to-[#121519]/95 backdrop-blur-xl p-8 md:p-10 rounded-3xl border border-[#FAF9F6]/5 shadow-[0_8px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between relative overflow-hidden group hover:-translate-y-2 transition-transform duration-500">
               <div className="absolute -top-12 -right-12 w-48 h-48 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full blur-2xl" />
               <div className="absolute top-4 right-8 md:top-8 md:right-12">
                 <span className="text-7xl md:text-8xl font-serif text-[#4CAF50] opacity-20 leading-none font-black drop-shadow-lg">“</span>
               </div>
               <div className="relative z-10 mt-6 md:mt-0">
-                <p className="text-base md:text-xl text-[#FAF9F6]/90 font-sans leading-relaxed italic">
-                  Waqid combines ground-level empathy with technical rigor. Their approach to closing the biomass loop directly at the mill and farm level is the exact pragmatic, farmer-first innovation this region needs. It is a privilege to support a venture so committed to scalable operations.
+                <p className="text-base md:text-lg text-[#FAF9F6]/95 font-serif font-medium leading-relaxed italic tracking-wide">
+                  Waqid combines ground level empathy with technical rigor. Their approach to closing the biomass loop directly at the mill and farm level is the exact pragmatic, farmer first innovation this region needs. It is a privilege to support a venture so committed to scalable operations.
                 </p>
               </div>
-              <div className="flex items-center gap-5 md:gap-6 mt-10 pt-8 border-t border-[#FAF9F6]/10 relative z-10">
+              <div className="flex items-center gap-5 md:gap-6 mt-8 pt-6 border-t border-[#FAF9F6]/5 relative z-10">
                 <img 
                   src="/images/tim-asquith.png" 
                   alt="Tim Asquith, Strategic Advisor" 
