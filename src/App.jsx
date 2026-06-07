@@ -796,9 +796,7 @@ export default function App() {
               A Venture-Scale Engine
             </h2>
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
-            <p className="md:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#2E7D32]/60 animate-pulse">
-              ← Swipe to explore →
-            </p>
+
           </div>
 
           {/* THE INVESTMENT CASE (TAM, GTM, MOAT) */}
@@ -894,9 +892,7 @@ export default function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] leading-tight mt-3">
               Grounded in the field, backed by science
             </h2>
-            <p className="lg:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#4CAF50]/60 animate-pulse mt-4">
-              ← Swipe to explore →
-            </p>
+
           </div>
 
           <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 gap-6 mt-2 relative">
@@ -975,9 +971,7 @@ export default function App() {
               Healing the ecosystem,<br />one hectare at a time.
             </h2>
             <div className="w-12 h-[1px] bg-[#4CAF50] mt-8 mb-4" />
-            <p className="md:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#4CAF50]/60 animate-pulse">
-              ← Swipe to explore →
-            </p>
+
           </div>
 
           <div className="marquee-container w-full max-w-[100vw]">
@@ -1034,9 +1028,7 @@ export default function App() {
               Target Impact at Scale
             </h2>
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
-            <p className="md:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#2E7D32]/60 animate-pulse">
-              ← Swipe to explore →
-            </p>
+
           </div>
 
           <div className="marquee-container w-full max-w-[100vw]">
