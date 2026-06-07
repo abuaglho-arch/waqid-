@@ -6,15 +6,24 @@ import {
   Users, Send, ShieldCheck, Zap, Sparkles, ArrowRight, Menu, X, BookOpen,
   Globe, Droplets, Hexagon
 } from "lucide-react";
-import { Link } from 'react-router-dom';
 import Counter from "./components/Counter";
 import ScrollToTop from "./components/ScrollToTop";
-import Accordion from "./components/Accordion";
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const [activeFaq, setActiveFaq] = useState(null);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    org: "",
+    role: "",
+    message: "",
+    source: ""
+  });
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const heroRef = useRef(null);
@@ -45,7 +54,7 @@ export default function App() {
   const sectionReveal = {
     initial: { opacity: 0, y: shouldReduceMotion ? 0 : 30 },
     whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true, margin: "-10px" },
+    viewport: { once: true, margin: "-50px" },
     transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
   };
   // ------------------------
@@ -71,7 +80,49 @@ export default function App() {
     };
   }, []);
 
-  // Contact form moved to separate page
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.role) return;
+    
+    setIsSubmitting(true);
+    setSubmitError("");
+    
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "eabe6c61-3923-400f-98b6-8964a51a06e4",
+          from_name: formData.name,
+          subject: `New Waqid Partner Inquiry from ${formData.name}`,
+          Name: formData.name,
+          Email: formData.email,
+          Organization: formData.org || "Not provided",
+          Role: formData.role,
+          Message: formData.message
+        })
+      });
+      
+      if (response.ok) {
+        setFormSubmitted(true);
+        setFormData({ name: "", email: "", org: "", role: "", message: "", source: "" });
+      } else {
+        throw new Error("Failed to send message. Please try again later.");
+      }
+    } catch (error) {
+      setSubmitError(error.message || "An error occurred while sending your message.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleTrackSelect = (roleValue) => {
+    setFormData((prev) => ({ ...prev, role: roleValue }));
+    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+  };
 
   const sdgs = [
     { id: 2, name: "SDG 2 Zero Hunger", color: "#e5243b", desc: "Bolsters food security by locking moisture in dry soil." },
@@ -142,7 +193,7 @@ export default function App() {
   ];
 
   return (
-    <div className="h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth w-full bg-[#FAF9F6] text-[#0C1D13] antialiased font-sans hide-scrollbar">
+    <div className="w-full min-h-screen bg-[#FAF9F6] text-[#0C1D13] antialiased font-sans">
       <ScrollToTop />
       
       {/* 1. STICKY STYLISH NAVBAR */}
@@ -181,19 +232,19 @@ export default function App() {
 
           {/* CTA Header */}
           <div className="hidden md:block">
-            <Link 
-              to="/contact"
-              className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#4CAF50] hover:bg-[#FAF9F6] text-[#0C1D13] font-sans font-bold uppercase tracking-wider text-[11px] transition-colors shadow-lg"
+            <button
+              onClick={() => document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })}
+              className="btn-hover-shadow inline-flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-[#2E7D32] text-[#FAF9F6] text-xs font-sans font-bold uppercase tracking-wider hover:bg-[#4CAF50] hover:text-[#0C1D13] border border-[#2E7D32]/20 shadow-md"
             >
               Partner With Us
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
           </div>
 
-          {/* Mobile Menu Btn (Moved back to Right) */}
+          {/* Mobile Menu Btn */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-[#0C1D13] hover:text-[#4CAF50] transition-colors p-1"
+            className="md:hidden text-[#FAF9F6] hover:text-[#4CAF50] transition-colors p-1"
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -226,20 +277,22 @@ export default function App() {
             </div>
             
             <div className="flex flex-col gap-4">
-              <Link
-                to="/contact"
-                className="w-full text-center px-6 py-3.5 rounded-xl bg-[#4CAF50] text-[#0C1D13] font-sans font-bold uppercase tracking-wider text-[11px] shadow-lg"
-                onClick={() => setIsMobileMenuOpen(false)}
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="w-full py-4 rounded-xl bg-[#2E7D32] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-center"
               >
                 Partner With Us
-              </Link>
+              </button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* 2. HERO SECTION */}
-      <section ref={heroRef} className="relative min-h-screen snap-start flex flex-col justify-center items-center text-center overflow-hidden bg-[#0C1D13] text-[#FAF9F6] border-b border-[#2E7D32]/10">
+      {/* 1. HERO SECTION */}
+      <section ref={heroRef} className="relative h-screen flex flex-col justify-center items-center text-center overflow-hidden bg-[#0C1D13] text-[#FAF9F6] border-b border-[#2E7D32]/10">
         
         {/* Dynamic Interactive Glow */}
         <div 
@@ -272,7 +325,7 @@ export default function App() {
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center pt-32 pb-16 md:pt-48 md:pb-32"
+          className="max-w-5xl mx-auto px-6 relative z-10 flex flex-col items-center"
         >
           <motion.div
             variants={fadeUpVariant}
@@ -339,130 +392,102 @@ export default function App() {
           </motion.div>
         </motion.div>
 
-
+        {/* Scroll down mouse */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#FAF9F6]/30 pointer-events-none">
+          <span className="text-[9px] uppercase tracking-widest font-sans font-bold">Scroll</span>
+          <div className="w-1.5 h-6 rounded-full border border-[#FAF9F6]/30 flex justify-center p-0.5">
+            <motion.div 
+              animate={{ y: [0, 8, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+              className="w-1 h-1 bg-[#4CAF50] rounded-full"
+            />
+          </div>
+        </div>
       </section>
 
-      {/* 3. THE CRISIS (Why) - Premium Pitch Deck Style */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="crisis" className="min-h-screen snap-start flex flex-col justify-center bg-[#FAF9F6] text-[#0C1D13] py-16 md:py-24 relative overflow-hidden text-left border-b border-[#2E7D32]/10">
-        <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-          
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-6">
-            <div className="max-w-3xl">
-              <motion.div variants={fadeUpVariant} className="flex items-center gap-4 mb-4 md:mb-6">
-                <div className="h-[1px] w-8 md:w-12 bg-[#4CAF50]" />
-                <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
-                  The Crisis
-                </span>
-              </motion.div>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-black text-[#0C1D13] leading-[1.1] tracking-tight text-balance">
-                Three quiet crises.<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2E7D32] to-[#4CAF50]">
-                  One root cause.
-                </span>
+      {/* 3. THE CRISIS (Why) - Spacious 3-column grid */}
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="crisis" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16 items-end">
+            <div className="lg:col-span-8">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                The Crisis
+              </span>
+              <h2 className="text-3xl md:text-6xl font-display font-black text-[#0C1D13] leading-tight mt-3 text-balance">
+                Three quiet crises.<br />One root cause.
               </h2>
             </div>
-            <motion.div variants={fadeUpVariant} className="max-w-sm">
-              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans leading-relaxed border-l border-[#2E7D32]/30 pl-6 py-2">
-                Palm oil waste, rising input costs, and soil degradation are connected by one broken loop.
+            <div className="lg:col-span-4">
+              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans leading-relaxed text-balance">
+                Synthetic fertilizer costs trap smallholders in debt loops, while unmanaged agricultural residues decompose or burn openly across plantations.
               </p>
-            </motion.div>
+            </div>
           </div>
 
-          {/* Desktop Stats (Grid) & Mobile Stats (Horizontal Snap Scroll) */}
+          {/* Stats columns */}
           <motion.div 
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: "-10px" }}
-            className="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 md:gap-12 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 snap-x snap-mandatory scrollbar-hide"
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-[#0C1D13]/10"
           >
-            {/* Statistic 1 */}
-            <motion.div variants={fadeUpVariant} className="flex flex-col gap-3 md:gap-4 relative group min-w-[85vw] md:min-w-0 snap-center bg-white md:bg-transparent p-6 md:p-0 rounded-2xl md:rounded-none border border-[#E5E5E5] md:border-none shadow-sm md:shadow-none">
-              <div className="hidden md:block absolute -left-4 top-0 w-[1px] h-0 bg-[#4CAF50] group-hover:h-full transition-all duration-700 ease-out opacity-30" />
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/40 mb-1">01. The Scale</span>
-              <span className="text-5xl md:text-6xl lg:text-7xl font-display font-extrabold text-[#2E7D32] flex items-baseline gap-1 tracking-tighter">
-                <Counter value="80" />M<span className="text-[#4CAF50]">+</span>
+            {/* Crisis 1 */}
+            <motion.div variants={fadeUpVariant} className="flex flex-col gap-3">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-1">01. The Scale</span>
+              <span className="text-4xl md:text-6xl font-display font-extrabold text-[#2E7D32] flex items-baseline gap-1">
+                <Counter value="80" />M+
               </span>
-              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed mt-1 md:mt-2 max-w-[250px]">
-                <strong className="text-[#0C1D13]">tonnes</strong> of palm biomass generated annually in Malaysia.
+              <p className="text-xs md:text-sm text-[#0C1D13]/80 font-sans leading-relaxed mt-2">
+                <strong>tonnes</strong> of palm biomass generated annually in Malaysia.
               </p>
             </motion.div>
 
-            {/* Statistic 2 */}
-            <motion.div variants={fadeUpVariant} className="flex flex-col gap-3 md:gap-4 relative group min-w-[85vw] md:min-w-0 snap-center bg-white md:bg-transparent p-6 md:p-0 rounded-2xl md:rounded-none border border-[#E5E5E5] md:border-none shadow-sm md:shadow-none">
-              <div className="hidden md:block absolute -left-4 top-0 w-[1px] h-0 bg-[#4CAF50] group-hover:h-full transition-all duration-700 ease-out opacity-30" />
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/40 mb-1">02. The Waste</span>
-              <span className="text-5xl md:text-6xl lg:text-7xl font-display font-extrabold text-[#2E7D32] flex items-baseline gap-1 tracking-tighter">
+            {/* Crisis 2 */}
+            <motion.div variants={fadeUpVariant} className="flex flex-col gap-3">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-1">02. The Waste</span>
+              <span className="text-4xl md:text-6xl font-display font-extrabold text-[#2E7D32] flex items-baseline gap-1">
                 <Counter value="20-22" />M
               </span>
-              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed mt-1 md:mt-2 max-w-[250px]">
-                <strong className="text-[#0C1D13]">tonnes</strong> of Empty Fruit Bunches left unmanaged or burned each year.
+              <p className="text-xs md:text-sm text-[#0C1D13]/80 font-sans leading-relaxed mt-2">
+                <strong>tonnes</strong> of Empty Fruit Bunches left unmanaged or burned openly each year.
               </p>
             </motion.div>
 
-            {/* Statistic 3 */}
-            <motion.div variants={fadeUpVariant} className="flex flex-col gap-3 md:gap-4 relative group min-w-[85vw] md:min-w-0 snap-center bg-white md:bg-transparent p-6 md:p-0 rounded-2xl md:rounded-none border border-[#E5E5E5] md:border-none shadow-sm md:shadow-none">
-              <div className="hidden md:block absolute -left-4 top-0 w-[1px] h-0 bg-[#4CAF50] group-hover:h-full transition-all duration-700 ease-out opacity-30" />
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/40 mb-1">03. The Climate Threat</span>
-              <span className="text-5xl md:text-6xl lg:text-7xl font-display font-extrabold text-[#2E7D32] flex items-baseline gap-1 tracking-tighter">
+            {/* Crisis 3 */}
+            <motion.div variants={fadeUpVariant} className="flex flex-col gap-3">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-1">03. The Climate Threat</span>
+              <span className="text-4xl md:text-6xl font-display font-extrabold text-[#2E7D32] flex items-baseline gap-1">
                 <Counter value="34" />x
               </span>
-              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed mt-1 md:mt-2 max-w-[250px]">
-                methane has <strong className="text-[#0C1D13]">34x</strong> the warming power of CO₂ over a 100-year period.
+              <p className="text-xs md:text-sm text-[#0C1D13]/80 font-sans leading-relaxed mt-2">
+                Methane released from this rotting waste has <strong>34x</strong> the warming power of CO2 over a 100-year period.
               </p>
             </motion.div>
           </motion.div>
 
-          {/* Desktop Insight Card (Visible only on Desktop) */}
-          <div className="hidden md:flex mt-16 bg-[#FFFFFF] p-8 rounded-[24px] border border-[#E5E5E5] shadow-sm flex-col lg:flex-row gap-8 justify-between items-start lg:items-center">
+          {/* Under-stat callout card */}
+          <div className="mt-16 bg-[#F0EFEA] p-8 rounded-2xl border border-[#2E7D32]/10 flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
             <div className="max-w-3xl">
-              <h5 className="font-sans font-medium text-lg text-[#111111] mb-2">
+              <h5 className="font-display font-bold text-lg text-[#0C1D13] mb-1">
                 The Debt Trap & The Logic Gap
               </h5>
-              <p className="text-sm text-[#666666] font-sans leading-relaxed">
-                Farmers spend heavily on synthetic inputs while valuable agricultural residues are treated as waste. WAQID closes this loop by converting biomass into soil-restoring biochar and clean energy.
+              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                Meanwhile, farmers with tired land are forced to spend nearly half their earnings on synthetic fertilizers that permanently degrade the soil. We refuse to accept a system where one community is starved of resources while another burns potential assets as trash. By closing this logic gap, the waste of our fields becomes the restoration of our soil and the fuel for our industries.
               </p>
             </div>
             <button 
               onClick={() => document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" })}
-              className="flex-shrink-0 px-6 py-3 bg-[#111111] hover:bg-[#4CAF50] text-white hover:text-[#111111] text-[11px] font-sans font-bold uppercase tracking-wider rounded-full transition-colors flex items-center gap-2"
+              className="flex-shrink-0 px-6 py-3 bg-[#152E1E] hover:bg-[#2E7D32] text-[#FAF9F6] text-xs font-sans font-bold uppercase tracking-wider rounded-xl transition-colors"
             >
               See Our Solution
-              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
-
-          {/* Mobile Insight Accordion (Visible only on Mobile) */}
-          <div className="md:hidden mt-8 w-full">
-            <Accordion 
-              items={[
-                {
-                  title: "Why it matters",
-                  content: (
-                    <div className="flex flex-col gap-4">
-                      <h5 className="font-sans font-bold text-sm text-[#111111]">The Debt Trap & The Logic Gap</h5>
-                      <p className="text-sm text-[#666666] font-sans leading-relaxed">
-                        Farmers spend heavily on synthetic inputs while valuable agricultural residues are treated as waste. WAQID closes this loop by converting biomass into soil-restoring biochar and clean energy.
-                      </p>
-                      <button 
-                        onClick={() => document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" })}
-                        className="mt-2 w-full px-6 py-3 bg-[#111111] hover:bg-[#4CAF50] text-white text-[11px] font-sans font-bold uppercase tracking-wider rounded-full transition-colors flex items-center justify-center gap-2"
-                      >
-                        See Our Solution
-                        <ArrowRight className="w-4 h-4" />
-                      </button>
-                    </div>
-                  )
-                }
-              ]} 
-            />
-          </div>
-
         </div>
       </motion.section>
 
       {/* 4. THE WAQID SOLUTION (The "How") - Elegant cards flow */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="solution" className="min-h-screen snap-start flex flex-col justify-center bg-[#F0EFEA] text-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#F0EFEA] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-xl mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
@@ -479,14 +504,9 @@ export default function App() {
             
             <div className="text-center mb-16 relative z-10 max-w-3xl mx-auto">
               <h4 className="font-display font-bold text-2xl text-[#FAF9F6]">The Pyrolysis Conversion Process</h4>
-              <div className="text-[13px] md:text-sm text-[#FAF9F6]/70 font-sans mt-4 leading-relaxed text-balance">
-                <p className="hidden md:block">
-                  Our decentralized system operates at the source of the waste. We take raw agricultural biomass, which would otherwise rot and emit methane, and process it through our Top-Lit Updraft (TLUD) reactors. By heating the biomass to 500-700°C in an oxygen-limited environment, we trigger thermal decomposition. This breaks the biomass down into three high-value assets: stable biochar, clean thermal energy, and sustainable briquettes.
-                </p>
-                <p className="block md:hidden">
-                  We process raw agricultural biomass locally through TLUD reactors at 500-700°C. This thermal decomposition converts waste into three high-value assets: stable biochar, clean energy, and sustainable briquettes.
-                </p>
-              </div>
+              <p className="text-[13px] md:text-sm text-[#FAF9F6]/70 font-sans mt-4 leading-relaxed text-balance">
+                Our decentralized system operates at the source of the waste. We take raw agricultural biomass, which would otherwise rot and emit methane, and process it through our Top-Lit Updraft (TLUD) reactors. By heating the biomass to 500-700°C in an oxygen-limited environment, we prevent combustion and instead trigger thermal decomposition. This thermochemical reaction breaks the biomass down into three high-value assets: stable biochar for soil restoration, clean thermal energy for mill operations, and sustainable charcoal briquettes.
+              </p>
             </div>
 
             <div className="flex flex-col xl:flex-row items-center justify-between gap-6 xl:gap-8 relative z-10 max-w-7xl mx-auto">
@@ -595,7 +615,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto lg:grid lg:grid-cols-3 gap-6 lg:gap-8 snap-x snap-mandatory pb-8 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 [&>div]:min-w-[85vw] lg:[&>div]:min-w-0 [&>div]:snap-center scrollbar-hide scroll-smooth items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
             {/* Step 1 */}
             <div className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover">
               <div>
@@ -629,7 +649,7 @@ export default function App() {
                   02. Circular Economics
                 </h4>
                 <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Our target economic model ensures mills will pay a service fee for legal biomass removal, allowing us to offer farmers premium soil-restoring products at <strong className="font-bold text-[#0C1D13]">highly subsidized rates</strong>.
+                  Our target economic model ensures mills will pay a service fee for legal biomass removal, allowing us to offer farmers a highly accessible target price of <strong className="font-bold text-[#0C1D13]">RM 7/kg</strong> for premium soil-restoring products.
                 </p>
               </div>
               <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
@@ -669,7 +689,7 @@ export default function App() {
       </motion.section>
 
       {/* NEW: THE ECONOMICS / BUSINESS MODEL */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="economics" className="min-h-screen snap-start flex flex-col justify-center bg-[#FAF9F6] text-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="economics" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
@@ -713,7 +733,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 md:gap-10 snap-x snap-mandatory pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 [&>div]:min-w-[85vw] md:[&>div]:min-w-0 [&>div]:snap-center scrollbar-hide scroll-smooth">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Revenue Stream 1: Hardware & Energy */}
             <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover">
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
@@ -757,20 +777,20 @@ export default function App() {
       </motion.section>
 
       {/* 4. FIELD VALIDATION & TESTIMONIALS */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="partnerships" className="min-h-screen snap-start flex flex-col justify-center bg-[#0C1D13] text-[#FAF9F6] py-16 md:py-24 text-left relative overflow-hidden border-b border-[#2E7D32]/20">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="partnerships" className="bg-[#0C1D13] text-[#FAF9F6] py-16 md:py-24 text-left relative overflow-hidden border-b border-[#2E7D32]/20">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(46,125,50,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(46,125,50,0.03)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none" />
         
-        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col justify-center h-full">
-          <div className="max-w-xl mb-8">
-            <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="max-w-xl mb-16">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
               Field Validation and Advisory
             </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black leading-tight mt-2">
+            <h2 className="text-3xl md:text-5xl font-display font-black leading-tight mt-3">
               Grounded in the field, backed by science
             </h2>
           </div>
 
-          <div className="flex overflow-x-auto lg:grid lg:grid-cols-2 gap-6 lg:gap-12 snap-x snap-mandatory pb-8 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 [&>div]:min-w-[85vw] lg:[&>div]:min-w-0 [&>div]:snap-center scrollbar-hide scroll-smooth items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
             {/* Quote 1: Ahmad */}
             <div className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
@@ -829,7 +849,7 @@ export default function App() {
       </motion.section>
 
       {/* 4.5. ENVIRONMENTAL IMPACT */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="environment" className="min-h-screen snap-start flex flex-col justify-center bg-[#0C1D13] text-[#FAF9F6] py-16 md:py-24 relative overflow-hidden border-b border-[#2E7D32]/10">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="environment" className="bg-[#0C1D13] py-16 md:py-24 relative overflow-hidden border-b border-[#2E7D32]/10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,transparent_40%,#152E1E_100%)] pointer-events-none opacity-50" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="mb-16">
@@ -842,7 +862,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mt-8" />
           </div>
 
-          <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 [&>div]:min-w-[85vw] md:[&>div]:min-w-0 [&>div]:snap-center scrollbar-hide scroll-smooth items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1 */}
             <div className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group">
               <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
@@ -880,7 +900,7 @@ export default function App() {
       </motion.section>
 
       {/* 5. PROJECTED IMPACT & R&D ROADMAP */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="impact" className="min-h-screen snap-start flex flex-col justify-center bg-[#FAF9F6] text-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="impact" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
@@ -892,7 +912,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
-          <div className="flex overflow-x-auto md:grid md:grid-cols-3 gap-6 md:gap-8 snap-x snap-mandatory pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 [&>div]:min-w-[85vw] md:[&>div]:min-w-0 [&>div]:snap-center scrollbar-hide scroll-smooth items-stretch">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Highlight 1 */}
             <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover">
               <div>
@@ -1012,7 +1032,7 @@ export default function App() {
                 UN Sustainable Development Goals
               </h4>
             </div>
-            <div className="flex overflow-x-auto md:grid sm:grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 snap-x snap-mandatory pb-8 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 [&>div]:min-w-[70vw] md:[&>div]:min-w-0 [&>div]:snap-center scrollbar-hide scroll-smooth">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
               {sdgs.map((sdg) => (
                 <div
                   key={sdg.id}
@@ -1039,7 +1059,7 @@ export default function App() {
 
 
       {/* THE ORIGIN STORY */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="origin" className="min-h-screen snap-start flex flex-col justify-center bg-[#FAF9F6] text-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="origin" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
@@ -1082,7 +1102,7 @@ export default function App() {
       </motion.section>
 
       {/* TEAM & ADVISORS */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="team" className="min-h-screen snap-start flex flex-col justify-center bg-[#0C1D13] text-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/20 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="team" className="bg-[#0C1D13] text-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/20 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
@@ -1094,7 +1114,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6" />
           </div>
 
-          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-10px" }} className="flex overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 items-stretch snap-x snap-mandatory pb-8 sm:pb-0 -mx-6 px-6 sm:mx-0 sm:px-0 [&>div]:min-w-[85vw] sm:[&>div]:min-w-0 [&>div]:snap-center scrollbar-hide scroll-smooth">
+          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
             {/* Team Member 1 */}
             <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
@@ -1150,7 +1170,7 @@ export default function App() {
       </motion.section>
 
       {/* 7. PORTFOLIO GALLERY GRID */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="gallery" className="min-h-screen snap-start flex flex-col justify-center bg-[#F0EFEA] text-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="gallery" className="bg-[#F0EFEA] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-xl mx-auto mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
@@ -1178,7 +1198,7 @@ export default function App() {
                   </div>
                   
                   {/* Description card */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/60 md:via-[#0C1D13]/30 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/90 via-[#0C1D13]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 md:p-8">
                     <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-2 block">
                       {item.category}
                     </span>
@@ -1196,32 +1216,281 @@ export default function App() {
         </div>
       </motion.section>
 
-      {/* FAQs - Insource Split Layout Style */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-10px" }} id="faqs" className="bg-[#FAF9F6] text-[#0C1D13] min-h-screen snap-start flex flex-col justify-center py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
-        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-start gap-12 lg:gap-24">
+      {/* 8. CALL TO ACTION / FOOTER (Lead capture and contact form) */}
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="contact-section" className="bg-[#FAF9F6] py-16 md:py-24 text-left">
+        <div className="max-w-7xl mx-auto px-6">
           
-          {/* Left: Sticky Headline */}
-          <div className="lg:w-1/3 lg:sticky lg:top-32">
-            <h3 className="text-4xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mb-4">
-              Frequently Asked Questions
-            </h3>
-            <p className="text-[#0C1D13]/60 font-sans text-sm md:text-base mb-6">
-              Learn more about how WAQID’s circular model works, our pyrolysis process, and how biochar can restore soil health.
-            </p>
-            <Link 
-              to="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#111111] hover:bg-[#4CAF50] hover:text-[#111111] text-white font-sans font-bold uppercase tracking-wider text-[11px] transition-colors"
-            >
-              Contact Us
-            </Link>
+          {/* THE ASK BANNER */}
+          <div className="mb-16 bg-[#0C1D13] border border-[#4CAF50]/30 rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(76,175,80,0.15)_0%,transparent_70%)] pointer-events-none" />
+            <div className="relative z-10 max-w-2xl text-center md:text-left">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-3">
+                Investment & Partnerships
+              </span>
+              <h3 className="font-display font-bold text-2xl md:text-3xl text-[#FAF9F6] mb-4">
+                Current Ask: Raising $30k to build our V3 pilot reactor and secure strategic palm mill and farm partnerships across Malaysia.
+              </h3>
+              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                We are syndicating seed capital and strategic partnerships to validate, manufacture, and deploy our first decentralized pyrolysis pilot.
+              </p>
+            </div>
+            <div className="relative z-10 flex-shrink-0 w-full md:w-auto">
+              <button 
+                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+                className="w-full md:w-auto px-8 py-4 bg-[#4CAF50] hover:bg-[#FAF9F6] hover:text-[#0C1D13] text-[#0C1D13] font-sans font-bold uppercase tracking-widest text-xs transition-colors duration-300 rounded-xl shadow-lg flex items-center justify-center gap-3 group"
+              >
+                <BookOpen className="w-4 h-4" />
+                Request Pitch Deck
+              </button>
+            </div>
           </div>
 
-          {/* Right: Accordion Stack */}
-          <div className="lg:w-2/3 w-full">
-            <Accordion 
-              items={faqItems.map(item => ({ title: item.q, content: item.a }))} 
-            />
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+            
+            {/* Left: Proposal Copy (5 columns) */}
+            <div className="lg:col-span-5 bg-[#0C1D13] text-[#FAF9F6] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/25 shadow-xl flex flex-col justify-between min-h-[400px]">
+              <div className="relative z-10">
+                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
+                  Scale The Impact
+                </span>
+                <h3 className="font-display font-extrabold text-2xl md:text-3xl text-[#FAF9F6] mt-3 mb-6">
+                  Partner With Us to Scale the Impact.
+                </h3>
+                <p className="text-xs md:text-sm text-[#FAF9F6]/75 font-sans leading-relaxed mb-8">
+                  Waqid is seeking early-stage partners, agronomic advisors, and catalytic capital to move from prototype to pilot deployment and maintain our vital field research. Join us in building the infrastructure for a regenerative future.
+                </p>
+
+                <div className="flex flex-col gap-5 font-sans text-xs md:text-sm text-[#FAF9F6]/80 mt-6 border-t border-[#FAF9F6]/10 pt-6">
+                  <div className="flex items-center gap-3">
+                    <MapPin className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
+                    <span>Perak & Kedah, Malaysia</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Flame className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
+                    <span>Pioneering Circular Biochar Systems</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Leaf className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
+                    <span>Building a Regenerative Future</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Mail className="w-4 h-4 text-[#4CAF50] flex-shrink-0" />
+                    <a href="mailto:Abuaglho@gmail.com" className="hover:text-[#4CAF50] transition-colors">
+                      Abuaglho@gmail.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-[#FAF9F6]/10 pt-6 mt-8 text-[11px] font-sans text-[#FAF9F6]/40 leading-relaxed">
+                * Detailed field trial data and early validation reports are available upon request for prospective partners and investors.
+              </div>
+            </div>
+
+            {/* Right: Contact Form (7 columns) */}
+            <div id="contact" className="lg:col-span-7 bg-[#F0EFEA] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/10 shadow-sm">
+              {formSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="h-full flex flex-col items-center justify-center text-center py-12"
+                >
+                  <div className="w-16 h-16 rounded-full bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center mb-6 border border-[#2E7D32]/20">
+                    <Send className="w-6 h-6" />
+                  </div>
+                  <h3 className="font-display font-extrabold text-2xl text-[#0C1D13] mb-3">
+                    Inquiry Received
+                  </h3>
+                  <p className="text-sm text-[#0C1D13]/75 font-sans max-w-sm mb-2 leading-relaxed">
+                    Thank you for reaching out! We have successfully received your inquiry and will be in touch with you shortly.
+                  </p>
+                  <button
+                    onClick={() => setFormSubmitted(false)}
+                    className="mt-8 px-6 py-2.5 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] text-[#2E7D32] text-xs font-sans font-bold uppercase tracking-wider transition-colors"
+                  >
+                    Send Another Inquiry
+                  </button>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
+                  {submitError && (
+                    <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-sans">
+                      {submitError}
+                    </div>
+                  )}
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
+                        Full Name *
+                      </label>
+                      <div className="relative">
+                        <Users className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30" />
+                        <input
+                          type="text"
+                          required
+                          placeholder="Ahmad Bin Ismail"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
+                        Email Address *
+                      </label>
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30" />
+                        <input
+                          type="email"
+                          required
+                          placeholder="ahmad@coop.my"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
+                        Organisation (Optional)
+                      </label>
+                      <div className="relative">
+                        <Factory className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30" />
+                        <input
+                          type="text"
+                          placeholder="Kedah Paddy Coop"
+                          value={formData.org}
+                          onChange={(e) => setFormData({ ...formData, org: e.target.value })}
+                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
+                        Partnership Track *
+                      </label>
+                      <div className="relative">
+                        <Sparkles className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30 pointer-events-none" />
+                        <select
+                          required
+                          value={formData.role}
+                          onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                          className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans cursor-pointer transition-colors appearance-none"
+                        >
+                          <option value="" disabled>Select track...</option>
+                          <option value="Investor / Funder">Investor / Funder</option>
+                          <option value="Strategic Partner / Advisor">Strategic Partner / Advisor</option>
+                          <option value="Grant Program / NGO">Grant Program / NGO</option>
+                          <option value="Academic / Researcher">Academic / Researcher</option>
+                          <option value="Mill Operator (Pilot Interest)">Mill Operator (Pilot Interest)</option>
+                          <option value="Farmer / Cooperative (Trial Interest)">Farmer / Cooperative (Trial Interest)</option>
+                          <option value="Other">Other</option>
+                        </select>
+                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#0C1D13]/30 pointer-events-none" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/70">
+                      Message *
+                    </label>
+                    <textarea
+                      required
+                      rows={4}
+                      placeholder="Tell us how you'd like to support, advise, or partner with us on our pilot journey..."
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="px-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] placeholder-[#0C1D13]/30 focus:outline-none focus:border-[#2E7D32] text-sm font-sans resize-none transition-colors"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-hover-shadow w-full mt-2 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-widest text-xs transition-colors duration-300 border border-[#2E7D32]/25 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group"
+                  >
+                    {isSubmitting ? (
+                      <span className="flex items-center gap-2">
+                        <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white group-hover:text-[#0C1D13]" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </span>
+                    ) : (
+                      <>
+                        Partner With Us
+                        <Send className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
+
+          {/* Accordion FAQ Panel */}
+          <div id="faqs" className="max-w-3xl mx-auto mt-32">
+            <div className="text-center mb-12">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                Deep Dive
+              </span>
+              <h3 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
+                Frequently Asked Questions
+              </h3>
+              <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
+            </div>
+
+            <div className="flex flex-col gap-5">
+              {faqItems.map((item, idx) => {
+                const isOpen = activeFaq === idx;
+                return (
+                  <div 
+                    key={idx} 
+                    className={`bg-[#F0EFEA] border ${isOpen ? 'border-[#2E7D32]/30 shadow-md' : 'border-[#2E7D32]/10 shadow-sm'} rounded-3xl overflow-hidden text-left transition-all duration-300 card-hover`}
+                  >
+                    <button
+                      onClick={() => setActiveFaq(isOpen ? null : idx)}
+                      className="w-full flex items-center justify-between p-6 md:p-8 text-left focus:outline-none group"
+                    >
+                      <span className="font-display font-bold text-lg md:text-xl text-[#0C1D13] group-hover:text-[#2E7D32] transition-colors pr-6">
+                        {item.q}
+                      </span>
+                      <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${isOpen ? 'bg-[#2E7D32] text-[#FAF9F6]' : 'bg-[#152E1E]/5 text-[#2E7D32] group-hover:bg-[#2E7D32]/10'}`}>
+                        {isOpen ? (
+                          <ChevronUp className="w-5 h-5" />
+                        ) : (
+                          <ChevronDown className="w-5 h-5" />
+                        )}
+                      </div>
+                    </button>
+                    
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                        >
+                          <div className="px-6 md:px-8 pb-8 pt-0 text-sm md:text-base font-sans text-[#0C1D13]/75 leading-relaxed">
+                            {item.a}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
 
         </div>
       </motion.section>

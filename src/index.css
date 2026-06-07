@@ -156,13 +156,3 @@
   box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 10px 15px rgba(0,0,0,0.05);
   border-color: rgba(76, 175, 80, 0.2);
 }
-
-@layer utilities {
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-}
