@@ -803,7 +803,7 @@ export default function App() {
                 <img 
                   src="/images/farmer_ahmad.png" 
                   alt="Ahmad, Smallholder Farmer" 
-                  className="w-14 h-14 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
+                  className="w-14 h-14 shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
                 />
                 <div>
                   <h4 className="font-display font-bold text-base text-[#FAF9F6]">
@@ -822,14 +822,14 @@ export default function App() {
               <div>
                 <span className="text-6xl font-serif text-[#4CAF50] opacity-35 leading-none font-bold">“</span>
                 <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed mt-2 italic">
-                  The Waqid founding team brings a rare combination of ground-level empathy and technical rigor to the biomass crisis. Their approach to closing the loop directly at the mill and farm level is exactly the kind of pragmatic, farmer-first innovation this region needs. As an advisor, it is a privilege to support a venture so deeply committed to rigorous field research and scalable operations.
+                  Waqid combines ground-level empathy with technical rigor. Their approach to closing the biomass loop directly at the mill and farm level is the exact pragmatic, farmer-first innovation this region needs. It is a privilege to support a venture so committed to scalable operations.
                 </p>
               </div>
               <div className="flex items-center gap-4 mt-8 border-t border-[#FAF9F6]/10 pt-6">
                 <img 
                   src="/images/tim-asquith.png" 
                   alt="Tim Asquith, Strategic Advisor" 
-                  className="w-14 h-14 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
+                  className="w-14 h-14 shrink-0 rounded-full object-cover border-2 border-[#2E7D32] grayscale group-hover:grayscale-0 transition-all duration-350"
                 />
                 <div>
                   <h4 className="font-display font-bold text-base text-[#FAF9F6]">
@@ -1128,7 +1128,7 @@ export default function App() {
                   {/* Team Member 1 */}
                   <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+                    <div className="w-32 h-32 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
                       <img src="/images/founder.jpg" alt="Osama Mohamed Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
@@ -1141,7 +1141,7 @@ export default function App() {
                   {/* Team Member 2 */}
                   <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                    <div className="w-32 h-32 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
                       <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
@@ -1154,7 +1154,7 @@ export default function App() {
                   {/* Team Member 3: Venture Coach */}
                   <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                    <div className="w-32 h-32 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
                       <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
@@ -1166,7 +1166,7 @@ export default function App() {
 
                   {/* Team Member 4: Open Call */}
                   <motion.div variants={fadeUpVariant} onClick={() => document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })} className="bg-[#152E1E] p-8 md:p-10 rounded-3xl border border-[#4CAF50]/30 border-dashed shadow-inner flex flex-col items-center text-center group card-hover relative overflow-hidden justify-center cursor-pointer hover:bg-[#1E2229] transition-colors w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#4CAF50]/50 border-dashed mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                    <div className="w-24 h-24 shrink-0 rounded-full overflow-hidden border-2 border-[#4CAF50]/50 border-dashed mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
                       <span className="text-[#4CAF50]/50 font-display text-4xl group-hover:scale-125 transition-transform duration-500">+</span>
                     </div>
                     <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Join The Movement</h4>
