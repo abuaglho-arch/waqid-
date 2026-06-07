@@ -614,7 +614,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-3 lg:[&>*]:w-auto lg:[&>*]:shrink gap-8 lg:items-stretch">
             {/* Step 1 */}
             <div className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between card-hover">
               <div>
@@ -732,7 +732,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:min-w-0 md:[&>*]:shrink gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
             {/* Revenue Stream 1: Hardware & Energy */}
             <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover">
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
@@ -789,7 +789,7 @@ export default function App() {
             </h2>
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-2 lg:[&>*]:min-w-0 lg:[&>*]:shrink gap-12 items-stretch">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[400px] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-2 lg:[&>*]:w-auto lg:[&>*]:shrink gap-12 lg:items-stretch">
             {/* Quote 1: Ahmad */}
             <div className="bg-[#1E2229] p-8 md:p-12 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col justify-between relative overflow-hidden group card-hover">
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-[#2E7D32]/10 to-transparent pointer-events-none rounded-bl-full" />
@@ -861,7 +861,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mt-8" />
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:min-w-0 md:[&>*]:shrink gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
             {/* Card 1 */}
             <div className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-10 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group">
               <div className="w-14 h-14 rounded-2xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-8 group-hover:scale-110 transition-transform duration-500">
@@ -911,7 +911,7 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:min-w-[85vw] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:min-w-0 md:[&>*]:shrink gap-8">
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
             {/* Highlight 1 */}
             <div className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 flex flex-col justify-between shadow-sm card-hover">
               <div>
@@ -1031,26 +1031,34 @@ export default function App() {
                 UN Sustainable Development Goals
               </h4>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4 md:gap-6">
-              {sdgs.map((sdg) => (
-                <div
-                  key={sdg.id}
-                  className="flex flex-col p-6 rounded-3xl bg-[#F0EFEA] border border-[#2E7D32]/10 shadow-sm card-hover relative overflow-hidden"
-                >
-                  <div className="absolute top-0 left-0 w-full h-1.5" style={{ backgroundColor: sdg.color }} />
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="text-3xl font-display font-black" style={{ color: sdg.color }}>
-                      {sdg.id}
-                    </span>
-                    <span className="text-xs font-sans font-bold text-[#0C1D13] leading-tight text-left">
-                      {sdg.name.replace(`SDG ${sdg.id} `, '')}
-                    </span>
+            <div className="relative w-full overflow-hidden flex hide-scrollbar pt-2 pb-6">
+              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
+              <motion.div 
+                animate={{ x: ["0%", "-50%"] }} 
+                transition={{ repeat: Infinity, ease: "linear", duration: 35 }}
+                className="flex gap-4 md:gap-6 w-max"
+              >
+                {[...sdgs, ...sdgs].map((sdg, index) => (
+                  <div
+                    key={`${sdg.id}-${index}`}
+                    className="flex flex-col p-6 rounded-3xl bg-[#F0EFEA] border border-[#2E7D32]/10 shadow-sm relative overflow-hidden w-[280px] shrink-0"
+                  >
+                    <div className="absolute top-0 left-0 w-full h-1.5" style={{ backgroundColor: sdg.color }} />
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="text-3xl font-display font-black" style={{ color: sdg.color }}>
+                        {sdg.id}
+                      </span>
+                      <span className="text-xs font-sans font-bold text-[#0C1D13] leading-tight text-left">
+                        {sdg.name.replace(`SDG ${sdg.id} `, '')}
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-[#0C1D13]/70 font-sans leading-relaxed text-left">
+                      {sdg.desc}
+                    </p>
                   </div>
-                  <p className="text-[11px] text-[#0C1D13]/70 font-sans leading-relaxed text-left">
-                    {sdg.desc}
-                  </p>
-                </div>
-              ))}
+                ))}
+              </motion.div>
             </div>
           </div>
         </div>
@@ -1113,58 +1121,64 @@ export default function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6" />
           </div>
 
-          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:min-w-[85vw] sm:[&>*]:min-w-[45vw] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-4 lg:[&>*]:min-w-0 lg:[&>*]:shrink gap-8 items-stretch">
-            {/* Team Member 1 */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
-                <img src="/images/founder.jpg" alt="Osama Mohamed Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Founder & CEO</p>
-              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
-                Driving the vision and technical execution of Waqid's decentralized pyrolysis infrastructure.
-              </p>
-            </motion.div>
+          <div className="marquee-container w-full max-w-[100vw]">
+            <div className="marquee-content gap-8 items-stretch pr-8" style={{ animationDuration: '30s' }}>
+              {[1, 2].map((iteration) => (
+                <div key={iteration} className="flex gap-8 shrink-0">
+                  {/* Team Member 1 */}
+                  <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
+                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+                      <img src="/images/founder.jpg" alt="Osama Mohamed Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
+                    <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Founder & CEO</p>
+                    <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
+                      Driving the vision and technical execution of Waqid's decentralized pyrolysis infrastructure.
+                    </p>
+                  </motion.div>
 
-            {/* Team Member 2 */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
-                <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Strategic Advisor</p>
-              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
-                Providing critical guidance on field validation, commercial scaling, and global agricultural economics.
-              </p>
-            </motion.div>
+                  {/* Team Member 2 */}
+                  <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
+                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                      <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
+                    <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Strategic Advisor</p>
+                    <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
+                      Providing critical guidance on field validation, commercial scaling, and global agricultural economics.
+                    </p>
+                  </motion.div>
 
-            {/* Team Member 3: Venture Coach */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
-                <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Venture Coach</p>
-              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
-                Guiding WAQID's fundraising strategy and venture scaling architecture for global deployment.
-              </p>
-            </motion.div>
+                  {/* Team Member 3: Venture Coach */}
+                  <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/15 shadow-xl flex flex-col items-center text-center group card-hover relative overflow-hidden w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[#2E7D32]/20 to-transparent pointer-events-none rounded-bl-full" />
+                    <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                      <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
+                    <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Venture Coach</p>
+                    <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
+                      Guiding WAQID's fundraising strategy and venture scaling architecture for global deployment.
+                    </p>
+                  </motion.div>
 
-            {/* Team Member 4: Open Call */}
-            <motion.div variants={fadeUpVariant} onClick={() => document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })} className="bg-[#152E1E] p-8 md:p-10 rounded-3xl border border-[#4CAF50]/30 border-dashed shadow-inner flex flex-col items-center text-center group card-hover relative overflow-hidden justify-center cursor-pointer hover:bg-[#1E2229] transition-colors">
-              <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#4CAF50]/50 border-dashed mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
-                <span className="text-[#4CAF50]/50 font-display text-4xl group-hover:scale-125 transition-transform duration-500">+</span>
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Join The Movement</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Partners & Mavericks</p>
-              <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
-                We are actively looking for passionate operators, strategic partners, and early believers to help us complete this mission in any way possible.
-              </p>
-            </motion.div>
-          </motion.div>
+                  {/* Team Member 4: Open Call */}
+                  <motion.div variants={fadeUpVariant} onClick={() => document.getElementById("contact-section")?.scrollIntoView({ behavior: "smooth" })} className="bg-[#152E1E] p-8 md:p-10 rounded-3xl border border-[#4CAF50]/30 border-dashed shadow-inner flex flex-col items-center text-center group card-hover relative overflow-hidden justify-center cursor-pointer hover:bg-[#1E2229] transition-colors w-[85vw] sm:w-[320px] shrink-0">
+                    <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-[#4CAF50]/50 border-dashed mb-6 relative z-10 bg-[#0C1D13] flex items-center justify-center">
+                      <span className="text-[#4CAF50]/50 font-display text-4xl group-hover:scale-125 transition-transform duration-500">+</span>
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Join The Movement</h4>
+                    <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Partners & Mavericks</p>
+                    <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed relative z-10">
+                      We are actively looking for passionate operators, strategic partners, and early believers to help us complete this mission in any way possible.
+                    </p>
+                  </motion.div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </motion.section>
 
