@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import Counter from "./components/Counter";
 import ScrollToTop from "./components/ScrollToTop";
+import { Link } from "react-router-dom";
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
