@@ -310,11 +310,11 @@ export default function App() {
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           {/* Logo Brand */}
-          <a href="#" className="flex items-center group">
+          <a href="#" className="flex items-center justify-center group w-[160px] md:w-[220px] h-10 md:h-12 overflow-hidden shrink-0">
             <img 
               src="/images/waqid-logo-transparent.png" 
               alt="Waqid" 
-              className="w-[160px] md:w-[220px] h-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              className="w-full h-full object-cover scale-[1.3] md:scale-[1.5] transition-transform duration-300 group-hover:scale-[1.4] md:group-hover:scale-[1.6]"
             />
           </a>
 
@@ -1461,12 +1461,12 @@ export default function App() {
           <div className="flex flex-col gap-4">
             <button 
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} 
-              className="flex items-center cursor-pointer hover:opacity-80 transition-opacity w-fit focus:outline-none"
+              className="flex items-center justify-center cursor-pointer w-[160px] md:w-[220px] h-10 md:h-12 overflow-hidden focus:outline-none group"
             >
               <img 
                 src="/images/waqid-logo-transparent.png" 
                 alt="Waqid" 
-                className="w-[160px] md:w-[220px] h-auto object-contain"
+                className="w-full h-full object-cover scale-[1.3] md:scale-[1.5] transition-transform duration-300 group-hover:scale-[1.4] md:group-hover:scale-[1.6]"
               />
             </button>
             <p className="text-[#FAF9F6]/60 text-xs max-w-xs font-sans mt-2 leading-relaxed">
