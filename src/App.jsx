@@ -391,17 +391,6 @@ export default function App() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll down mouse */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#FAF9F6]/30 pointer-events-none">
-          <span className="text-[9px] uppercase tracking-widest font-sans font-bold">Scroll</span>
-          <div className="w-1.5 h-6 rounded-full border border-[#FAF9F6]/30 flex justify-center p-0.5">
-            <motion.div 
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              className="w-1 h-1 bg-[#4CAF50] rounded-full"
-            />
-          </div>
-        </div>
       </section>
 
       {/* 3. THE CRISIS (Why) - Spacious 3-column grid */}
@@ -648,7 +637,7 @@ export default function App() {
                   02. Circular Economics
                 </h4>
                 <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Our target economic model ensures mills will pay a service fee for legal biomass removal, allowing us to offer farmers a highly accessible target price of <strong className="font-bold text-[#0C1D13]">RM 7/kg</strong> for premium soil-restoring products.
+                  Our targeted economic model ensures mills pay a service fee for legal biomass removal, allowing us to offer farmers premium soil-restoring products at a highly accessible, subsidized rate—dramatically undercutting expensive synthetic fertilizers while maintaining strong margins.
                 </p>
               </div>
               <div className="border-t border-[#0C1D13]/10 pt-4 mt-6">
@@ -697,7 +686,10 @@ export default function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
               A Venture-Scale Engine
             </h2>
-            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
+            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
+            <p className="md:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#2E7D32]/60 animate-pulse">
+              ← Swipe to explore →
+            </p>
           </div>
 
           {/* THE INVESTMENT CASE (TAM, GTM, MOAT) */}
@@ -780,13 +772,16 @@ export default function App() {
         <div className="absolute inset-0 bg-[linear-gradient(rgba(46,125,50,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(46,125,50,0.03)_1px,transparent_1px)] bg-[size:100px_100px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="max-w-xl mb-16">
+          <div className="max-w-xl mb-8">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
               Field Validation and Advisory
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-black leading-tight mt-3">
               Grounded in the field, backed by science
             </h2>
+            <p className="lg:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#4CAF50]/60 animate-pulse mt-4">
+              ← Swipe to explore →
+            </p>
           </div>
 
           <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 lg:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[400px] [&>*]:shrink-0 [&>*]:snap-center lg:grid lg:grid-cols-2 lg:[&>*]:w-auto lg:[&>*]:shrink gap-12 lg:items-stretch">
@@ -858,7 +853,10 @@ export default function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] leading-tight">
               Healing the ecosystem,<br />one hectare at a time.
             </h2>
-            <div className="w-12 h-[1px] bg-[#4CAF50] mt-8" />
+            <div className="w-12 h-[1px] bg-[#4CAF50] mt-8 mb-4" />
+            <p className="md:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#4CAF50]/60 animate-pulse">
+              ← Swipe to explore →
+            </p>
           </div>
 
           <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
@@ -908,7 +906,10 @@ export default function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
               Target Impact at Scale
             </h2>
-            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
+            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
+            <p className="md:hidden text-[10px] uppercase font-sans font-bold tracking-widest text-[#2E7D32]/60 animate-pulse">
+              ← Swipe to explore →
+            </p>
           </div>
 
           <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 md:pb-0 [&>*]:w-[85vw] sm:[&>*]:w-[320px] [&>*]:shrink-0 [&>*]:snap-center md:grid md:grid-cols-3 md:[&>*]:w-auto md:[&>*]:shrink gap-8">
