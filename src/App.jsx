@@ -312,7 +312,7 @@ export default function App() {
           {/* Logo Brand */}
           <a href="#" className="flex items-center group">
             <img 
-              src="/images/waqid-logo.svg" 
+              src="/images/waqid-logo-transparent.png" 
               alt="Waqid" 
               className="w-[160px] md:w-[220px] h-auto object-contain transition-transform duration-300 group-hover:scale-105"
             />
@@ -1464,7 +1464,7 @@ export default function App() {
               className="flex items-center cursor-pointer hover:opacity-80 transition-opacity w-fit focus:outline-none"
             >
               <img 
-                src="/images/waqid-logo.svg" 
+                src="/images/waqid-logo-transparent.png" 
                 alt="Waqid" 
                 className="w-[160px] md:w-[220px] h-auto object-contain"
               />
