@@ -526,7 +526,7 @@ export default function App() {
                     </div>
                     <h3 className="text-2xl font-display font-bold text-[#FAF9F6] mb-4">Climate Impact</h3>
                     <p className="text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                      Reduces emissions from unmanaged biomass while creating a pathway toward durable carbon removal through biochar.
+                      Currently developing our Life Cycle Assessment (LCA) framework to rigorously verify net-negative carbon pathways and future carbon market eligibility.
                     </p>
                   </motion.div>
 
@@ -602,7 +602,7 @@ export default function App() {
               <span className="text-3xl font-display font-bold text-[#4CAF50]/40 mb-4 block">02</span>
               <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">V3 Pilot Reactor</h4>
               <p className="text-xs md:text-sm text-[#FAF9F6]/80 font-sans leading-relaxed">
-                The next milestone is manufacturing and testing a pilot ready V3 reactor.
+                Targeting a scalable processing capacity for daily biomass conversion, aiming to maximize stable biochar yields while lowering production costs.
               </p>
             </motion.div>
 
@@ -620,6 +620,32 @@ export default function App() {
               <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
                 Pilot results will guide future deployment, product refinement, and commercial partnerships.
               </p>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 5B. TRACTION GALLERY */}
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="traction" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-center">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-12">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Traction</span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">Built in the Dirt</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
+              <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
+                <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
+                <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
+              <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
+                <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
+                <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -738,6 +764,19 @@ export default function App() {
                       Future revenue may come from sustainable briquettes and verified carbon removal credits as monitoring and validation systems mature.
                     </p>
                   </motion.div>
+
+                  <motion.div variants={driftVariant} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/40 shadow-xl card-hover w-[85vw] sm:w-[320px] shrink-0 relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                      <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
+                    </div>
+                    <div className="w-12 h-12 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] mb-6 border border-[#4CAF50]/30 shadow-inner relative z-10">
+                      <ShieldCheck className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-3 relative z-10">The WAQID Moat</h4>
+                    <p className="text-xs md:text-sm text-[#FAF9F6]/80 font-sans leading-relaxed relative z-10">
+                      Our defensibility lies in our proprietary biochar-compost pellet formulation and our decentralized operational logistics that bypass traditional heavy-transport bottlenecks. We aren't just selling hardware; we are owning the circular loop.
+                    </p>
+                  </motion.div>
                 </div>
               ))}
             </div>
@@ -795,10 +834,10 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
-              <img src="/images/shahir.jpeg" alt="Shahir" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
-              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Shahir</h4>
+              <img src="/images/osama.jpg" alt="Osama M Abuagla" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
+              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Osama M Abuagla</h4>
               <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Founder</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Driving prototype development and community engagement.</p>
+              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Leveraging hands-on experience in prototype development to scale agricultural innovations.</p>
             </motion.div>
 
             <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
