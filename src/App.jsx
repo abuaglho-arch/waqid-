@@ -218,6 +218,25 @@ function App() {
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
+          {/* THE SCALE STATS */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-5xl mx-auto border-y border-[#2E7D32]/10 py-10">
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">01. The Scale</span>
+              <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">80M+</h3>
+              <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed"><span className="font-bold text-[#0C1D13]">tonnes</span> of palm biomass generated annually in Malaysia.</p>
+            </div>
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">02. The Waste</span>
+              <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">20-22M</h3>
+              <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed"><span className="font-bold text-[#0C1D13]">tonnes</span> of Empty Fruit Bunches left unmanaged or burned openly each year.</p>
+            </div>
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">03. The Climate Threat</span>
+              <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">34x</h3>
+              <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed">Methane released from this rotting waste has <span className="font-bold text-[#0C1D13]">34x</span> the warming power of CO2 over a 100-year period.</p>
+            </div>
+          </div>
+
           <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: <Factory />, title: "Waste Accumulates", desc: "Millions of tonnes of palm biomass and rice husks are discarded annually." },
@@ -363,6 +382,28 @@ function App() {
               ))}
             </div>
           </div>
+
+          {/* PILOT TARGET STATS */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Residue Diversion</span>
+              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">15000 <span className="text-xl font-sans font-normal text-[#0C1D13]/50">kg</span></h3>
+              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Palm Waste Diverted</p>
+              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Diverting 15,000 kg of palm waste from burning or decomposition.</p>
+            </motion.div>
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Soil Hydrology</span>
+              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ 18 % <span className="text-xl font-sans font-normal text-[#0C1D13]/50">gain</span></h3>
+              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Water Retention Improvement</p>
+              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Improving soil water retention by approximately 18% based on established agronomic data.</p>
+            </motion.div>
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Pilot Target</span>
+              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ 10 <span className="text-xl font-sans font-normal text-[#0C1D13]/50">tonnes</span></h3>
+              <p className="font-bold text-[#0C1D13] mb-4 text-sm">CO2e Sequestered</p>
+              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Targeting ~10 tonnes of CO2e sequestered in our upcoming V3 pilot.</p>
+            </motion.div>
+          </div>
         </div>
       </motion.section>
 
@@ -490,7 +531,7 @@ function App() {
                 Can biochar measurably improve water and nutrient retention?
               </p>
               <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                We must conduct lab testing and farmer demo plots to establish a rigorous, evidence-led baseline for soil health improvements.
+                We must conduct lab testing and establish farmer demo plots to prove our target metrics, capturing real farmer testimony as evidence for scaling our early stage pilot.
               </p>
             </motion.div>
           </div>
@@ -504,12 +545,19 @@ function App() {
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Traction</span>
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">Built in the Dirt</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
               <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                 <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
                 <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
+              </div>
+            </motion.div>
+            <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
+              <img src="/images/v3-reactor-render.png" alt="V3 Pyrolysis Reactor" className="w-full h-full object-contain bg-[#EAE8E3] transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
+                <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
+                <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
               </div>
             </motion.div>
             <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
@@ -528,15 +576,14 @@ function App() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(46,125,50,0.15)_0%,transparent_60%)] pointer-events-none" />
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#2E7D32]/20 border border-[#2E7D32]/50 text-[#4CAF50] text-[10px] font-sans font-bold uppercase tracking-widest mb-6">
-              <Target className="w-3.5 h-3.5" />
-              Seed Funding Round
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-4">
+              INVESTMENT & PARTNERSHIPS
             </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] leading-tight mb-6">
-              What Funding Unlocks
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-[#FAF9F6] leading-tight mb-6">
+              Current Ask: Raising $30k to build our V3 pilot reactor and secure strategic palm mill and farm partnerships across Malaysia.
             </h2>
-            <p className="text-base md:text-lg text-[#FAF9F6]/80 font-sans leading-relaxed max-w-3xl mx-auto">
-              $30k will help WAQID move from prototype design to physical pilot validation. It funds fabrication, lab validation, demo plots, and early partner onboarding.
+            <p className="text-base md:text-lg text-[#FAF9F6]/60 font-sans leading-relaxed max-w-4xl mx-auto">
+              We are syndicating seed capital and strategic partnerships to validate, manufacture, and deploy our first decentralized pyrolysis pilot.
             </p>
           </div>
 
@@ -752,8 +799,8 @@ function App() {
           {/* Form Card */}
           <div className="bg-[#F0EFEA] rounded-[2rem] p-8 md:p-12 border border-[#2E7D32]/20 shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#4CAF50]/10 rounded-full blur-[80px] pointer-events-none" />
-            <h3 className="text-2xl font-display font-black text-[#0C1D13] mb-2 relative z-10">Request Pitch Deck / Partner</h3>
-            <p className="text-sm text-[#0C1D13]/70 font-sans mb-8 relative z-10">We are currently seeking seed funding and pilot partners.</p>
+            <h3 className="text-2xl font-display font-black text-[#0C1D13] mb-2 relative z-10">Partner With Us to Scale the Impact</h3>
+            <p className="text-sm text-[#0C1D13]/70 font-sans mb-8 relative z-10">Waqid is seeking early-stage partners, agronomic advisors, and catalytic capital to move from prototype to pilot deployment and maintain our vital field research. Join us in building the infrastructure for a regenerative future.</p>
             
             <form action="https://api.web3forms.com/submit" method="POST" className="space-y-5 relative z-10">
               <input type="hidden" name="access_key" value="091c7841-f761-469b-980b-8d0afcceea0b" />
@@ -817,8 +864,15 @@ function App() {
       </motion.section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0C1D13] text-[#FAF9F6] py-12 border-t border-[#2E7D32]/20">
+      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-8 pb-12 border-t border-[#2E7D32]/20">
         <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-12 max-w-lg">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-3">Operations</span>
+            <div className="border border-[#2E7D32]/30 rounded-2xl p-6 bg-[#0C1D13]">
+              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-2">Cooperative Program: Wild Asia</h4>
+              <p className="text-sm text-[#FAF9F6]/60 font-sans leading-relaxed">Confirmed collaboration on decentralized pyrolysis reactor diagnostics and agronomic field validation.</p>
+            </div>
+          </div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
               <img src="/images/waqid-logo-transparent.png" alt="WAQID Logo" className="h-8 object-contain opacity-80" />
