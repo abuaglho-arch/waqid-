@@ -724,31 +724,44 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Osama M. Abuagla - Founder */}
             <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
-              <img src="/images/osama.jpg" alt="Osama M Abuagla" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
-              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Osama M Abuagla</h4>
+              <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
+              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Osama M. Abuagla</h4>
               <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Founder</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Leveraging hands-on experience in prototype development to scale agricultural innovations.</p>
+              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Pioneering WAQID's vision and technical execution. Experienced in prototype development and engineering circular field systems.</p>
             </motion.div>
 
+            {/* Tim Asquith - Strategic Advisor */}
             <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
               <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
               <h4 className="font-display font-bold text-lg text-[#0C1D13]">Tim Asquith</h4>
-              <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Venture Coach</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Strategic guidance and commercial scale up advisory.</p>
+              <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Strategic Advisor</p>
+              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Providing commercial scaling insights, global agricultural advisory, and critical validation strategies for decentralized deployment.</p>
             </motion.div>
 
+            {/* Joyce Zhang - Venture Coach */}
             <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
-              <img src="/images/advisors.jpg" alt="Commercial Advisory" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
-              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Industry Experts</h4>
-              <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Advisory Network</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Supporting WAQID with agronomy, engineering, and climate tech insights.</p>
+              <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
+              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Joyce Zhang</h4>
+              <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Venture Coach</p>
+              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Guided WAQID in prototyping and designing with community.</p>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#152E1E] p-6 rounded-3xl border border-[#2E7D32]/30 text-center card-hover flex flex-col items-center justify-center">
-              <TestTube className="w-12 h-12 text-[#4CAF50] mb-4" />
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6]">Evidence-Led</h4>
-              <p className="text-xs text-[#FAF9F6]/70 leading-relaxed mt-2 px-2">WAQID is building its pilot around field research, farmer feedback, and measurable performance.</p>
+            {/* Join the Movement - Call to Action */}
+            <motion.div 
+              variants={fadeUpVariant} 
+              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
+              className="bg-[#152E1E] p-6 rounded-3xl border border-[#2E7D32]/30 text-center card-hover flex flex-col items-center justify-center cursor-pointer hover:bg-[#1C3B27] transition-colors duration-300"
+            >
+              <div className="w-16 h-16 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-4 flex items-center justify-center">
+                <span className="text-[#4CAF50] font-display text-2xl font-bold">+</span>
+              </div>
+              <h4 className="font-display font-bold text-lg text-[#FAF9F6]">Join The Movement</h4>
+              <p className="text-xs text-[#4CAF50] font-bold uppercase tracking-wider mb-2">Partners & Team</p>
+              <p className="text-xs text-[#FAF9F6]/75 leading-relaxed px-2">
+                We are actively seeking early adopter mills, research collaborators, and catalytic capital to scale our pilot.
+              </p>
             </motion.div>
           </div>
         </div>
