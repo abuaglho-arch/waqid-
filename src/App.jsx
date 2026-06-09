@@ -711,55 +711,68 @@ function App() {
       </motion.section>
 
       {/* 11. TEAM & ADVISORS */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="team" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
-        <div className="max-w-7xl mx-auto px-6">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="team" className="bg-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/20 text-left text-[#FAF9F6] relative overflow-hidden">
+        {/* Background Gradients */}
+        <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#2E7D32]/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#4CAF50]/5 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
               Team & Advisors
             </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] mt-3">
               Built on Field Expertise
             </h2>
-            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
+            <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6 mb-4" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Osama M. Abuagla - Founder */}
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
-              <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
-              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Osama M. Abuagla</h4>
-              <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Founder</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Hands-on founder who built the V1 and V2 manual reactors. Driving WAQID's vision and technical execution to scale circular field systems.</p>
+            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
+              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+                <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
+              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Founder</p>
+              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Hands-on founder who built the V1 and V2 manual reactors. Driving WAQID's vision and technical execution to scale circular field systems.</p>
             </motion.div>
 
             {/* Tim Asquith - Strategic Advisor */}
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
-              <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
-              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Tim Asquith</h4>
-              <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Strategic Advisor</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Providing commercial scaling insights, global agricultural advisory, and critical validation strategies for decentralized deployment.</p>
+            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
+              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+                <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
+              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Strategic Advisor</p>
+              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Providing commercial scaling insights, global agricultural advisory, and critical validation strategies for decentralized deployment.</p>
             </motion.div>
 
             {/* Joyce Zhang - Venture Coach */}
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-6 rounded-3xl border border-[#2E7D32]/10 text-center card-hover flex flex-col items-center">
-              <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
-              <h4 className="font-display font-bold text-lg text-[#0C1D13]">Joyce Zhang</h4>
-              <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Venture Coach</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Guided WAQID in prototyping and designing with community.</p>
+            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
+              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+                <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+              </div>
+              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
+              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Venture Coach</p>
+              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Guided WAQID in prototyping and designing with community.</p>
             </motion.div>
 
             {/* Join the Movement - Call to Action */}
             <motion.div 
               variants={fadeUpVariant} 
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-              className="bg-[#152E1E] p-6 rounded-3xl border border-[#2E7D32]/30 text-center card-hover flex flex-col items-center justify-center cursor-pointer hover:bg-[#1C3B27] transition-colors duration-300"
+              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center card-hover flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
             >
-              <div className="w-16 h-16 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-4 flex items-center justify-center">
-                <span className="text-[#4CAF50] font-display text-2xl font-bold">+</span>
+              <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
+                <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
               </div>
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6]">Join The Movement</h4>
-              <p className="text-xs text-[#4CAF50] font-bold uppercase tracking-wider mb-2">Partners & Team</p>
-              <p className="text-xs text-[#FAF9F6]/75 leading-relaxed px-2">
+              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Join The Movement</h4>
+              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Partners & Team</p>
+              <p className="text-sm text-[#FAF9F6]/70 leading-relaxed px-2 relative z-10">
                 We are actively seeking early adopter mills, research collaborators, and catalytic capital to scale our pilot.
               </p>
             </motion.div>
