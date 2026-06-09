@@ -73,17 +73,12 @@ function App() {
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
   
-  const crisisScrollRef = useRef(null);
-
-  const scrollCrisis = (direction) => {
-    if (crisisScrollRef.current) {
-      const cardWidth = 380 + 24; // Card width + gap
-      crisisScrollRef.current.scrollBy({
-        left: direction === 'left' ? -cardWidth : cardWidth,
-        behavior: 'smooth'
-      });
-    }
-  };
+  const targetRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-68%"]);
+  const imgX = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -212,101 +207,83 @@ function App() {
         </div>
       </motion.section>
 
-      {/* 3. THE BROKEN LOOP */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="crisis" className="bg-[#F0EFEA] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
-            <div className="max-w-2xl text-left">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                The Crisis
-              </span>
-              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3">
-                The Broken Loop
-              </h2>
-              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
-                Agricultural biomass is treated as a burden rather than an asset, creating a chain reaction of environmental and economic failures.
-              </p>
-            </div>
-            <div className="flex gap-3 shrink-0">
-              <button 
-                onClick={() => scrollCrisis('left')}
-                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
-                aria-label="Scroll Left"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={() => scrollCrisis('right')}
-                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
-                aria-label="Scroll Right"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+      {/* 3. THE BROKEN LOOP (STICKY HORIZONTAL SCROLL) */}
+      <section ref={targetRef} id="crisis" className="relative h-[300vh] bg-[#F0EFEA]">
+        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+          
+          {/* Header */}
+          <div className="max-w-7xl mx-auto px-6 w-full mb-12 text-left">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+              The Crisis
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3">
+              The Broken Loop
+            </h2>
+            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-3 max-w-3xl leading-relaxed">
+              Agricultural biomass is treated as a burden rather than an asset, creating a chain reaction of environmental and economic failures.
+            </p>
           </div>
 
-          {/* THE SCALE STATS */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-5xl mx-auto border-y border-[#2E7D32]/10 py-10">
-            <div className="text-left">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">01. The Scale</span>
-              <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">80M+</h3>
-              <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed"><span className="font-bold text-[#0C1D13]">tonnes</span> of palm biomass generated annually in Malaysia.</p>
-            </div>
-            <div className="text-left">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">02. The Waste</span>
-              <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">20-22M</h3>
-              <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed"><span className="font-bold text-[#0C1D13]">tonnes</span> of Empty Fruit Bunches left unmanaged or burned openly each year.</p>
-            </div>
-            <div className="text-left">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">03. The Climate Threat</span>
-              <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">34x</h3>
-              <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed">Methane released from this rotting waste has <span className="font-bold text-[#0C1D13]">34x</span> the warming power of CO2 over a 100-year period.</p>
-            </div>
-          </div>
+          {/* Scrolling Horizontal Container */}
+          <div className="flex items-center overflow-hidden">
+            <motion.div style={{ x }} className="flex gap-8 px-6 md:px-24">
+              
+              {/* THE SCALE STATS (Key Metrics Card) */}
+              <div className="shrink-0 w-[85vw] sm:w-[460px] bg-[#FAF9F6] p-8 md:p-10 rounded-[2rem] border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between text-left card-hover">
+                <div>
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
+                  <h3 className="text-3xl font-display font-black text-[#0C1D13] mt-2 mb-8 leading-tight">The Magnitude of the Problem</h3>
+                </div>
+                <div className="flex flex-col gap-6">
+                  <div className="border-b border-[#2E7D32]/10 pb-4">
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">80M+ <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Palm biomass generated annually in Malaysia.</p>
+                  </div>
+                  <div className="border-b border-[#2E7D32]/10 pb-4">
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">20-22M <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
+                  </div>
+                  <div>
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] my-1">34x <span className="text-xs font-sans font-normal text-[#0C1D13]/50">threat</span></h4>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
+                  </div>
+                </div>
+              </div>
 
-          {/* HORIZONTAL STACKING SCROLL */}
-          <div className="relative">
-            <div 
-              ref={crisisScrollRef}
-              className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth"
-            >
+              {/* Crisis Cards */}
               {[
-                { image: "/images/problem_waste.png", icon: <Factory />, title: "Waste Accumulates", desc: "Millions of tonnes of palm biomass and rice husks are discarded annually, piling up at farm gates and processing mills." },
-                { image: "/images/problem_burning_biomass_1780739611147.png", icon: <Wind />, title: "Methane Rises", desc: "Unmanaged residues decompose anaerobically in wet stockpiles or are openly burned, releasing potent methane and CO2." },
-                { image: "/images/organic-crisis.png", icon: <AlertTriangle />, title: "Farmers Pay More", desc: "Smallholders face soaring synthetic fertilizer and solid fuel prices, squeezed by high agricultural input costs." },
-                { image: "/images/problem_cracked_soil_1780739623976.png", icon: <Sprout />, title: "Soils Decline", desc: "Decades of chemical fertilizer dependency deplete organic matter, leading to soil acidification and crop yield drops." },
-                { image: "/images/problem_traditional_energy_1780739636809.png", icon: <Trees />, title: "Forests Suffer", desc: "Local satay vendors and small industries continue using wood-based charcoal, contributing to regional deforestation." },
-                { image: "/images/problem-visual.png", icon: <Globe />, title: "Value is Lost", desc: "Valuable raw carbon and energy escape the local economy, leaving rural communities poorer and less resilient." }
+                { image: "/images/problem_waste.png", title: "Waste Accumulates", desc: "Millions of tonnes of palm biomass and rice husks are discarded annually, piling up at farm gates and processing mills." },
+                { image: "/images/problem_burning_biomass_1780739611147.png", title: "Methane Rises", desc: "Unmanaged residues decompose anaerobically in wet stockpiles or are openly burned, releasing potent methane and CO2." },
+                { image: "/images/organic-crisis.png", title: "Farmers Pay More", desc: "Smallholders face soaring synthetic fertilizer and solid fuel prices, squeezed by high agricultural input costs." },
+                { image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Decades of chemical fertilizer dependency deplete organic matter, leading to soil acidification and crop yield drops." },
+                { image: "/images/problem_traditional_energy_1780739636809.png", title: "Forests Suffer", desc: "Local satay vendors and small industries continue using wood-based charcoal, contributing to regional deforestation." },
+                { image: "/images/problem-visual.png", title: "Value is Lost", desc: "Valuable raw carbon and energy escape the local economy, leaving rural communities poorer and less resilient." }
               ].map((item, index) => (
                 <div 
                   key={index} 
-                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] bg-[#FAF9F6] rounded-3xl border border-[#2E7D32]/10 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group card-hover"
+                  className="shrink-0 w-[85vw] sm:w-[380px] bg-[#FAF9F6] rounded-[2rem] border border-[#2E7D32]/10 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group card-hover"
                 >
-                  <div className="h-52 w-full overflow-hidden relative">
-                    <img 
+                  <div className="h-56 w-full overflow-hidden relative">
+                    <motion.img 
+                      style={{ x: imgX }}
                       src={item.image} 
                       alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-y-0 left-[-10%] w-[120%] h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-[#0C1D13]/90 backdrop-blur-md flex items-center justify-center text-[#4CAF50] border border-[#2E7D32]/20">
-                      {item.icon}
-                    </div>
-                    <div className="absolute top-4 right-4 bg-[#FAF9F6] text-[#2E7D32] text-[10px] font-sans font-bold px-3 py-1 rounded-full border border-[#2E7D32]/10 uppercase tracking-wider">
-                      Step 0{index + 1}
-                    </div>
                   </div>
-                  <div className="p-6 text-left flex-grow flex flex-col justify-between">
+                  <div className="p-8 text-left flex-grow flex flex-col justify-between">
                     <div>
-                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-2">{item.title}</h4>
-                      <p className="text-xs text-[#0C1D13]/70 font-sans leading-relaxed">{item.desc}</p>
+                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{item.title}</h4>
+                      <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed">{item.desc}</p>
                     </div>
                   </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
+          
         </div>
-      </motion.section>
+      </section>
 
       {/* 4. THE WAQID SOLUTION */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
