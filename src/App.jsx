@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   ArrowUpRight, Target, Leaf, Flame, RotateCw, Globe, 
   Sprout, Factory, MapPin, Mail, ChevronDown, Activity, CheckCircle2, ShieldCheck,
-  Hexagon, Zap, TestTube, Users, Coins, AlertTriangle, Trees, Wind
+  Hexagon, Zap, TestTube, Users, Coins, AlertTriangle, Trees, Wind,
+  ChevronLeft, ChevronRight
 } from 'lucide-react';
 import './index.css';
 
@@ -71,6 +72,18 @@ function App() {
   const [activeFaq, setActiveFaq] = useState(null);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
+  
+  const crisisScrollRef = useRef(null);
+
+  const scrollCrisis = (direction) => {
+    if (crisisScrollRef.current) {
+      const cardWidth = 380 + 24; // Card width + gap
+      crisisScrollRef.current.scrollBy({
+        left: direction === 'left' ? -cardWidth : cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -202,56 +215,96 @@ function App() {
       {/* 3. THE BROKEN LOOP */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="crisis" className="bg-[#F0EFEA] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-              The Crisis
-            </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3 text-balance">
-              The Broken Loop
-            </h2>
-            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
-              Agricultural biomass is treated as a burden rather than an asset, creating a chain reaction of environmental and economic failures.
-            </p>
-            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+            <div className="max-w-2xl text-left">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                The Crisis
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3">
+                The Broken Loop
+              </h2>
+              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
+                Agricultural biomass is treated as a burden rather than an asset, creating a chain reaction of environmental and economic failures.
+              </p>
+            </div>
+            <div className="flex gap-3 shrink-0">
+              <button 
+                onClick={() => scrollCrisis('left')}
+                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
+                aria-label="Scroll Left"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={() => scrollCrisis('right')}
+                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
+                aria-label="Scroll Right"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* THE SCALE STATS */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 max-w-5xl mx-auto border-y border-[#2E7D32]/10 py-10">
-            <div>
+            <div className="text-left">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">01. The Scale</span>
               <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">80M+</h3>
               <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed"><span className="font-bold text-[#0C1D13]">tonnes</span> of palm biomass generated annually in Malaysia.</p>
             </div>
-            <div>
+            <div className="text-left">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">02. The Waste</span>
               <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">20-22M</h3>
               <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed"><span className="font-bold text-[#0C1D13]">tonnes</span> of Empty Fruit Bunches left unmanaged or burned openly each year.</p>
             </div>
-            <div>
+            <div className="text-left">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">03. The Climate Threat</span>
               <h3 className="text-5xl md:text-7xl font-serif font-bold text-[#2E7D32] my-2">34x</h3>
               <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed">Methane released from this rotting waste has <span className="font-bold text-[#0C1D13]">34x</span> the warming power of CO2 over a 100-year period.</p>
             </div>
           </div>
 
-          <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { icon: <Factory />, title: "Waste Accumulates", desc: "Millions of tonnes of palm biomass and rice husks are discarded annually." },
-              { icon: <Wind />, title: "Methane Rises", desc: "Unmanaged residues decompose and release methane, a potent greenhouse gas." },
-              { icon: <AlertTriangle />, title: "Farmers Pay More", desc: "Farmers face rising synthetic fertilizer costs without natural alternatives." },
-              { icon: <Sprout />, title: "Soils Decline", desc: "Decades of chemical reliance degrade soil health and water retention." },
-              { icon: <Trees />, title: "Forests Suffer", desc: "Businesses still rely on wood-based charcoal, driving deforestation." },
-              { icon: <Globe />, title: "Value is Lost", desc: "Rural communities lose economic value from resources that could be reused locally." }
-            ].map((item, index) => (
-              <motion.div key={index} variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col card-hover">
-                <div className="w-10 h-10 rounded-xl bg-[#152E1E]/5 flex items-center justify-center text-[#2E7D32] mb-4 border border-[#2E7D32]/10">
-                  {item.icon}
+          {/* HORIZONTAL STACKING SCROLL */}
+          <div className="relative">
+            <div 
+              ref={crisisScrollRef}
+              className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth"
+            >
+              {[
+                { image: "/images/problem_waste.png", icon: <Factory />, title: "Waste Accumulates", desc: "Millions of tonnes of palm biomass and rice husks are discarded annually, piling up at farm gates and processing mills." },
+                { image: "/images/problem_burning_biomass_1780739611147.png", icon: <Wind />, title: "Methane Rises", desc: "Unmanaged residues decompose anaerobically in wet stockpiles or are openly burned, releasing potent methane and CO2." },
+                { image: "/images/organic-crisis.png", icon: <AlertTriangle />, title: "Farmers Pay More", desc: "Smallholders face soaring synthetic fertilizer and solid fuel prices, squeezed by high agricultural input costs." },
+                { image: "/images/problem_cracked_soil_1780739623976.png", icon: <Sprout />, title: "Soils Decline", desc: "Decades of chemical fertilizer dependency deplete organic matter, leading to soil acidification and crop yield drops." },
+                { image: "/images/problem_traditional_energy_1780739636809.png", icon: <Trees />, title: "Forests Suffer", desc: "Local satay vendors and small industries continue using wood-based charcoal, contributing to regional deforestation." },
+                { image: "/images/problem-visual.png", icon: <Globe />, title: "Value is Lost", desc: "Valuable raw carbon and energy escape the local economy, leaving rural communities poorer and less resilient." }
+              ].map((item, index) => (
+                <div 
+                  key={index} 
+                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] bg-[#FAF9F6] rounded-3xl border border-[#2E7D32]/10 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group card-hover"
+                >
+                  <div className="h-52 w-full overflow-hidden relative">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute top-4 left-4 w-10 h-10 rounded-xl bg-[#0C1D13]/90 backdrop-blur-md flex items-center justify-center text-[#4CAF50] border border-[#2E7D32]/20">
+                      {item.icon}
+                    </div>
+                    <div className="absolute top-4 right-4 bg-[#FAF9F6] text-[#2E7D32] text-[10px] font-sans font-bold px-3 py-1 rounded-full border border-[#2E7D32]/10 uppercase tracking-wider">
+                      Step 0{index + 1}
+                    </div>
+                  </div>
+                  <div className="p-6 text-left flex-grow flex flex-col justify-between">
+                    <div>
+                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-2">{item.title}</h4>
+                      <p className="text-xs text-[#0C1D13]/70 font-sans leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
                 </div>
-                <h4 className="font-display font-bold text-lg text-[#0C1D13] mb-2">{item.title}</h4>
-                <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed">{item.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </motion.section>
 
