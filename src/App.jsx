@@ -729,7 +729,7 @@ function App() {
               <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-24 h-24 rounded-full object-cover mb-4 border-2 border-[#2E7D32]/20" />
               <h4 className="font-display font-bold text-lg text-[#0C1D13]">Osama M. Abuagla</h4>
               <p className="text-xs text-[#2E7D32] font-bold uppercase tracking-wider mb-2">Founder</p>
-              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Pioneering WAQID's vision and technical execution. Experienced in prototype development and engineering circular field systems.</p>
+              <p className="text-xs text-[#0C1D13]/70 leading-relaxed px-2">Hands-on founder who built the V1 and V2 manual reactors. Driving WAQID's vision and technical execution to scale circular field systems.</p>
             </motion.div>
 
             {/* Tim Asquith - Strategic Advisor */}
