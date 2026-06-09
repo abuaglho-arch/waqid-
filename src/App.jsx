@@ -887,27 +887,79 @@ function App() {
       </motion.section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-8 pb-12 border-t border-[#2E7D32]/20">
+      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-16 pb-12 border-t border-[#2E7D32]/20">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-12 max-w-lg">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-3">Operations</span>
-            <div className="border border-[#2E7D32]/30 rounded-2xl p-6 bg-[#0C1D13]">
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-2">Cooperative Program: Wild Asia</h4>
-              <p className="text-sm text-[#FAF9F6]/60 font-sans leading-relaxed">Confirmed collaboration on decentralized pyrolysis reactor diagnostics and agronomic field validation.</p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+            {/* Logo and Description (5 columns) */}
+            <div className="lg:col-span-5 flex flex-col items-start gap-4">
+              <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="text-left cursor-pointer focus:outline-none"
+              >
+                <img 
+                  src="/images/waqid-logo-transparent.png" 
+                  alt="WAQID Logo" 
+                  className="h-10 w-auto object-contain opacity-90"
+                />
+              </button>
+              <p className="text-[#FAF9F6]/60 text-xs max-w-sm font-sans mt-2 leading-relaxed">
+                A circular system converting agricultural palm waste into affordable, soil-restoring biochar for smallholder farmers.
+              </p>
+              <span className="text-[10px] uppercase tracking-widest font-sans font-bold text-[#4CAF50] mt-2 block">
+                Circular Solutions for Soil and Energy.
+              </span>
+              <div className="flex gap-4 text-xs font-sans text-[#FAF9F6]/50 mt-1">
+                <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#4CAF50]" /> Malaysia</span>
+                <a href="mailto:Abuaglho@gmail.com" className="flex items-center gap-1.5 hover:text-[#4CAF50] transition-colors"><Mail className="w-3.5 h-3.5 text-[#4CAF50]" /> Abuaglho@gmail.com</a>
+              </div>
+            </div>
+
+            {/* Quick links (3 columns) */}
+            <div className="lg:col-span-3 flex flex-col items-start gap-4">
+              <h4 className="font-display font-bold text-xs uppercase tracking-widest text-[#4CAF50] mb-2">
+                Ecosystem
+              </h4>
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-xs font-sans text-[#FAF9F6]/70">
+                <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
+                  Home
+                </button>
+                <button onClick={() => document.getElementById("crisis")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
+                  Crisis
+                </button>
+                <button onClick={() => document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
+                  Solution
+                </button>
+                <button onClick={() => document.getElementById("traction")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
+                  Field Trials
+                </button>
+                <button onClick={() => document.getElementById("impact")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer col-span-2 focus:outline-none">
+                  Measurable Impact
+                </button>
+              </div>
+            </div>
+
+            {/* Operational Credentials (4 columns) */}
+            <div className="lg:col-span-4 flex flex-col items-start gap-4">
+              <h4 className="font-display font-bold text-xs uppercase tracking-widest text-[#4CAF50] mb-2">
+                Operations
+              </h4>
+              <div className="border border-[#2E7D32]/30 rounded-2xl p-6 bg-[#0C1D13] w-full max-w-sm">
+                <h5 className="font-display font-bold text-sm text-[#FAF9F6] mb-2">Cooperative Program: Wild Asia</h5>
+                <p className="text-xs text-[#FAF9F6]/60 font-sans leading-relaxed">
+                  Confirmed collaboration on decentralized pyrolysis reactor diagnostics and agronomic field validation.
+                </p>
+              </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-3">
-              <img src="/images/waqid-logo-transparent.png" alt="WAQID Logo" className="h-8 object-contain opacity-80" />
-            </div>
-            <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 text-[#FAF9F6]/60 text-sm font-sans">
-              <span className="flex items-center gap-2 hover:text-[#4CAF50] transition-colors cursor-default"><MapPin className="w-4 h-4" /> Malaysia</span>
-              <a href="mailto:contact@waqid.earth" className="flex items-center gap-2 hover:text-[#4CAF50] transition-colors"><Mail className="w-4 h-4" /> contact@waqid.earth</a>
-            </div>
-          </div>
-          <div className="mt-8 pt-8 border-t border-[#2E7D32]/20 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#FAF9F6]/40 font-sans">
-            <p>© {new Date().getFullYear()} WAQID. All rights reserved.</p>
-            <p>From Prototype to Pilot</p>
+
+          {/* Bottom Copyright & Disclaimer */}
+          <div className="mt-12 pt-8 border-t border-[#2E7D32]/20 flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
+            <p className="text-xs text-[#FAF9F6]/40 font-sans text-center md:text-left">
+              &copy; 2026 Waqid. All rights reserved.
+            </p>
+            <p className="text-[10px] text-[#FAF9F6]/30 max-w-xl font-sans text-center md:text-right leading-relaxed">
+              All statistics cited are sourced directly from peer-reviewed scientific databases, Malaysian Palm Oil Board reports, and Wild Asia farm interview registries (2024–2026).
+            </p>
           </div>
         </div>
       </footer>
