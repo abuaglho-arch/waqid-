@@ -736,7 +736,7 @@ function App() {
               </div>
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
               <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Founder</p>
-              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Hands-on founder who built the V1 and V2 manual reactors. Driving WAQID's vision and technical execution to scale circular field systems.</p>
+              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Built the V1 and V2 manual reactors. Driving WAQID's vision to scale circular field systems.</p>
             </motion.div>
 
             {/* Tim Asquith - Strategic Advisor */}
