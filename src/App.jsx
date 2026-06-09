@@ -112,9 +112,6 @@ function App() {
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <img src="/images/waqid-logo-transparent.png" alt="WAQID Logo" className="h-8 md:h-10 object-contain drop-shadow-md" />
-            <span className={`font-display font-bold text-xl tracking-wide ${scrolled ? 'text-[#FAF9F6]' : 'text-[#FAF9F6]'}`}>
-              WAQID
-            </span>
           </div>
           <div className="hidden md:flex items-center gap-8">
             {['crisis', 'solution', 'impact', 'roadmap'].map((item) => (
@@ -876,7 +873,6 @@ function App() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
               <img src="/images/waqid-logo-transparent.png" alt="WAQID Logo" className="h-8 object-contain opacity-80" />
-              <span className="font-display font-bold text-lg tracking-wide text-[#FAF9F6]/80">WAQID</span>
             </div>
             <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 text-[#FAF9F6]/60 text-sm font-sans">
               <span className="flex items-center gap-2 hover:text-[#4CAF50] transition-colors cursor-default"><MapPin className="w-4 h-4" /> Malaysia</span>
