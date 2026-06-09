@@ -244,13 +244,17 @@ function App() {
               </button>
             </div>
           </div>
+        </div> {/* Close max-w-7xl mx-auto px-6 */}
 
-          {/* HORIZONTAL SCROLL CARDS */}
-          <div className="relative">
-            <div 
-              ref={crisisScrollRef}
-              className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth"
-            >
+        {/* HORIZONTAL SCROLL CARDS (Full bleed container) */}
+        <div className="w-full relative overflow-hidden">
+          <div 
+            ref={crisisScrollRef}
+            className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth w-full px-6 md:px-[calc((100vw-1280px)/2+1.5rem)]"
+            style={{ 
+              scrollPaddingLeft: 'max(1.5rem, calc((100vw - 1280px) / 2 + 1.5rem))' 
+            }}
+          >
               
               {/* THE SCALE STATS (Key Metrics Card) */}
               <div className="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-[#FAF9F6] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between text-left card-hover">
@@ -307,8 +311,7 @@ function App() {
               ))}
             </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
 
       {/* 4. THE WAQID SOLUTION */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
@@ -376,7 +379,10 @@ function App() {
             </h2>
             <div className="w-12 h-[1px] bg-[#4CAF50] mt-8 mb-4" />
           </div>
+        </div> {/* Close max-w-7xl */}
 
+        {/* Full-bleed marquee */}
+        <div className="w-full relative overflow-hidden my-4">
           <div className="marquee-container w-full max-w-[100vw]">
             <div className="marquee-content gap-6 items-stretch pr-6" style={{ animationDuration: '40s' }}>
               {[1, 2].map((iteration) => (
@@ -434,7 +440,10 @@ function App() {
               ))}
             </div>
           </div>
+        </div>
 
+        {/* Re-open max-w-7xl container for stats */}
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* PILOT TARGET STATS */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
             <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10">
@@ -711,7 +720,10 @@ function App() {
             </p>
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
           </div>
+        </div> {/* Close max-w-7xl */}
 
+        {/* Full-bleed marquee */}
+        <div className="w-full relative overflow-hidden my-4">
           <div className="marquee-container w-full max-w-[100vw]">
             <div className="marquee-content gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
               {[1, 2].map((iteration) => (
