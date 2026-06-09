@@ -67,90 +67,23 @@ const Counter = ({ value, duration = 2, suffix = "" }) => {
   return <span>{displayValue}{value.includes('-') ? `-${value.split('-')[1]}` : ''}{suffix}</span>;
 };
 
-const CrisisCard = ({ card, index, total, scrollYProgress }) => {
-  const step = 1 / (total - 1);
-  const entryStart = (index - 1) * step;
-  const entryEnd = index * step;
-  
-  const inputRange = [];
-  const yRange = [];
-  const scaleRange = [];
-  const opacityRange = [];
-  
-  if (index > 0) {
-    inputRange.push(0);
-    yRange.push(800);
-    scaleRange.push(1.0);
-    opacityRange.push(0);
-    
-    if (entryStart > 0) {
-      inputRange.push(entryStart);
-      yRange.push(800);
-      scaleRange.push(1.0);
-      opacityRange.push(0);
-    }
-  }
-  
-  inputRange.push(entryEnd);
-  yRange.push(0);
-  scaleRange.push(1.0);
-  opacityRange.push(1.0);
-  
-  for (let j = index + 1; j < total; j++) {
-    const p = j * step;
-    const diff = j - index;
-    inputRange.push(p);
-    yRange.push(diff * -18);
-    scaleRange.push(1 - diff * 0.035);
-    opacityRange.push(Math.max(0.2, 1 - diff * 0.15));
-  }
-  
-  if (inputRange[inputRange.length - 1] < 1.0) {
-    inputRange.push(1.0);
-    yRange.push(yRange[yRange.length - 1]);
-    scaleRange.push(scaleRange[scaleRange.length - 1]);
-    opacityRange.push(opacityRange[opacityRange.length - 1]);
-  }
-  
-  const y = useTransform(scrollYProgress, inputRange, yRange);
-  const scale = useTransform(scrollYProgress, inputRange, scaleRange);
-  const opacity = useTransform(scrollYProgress, inputRange, opacityRange);
-  
-  return (
-    <motion.div
-      style={{ y, scale, opacity, zIndex: index + 10 }}
-      className="absolute w-[90%] max-w-[760px] h-[340px] sm:h-[300px] md:h-[270px] bg-[#FAF9F6] border border-[#214C3B]/10 rounded-3xl p-6 md:p-10 flex flex-col justify-between text-left shadow-lg hover:shadow-xl transition-shadow duration-300"
-    >
-      <div className="flex flex-col justify-between h-full">
-        <div>
-          <div className="flex justify-between items-center mb-4 md:mb-6">
-            <span className="text-xs md:text-sm font-sans font-bold tracking-widest text-[#C95D32]">
-              [ {card.index} ]
-            </span>
-            <span className="w-8 h-[1px] bg-[#214C3B]/25" />
-          </div>
-          <h3 className="text-xl md:text-2xl font-display font-black text-[#214C3B] mb-3 md:mb-4">
-            {card.title}
-          </h3>
-          <p className="text-xs md:text-sm text-[#214C3B]/80 font-sans leading-relaxed">
-            {card.desc}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
   
-  const targetRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: targetRef,
-  });
+  const crisisScrollRef = useRef(null);
+
+  const scrollCrisis = (direction) => {
+    if (crisisScrollRef.current) {
+      const cardWidth = 380 + 24; // Card width + gap
+      crisisScrollRef.current.scrollBy({
+        left: direction === 'left' ? -cardWidth : cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -280,65 +213,102 @@ function App() {
       </motion.section>
 
       {/* 3. THE CRISIS WE CAN NO LONGER IGNORE */}
-      <section ref={targetRef} id="crisis" className="relative h-[250vh] bg-[#F4F1E8]">
-        <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center items-center px-6">
-          
-          {/* Header */}
-          <div className="max-w-4xl w-full text-center mb-10">
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#214C3B] leading-tight">
-              The Crisis We Can No Longer Ignore
-            </h2>
-            <p className="text-sm md:text-base text-[#214C3B]/85 font-sans mt-3 max-w-2xl mx-auto leading-relaxed">
-              Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
-            </p>
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="crisis" className="bg-[#F4F1E8] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+            <div className="max-w-2xl text-left">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                The Crisis
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3">
+                The Crisis We Can No Longer Ignore
+              </h2>
+              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
+                Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
+              </p>
+            </div>
+            <div className="flex gap-3 shrink-0">
+              <button 
+                onClick={() => scrollCrisis('left')}
+                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
+                aria-label="Scroll Left"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                onClick={() => scrollCrisis('right')}
+                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
+                aria-label="Scroll Right"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          {/* Stacking Cards Container */}
-          <div className="relative w-full max-w-[760px] h-[340px] sm:h-[300px] md:h-[270px] flex items-center justify-center">
-            {[
-              {
-                index: "01",
-                title: "Waste Accumulates",
-                desc: "Organic residues pile up when they are treated as waste instead of resources. Palm biomass, rice husks, and farm by-products are often left unused, creating pressure at farms and processing sites."
-              },
-              {
-                index: "02",
-                title: "Methane Rises",
-                desc: "When organic waste decomposes without proper management, it can release gases that make the climate problem worse. What looks like simple waste becomes part of a larger environmental cost."
-              },
-              {
-                index: "03",
-                title: "Farmers Pay More",
-                desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources."
-              },
-              {
-                index: "04",
-                title: "Soils Decline",
-                desc: "Overused land gradually loses nutrients, structure, and fertility. Without better soil support, farms become less resilient and harvests become harder to sustain over time."
-              },
-              {
-                index: "05",
-                title: "Forests Suffer",
-                desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure."
-              },
-              {
-                index: "06",
-                title: "Value is Lost",
-                desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability."
-              }
-            ].map((card, index) => (
-              <CrisisCard 
-                key={index} 
-                card={card} 
-                index={index} 
-                total={6} 
-                scrollYProgress={scrollYProgress} 
-              />
-            ))}
+          {/* HORIZONTAL SCROLL CARDS */}
+          <div className="relative">
+            <div 
+              ref={crisisScrollRef}
+              className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth"
+            >
+              
+              {/* THE SCALE STATS (Key Metrics Card) */}
+              <div className="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-[#FAF9F6] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between text-left card-hover">
+                <div>
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
+                  <h3 className="text-3xl font-display font-black text-[#0C1D13] mt-2 mb-8 leading-tight">The Magnitude of the Problem</h3>
+                </div>
+                <div className="flex flex-col gap-6">
+                  <div className="border-b border-[#2E7D32]/10 pb-4">
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">80M+ <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Palm biomass generated annually in Malaysia.</p>
+                  </div>
+                  <div className="border-b border-[#2E7D32]/10 pb-4">
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">20-22M <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
+                  </div>
+                  <div>
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">34x <span className="text-xs font-sans font-normal text-[#0C1D13]/50">threat</span></h4>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Crisis Cards */}
+              {[
+                { index: "01", image: "/images/problem_waste.png", title: "Waste Accumulates", desc: "Organic residues pile up when they are treated as waste instead of resources. Palm biomass, rice husks, and farm by-products are often left unused, creating pressure at farms and processing sites." },
+                { index: "02", image: "/images/problem_burning_biomass_1780739611147.png", title: "Methane Rises", desc: "When organic waste decomposes without proper management, it can release gases that make the climate problem worse. What looks like simple waste becomes part of a larger environmental cost." },
+                { index: "03", image: "/images/organic-crisis.png", title: "Farmers Pay More", desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources." },
+                { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Overused land gradually loses nutrients, structure, and fertility. Without better soil support, farms become less resilient and harvests become harder to sustain over time." },
+                { index: "05", image: "/images/problem_traditional_energy_1780739636809.png", title: "Forests Suffer", desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure." },
+                { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability." }
+              ].map((item, idx) => (
+                <div 
+                  key={idx} 
+                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] bg-[#FAF9F6] rounded-3xl border border-[#2E7D32]/10 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group card-hover"
+                >
+                  <div className="h-56 w-full overflow-hidden relative">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-8 text-left flex-grow flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-xs font-sans font-bold text-[#C95D32]">[ {item.index} ]</span>
+                        <h4 className="font-display font-bold text-xl text-[#0C1D13]">{item.title}</h4>
+                      </div>
+                      <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          
         </div>
-      </section>
+      </motion.section>
 
       {/* 4. THE WAQID SOLUTION */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
