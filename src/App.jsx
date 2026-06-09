@@ -551,7 +551,7 @@ function App() {
               </div>
             </motion.div>
             <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
-              <img src="/images/v3-reactor-render.png" alt="V3 Pyrolysis Reactor" className="w-full h-full object-contain bg-[#EAE8E3] transition-transform duration-700 group-hover:scale-105" />
+              <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                 <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
                 <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
