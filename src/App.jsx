@@ -236,8 +236,7 @@ function App() {
           </motion.div>
         </motion.div>
 
-        {/* Smooth transition to light section */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
       </section>
 
       {/* 2. WHY WAQID EXISTS */}
@@ -298,9 +297,6 @@ function App() {
 
         {/* HORIZONTAL SCROLL CARDS (Full bleed container) */}
         <div className="w-full relative overflow-hidden">
-          {/* Edge Fade Gradients for visual continuation */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-[#F4F1E8] to-transparent pointer-events-none z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-[#F4F1E8] to-transparent pointer-events-none z-10" />
 
           <div 
             ref={crisisScrollRef}
@@ -424,8 +420,7 @@ function App() {
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="impact" className="bg-[#0C1D13] py-16 md:py-24 relative overflow-hidden border-b border-[#2E7D32]/10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,transparent_40%,#152E1E_100%)] pointer-events-none opacity-50" />
         
-        {/* Smooth transition from light section */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
 
         {/* Floating Sparks/Embers overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
@@ -534,8 +529,7 @@ function App() {
           </div>
         </div>
 
-        {/* Smooth transition to light section */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
       </motion.section>
 
       {/* 6. COMMUNITY IMPACT */}
@@ -706,8 +700,7 @@ function App() {
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="ask" className="bg-[#0C1D13] py-16 md:py-24 text-left relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(46,125,50,0.15)_0%,transparent_60%)] pointer-events-none" />
         
-        {/* Smooth transition from light section */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
 
         {/* Floating Sparks/Embers overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
@@ -786,8 +779,7 @@ function App() {
           </div>
         </div>
 
-        {/* Smooth transition to light section */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
       </motion.section>
 
       {/* 10. SCALABLE REVENUE MODEL */}
@@ -868,8 +860,7 @@ function App() {
         <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#2E7D32]/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#4CAF50]/5 rounded-full blur-[120px] pointer-events-none" />
 
-        {/* Smooth transition from light section */}
-        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
 
         {/* Floating Sparks/Embers overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
@@ -943,8 +934,7 @@ function App() {
           </div>
         </div>
 
-        {/* Smooth transition to light section */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
       </motion.section>
 
       {/* 12. FAQ & FORM */}
@@ -1054,9 +1044,7 @@ function App() {
       </motion.section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-24 pb-12 border-t border-[#2E7D32]/20 relative overflow-hidden">
-        {/* Smooth transition from light section */}
-        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-16 pb-12 border-t border-[#2E7D32]/20 relative overflow-hidden">
 
         {/* Soft background green glow */}
         <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-[#2E7D32]/10 rounded-full blur-[100px] pointer-events-none" />
