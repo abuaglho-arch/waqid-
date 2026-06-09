@@ -38,14 +38,40 @@ const blurFadeVariant = {
   visible: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.8 } }
 };
 
-const Counter = ({ value, duration = 2, suffix = "" }) => {
+const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
   const [count, setCount] = useState(0);
+  const [inView, setInView] = useState(false);
+  const elementRef = useRef(null);
   
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!inView) return;
+
     let startTime;
     let animationFrame;
-    const target = parseFloat(value.replace(/[^0-9.-]+/g, ""));
+    const cleanValue = value.toString().replace(/[^0-9.-]/g, "");
+    const target = parseFloat(cleanValue);
     
+    if (isNaN(target)) {
+      setCount(value);
+      return;
+    }
+
     const animate = (timestamp) => {
       if (!startTime) startTime = timestamp;
       const progress = timestamp - startTime;
@@ -61,10 +87,17 @@ const Counter = ({ value, duration = 2, suffix = "" }) => {
     
     animationFrame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(animationFrame);
-  }, [value, duration]);
+  }, [value, duration, inView]);
 
   const displayValue = Number.isInteger(parseFloat(value)) ? Math.round(count) : count.toFixed(1);
-  return <span>{displayValue}{value.includes('-') ? `-${value.split('-')[1]}` : ''}{suffix}</span>;
+  return (
+    <span ref={elementRef}>
+      {prefix}
+      {isNaN(parseFloat(value)) ? value : displayValue}
+      {value.includes('-') && !prefix ? `-${value.split('-')[1]}` : ''}
+      {suffix}
+    </span>
+  );
 };
 
 function App() {
@@ -157,6 +190,20 @@ function App() {
           <img src="/images/cinematic-hero.png" alt="WAQID Operations" className="w-full h-full object-cover object-center" />
         </motion.div>
 
+        {/* Floating Sparks/Embers overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          <div className="ember animate-ember-1 left-[10%]" style={{ animationDelay: '0s' }} />
+          <div className="ember animate-ember-2 left-[25%]" style={{ animationDelay: '2s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-3 left-[40%]" style={{ animationDelay: '4s', width: '5px', height: '5px' }} />
+          <div className="ember animate-ember-1 left-[55%]" style={{ animationDelay: '1s', width: '2px', height: '2px' }} />
+          <div className="ember animate-ember-2 left-[70%]" style={{ animationDelay: '5s', width: '4px', height: '4px' }} />
+          <div className="ember animate-ember-3 left-[85%]" style={{ animationDelay: '3s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-1 left-[20%]" style={{ animationDelay: '7s', width: '4px', height: '4px' }} />
+          <div className="ember animate-ember-2 left-[45%]" style={{ animationDelay: '9s', width: '2px', height: '2px' }} />
+          <div className="ember animate-ember-3 left-[65%]" style={{ animationDelay: '6s', width: '5px', height: '5px' }} />
+          <div className="ember animate-ember-1 left-[80%]" style={{ animationDelay: '8s', width: '3px', height: '3px' }} />
+        </div>
+
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="relative z-10 max-w-5xl mx-auto px-6 text-center">
           <motion.div variants={fadeUpVariant} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#152E1E]/80 backdrop-blur-md border border-[#2E7D32]/30 text-[#4CAF50] text-[10px] font-sans font-bold uppercase tracking-widest mb-8 shadow-xl">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4CAF50] animate-pulse" />
@@ -188,6 +235,9 @@ function App() {
             </button>
           </motion.div>
         </motion.div>
+
+        {/* Smooth transition to light section */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
       </section>
 
       {/* 2. WHY WAQID EXISTS */}
@@ -248,6 +298,10 @@ function App() {
 
         {/* HORIZONTAL SCROLL CARDS (Full bleed container) */}
         <div className="w-full relative overflow-hidden">
+          {/* Edge Fade Gradients for visual continuation */}
+          <div className="absolute left-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-r from-[#F4F1E8] to-transparent pointer-events-none z-10" />
+          <div className="absolute right-0 top-0 bottom-0 w-8 md:w-20 bg-gradient-to-l from-[#F4F1E8] to-transparent pointer-events-none z-10" />
+
           <div 
             ref={crisisScrollRef}
             className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth w-full px-6 md:px-[calc((100vw-1280px)/2+1.5rem)]"
@@ -264,15 +318,15 @@ function App() {
                 </div>
                 <div className="flex flex-col gap-6">
                   <div className="border-b border-[#2E7D32]/10 pb-4">
-                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">80M+ <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1"><Counter value="80" suffix="M+" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
                     <p className="text-xs text-[#0C1D13]/70 font-sans">Palm biomass generated annually in Malaysia.</p>
                   </div>
                   <div className="border-b border-[#2E7D32]/10 pb-4">
-                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">20-22M <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1"><Counter value="22" prefix="20-" suffix="M" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
                     <p className="text-xs text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
                   </div>
                   <div>
-                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1">34x <span className="text-xs font-sans font-normal text-[#0C1D13]/50">threat</span></h4>
+                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1"><Counter value="34" suffix="x" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50">threat</span></h4>
                     <p className="text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
                   </div>
                 </div>
@@ -284,7 +338,7 @@ function App() {
                 { index: "02", image: "/images/methane-rises.png", title: "Methane Rises", desc: "When organic waste decomposes without proper management, it can release gases that make the climate problem worse. What looks like simple waste becomes part of a larger environmental cost." },
                 { index: "03", image: "/images/farmers-pay-more.png", title: "Farmers Pay More", desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources." },
                 { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Overused land gradually loses nutrients, structure, and fertility. Without better soil support, farms become less resilient and harvests become harder to sustain over time." },
-                { index: "05", image: "/images/problem_traditional_energy_1780739636809.png", title: "Forests Suffer", desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure." },
+                { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure." },
                 { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability." }
               ].map((item, idx) => (
                 <div 
@@ -369,6 +423,19 @@ function App() {
       {/* 5. ENVIRONMENTAL IMPACT PATHWAY */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="impact" className="bg-[#0C1D13] py-16 md:py-24 relative overflow-hidden border-b border-[#2E7D32]/10">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,transparent_40%,#152E1E_100%)] pointer-events-none opacity-50" />
+        
+        {/* Smooth transition from light section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
+        {/* Floating Sparks/Embers overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          <div className="ember animate-ember-1 left-[15%]" style={{ animationDelay: '1s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-2 left-[35%]" style={{ animationDelay: '3s', width: '2px', height: '2px' }} />
+          <div className="ember animate-ember-3 left-[50%]" style={{ animationDelay: '5s', width: '4px', height: '4px' }} />
+          <div className="ember animate-ember-1 left-[65%]" style={{ animationDelay: '2s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-2 left-[85%]" style={{ animationDelay: '6s', width: '2px', height: '2px' }} />
+        </div>
+
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-3">
@@ -384,10 +451,10 @@ function App() {
         {/* Full-bleed marquee */}
         <div className="w-full relative overflow-hidden my-4">
           <div className="marquee-container w-full max-w-[100vw]">
-            <div className="marquee-content gap-6 items-stretch pr-6" style={{ animationDuration: '40s' }}>
+            <div className="marquee-content animate-marquee gap-6 items-stretch pr-6" style={{ animationDuration: '40s' }}>
               {[1, 2].map((iteration) => (
                 <div key={iteration} className="flex gap-6 shrink-0">
-                  <motion.div variants={popVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                  <motion.div variants={popVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
                     <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
                       <Factory className="w-6 h-6" />
                     </div>
@@ -397,7 +464,7 @@ function App() {
                     </p>
                   </motion.div>
 
-                  <motion.div variants={driftVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                  <motion.div variants={driftVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
                     <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
                       <Wind className="w-6 h-6" />
                     </div>
@@ -407,7 +474,7 @@ function App() {
                     </p>
                   </motion.div>
 
-                  <motion.div variants={blurFadeVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                  <motion.div variants={blurFadeVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
                     <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
                       <Globe className="w-6 h-6" />
                     </div>
@@ -417,7 +484,7 @@ function App() {
                     </p>
                   </motion.div>
 
-                  <motion.div variants={driftVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                  <motion.div variants={driftVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
                     <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
                       <Trees className="w-6 h-6" />
                     </div>
@@ -427,7 +494,7 @@ function App() {
                     </p>
                   </motion.div>
 
-                  <motion.div variants={blurFadeVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl hover:bg-[#152E1E] transition-colors duration-500 group w-[85vw] sm:w-[320px] shrink-0">
+                  <motion.div variants={blurFadeVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
                     <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
                       <Wind className="w-6 h-6" />
                     </div>
@@ -446,26 +513,29 @@ function App() {
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* PILOT TARGET STATS */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10">
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Residue Diversion</span>
-              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">15000 <span className="text-xl font-sans font-normal text-[#0C1D13]/50">kg</span></h3>
+              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1"><Counter value="15000" /> <span className="text-xl font-sans font-normal text-[#0C1D13]/50">kg</span></h3>
               <p className="font-bold text-[#0C1D13] mb-4 text-sm">Palm Waste Diverted</p>
               <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Diverting 15,000 kg of palm waste from burning or decomposition.</p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10">
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Soil Hydrology</span>
-              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ 18 % <span className="text-xl font-sans font-normal text-[#0C1D13]/50">gain</span></h3>
+              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ <Counter value="18" suffix=" %" /> <span className="text-xl font-sans font-normal text-[#0C1D13]/50">gain</span></h3>
               <p className="font-bold text-[#0C1D13] mb-4 text-sm">Water Retention Improvement</p>
               <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Improving soil water retention by approximately 18% based on established agronomic data.</p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10">
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Pilot Target</span>
-              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ 10 <span className="text-xl font-sans font-normal text-[#0C1D13]/50">tonnes</span></h3>
+              <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ <Counter value="10" /> <span className="text-xl font-sans font-normal text-[#0C1D13]/50">tonnes</span></h3>
               <p className="font-bold text-[#0C1D13] mb-4 text-sm">CO2e Sequestered</p>
               <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Targeting ~10 tonnes of CO2e sequestered in our upcoming V3 pilot.</p>
             </motion.div>
           </div>
         </div>
+
+        {/* Smooth transition to light section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
       </motion.section>
 
       {/* 6. COMMUNITY IMPACT */}
@@ -633,8 +703,20 @@ function App() {
       </motion.section>
 
       {/* 9. WHAT FUNDING UNLOCKS */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="ask" className="bg-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/20 text-left relative overflow-hidden">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="ask" className="bg-[#0C1D13] py-16 md:py-24 text-left relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(46,125,50,0.15)_0%,transparent_60%)] pointer-events-none" />
+        
+        {/* Smooth transition from light section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
+        {/* Floating Sparks/Embers overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          <div className="ember animate-ember-2 left-[20%]" style={{ animationDelay: '2s', width: '2px', height: '2px' }} />
+          <div className="ember animate-ember-1 left-[40%]" style={{ animationDelay: '0s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-3 left-[60%]" style={{ animationDelay: '4s', width: '4px', height: '4px' }} />
+          <div className="ember animate-ember-1 left-[80%]" style={{ animationDelay: '1s', width: '3px', height: '3px' }} />
+        </div>
+
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-4">
@@ -703,6 +785,9 @@ function App() {
             </button>
           </div>
         </div>
+
+        {/* Smooth transition to light section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
       </motion.section>
 
       {/* 10. SCALABLE REVENUE MODEL */}
@@ -725,7 +810,7 @@ function App() {
         {/* Full-bleed marquee */}
         <div className="w-full relative overflow-hidden my-4">
           <div className="marquee-container w-full max-w-[100vw]">
-            <div className="marquee-content gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
+            <div className="marquee-content animate-marquee gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
               {[1, 2].map((iteration) => (
                 <div key={iteration} className="flex gap-8 shrink-0">
                   <motion.div variants={driftVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
@@ -758,7 +843,7 @@ function App() {
                     </p>
                   </motion.div>
 
-                  <motion.div variants={driftVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/40 shadow-xl card-hover w-[85vw] sm:w-[320px] shrink-0 relative overflow-hidden group">
+                  <motion.div variants={driftVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/40 shadow-xl dark-card-hover w-[85vw] sm:w-[320px] shrink-0 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                       <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
                     </div>
@@ -778,10 +863,22 @@ function App() {
       </motion.section>
 
       {/* 11. TEAM & ADVISORS */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="team" className="bg-[#0C1D13] py-16 md:py-24 border-b border-[#2E7D32]/20 text-left text-[#FAF9F6] relative overflow-hidden">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="team" className="bg-[#0C1D13] py-16 md:py-24 text-left text-[#FAF9F6] relative overflow-hidden">
         {/* Background Gradients */}
         <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-[#2E7D32]/10 rounded-full blur-[100px] pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#4CAF50]/5 rounded-full blur-[120px] pointer-events-none" />
+
+        {/* Smooth transition from light section */}
+        <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
+        {/* Floating Sparks/Embers overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          <div className="ember animate-ember-3 left-[15%]" style={{ animationDelay: '3s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-1 left-[30%]" style={{ animationDelay: '1s', width: '2px', height: '2px' }} />
+          <div className="ember animate-ember-2 left-[55%]" style={{ animationDelay: '5s', width: '4px', height: '4px' }} />
+          <div className="ember animate-ember-1 left-[75%]" style={{ animationDelay: '2s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-2 left-[90%]" style={{ animationDelay: '7s', width: '2px', height: '2px' }} />
+        </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -796,7 +893,7 @@ function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Osama M. Abuagla - Founder */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group dark-card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
                 <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
@@ -807,7 +904,7 @@ function App() {
             </motion.div>
 
             {/* Tim Asquith - Strategic Advisor */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group dark-card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
                 <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
@@ -818,7 +915,7 @@ function App() {
             </motion.div>
 
             {/* Joyce Zhang - Venture Coach */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group dark-card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
                 <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
@@ -832,7 +929,7 @@ function App() {
             <motion.div 
               variants={fadeUpVariant} 
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center card-hover flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
+              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center dark-card-hover flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
             >
               <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
                 <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
@@ -845,6 +942,9 @@ function App() {
             </motion.div>
           </div>
         </div>
+
+        {/* Smooth transition to light section */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none z-10" />
       </motion.section>
 
       {/* 12. FAQ & FORM */}
@@ -954,8 +1054,14 @@ function App() {
       </motion.section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-16 pb-12 border-t border-[#2E7D32]/20">
-        <div className="max-w-7xl mx-auto px-6">
+      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-24 pb-12 border-t border-[#2E7D32]/20 relative overflow-hidden">
+        {/* Smooth transition from light section */}
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-[#FAF9F6] to-transparent pointer-events-none z-10" />
+
+        {/* Soft background green glow */}
+        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-[#2E7D32]/10 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-6 relative z-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
             {/* Logo and Description (5 columns) */}
             <div className="lg:col-span-5 flex flex-col items-start gap-4">

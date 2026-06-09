@@ -162,3 +162,81 @@
   box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 10px 15px rgba(0,0,0,0.05);
   border-color: rgba(76, 175, 80, 0.2);
 }
+
+/* Floating Embers / Sparks Effect */
+.ember {
+  position: absolute;
+  bottom: -20px;
+  width: 4px;
+  height: 4px;
+  background: radial-gradient(circle, #ff9800 0%, #ff5722 70%, transparent 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ff9800, 0 0 20px #ff5722;
+  pointer-events: none;
+  opacity: 0;
+}
+
+@keyframes floatEmber1 {
+  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10% { opacity: 0.7; }
+  50% { transform: translateY(-40vh) translateX(40px) scale(1.2); opacity: 0.8; }
+  90% { opacity: 0.4; }
+  100% { transform: translateY(-80vh) translateX(-20px) scale(0.8); opacity: 0; }
+}
+
+@keyframes floatEmber2 {
+  0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+  15% { opacity: 0.8; }
+  60% { transform: translateY(-30vh) translateX(-50px) scale(1); opacity: 0.9; }
+  85% { opacity: 0.3; }
+  100% { transform: translateY(-75vh) translateX(30px) scale(0.6); opacity: 0; }
+}
+
+@keyframes floatEmber3 {
+  0% { transform: translateY(0) translateX(0) scale(1.2); opacity: 0; }
+  5% { opacity: 0.6; }
+  70% { transform: translateY(-50vh) translateX(20px) scale(1.5); opacity: 0.8; }
+  95% { opacity: 0.2; }
+  100% { transform: translateY(-80vh) translateX(-40px) scale(1.0); opacity: 0; }
+}
+
+.animate-ember-1 {
+  animation: floatEmber1 12s linear infinite;
+}
+.animate-ember-2 {
+  animation: floatEmber2 16s linear infinite;
+}
+.animate-ember-3 {
+  animation: floatEmber3 20s linear infinite;
+}
+
+/* Infinite Marquee Scrolling */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Dark Card Hover Effects */
+.dark-card-hover {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.dark-card-hover:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 40px rgba(76, 175, 80, 0.12), 0 10px 15px rgba(76, 175, 80, 0.08);
+  border-color: rgba(76, 175, 80, 0.4) !important;
+  background-color: #12281a !important;
+}
+
