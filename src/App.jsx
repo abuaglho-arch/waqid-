@@ -90,7 +90,9 @@ const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
     return () => cancelAnimationFrame(animationFrame);
   }, [value, duration, inView]);
 
-  const displayValue = Number.isInteger(parseFloat(value)) ? Math.round(count) : count.toFixed(1);
+  const displayValue = typeof count === 'number' 
+    ? (Number.isInteger(parseFloat(value)) ? Math.round(count) : count.toFixed(1)) 
+    : count;
   return (
     <span ref={elementRef}>
       {prefix}
@@ -102,12 +104,9 @@ const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
 };
 
 const crisisCards = [
-  { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Accumulates", desc: "Organic residues pile up when they are treated as waste instead of resources. Palm biomass, rice husks, and farm by-products are often left unused, creating pressure at farms and processing sites." },
-  { index: "02", image: "/images/methane-rises.png", title: "Methane Rises", desc: "When organic waste decomposes without proper management, it can release gases that make the climate problem worse. What looks like simple waste becomes part of a larger environmental cost." },
-  { index: "03", image: "/images/farmers-pay-more.jpg", title: "Farmers Pay More", desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources." },
-  { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Overused land gradually loses nutrients, structure, and fertility. Without better soil support, farms become less resilient and harvests become harder to sustain over time." },
-  { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure." },
-  { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability." }
+  { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Accumulates", desc: "Organic residues pile up when treated as waste. Palm biomass, rice husks, and farm by-products are left unused, creating massive waste pressure at processing sites." },
+  { index: "02", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline & Costs Rise", desc: "Farmers face rising costs for synthetic fertilizers while overused land gradually loses fertility. Without soil restoration, harvests become harder to sustain." },
+  { index: "03", image: "/images/forests-suffer.jpg", title: "Ecosystems & Air Suffer", desc: "When unmanaged biomass is burned openly, it releases haze and methane. Forests, air quality, and local communities bear the environmental burden of linear waste." }
 ];
 
 const useCardTransforms = (scrollYProgress, index, isMobile) => {
