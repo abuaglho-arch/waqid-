@@ -496,7 +496,7 @@ function App() {
         <section 
           ref={crisisSectionRef} 
           id="crisis" 
-          className="relative h-[200vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
+          className="relative h-[300vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
           <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden bg-[#FAF9F6]">
             <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-16 lg:pt-10">
