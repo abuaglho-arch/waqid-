@@ -403,18 +403,16 @@ function App() {
           <div className="logo-flow">
             <div className="logo-line">
               {/* Set 1 */}
-              <img src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UNEP_Logo.svg/512px-UNEP_Logo.svg.png" alt="UN Environment Programme" />
-              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
-              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/24/WWF_logo.svg/512px-WWF_logo.svg.png" alt="WWF" />
+              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
 
               {/* Set 2 — duplicate for seamless loop */}
-              <img src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/UNEP_Logo.svg/512px-UNEP_Logo.svg.png" alt="UN Environment Programme" />
-              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
-              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/24/WWF_logo.svg/512px-WWF_logo.svg.png" alt="WWF" />
+              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
             </div>
           </div>
         </div>

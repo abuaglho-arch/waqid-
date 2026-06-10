@@ -307,14 +307,26 @@
   flex-shrink: 0;
   object-fit: contain;
   display: block;
-  height: 52px;
-  width: auto;
-  max-width: 240px;
-  filter: none;
-  opacity: 1;
+  mix-blend-mode: multiply; /* Removes white backgrounds for clean integration */
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+/* Specific heights ensure optical balance regardless of intrinsic ratios */
+.logo-line img.medium-logo {
+  height: 80px; 
+  width: auto;
+}
+
+.logo-line img.green-logo {
+  height: 90px;
+  width: auto;
+}
+
+.logo-line img.wide-logo {
+  height: 60px;
+  width: auto;
 }
 
 @keyframes logoFlowMove {
@@ -339,8 +351,19 @@
     animation-duration: 28s;
   }
 
-  .logo-line img {
-    height: 40px;
-    max-width: 180px;
+  .logo-line img.medium-logo {
+    height: 60px;
+    width: auto;
+  }
+
+  .logo-line img.green-logo {
+    height: 68px;
+    width: auto;
+  }
+
+  .logo-line img.wide-logo {
+    height: 44px;
+    width: auto;
   }
 }
+
