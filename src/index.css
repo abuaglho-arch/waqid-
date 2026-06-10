@@ -240,3 +240,128 @@
   background-color: #12281a !important;
 }
 
+/* ── Ecosystem Logo Strip ── */
+.ecosystem-strip {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  align-items: center;
+}
+
+.ecosystem-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 10% 42%, rgba(46, 125, 50, 0.06), transparent 25%),
+    linear-gradient(90deg, rgba(46, 125, 50, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(46, 125, 50, 0.025) 1px, transparent 1px);
+  background-size: auto, 48px 48px, 48px 48px;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.logo-flow {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.logo-flow::before,
+.logo-flow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.logo-flow::before {
+  left: 0;
+  background: linear-gradient(to right, #FAF9F6, rgba(250, 249, 246, 0));
+}
+
+.logo-flow::after {
+  right: 0;
+  background: linear-gradient(to left, #FAF9F6, rgba(250, 249, 246, 0));
+}
+
+.logo-line {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  width: max-content;
+  padding: 0 60px;
+  animation: logoFlowMove 32s linear infinite;
+}
+
+.logo-line:hover {
+  animation-play-state: paused;
+}
+
+.logo-line img {
+  flex-shrink: 0;
+  max-width: 150px;
+  max-height: 60px;
+  object-fit: contain;
+  display: block;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.logo-line img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.logo-line img.logo-lg {
+  max-width: 200px;
+  max-height: 76px;
+}
+
+.logo-line img.logo-wide {
+  max-width: 240px;
+  max-height: 60px;
+}
+
+@keyframes logoFlowMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media screen and (max-width: 1024px) {
+  .ecosystem-strip {
+    grid-template-columns: 1fr;
+  }
+
+  .logo-line {
+    gap: 44px;
+    padding: 0 44px;
+    animation-duration: 26s;
+  }
+
+  .logo-line img {
+    max-width: 130px;
+    max-height: 52px;
+  }
+
+  .logo-line img.logo-lg {
+    max-width: 170px;
+    max-height: 66px;
+  }
+
+  .logo-line img.logo-wide {
+    max-width: 200px;
+    max-height: 50px;
+  }
+}
+

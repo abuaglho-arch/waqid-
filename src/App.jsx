@@ -379,83 +379,39 @@ function App() {
         </div>
       </motion.section>
 
-      {/* 2.5 ECOSYSTEM & SUPPORT NETWORK — Premium Editorial Ribbon */}
-      <section className="relative overflow-hidden border-y border-[#2E7D32]/15" style={{ background: 'linear-gradient(135deg, #0C1D13 0%, #132B1B 50%, #0C1D13 100%)' }}>
-        {/* Subtle ambient glow */}
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(76,175,80,0.06) 0%, transparent 70%)' }} />
-
-        {/* Top thin accent line */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2E7D32]/30 to-transparent" />
-        {/* Bottom thin accent line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2E7D32]/30 to-transparent" />
-
-        <div className="py-10 md:py-14 relative z-10">
-          {/* Section Label */}
-          <div className="text-center mb-8">
-            <span className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#FAF9F6]/30">
-              Ecosystem &amp; Support Network
+      {/* 2.5 ECOSYSTEM & SUPPORT NETWORK */}
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] py-10 md:py-14 border-b border-[#2E7D32]/10">
+        <div className="ecosystem-strip">
+          {/* Heading Column */}
+          <div className="relative z-[4] flex flex-col justify-center px-6 md:pl-[5vw] md:pr-7 py-6 lg:py-0">
+            <span className="text-[10px] font-sans font-bold uppercase tracking-[2px] text-[#2E7D32] mb-2">
+              Ecosystem
             </span>
+            <h2 className="text-2xl md:text-[25px] font-display font-black text-[#0C1D13] leading-[1.04] tracking-tight max-w-[330px] m-0">
+              Ecosystem &amp; Support Network
+            </h2>
           </div>
 
-          {/* Marquee Track */}
-          <div className="w-full relative overflow-hidden">
-            {/* Left edge fade */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #0C1D13, transparent)' }} />
-            {/* Right edge fade */}
-            <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #0C1D13, transparent)' }} />
+          {/* Logo Marquee */}
+          <div className="logo-flow py-6 min-h-[100px]">
+            <div className="logo-line">
+              {/* Set 1 */}
+              <img className="logo-lg" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="logo-wide" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              <img className="logo-wide" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support Network" />
 
-            <div className="marquee-container w-full">
-              <div className="marquee-content animate-marquee items-center" style={{ animationDuration: '30s', gap: '5rem' }}>
-                {[1, 2, 3].map((iteration) => (
-                  <div key={iteration} className="flex items-center shrink-0" style={{ gap: '5rem' }}>
-
-                    {/* BeVisioneers — Mercedes-Benz */}
-                    <div className="shrink-0 flex items-center justify-center h-8 md:h-10 opacity-50 hover:opacity-90 transition-all duration-500">
-                      <img src="/images/bevisioneers-mercedes.png" alt="BeVisioneers — The Mercedes-Benz Fellowship" className="h-full w-auto object-contain brightness-0 invert" />
-                    </div>
-
-                    {/* Thin separator dot */}
-                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
-
-                    {/* Albukhary International University */}
-                    <div className="shrink-0 flex items-center justify-center h-9 md:h-11 opacity-50 hover:opacity-90 transition-all duration-500">
-                      <img src="/images/albukhary-university.png" alt="Albukhary International University" className="h-full w-auto object-contain brightness-0 invert" />
-                    </div>
-
-                    {/* Thin separator dot */}
-                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
-
-                    {/* Wild Asia */}
-                    <div className="shrink-0 flex items-center justify-center h-9 md:h-11 opacity-50 hover:opacity-90 transition-all duration-500">
-                      <img src="/images/wild-asia.png" alt="Wild Asia" className="h-full w-auto object-contain brightness-0 invert" />
-                    </div>
-
-                    {/* Thin separator dot */}
-                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
-
-                    {/* TIYA — Tzu Chi */}
-                    <div className="shrink-0 flex items-center justify-center h-7 md:h-9 opacity-50 hover:opacity-90 transition-all duration-500">
-                      <img src="/images/tiya-tzuchi.png" alt="TIYA — Tzu Chi International Youth Association" className="h-full w-auto object-contain brightness-0 invert" />
-                    </div>
-
-                    {/* Thin separator dot */}
-                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
-
-                    {/* Partner Logo 4 */}
-                    <div className="shrink-0 flex items-center justify-center h-8 md:h-10 opacity-50 hover:opacity-90 transition-all duration-500">
-                      <img src="/images/partner-logo-4.png" alt="Partner Organization" className="h-full w-auto object-contain brightness-0 invert" />
-                    </div>
-
-                    {/* Thin separator dot */}
-                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
-
-                  </div>
-                ))}
-              </div>
+              {/* Set 2 — duplicate for seamless loop */}
+              <img className="logo-lg" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="logo-wide" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              <img className="logo-wide" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support Network" />
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* 3. THE CRISIS WE CAN NO LONGER IGNORE */}
       {prefersReducedMotion ? (
