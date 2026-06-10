@@ -799,24 +799,39 @@ function App() {
         {/* Re-open max-w-7xl container for stats */}
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           {/* PILOT TARGET STATS */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 max-w-6xl mx-auto">
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover">
+          <div className="text-center mb-8 mt-16">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20 text-[#2E7D32] text-[10px] font-sans font-bold uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
+              V3 Pilot Targets — Not Yet Achieved
+            </span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover relative overflow-hidden">
+              <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
+                <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
+              </div>
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Residue Diversion</span>
               <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1"><Counter value="15000" /> <span className="text-xl font-sans font-normal text-[#0C1D13]/50">kg</span></h3>
-              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Palm Waste Diverted</p>
-              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Diverting 15,000 kg of palm waste from burning or decomposition.</p>
+              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Palm Waste to Divert</p>
+              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Our first V3 pilot aims to divert 15,000 kg of palm waste from burning or decomposition.</p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover">
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover relative overflow-hidden">
+              <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
+                <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
+              </div>
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Soil Hydrology</span>
               <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ <Counter value="18" suffix=" %" /> <span className="text-xl font-sans font-normal text-[#0C1D13]/50">gain</span></h3>
-              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Water Retention Improvement</p>
-              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Improving soil water retention by approximately 18% based on established agronomic data.</p>
+              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Water Retention Goal</p>
+              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">We aim to improve soil water retention by approximately 18% based on established agronomic data and our early lab results.</p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Pilot Target</span>
+            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover relative overflow-hidden">
+              <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
+                <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
+              </div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Carbon Sequestration</span>
               <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1">~ <Counter value="10" /> <span className="text-xl font-sans font-normal text-[#0C1D13]/50">tonnes</span></h3>
-              <p className="font-bold text-[#0C1D13] mb-4 text-sm">CO2e Sequestered</p>
-              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Targeting ~10 tonnes of CO2e sequestered in our upcoming V3 pilot.</p>
+              <p className="font-bold text-[#0C1D13] mb-4 text-sm">CO2e to Sequester</p>
+              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Targeting ~10 tonnes of CO2e sequestered through biochar soil application in our upcoming V3 pilot.</p>
             </motion.div>
           </div>
         </div>
@@ -942,13 +957,16 @@ function App() {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-lg border-t-4 border-t-[#4CAF50]">
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-3">Scientific Assumption</h4>
+            <motion.div variants={fadeUpVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-lg border-t-4 border-t-[#4CAF50] relative overflow-hidden">
+              <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#4CAF50]/20 border border-[#4CAF50]/30">
+                <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Validated</span>
+              </div>
+              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-3">Scientific Validation</h4>
               <p className="text-sm text-[#FAF9F6] font-sans leading-relaxed font-bold mb-2">
                 Can biochar measurably improve water and nutrient retention?
               </p>
               <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                We must conduct lab testing and establish farmer demo plots to prove our target metrics, capturing real farmer testimony as evidence for scaling our early stage pilot.
+                We have already conducted lab testing and established farmer demo plots that confirm biochar mixed with compost improves soil health. These early results validate our core hypothesis and provide the foundation for scaling our V3 pilot.
               </p>
             </motion.div>
           </div>
