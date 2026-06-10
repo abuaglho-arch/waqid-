@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   MapPin, Flame, Leaf, Mail, Send, 
@@ -42,7 +42,7 @@ const Contact = () => {
       } else {
         setSubmitError("Failed to submit form. Please try again or email directly.");
       }
-    } catch (error) {
+    } catch {
       setSubmitError("Network error. Please try again or email directly.");
     } finally {
       setIsSubmitting(false);
