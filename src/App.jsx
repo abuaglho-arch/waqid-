@@ -380,34 +380,34 @@ function App() {
       </motion.section>
 
       {/* 2.5 ECOSYSTEM & SUPPORT NETWORK */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] py-10 md:py-14 border-b border-[#2E7D32]/10">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] border-b border-[#2E7D32]/10">
         <div className="ecosystem-strip">
-          {/* Heading Column */}
-          <div className="relative z-[4] flex flex-col justify-center px-6 md:pl-[5vw] md:pr-7 py-6 lg:py-0">
-            <span className="text-[10px] font-sans font-bold uppercase tracking-[2px] text-[#2E7D32] mb-2">
+          {/* Heading */}
+          <div className="relative z-[4] h-full flex flex-col justify-center pl-6 md:pl-[5vw] pr-7">
+            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#254D44]">
               Ecosystem
             </span>
-            <h2 className="text-2xl md:text-[25px] font-display font-black text-[#0C1D13] leading-[1.04] tracking-tight max-w-[330px] m-0">
+            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#19362F] leading-[1.04] tracking-tight">
               Ecosystem &amp; Support Network
             </h2>
           </div>
 
           {/* Logo Marquee */}
-          <div className="logo-flow py-6 min-h-[100px]">
+          <div className="logo-flow">
             <div className="logo-line">
               {/* Set 1 */}
-              <img className="logo-lg" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
-              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
-              <img className="logo-wide" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
-              <img className="logo-wide" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support Network" />
+              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              <img className="wide-logo" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support Network" />
 
               {/* Set 2 — duplicate for seamless loop */}
-              <img className="logo-lg" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
-              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
-              <img className="logo-wide" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
-              <img className="logo-wide" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support Network" />
+              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              <img className="wide-logo" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support Network" />
             </div>
           </div>
         </div>
