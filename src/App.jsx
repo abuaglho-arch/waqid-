@@ -111,23 +111,14 @@ const crisisCards = [
 ];
 
 const useCardTransforms = (scrollYProgress, index, isMobile) => {
-  const dx = isMobile ? 8 : 16;
-  const dy = isMobile ? 8 : 12;
-  const step = 0.16;
-  const start = (index - 1) * step;
-  const end = index * step;
+  const dx = isMobile ? 6 : 12;
+  const step = 0.3;
+  const start = 0.1 + (index - 1) * step;
+  const end = 0.1 + index * step;
 
   const x = useTransform(scrollYProgress, [start, end], [1200, index * dx]);
-  const y = useTransform(scrollYProgress, [start, end], [0, index * dy]);
-  const scale = useTransform(scrollYProgress, [start, end], [1.02, 1 - index * 0.02]);
-  const rotate = useTransform(
-    scrollYProgress,
-    [start, end],
-    [index % 2 === 0 ? 8 : -8, index % 2 === 0 ? index * 1.5 : -index * 1.5]
-  );
-  const opacity = useTransform(scrollYProgress, [start, start + 0.03], [0, 1]);
 
-  return { x, y, scale, rotate, opacity };
+  return { x };
 };
 
 function App() {
@@ -169,33 +160,41 @@ function App() {
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     let index = 0;
-    if (latest > 0.82) index = 6;
-    else if (latest > 0.66) index = 5;
-    else if (latest > 0.50) index = 4;
-    else if (latest > 0.33) index = 3;
-    else if (latest > 0.17) index = 2;
-    else if (latest > 0.02) index = 1;
+    if (latest > 0.7) index = 3;
+    else if (latest > 0.4) index = 2;
+    else if (latest > 0.1) index = 1;
 
     if (index !== activeCardIndex) {
       setActiveCardIndex(index);
     }
   });
 
+  const handleCardClick = (index) => {
+    if (crisisSectionRef.current) {
+      const rect = crisisSectionRef.current.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const sectionHeight = crisisSectionRef.current.clientHeight;
+      const scrollableHeight = sectionHeight - window.innerHeight;
+      
+      const targetProgress = index === 0 ? 0.0 : index === 1 ? 0.25 : index === 2 ? 0.55 : 0.85;
+      const targetScroll = sectionTop + (targetProgress * scrollableHeight);
+      
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   const card1 = useCardTransforms(scrollYProgress, 1, isMobile);
   const card2 = useCardTransforms(scrollYProgress, 2, isMobile);
   const card3 = useCardTransforms(scrollYProgress, 3, isMobile);
-  const card4 = useCardTransforms(scrollYProgress, 4, isMobile);
-  const card5 = useCardTransforms(scrollYProgress, 5, isMobile);
-  const card6 = useCardTransforms(scrollYProgress, 6, isMobile);
 
   const cardTransforms = [
     null,
     card1,
     card2,
-    card3,
-    card4,
-    card5,
-    card6
+    card3
   ];
 
   const scrollCrisis = (direction) => {
@@ -481,53 +480,90 @@ function App() {
         <section 
           ref={crisisSectionRef} 
           id="crisis" 
-          className="relative h-[240vh] lg:h-[320vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
+          className="relative h-[200vh] lg:h-[260vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
           <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden bg-[#FAF9F6]">
             <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
               
-              {/* Left Static Panel */}
-              <div className="w-full lg:w-[40%] flex flex-col justify-center gap-4 text-left">
-                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                  The Crisis
-                </span>
-                <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight">
-                  The Crisis We Can No Longer Ignore
-                </h2>
-                <p className="text-xs sm:text-sm md:text-base text-[#0C1D13]/70 font-sans leading-relaxed mt-2">
-                  Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
-                </p>
+              {/* Left Static Panel & Compact Reading Panel */}
+              <div className="w-full lg:w-[45%] flex flex-col justify-center gap-6 text-left">
+                <div>
+                  <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                    The Crisis
+                  </span>
+                  <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-2">
+                    The Crisis We Can No Longer Ignore
+                  </h2>
+                  <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans leading-relaxed mt-2">
+                    Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
+                  </p>
+                </div>
+
+                {/* Compact Reading Panel (Desktop Only) */}
+                <div className="hidden lg:block min-h-[150px] border-l-2 border-[#2E7D32]/20 pl-6 py-1 transition-all duration-300">
+                  {activeCardIndex === 0 ? (
+                    <div>
+                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Overview</span>
+                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mt-1 mb-2">Key Metrics</h4>
+                      <p className="text-sm text-[#0C1D13]/85 font-sans leading-relaxed">
+                        Scroll or select the progress dots below to inspect each crisis. Click or tap any card in the deck to bring it to the front and read it clearly.
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                        Crisis [ {crisisCards[activeCardIndex - 1].index} ]
+                      </span>
+                      <h4 className="font-display font-bold text-xl text-[#0C1D13] mt-1 mb-2">
+                        {crisisCards[activeCardIndex - 1].title}
+                      </h4>
+                      <p className="text-sm text-[#0C1D13]/85 font-sans leading-relaxed">
+                        {crisisCards[activeCardIndex - 1].desc}
+                      </p>
+                    </div>
+                  )}
+                </div>
 
                 {/* Progress Indicators */}
-                <div className="flex flex-col gap-2 mt-4 sm:mt-8 max-w-xs">
+                <div className="flex flex-col gap-3 mt-2 max-w-xs">
                   <div className="flex justify-between text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/50">
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
-                      Scroll down to stack cards
+                      Scroll or tap to view
                     </span>
-                    <span>{activeCardIndex} / 6</span>
+                    <span>{activeCardIndex} / 3</span>
                   </div>
-                  <div className="h-1 w-full bg-[#2E7D32]/10 rounded-full overflow-hidden">
-                    <div 
-                      style={{ width: `${(activeCardIndex / 6) * 100}%` }} 
-                      className="h-full bg-[#2E7D32] transition-all duration-300"
-                    />
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3].map((dotIdx) => (
+                      <button
+                        key={dotIdx}
+                        onClick={() => handleCardClick(dotIdx)}
+                        className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                          activeCardIndex === dotIdx 
+                            ? 'w-8 bg-[#2E7D32]' 
+                            : 'w-2.5 bg-[#2E7D32]/20 hover:bg-[#2E7D32]/50'
+                        }`}
+                        aria-label={`Go to card ${dotIdx}`}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
 
               {/* Right Stacking Deck */}
-              <div className="w-full lg:w-[60%] flex items-center justify-center relative py-6 lg:py-0">
-                <div className="relative w-[80vw] sm:w-[420px] h-[320px] sm:h-[480px] max-w-[340px] sm:max-w-none">
+              <div className="w-full lg:w-[50%] flex items-center justify-center relative py-6 lg:py-0">
+                <div className="relative w-[85vw] sm:w-[420px] h-[340px] sm:h-[480px] max-w-[340px] sm:max-w-none">
                   
                   {/* Card 0: Base Key Metrics Card */}
-                  <div 
-                    style={{ 
-                      zIndex: 10,
-                      transform: 'none',
-                      position: 'relative'
+                  <motion.div 
+                    onClick={() => handleCardClick(0)}
+                    animate={{ 
+                      scale: activeCardIndex === 0 ? 1.04 : 0.95,
+                      opacity: activeCardIndex === 0 ? 1 : 0.6,
+                      zIndex: activeCardIndex === 0 ? 50 : 10
                     }}
-                    className="w-full h-full bg-[#FAF9F6] p-5 sm:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-[0_10px_35px_rgba(12,29,19,0.06)] flex flex-col justify-between text-left card-hover transition-all duration-300"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="w-full h-full bg-[#FAF9F6] p-5 sm:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-[0_10px_35px_rgba(12,29,19,0.06)] flex flex-col justify-between text-left card-hover transition-all duration-300 cursor-pointer select-none"
                   >
                     <div>
                       <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
@@ -553,24 +589,30 @@ function App() {
                         <p className="text-[10px] sm:text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  {/* Cards 1 to 6 */}
+                  {/* Cards 1 to 3 */}
                   {crisisCards.map((item, idx) => {
                     const cardIndex = idx + 1;
                     const transform = cardTransforms[cardIndex];
+                    const isActive = cardIndex === activeCardIndex;
+                    const isStacked = cardIndex < activeCardIndex;
+
                     return (
                       <motion.div 
                         key={idx} 
+                        onClick={() => handleCardClick(cardIndex)}
                         style={{ 
-                          x: transform.x,
-                          y: transform.y,
-                          scale: transform.scale,
-                          rotate: transform.rotate,
-                          opacity: transform.opacity,
-                          zIndex: 10 + cardIndex
+                          x: transform.x
                         }}
-                        className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(12,29,19,0.12)] border border-[#2E7D32]/10 bg-[#0C1D13]"
+                        animate={{
+                          y: isActive ? 0 : isStacked ? -12 * (activeCardIndex - cardIndex) : 0,
+                          scale: isActive ? 1.04 : isStacked ? 0.95 - (activeCardIndex - cardIndex) * 0.03 : 0.98,
+                          rotate: isActive ? 0 : isStacked ? (cardIndex % 2 === 0 ? 2 : -2) : (cardIndex % 2 === 0 ? 6 : -6),
+                          zIndex: isActive ? 50 : 10 + cardIndex
+                        }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(12,29,19,0.15)] border border-[#2E7D32]/10 bg-[#0C1D13] cursor-pointer group select-none"
                       >
                         {/* Image Background */}
                         <img 
@@ -579,15 +621,24 @@ function App() {
                           className="absolute inset-0 w-full h-full object-cover"
                         />
                         {/* Dark Gradient Overlay for text readability */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/45 to-transparent opacity-90" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/55 to-transparent opacity-95" />
                         
+                        {/* Solid Dimmer overlay for stacked cards */}
+                        <div 
+                          className={`absolute inset-0 bg-[#0C1D13] transition-opacity duration-300 pointer-events-none ${
+                            isActive ? 'opacity-0' : 'opacity-45 group-hover:opacity-35'
+                          }`} 
+                        />
+
                         {/* Text content absolute positioning */}
-                        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 text-left z-10">
+                        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-left z-10">
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-[10px] sm:text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
                             <h4 className="font-display font-bold text-lg sm:text-xl md:text-2xl text-[#FAF9F6]">{item.title}</h4>
                           </div>
-                          <p className="text-[10px] sm:text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">{item.desc}</p>
+                          <p className="text-[10px] sm:text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed lg:hidden">
+                            {item.desc}
+                          </p>
                         </div>
                       </motion.div>
                     );
