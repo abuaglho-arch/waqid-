@@ -496,10 +496,10 @@ function App() {
         <section 
           ref={crisisSectionRef} 
           id="crisis" 
-          className="relative h-[300vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
+          className="relative h-[500vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
-          <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden bg-[#FAF9F6]">
-            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-16 lg:pt-10">
+          <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-[#FAF9F6]">
+            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
               
               {/* Left Static Panel & Compact Reading Panel */}
               <div className="w-full lg:w-[45%] flex flex-col justify-center gap-6 text-left">
@@ -566,9 +566,9 @@ function App() {
                 </div>
               </div>
 
-              {/* Right Stacking Deck */}
+              {/* Right Stacking Stage */}
               <div className="w-full lg:w-[50%] flex items-center justify-center relative py-6 lg:py-0">
-                <div className="relative w-[85vw] sm:w-[420px] h-[340px] sm:h-[480px] max-w-[340px] sm:max-w-none">
+                <div className="relative w-[85vw] sm:w-[420px] h-[420px] max-w-[340px] sm:max-w-none overflow-visible">
                   
                   {/* Card 0: Base Key Metrics Card */}
                   <motion.div 
@@ -582,7 +582,7 @@ function App() {
                       zIndex: activeCardIndex === 0 ? 50 : 10
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className="w-full h-full bg-[#FAF9F6] p-5 sm:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-[0_10px_35px_rgba(12,29,19,0.06)] flex flex-col justify-between text-left card-hover transition-all duration-300 cursor-pointer select-none"
+                    className="absolute top-0 left-0 w-full h-full bg-[#FAF9F6] p-5 sm:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-[0_10px_35px_rgba(12,29,19,0.06)] flex flex-col justify-between text-left card-hover transition-all duration-300 cursor-pointer select-none"
                   >
                     <div>
                       <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
@@ -625,14 +625,14 @@ function App() {
                           x: transform.x
                         }}
                         animate={{
-                          y: 0,
+                          y: isMobile ? 5 * cardIndex : 10 * cardIndex,
                           scale: isActive ? 1.04 : isStacked ? 0.95 - (activeCardIndex - cardIndex) * 0.03 : 0.98,
                           rotate: isActive ? 0 : isStacked ? (cardIndex % 2 === 0 ? 2 : -2) : (cardIndex % 2 === 0 ? 6 : -6),
                           zIndex: isActive ? 50 : 10 + cardIndex,
                           opacity: isActive ? 1 : isStacked ? 0.6 : 0.8
                         }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(12,29,19,0.15)] border border-[#2E7D32]/10 bg-[#0C1D13] cursor-pointer group select-none"
+                        className="absolute top-0 left-0 w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(12,29,19,0.15)] border border-[#2E7D32]/10 bg-[#0C1D13] cursor-pointer group select-none"
                       >
                         {/* Image Background */}
                         <img 
