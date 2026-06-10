@@ -100,6 +100,26 @@ const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
   );
 };
 
+const useCardTransforms = (scrollYProgress, index, isMobile) => {
+  const dx = isMobile ? 8 : 16;
+  const dy = isMobile ? 8 : 12;
+  const step = 0.16;
+  const start = (index - 1) * step;
+  const end = index * step;
+
+  const x = useTransform(scrollYProgress, [start, end], [1200, index * dx]);
+  const y = useTransform(scrollYProgress, [start, end], [0, index * dy]);
+  const scale = useTransform(scrollYProgress, [start, end], [1.02, 1 - index * 0.02]);
+  const rotate = useTransform(
+    scrollYProgress,
+    [start, end],
+    [index % 2 === 0 ? 8 : -8, index % 2 === 0 ? index * 1.5 : -index * 1.5]
+  );
+  const opacity = useTransform(scrollYProgress, [start, start + 0.03], [0, 1]);
+
+  return { x, y, scale, rotate, opacity };
+};
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -149,32 +169,12 @@ function App() {
     }
   });
 
-  const useCardTransforms = (index) => {
-    const dx = isMobile ? 8 : 16;
-    const dy = isMobile ? 8 : 12;
-    const step = 0.16;
-    const start = (index - 1) * step;
-    const end = index * step;
-
-    const x = useTransform(scrollYProgress, [start, end], [1200, index * dx]);
-    const y = useTransform(scrollYProgress, [start, end], [0, index * dy]);
-    const scale = useTransform(scrollYProgress, [start, end], [1.02, 1 - index * 0.02]);
-    const rotate = useTransform(
-      scrollYProgress,
-      [start, end],
-      [index % 2 === 0 ? 8 : -8, index % 2 === 0 ? index * 1.5 : -index * 1.5]
-    );
-    const opacity = useTransform(scrollYProgress, [start, start + 0.03], [0, 1]);
-
-    return { x, y, scale, rotate, opacity };
-  };
-
-  const card1 = useCardTransforms(1);
-  const card2 = useCardTransforms(2);
-  const card3 = useCardTransforms(3);
-  const card4 = useCardTransforms(4);
-  const card5 = useCardTransforms(5);
-  const card6 = useCardTransforms(6);
+  const card1 = useCardTransforms(scrollYProgress, 1, isMobile);
+  const card2 = useCardTransforms(scrollYProgress, 2, isMobile);
+  const card3 = useCardTransforms(scrollYProgress, 3, isMobile);
+  const card4 = useCardTransforms(scrollYProgress, 4, isMobile);
+  const card5 = useCardTransforms(scrollYProgress, 5, isMobile);
+  const card6 = useCardTransforms(scrollYProgress, 6, isMobile);
 
   const cardTransforms = [
     null,
