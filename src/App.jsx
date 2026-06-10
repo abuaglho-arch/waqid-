@@ -379,40 +379,79 @@ function App() {
         </div>
       </motion.section>
 
-      {/* 2.5 ECOSYSTEM & SUPPORT NETWORK — Logo Marquee */}
-      <section className="bg-[#0C1D13] py-12 md:py-16 border-b border-[#2E7D32]/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(46,125,50,0.08)_0%,transparent_70%)] pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-6 relative z-10 mb-8 text-center">
-          <span className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] text-[#4CAF50]/70">
-            Ecosystem &amp; Support Network
-          </span>
-        </div>
+      {/* 2.5 ECOSYSTEM & SUPPORT NETWORK — Premium Editorial Ribbon */}
+      <section className="relative overflow-hidden border-y border-[#2E7D32]/15" style={{ background: 'linear-gradient(135deg, #0C1D13 0%, #132B1B 50%, #0C1D13 100%)' }}>
+        {/* Subtle ambient glow */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(76,175,80,0.06) 0%, transparent 70%)' }} />
 
-        {/* Marquee Track */}
-        <div className="w-full relative overflow-hidden">
-          {/* Left fade */}
-          <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-r from-[#0C1D13] to-transparent z-10 pointer-events-none" />
-          {/* Right fade */}
-          <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 bg-gradient-to-l from-[#0C1D13] to-transparent z-10 pointer-events-none" />
+        {/* Top thin accent line */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2E7D32]/30 to-transparent" />
+        {/* Bottom thin accent line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#2E7D32]/30 to-transparent" />
 
-          <div className="marquee-container w-full">
-            <div className="marquee-content animate-marquee gap-16 md:gap-24 items-center pr-16 md:pr-24" style={{ animationDuration: '25s' }}>
-              {[1, 2, 3].map((iteration) => (
-                <div key={iteration} className="flex gap-16 md:gap-24 items-center shrink-0">
-                  <div className="shrink-0 flex items-center justify-center h-12 md:h-14 opacity-70 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
-                    <img src="/images/bevisioneers-mercedes.png" alt="BeVisioneers — The Mercedes-Benz Fellowship" className="h-full w-auto object-contain invert" />
+        <div className="py-10 md:py-14 relative z-10">
+          {/* Section Label */}
+          <div className="text-center mb-8">
+            <span className="text-[9px] font-sans font-bold uppercase tracking-[0.25em] text-[#FAF9F6]/30">
+              Ecosystem &amp; Support Network
+            </span>
+          </div>
+
+          {/* Marquee Track */}
+          <div className="w-full relative overflow-hidden">
+            {/* Left edge fade */}
+            <div className="absolute left-0 top-0 bottom-0 w-32 md:w-48 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #0C1D13, transparent)' }} />
+            {/* Right edge fade */}
+            <div className="absolute right-0 top-0 bottom-0 w-32 md:w-48 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #0C1D13, transparent)' }} />
+
+            <div className="marquee-container w-full">
+              <div className="marquee-content animate-marquee items-center" style={{ animationDuration: '30s', gap: '5rem' }}>
+                {[1, 2, 3].map((iteration) => (
+                  <div key={iteration} className="flex items-center shrink-0" style={{ gap: '5rem' }}>
+
+                    {/* BeVisioneers — Mercedes-Benz */}
+                    <div className="shrink-0 flex items-center justify-center h-8 md:h-10 opacity-50 hover:opacity-90 transition-all duration-500">
+                      <img src="/images/bevisioneers-mercedes.png" alt="BeVisioneers — The Mercedes-Benz Fellowship" className="h-full w-auto object-contain brightness-0 invert" />
+                    </div>
+
+                    {/* Thin separator dot */}
+                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
+
+                    {/* Albukhary International University */}
+                    <div className="shrink-0 flex items-center justify-center h-9 md:h-11 opacity-50 hover:opacity-90 transition-all duration-500">
+                      <img src="/images/albukhary-university.png" alt="Albukhary International University" className="h-full w-auto object-contain brightness-0 invert" />
+                    </div>
+
+                    {/* Thin separator dot */}
+                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
+
+                    {/* Wild Asia */}
+                    <div className="shrink-0 flex items-center justify-center h-9 md:h-11 opacity-50 hover:opacity-90 transition-all duration-500">
+                      <img src="/images/wild-asia.png" alt="Wild Asia" className="h-full w-auto object-contain brightness-0 invert" />
+                    </div>
+
+                    {/* Thin separator dot */}
+                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
+
+                    {/* TIYA — Tzu Chi */}
+                    <div className="shrink-0 flex items-center justify-center h-7 md:h-9 opacity-50 hover:opacity-90 transition-all duration-500">
+                      <img src="/images/tiya-tzuchi.png" alt="TIYA — Tzu Chi International Youth Association" className="h-full w-auto object-contain brightness-0 invert" />
+                    </div>
+
+                    {/* Thin separator dot */}
+                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
+
+                    {/* Partner Logo 4 */}
+                    <div className="shrink-0 flex items-center justify-center h-8 md:h-10 opacity-50 hover:opacity-90 transition-all duration-500">
+                      <img src="/images/partner-logo-4.png" alt="Partner Organization" className="h-full w-auto object-contain brightness-0 invert" />
+                    </div>
+
+                    {/* Thin separator dot */}
+                    <div className="w-1 h-1 rounded-full bg-[#FAF9F6]/15 shrink-0" />
+
                   </div>
-                  <div className="shrink-0 flex items-center justify-center h-12 md:h-14 opacity-70 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
-                    <img src="/images/albukhary-university.png" alt="Albukhary International University" className="h-full w-auto object-contain" />
-                  </div>
-                  <div className="shrink-0 flex items-center justify-center h-10 md:h-12 opacity-70 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
-                    <img src="/images/tiya-tzuchi.png" alt="TIYA — Tzu Chi International Youth Association" className="h-full w-auto object-contain" />
-                  </div>
-                  <div className="shrink-0 flex items-center justify-center h-12 md:h-14 opacity-70 hover:opacity-100 transition-opacity duration-500 grayscale hover:grayscale-0">
-                    <img src="/images/partner-logo-4.png" alt="Partner Organization" className="h-full w-auto object-contain" />
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
