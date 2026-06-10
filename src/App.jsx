@@ -307,7 +307,7 @@ function App() {
           >
               
               {/* THE SCALE STATS (Key Metrics Card) */}
-              <div className="snap-center shrink-0 w-[85vw] sm:w-[420px] bg-[#FAF9F6] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between text-left card-hover">
+              <div className="snap-center shrink-0 w-[85vw] sm:w-[420px] h-[460px] bg-[#FAF9F6] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between text-left card-hover">
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
                   <h3 className="text-3xl font-display font-black text-[#0C1D13] mt-2 mb-8 leading-tight">The Magnitude of the Problem</h3>
@@ -332,30 +332,31 @@ function App() {
               {[
                 { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Accumulates", desc: "Organic residues pile up when they are treated as waste instead of resources. Palm biomass, rice husks, and farm by-products are often left unused, creating pressure at farms and processing sites." },
                 { index: "02", image: "/images/methane-rises.png", title: "Methane Rises", desc: "When organic waste decomposes without proper management, it can release gases that make the climate problem worse. What looks like simple waste becomes part of a larger environmental cost." },
-                { index: "03", image: "/images/farmers-pay-more.png", title: "Farmers Pay More", desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources." },
+                { index: "03", image: "/images/farmers-pay-more.jpg", title: "Farmers Pay More", desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources." },
                 { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Overused land gradually loses nutrients, structure, and fertility. Without better soil support, farms become less resilient and harvests become harder to sustain over time." },
                 { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure." },
                 { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability." }
               ].map((item, idx) => (
                 <div 
                   key={idx} 
-                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] bg-[#FAF9F6] rounded-3xl border border-[#2E7D32]/10 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col group card-hover"
+                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] h-[460px] rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 relative group card-hover border border-[#2E7D32]/10"
                 >
-                  <div className="h-56 w-full overflow-hidden relative">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-8 text-left flex-grow flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-xs font-sans font-bold text-[#C95D32]">[ {item.index} ]</span>
-                        <h4 className="font-display font-bold text-xl text-[#0C1D13]">{item.title}</h4>
-                      </div>
-                      <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed">{item.desc}</p>
+                  {/* Image Background */}
+                  <img 
+                    src={item.image} 
+                    alt={item.title} 
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Dark Gradient Overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/40 to-transparent opacity-85 group-hover:opacity-90 transition-opacity duration-500" />
+                  
+                  {/* Text content absolute positioning */}
+                  <div className="absolute bottom-0 left-0 right-0 p-8 text-left z-10">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
+                      <h4 className="font-display font-bold text-xl text-[#FAF9F6]">{item.title}</h4>
                     </div>
+                    <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
