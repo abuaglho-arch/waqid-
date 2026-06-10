@@ -533,29 +533,29 @@ function App() {
           className="relative h-[350vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
           <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-[#FAF9F6]">
-            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-10">
+            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center lg:items-center justify-between gap-4 lg:gap-8">
               
               {/* Left Column: Static Text & Reading Panel */}
-              <div className="w-full lg:w-[30%] flex flex-col justify-center gap-5 text-left shrink-0">
+              <div className="w-full lg:w-[28%] flex flex-col justify-center gap-3 text-left shrink-0">
                 <div>
                   <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                     The Crisis
                   </span>
-                  <h2 className="text-3xl md:text-4xl font-display font-black text-[#0C1D13] leading-tight mt-2">
+                  <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-black text-[#0C1D13] leading-tight mt-1.5">
                     The Crisis We Can No Longer Ignore
                   </h2>
-                  <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed mt-2">
+                  <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed mt-1.5">
                     Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
                   </p>
                 </div>
 
                 {/* Compact Reading Panel (Desktop Only) */}
-                <div className="hidden lg:block min-h-[160px] border-l-2 border-[#2E7D32]/20 pl-5 py-1 transition-all duration-300">
+                <div className="hidden lg:block min-h-[120px] border-l-2 border-[#2E7D32]/20 pl-4 py-1 transition-all duration-300">
                   {activeCardIndex === 0 ? (
                     <div>
                       <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Overview</span>
-                      <h4 className="font-display font-bold text-lg text-[#0C1D13] mt-1 mb-2">Getting Started</h4>
-                      <p className="text-sm text-[#0C1D13]/85 font-sans leading-relaxed">
+                      <h4 className="font-display font-bold text-base text-[#0C1D13] mt-1 mb-1">Getting Started</h4>
+                      <p className="text-xs text-[#0C1D13]/85 font-sans leading-relaxed">
                         Scroll or select the progress dots below to inspect each crisis card.
                       </p>
                     </div>
@@ -564,10 +564,10 @@ function App() {
                       <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                         Crisis [ {crisisCards[activeCardIndex - 1].index} ]
                       </span>
-                      <h4 className="font-display font-bold text-lg text-[#0C1D13] mt-1 mb-2">
+                      <h4 className="font-display font-bold text-base text-[#0C1D13] mt-1 mb-1">
                         {crisisCards[activeCardIndex - 1].title}
                       </h4>
-                      <p className="text-sm text-[#0C1D13]/85 font-sans leading-relaxed">
+                      <p className="text-xs text-[#0C1D13]/85 font-sans leading-relaxed">
                         {crisisCards[activeCardIndex - 1].desc}
                       </p>
                     </div>
@@ -575,7 +575,7 @@ function App() {
                 </div>
 
                 {/* Progress Indicators */}
-                <div className="flex flex-col gap-3 mt-1 max-w-xs">
+                <div className="flex flex-col gap-2 max-w-xs">
                   <div className="flex justify-between text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/50">
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
@@ -588,10 +588,10 @@ function App() {
                       <button
                         key={dotIdx}
                         onClick={() => handleCardClick(dotIdx)}
-                        className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        className={`h-2 rounded-full transition-all duration-300 cursor-pointer ${
                           activeCardIndex === dotIdx 
-                            ? 'w-8 bg-[#2E7D32]' 
-                            : 'w-2.5 bg-[#2E7D32]/20 hover:bg-[#2E7D32]/50'
+                            ? 'w-7 bg-[#2E7D32]' 
+                            : 'w-2 bg-[#2E7D32]/20 hover:bg-[#2E7D32]/50'
                         }`}
                         aria-label={`Go to card ${dotIdx}`}
                       />
@@ -601,28 +601,28 @@ function App() {
               </div>
 
               {/* Center Column: Static Key Metrics Panel */}
-              <div className="hidden lg:flex w-[25%] shrink-0">
-                <div className="w-full bg-[#FAF9F6] p-6 rounded-3xl border border-[#2E7D32]/10 shadow-[0_10px_35px_rgba(12,29,19,0.06)] flex flex-col justify-between text-left">
+              <div className="hidden lg:flex w-[24%] shrink-0">
+                <div className="w-full bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.05)] flex flex-col justify-between text-left">
                   <div>
                     <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
-                    <h3 className="text-lg md:text-xl font-display font-black text-[#0C1D13] mt-1 mb-4 leading-tight">The Magnitude of the Problem</h3>
+                    <h3 className="text-base lg:text-lg font-display font-black text-[#0C1D13] mt-1 mb-3 leading-tight">The Magnitude of the Problem</h3>
                   </div>
-                  <div className="flex flex-col gap-3">
+                  <div className="flex flex-col gap-2.5">
                     <div className="border-b border-[#2E7D32]/10 pb-2">
-                      <h4 className="text-2xl md:text-3xl font-serif font-bold text-[#2E7D32] mb-0.5">
-                        <Counter value="80" suffix="M+" /> <span className="text-[10px] font-sans font-normal text-[#0C1D13]/50 ml-1">tonnes</span>
+                      <h4 className="text-xl lg:text-2xl font-serif font-bold text-[#2E7D32] mb-0.5">
+                        <Counter value="80" suffix="M+" /> <span className="text-[9px] font-sans font-normal text-[#0C1D13]/50 ml-1">tonnes</span>
                       </h4>
                       <p className="text-[10px] text-[#0C1D13]/70 font-sans">Palm biomass generated annually in Malaysia.</p>
                     </div>
                     <div className="border-b border-[#2E7D32]/10 pb-2">
-                      <h4 className="text-2xl md:text-3xl font-serif font-bold text-[#2E7D32] mb-0.5">
-                        <Counter value="22" prefix="20-" suffix="M" /> <span className="text-[10px] font-sans font-normal text-[#0C1D13]/50 ml-1">tonnes</span>
+                      <h4 className="text-xl lg:text-2xl font-serif font-bold text-[#2E7D32] mb-0.5">
+                        <Counter value="22" prefix="20-" suffix="M" /> <span className="text-[9px] font-sans font-normal text-[#0C1D13]/50 ml-1">tonnes</span>
                       </h4>
                       <p className="text-[10px] text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
                     </div>
                     <div>
-                      <h4 className="text-2xl md:text-3xl font-serif font-bold text-[#2E7D32] mb-0.5">
-                        <Counter value="34" suffix="x" /> <span className="text-[10px] font-sans font-normal text-[#0C1D13]/50 ml-1">threat</span>
+                      <h4 className="text-xl lg:text-2xl font-serif font-bold text-[#2E7D32] mb-0.5">
+                        <Counter value="34" suffix="x" /> <span className="text-[9px] font-sans font-normal text-[#0C1D13]/50 ml-1">threat</span>
                       </h4>
                       <p className="text-[10px] text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
                     </div>
@@ -631,8 +631,8 @@ function App() {
               </div>
 
               {/* Right Column: Stacking Crisis Cards Only */}
-              <div className="w-full lg:w-[40%] flex items-center justify-center relative py-6 lg:py-0">
-                <div className="relative w-[85vw] sm:w-[380px] h-[400px] max-w-[340px] sm:max-w-none overflow-visible">
+              <div className="w-full lg:w-[42%] flex items-center justify-center relative">
+                <div className="relative w-[85vw] sm:w-[360px] h-[360px] sm:h-[380px] max-w-[340px] sm:max-w-none overflow-visible">
                   
                   {/* Cards 1 to 6 — all fully solid, no transparency */}
                   {crisisCards.map((item, idx) => {
@@ -656,7 +656,7 @@ function App() {
                           opacity: 1
                         }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="absolute top-0 left-0 w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(12,29,19,0.15)] border border-[#2E7D32]/10 bg-[#0C1D13] cursor-pointer group select-none"
+                        className="absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden shadow-[0_16px_40px_rgba(12,29,19,0.12)] border border-[#2E7D32]/10 bg-[#0C1D13] cursor-pointer group select-none"
                       >
                         {/* Image Background */}
                         <img 
@@ -668,12 +668,12 @@ function App() {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/50 to-transparent" />
 
                         {/* Text content */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 text-left z-10">
-                          <div className="flex items-center gap-2 mb-2">
+                        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-left z-10">
+                          <div className="flex items-center gap-2 mb-1.5">
                             <span className="text-[10px] sm:text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
-                            <h4 className="font-display font-bold text-lg sm:text-xl md:text-2xl text-[#FAF9F6]">{item.title}</h4>
+                            <h4 className="font-display font-bold text-base sm:text-lg md:text-xl text-[#FAF9F6]">{item.title}</h4>
                           </div>
-                          <p className="text-[10px] sm:text-xs md:text-sm text-[#FAF9F6]/90 font-sans leading-relaxed lg:hidden">
+                          <p className="text-[10px] sm:text-xs text-[#FAF9F6]/90 font-sans leading-relaxed lg:hidden">
                             {item.desc}
                           </p>
                         </div>
