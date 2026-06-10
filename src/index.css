@@ -241,17 +241,19 @@
 }
 
 /* ── Ecosystem Logo Strip ── */
-.ecosystem-strip {
+.ecosystem-logo-strip {
   position: relative;
   width: 100%;
-  height: 165px;
+  height: 175px;
   overflow: hidden;
   display: grid;
   grid-template-columns: 390px 1fr;
   align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
 }
 
-.ecosystem-strip::before {
+.ecosystem-logo-strip::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -261,6 +263,36 @@
     linear-gradient(rgba(37, 77, 68, 0.022) 1px, transparent 1px);
   background-size: auto, 48px 48px, 48px 48px;
   pointer-events: none;
+}
+
+.ecosystem-heading {
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  padding-left: 5vw;
+  padding-right: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.ecosystem-heading span {
+  display: block;
+  margin-bottom: 9px;
+  color: #254D44;
+  font-size: 10.5px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.ecosystem-heading h2 {
+  margin: 0;
+  max-width: 330px;
+  color: #19362F;
+  font-size: 25px;
+  line-height: 1.04;
+  letter-spacing: -0.8px;
+  font-weight: 900;
 }
 
 .logo-flow {
@@ -285,85 +317,107 @@
 
 .logo-flow::before {
   left: 0;
-  background: linear-gradient(to right, #FAF9F6, rgba(250, 249, 246, 0));
+  background: linear-gradient(to right, #ffffff, rgba(255,255,255,0));
 }
 
 .logo-flow::after {
   right: 0;
-  background: linear-gradient(to left, #FAF9F6, rgba(250, 249, 246, 0));
+  background: linear-gradient(to left, #ffffff, rgba(255,255,255,0));
 }
 
 .logo-line {
   display: flex;
   align-items: center;
-  gap: 70px;
+  gap: 72px;
   width: max-content;
-  padding-right: 70px;
-  will-change: transform;
-  animation: logoFlowMove 28s linear infinite;
+  padding: 0 72px;
+  animation: logoFlowMove 34s linear infinite;
 }
 
 .logo-line img {
   flex-shrink: 0;
   object-fit: contain;
   display: block;
-  mix-blend-mode: multiply; /* Removes white backgrounds for clean integration */
+  filter: none;
+  opacity: 1;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
 }
 
-/* Specific heights ensure optical balance regardless of intrinsic ratios */
-.logo-line img.medium-logo {
-  height: 80px; 
-  width: auto;
+.logo-line img.green-logo {
+  width: 320px;
+  max-width: none;
+  max-height: 115px;
 }
 
-.logo-line img.green-logo {
-  height: 90px;
-  width: auto;
+.logo-line img.medium-logo {
+  max-width: 170px;
+  max-height: 78px;
 }
 
 .logo-line img.wide-logo {
-  height: 60px;
-  width: auto;
+  max-width: 290px;
+  max-height: 80px;
 }
 
 @keyframes logoFlowMove {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 @media screen and (max-width: 800px) {
-  .ecosystem-strip {
-    height: 230px;
+  .ecosystem-logo-strip {
+    height: 235px;
     grid-template-columns: 1fr;
   }
 
+  .ecosystem-heading {
+    height: 92px;
+    padding: 22px 24px 0;
+    justify-content: flex-start;
+  }
+
+  .ecosystem-heading span {
+    margin-bottom: 8px;
+    font-size: 10px;
+  }
+
+  .ecosystem-heading h2 {
+    max-width: 350px;
+    font-size: 24px;
+    line-height: 1.05;
+    letter-spacing: -0.75px;
+  }
+
   .logo-flow {
-    height: 138px;
+    height: 143px;
   }
 
   .logo-line {
-    gap: 48px;
-    padding-right: 48px;
-    padding-left: 0;
-    animation-duration: 28s;
-  }
-
-  .logo-line img.medium-logo {
-    height: 60px;
-    width: auto;
+    gap: 50px;
+    padding: 0 50px;
+    animation: logoFlowMove 28s linear infinite;
   }
 
   .logo-line img.green-logo {
-    height: 68px;
-    width: auto;
+    width: 250px;
+    max-width: none;
+    max-height: 92px;
+  }
+
+  .logo-line img.medium-logo {
+    max-width: 140px;
+    max-height: 66px;
   }
 
   .logo-line img.wide-logo {
-    height: 44px;
-    width: auto;
+    max-width: 235px;
+    max-height: 66px;
   }
 }
-
