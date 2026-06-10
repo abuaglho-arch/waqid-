@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { 
   ArrowUpRight, Target, Leaf, Flame, RotateCw, Globe, 
   Sprout, Factory, MapPin, Mail, ChevronDown, Activity, CheckCircle2, ShieldCheck,
@@ -105,7 +105,96 @@ function App() {
   const [activeFaq, setActiveFaq] = useState(null);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
+  const crisisScrollRef = useRef(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mobileQuery = window.matchMedia("(max-width: 1024px)");
+    setIsMobile(mobileQuery.matches);
+    const mobileListener = (e) => setIsMobile(e.matches);
+    mobileQuery.addEventListener("change", mobileListener);
+
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(motionQuery.matches);
+    const motionListener = (e) => setPrefersReducedMotion(e.matches);
+    motionQuery.addEventListener("change", motionListener);
+
+    return () => {
+      mobileQuery.removeEventListener("change", mobileListener);
+      motionQuery.removeEventListener("change", motionListener);
+    };
+  }, []);
+
+  const crisisSectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: crisisSectionRef,
+    offset: ["start start", "end end"]
+  });
+
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    let index = 0;
+    if (latest > 0.82) index = 6;
+    else if (latest > 0.66) index = 5;
+    else if (latest > 0.50) index = 4;
+    else if (latest > 0.33) index = 3;
+    else if (latest > 0.17) index = 2;
+    else if (latest > 0.02) index = 1;
+
+    if (index !== activeCardIndex) {
+      setActiveCardIndex(index);
+    }
+  });
+
+  const useCardTransforms = (index) => {
+    const dx = isMobile ? 8 : 16;
+    const dy = isMobile ? 8 : 12;
+    const step = 0.16;
+    const start = (index - 1) * step;
+    const end = index * step;
+
+    const x = useTransform(scrollYProgress, [start, end], [1200, index * dx]);
+    const y = useTransform(scrollYProgress, [start, end], [0, index * dy]);
+    const scale = useTransform(scrollYProgress, [start, end], [1.02, 1 - index * 0.02]);
+    const rotate = useTransform(
+      scrollYProgress,
+      [start, end],
+      [index % 2 === 0 ? 8 : -8, index % 2 === 0 ? index * 1.5 : -index * 1.5]
+    );
+    const opacity = useTransform(scrollYProgress, [start, start + 0.03], [0, 1]);
+
+    return { x, y, scale, rotate, opacity };
+  };
+
+  const card1 = useCardTransforms(1);
+  const card2 = useCardTransforms(2);
+  const card3 = useCardTransforms(3);
+  const card4 = useCardTransforms(4);
+  const card5 = useCardTransforms(5);
+  const card6 = useCardTransforms(6);
+
+  const cardTransforms = [
+    null,
+    card1,
+    card2,
+    card3,
+    card4,
+    card5,
+    card6
+  ];
+
+  const scrollCrisis = (direction) => {
+    if (crisisScrollRef.current) {
+      const cardWidth = 380 + 24; // Card width + gap
+      crisisScrollRef.current.scrollBy({
+        left: direction === 'left' ? -cardWidth : cardWidth,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -149,13 +238,20 @@ function App() {
             <img src="/images/waqid-logo-transparent.png" alt="WAQID Logo" className="h-8 md:h-10 object-contain drop-shadow-md" />
           </div>
           <div className="hidden md:flex items-center gap-8">
-            {['crisis', 'solution', 'impact', 'roadmap'].map((item) => (
+            {[
+              { id: 'crisis', name: 'Crisis' },
+              { id: 'solution', name: 'Solution' },
+              { id: 'impact', name: 'Impact' },
+              { id: 'assumptions', name: 'Roadmap' },
+              { id: 'traction', name: 'Field Trials' },
+              { id: 'team', name: 'Team' }
+            ].map((item) => (
               <button 
-                key={item}
-                onClick={() => document.getElementById(item)?.scrollIntoView({ behavior: "smooth" })}
+                key={item.id}
+                onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" })}
                 className="text-xs font-bold uppercase tracking-widest text-[#FAF9F6]/80 hover:text-[#4CAF50] transition-colors"
               >
-                {item}
+                {item.name}
               </button>
             ))}
           </div>
@@ -169,14 +265,17 @@ function App() {
       </nav>
 
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[95vh] flex items-center justify-center pt-24 overflow-hidden bg-[#0C1D13]">
-        <div className="absolute inset-0 bg-hero-pattern opacity-[0.03] pointer-events-none mix-blend-overlay" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0C1D13]/50 via-transparent to-[#0C1D13] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#2E7D32]/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen" />
-        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#4CAF50]/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
+      <section 
+        style={{ minHeight: '100vh' }}
+        className="relative flex items-center justify-center pt-24 pb-16 overflow-hidden bg-[#0C1D13] w-full"
+      >
+        <div className="absolute inset-0 bg-hero-pattern opacity-[0.03] pointer-events-none mix-blend-overlay z-1" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0C1D13]/70 via-[#0C1D13]/55 to-[#0C1D13] pointer-events-none z-1" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#2E7D32]/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-1" />
+        <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#4CAF50]/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen z-1" />
 
-        <motion.div style={{ y: heroY }} className="absolute inset-0 opacity-40">
-          <img src="/images/cinematic-hero.png" alt="WAQID Operations" className="w-full h-full object-cover object-center" />
+        <motion.div style={{ y: heroY }} className="absolute inset-0 opacity-55 z-0 scale-110">
+          <img src="/images/waqid_circular_restoration_hero.png" alt="WAQID Operations" className="w-full h-full object-cover object-center" />
         </motion.div>
 
         {/* Floating Sparks/Embers overlay */}
@@ -194,22 +293,22 @@ function App() {
         </div>
 
         <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="relative z-10 max-w-5xl mx-auto px-6 text-center">
-          <motion.div variants={fadeUpVariant} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#152E1E]/80 backdrop-blur-md border border-[#2E7D32]/30 text-[#4CAF50] text-[10px] font-sans font-bold uppercase tracking-widest mb-8 shadow-xl">
+          <motion.div variants={fadeUpVariant} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#152E1E]/80 backdrop-blur-md border border-[#2E7D32]/30 text-[#4CAF50] text-[10px] font-sans font-bold uppercase tracking-widest mb-6 shadow-xl">
             <span className="w-1.5 h-1.5 rounded-full bg-[#4CAF50] animate-pulse" />
             PROTOTYPE-STAGE CLIMATE VENTURE
           </motion.div>
 
-          <motion.h1 variants={fadeUpVariant} className="text-4xl sm:text-6xl md:text-8xl font-display font-black tracking-tight leading-[1.05] text-[#FAF9F6] text-balance">
+          <motion.h1 variants={fadeUpVariant} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black tracking-tight leading-[1.1] text-[#FAF9F6] text-balance mb-6">
             Restoring Land. <br />
             Closing the Loop. <br />
             <span className="text-[#4CAF50]">Cooling the Planet.</span>
           </motion.h1>
 
-          <motion.p variants={fadeUpVariant} className="mt-6 text-[#FAF9F6]/75 font-sans text-base md:text-xl max-w-2xl mx-auto leading-relaxed text-balance">
-            WAQID is moving from digital blueprint to pilot validation. We turn palm biomass waste into soil restoration, clean fuel, and local climate resilience.
+          <motion.p variants={fadeUpVariant} className="mt-4 text-[#FAF9F6]/85 font-sans text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed text-balance">
+            WAQID is a prototype-stage climate venture developing decentralized biochar and clean heat systems that turn palm biomass waste into soil restoration, cleaner fuel, and rural climate resilience.
           </motion.p>
 
-          <motion.div variants={fadeUpVariant} className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto">
+          <motion.div variants={fadeUpVariant} className="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto">
             <button
               onClick={() => handleTrackSelect("Investor / Pitch Deck Request")}
               className="btn-hover-shadow w-full sm:w-auto px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs border border-[#2E7D32]/20 shadow-md flex items-center justify-center"
@@ -223,8 +322,11 @@ function App() {
               Partner With Us
             </button>
           </motion.div>
-        </motion.div>
 
+          <motion.p variants={fadeUpVariant} className="mt-8 text-[#FAF9F6]/50 font-sans text-[10px] sm:text-xs tracking-wider uppercase font-bold">
+            Built for palm mills, smallholder farmers, and rural communities.
+          </motion.p>
+        </motion.div>
 
       </section>
 
@@ -251,34 +353,62 @@ function App() {
       </motion.section>
 
       {/* 3. THE CRISIS WE CAN NO LONGER IGNORE */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="crisis" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative">
-            
-            {/* Left sticky column */}
-            <div className="lg:col-span-5 lg:sticky lg:top-[120px] h-fit flex flex-col gap-4 text-left">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                The Crisis
-              </span>
-              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight">
-                The Crisis We Can No Longer Ignore
-              </h2>
-              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans leading-relaxed">
-                Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
-              </p>
+      {prefersReducedMotion ? (
+        <motion.section 
+          variants={sectionReveal} 
+          initial="initial" 
+          whileInView="whileInView" 
+          viewport={{ once: true, margin: "-50px" }} 
+          id="crisis" 
+          className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left"
+        >
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+              <div className="max-w-2xl text-left">
+                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                  The Crisis
+                </span>
+                <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3">
+                  The Crisis We Can No Longer Ignore
+                </h2>
+                <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
+                  Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
+                </p>
+              </div>
+              <div className="flex gap-3 shrink-0">
+                <button 
+                  onClick={() => scrollCrisis('left')}
+                  className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer z-20"
+                  aria-label="Scroll Left"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  onClick={() => scrollCrisis('right')}
+                  className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer z-20"
+                  aria-label="Scroll Right"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
+          </div>
 
-            {/* Right sticky stacking column */}
-            <div className="lg:col-span-7 flex flex-col gap-8 lg:gap-16 pb-24 relative items-center lg:items-start w-full">
-              
-              {/* Card 1: Key Metrics Card */}
+          <div className="w-full relative overflow-hidden">
+            <div 
+              ref={crisisScrollRef}
+              className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth w-full px-6 md:px-[calc((100vw-1280px)/2+1.5rem)]"
+              style={{ 
+                scrollPaddingLeft: 'max(1.5rem, calc((100vw - 1280px) / 2 + 1.5rem))' 
+              }}
+            >
               <div 
                 style={{ 
                   position: 'sticky', 
-                  top: '120px',
+                  left: '1.5rem',
                   zIndex: 11
                 }}
-                className="w-full max-w-[480px] h-[450px] sm:h-[480px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left card-hover transition-all duration-300"
+                className="snap-center shrink-0 w-[85vw] sm:w-[420px] h-[450px] sm:h-[480px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left card-hover transition-all duration-300"
               >
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
@@ -306,34 +436,23 @@ function App() {
                 </div>
               </div>
 
-              {/* Crisis Cards */}
-              {[
-                { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Accumulates", desc: "Organic residues pile up when they are treated as waste instead of resources. Palm biomass, rice husks, and farm by-products are often left unused, creating pressure at farms and processing sites." },
-                { index: "02", image: "/images/methane-rises.png", title: "Methane Rises", desc: "When organic waste decomposes without proper management, it can release gases that make the climate problem worse. What looks like simple waste becomes part of a larger environmental cost." },
-                { index: "03", image: "/images/farmers-pay-more.jpg", title: "Farmers Pay More", desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources." },
-                { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Overused land gradually loses nutrients, structure, and fertility. Without better soil support, farms become less resilient and harvests become harder to sustain over time." },
-                { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure." },
-                { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability." }
-              ].map((item, idx) => (
+              {crisisCards.map((item, idx) => (
                 <div 
                   key={idx} 
                   style={{ 
                     position: 'sticky', 
-                    top: `${120 + (idx + 1) * 16}px`,
+                    left: `calc(1.5rem + ${(idx + 1) * 16}px)`,
                     zIndex: 12 + idx
                   }}
-                  className="w-full max-w-[480px] h-[450px] sm:h-[480px] rounded-3xl overflow-hidden shadow-xl transition-all duration-300 relative group card-hover border border-[#2E7D32]/10"
+                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] h-[450px] sm:h-[480px] rounded-3xl overflow-hidden shadow-xl transition-all duration-300 relative group card-hover border border-[#2E7D32]/10"
                 >
-                  {/* Image Background */}
                   <img 
                     src={item.image} 
                     alt={item.title} 
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  {/* Dark Gradient Overlay for text readability */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/40 to-transparent opacity-85 group-hover:opacity-90 transition-opacity duration-500" />
                   
-                  {/* Text content absolute positioning */}
                   <div className="absolute bottom-0 left-0 right-0 p-8 text-left z-10">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
@@ -344,10 +463,131 @@ function App() {
                 </div>
               ))}
             </div>
-
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
+      ) : (
+        <section 
+          ref={crisisSectionRef} 
+          id="crisis" 
+          className="relative h-[320vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
+        >
+          <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden bg-[#FAF9F6]">
+            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+              
+              {/* Left Static Panel */}
+              <div className="w-full lg:w-[40%] flex flex-col justify-center gap-4 text-left">
+                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                  The Crisis
+                </span>
+                <h2 className="text-2xl sm:text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight">
+                  The Crisis We Can No Longer Ignore
+                </h2>
+                <p className="text-xs sm:text-sm md:text-base text-[#0C1D13]/70 font-sans leading-relaxed mt-2">
+                  Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
+                </p>
+
+                {/* Progress Indicators */}
+                <div className="flex flex-col gap-2 mt-4 sm:mt-8 max-w-xs">
+                  <div className="flex justify-between text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/50">
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
+                      Scroll down to stack cards
+                    </span>
+                    <span>{activeCardIndex} / 6</span>
+                  </div>
+                  <div className="h-1 w-full bg-[#2E7D32]/10 rounded-full overflow-hidden">
+                    <div 
+                      style={{ width: `${(activeCardIndex / 6) * 100}%` }} 
+                      className="h-full bg-[#2E7D32] transition-all duration-300"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Stacking Deck */}
+              <div className="w-full lg:w-[60%] flex items-center justify-center relative py-6 lg:py-0">
+                <div className="relative w-[80vw] sm:w-[420px] h-[320px] sm:h-[480px] max-w-[340px] sm:max-w-none">
+                  
+                  {/* Card 0: Base Key Metrics Card */}
+                  <div 
+                    style={{ 
+                      zIndex: 10,
+                      transform: 'none',
+                      position: 'relative'
+                    }}
+                    className="w-full h-full bg-[#FAF9F6] p-5 sm:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-[0_10px_35px_rgba(12,29,19,0.06)] flex flex-col justify-between text-left card-hover transition-all duration-300"
+                  >
+                    <div>
+                      <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
+                      <h3 className="text-lg sm:text-xl md:text-3xl font-display font-black text-[#0C1D13] mt-1 mb-3 sm:mb-6 leading-tight">The Magnitude of the Problem</h3>
+                    </div>
+                    <div className="flex flex-col gap-3 sm:gap-4">
+                      <div className="border-b border-[#2E7D32]/10 pb-2 sm:pb-3">
+                        <h4 className="text-xl sm:text-2xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-0.5">
+                          <Counter value="80" suffix="M+" /> <span className="text-[10px] font-sans font-normal text-[#0C1D13]/50 ml-1">tonnes</span>
+                        </h4>
+                        <p className="text-[10px] sm:text-xs text-[#0C1D13]/70 font-sans">Palm biomass generated annually in Malaysia.</p>
+                      </div>
+                      <div className="border-b border-[#2E7D32]/10 pb-2 sm:pb-3">
+                        <h4 className="text-xl sm:text-2xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-0.5">
+                          <Counter value="22" prefix="20-" suffix="M" /> <span className="text-[10px] font-sans font-normal text-[#0C1D13]/50 ml-1">tonnes</span>
+                        </h4>
+                        <p className="text-[10px] sm:text-xs text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
+                      </div>
+                      <div>
+                        <h4 className="text-xl sm:text-2xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-0.5">
+                          <Counter value="34" suffix="x" /> <span className="text-[10px] font-sans font-normal text-[#0C1D13]/50 ml-1">threat</span>
+                        </h4>
+                        <p className="text-[10px] sm:text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Cards 1 to 6 */}
+                  {crisisCards.map((item, idx) => {
+                    const cardIndex = idx + 1;
+                    const transform = cardTransforms[cardIndex];
+                    return (
+                      <motion.div 
+                        key={idx} 
+                        style={{ 
+                          x: transform.x,
+                          y: transform.y,
+                          scale: transform.scale,
+                          rotate: transform.rotate,
+                          opacity: transform.opacity,
+                          zIndex: 10 + cardIndex
+                        }}
+                        className="absolute inset-0 w-full h-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(12,29,19,0.12)] border border-[#2E7D32]/10 bg-[#0C1D13]"
+                      >
+                        {/* Image Background */}
+                        <img 
+                          src={item.image} 
+                          alt={item.title} 
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        {/* Dark Gradient Overlay for text readability */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/45 to-transparent opacity-90" />
+                        
+                        {/* Text content absolute positioning */}
+                        <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-8 text-left z-10">
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-[10px] sm:text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
+                            <h4 className="font-display font-bold text-lg sm:text-xl md:text-2xl text-[#FAF9F6]">{item.title}</h4>
+                          </div>
+                          <p className="text-[10px] sm:text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">{item.desc}</p>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 4. THE WAQID SOLUTION */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
@@ -1100,7 +1340,7 @@ function App() {
           </div>
 
           {/* Bottom Copyright & Disclaimer */}
-          <div className="mt-12 pt-8 border-t border-[#2E7D32]/20 flex flex-col md:flex-row justify-between items-center md:items-start gap-6">
+          <div className="mt-12 pt-8 border-t border-[#2E7D32]/20 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <p className="text-xs text-[#FAF9F6]/40 font-sans text-center md:text-left">
               &copy; 2026 Waqid. All rights reserved.
             </p>
