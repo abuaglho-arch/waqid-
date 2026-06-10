@@ -499,7 +499,7 @@ function App() {
           className="relative h-[200vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
           <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden bg-[#FAF9F6]">
-            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16">
+            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-16 lg:pt-10">
               
               {/* Left Static Panel & Compact Reading Panel */}
               <div className="w-full lg:w-[45%] flex flex-col justify-center gap-6 text-left">
@@ -516,7 +516,7 @@ function App() {
                 </div>
 
                 {/* Compact Reading Panel (Desktop Only) */}
-                <div className="hidden lg:block min-h-[150px] border-l-2 border-[#2E7D32]/20 pl-6 py-1 transition-all duration-300">
+                <div className="hidden lg:block min-h-[200px] border-l-2 border-[#2E7D32]/20 pl-6 py-1 transition-all duration-300">
                   {activeCardIndex === 0 ? (
                     <div>
                       <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Overview</span>
@@ -575,7 +575,7 @@ function App() {
                     onClick={() => handleCardClick(0)}
                     animate={{ 
                       x: activeCardIndex === 0 ? 0 : (isMobile ? -6 * activeCardIndex : -12 * activeCardIndex),
-                      y: activeCardIndex === 0 ? 0 : (isMobile ? -6 * activeCardIndex : -12 * activeCardIndex),
+                      y: 0,
                       scale: activeCardIndex === 0 ? 1.04 : 0.95 - activeCardIndex * 0.03,
                       rotate: activeCardIndex === 0 ? 0 : -2,
                       opacity: activeCardIndex === 0 ? 1 : 0.6,
@@ -625,7 +625,7 @@ function App() {
                           x: transform.x
                         }}
                         animate={{
-                          y: isActive ? 0 : isStacked ? -12 * (activeCardIndex - cardIndex) : 0,
+                          y: 0,
                           scale: isActive ? 1.04 : isStacked ? 0.95 - (activeCardIndex - cardIndex) * 0.03 : 0.98,
                           rotate: isActive ? 0 : isStacked ? (cardIndex % 2 === 0 ? 2 : -2) : (cardIndex % 2 === 0 ? 6 : -6),
                           zIndex: isActive ? 50 : 10 + cardIndex,
