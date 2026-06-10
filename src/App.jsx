@@ -166,20 +166,18 @@ function App() {
     offset: ["start start", "end end"]
   });
 
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [activeCardIndex, setActiveCardIndex] = useState(1);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const totalCards = 6;
     const step = 0.85 / 5;
     
-    let index = 0;
-    if (latest > 0.02) {
-      const cardStep = Math.floor((latest - 0.02) / step) + 2;
+    // Calculate index based on the midpoint of the card's entry animation
+    // so the text changes when the new card is halfway in.
+    let index = 1;
+    if (latest >= 0) {
+      const cardStep = Math.floor((latest - 0.02) / step + 0.5) + 1;
       index = Math.min(Math.max(cardStep, 1), totalCards);
-    }
-    
-    if (latest <= 0.01) {
-      index = 0;
     }
 
     if (index !== activeCardIndex) {
@@ -192,9 +190,10 @@ function App() {
       const rect = crisisSectionRef.current.getBoundingClientRect();
       const sectionTop = window.scrollY + rect.top;
       const sectionHeight = crisisSectionRef.current.clientHeight;
-      const scrollableHeight = sectionHeight - window.innerHeight;
+      const scrollableHeight = sectionHeight - Math.min(window.innerHeight, 620);
       
-      const targetProgress = index === 0 ? 0.0 : index === 1 ? 0.015 : 0.02 + ((index - 1) * (0.85 / 5));
+      // Scroll to exactly the point where the chosen card finishes entering
+      const targetProgress = index === 1 ? 0.0 : 0.02 + ((index - 1) * (0.85 / 5));
       const targetScroll = sectionTop + (targetProgress * scrollableHeight);
       
       window.scrollTo({
@@ -538,9 +537,9 @@ function App() {
         <section 
           ref={crisisSectionRef} 
           id="crisis" 
-          className="relative h-[350vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
+          className="relative h-[150vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
-          <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center bg-[#FAF9F6]">
+          <div className="sticky top-0 h-[100vh] max-h-[620px] w-full overflow-hidden flex items-center bg-[#FAF9F6]">
             <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center lg:items-center justify-between gap-4 lg:gap-8">
               
               {/* Left Column: Static Text & Reading Panel */}
@@ -565,27 +564,17 @@ function App() {
 
                 {/* Compact Reading Panel (Desktop Only) */}
                 <div className="hidden lg:block min-h-[120px] border-l-2 border-[#2E7D32]/20 pl-4 py-1 transition-all duration-300">
-                  {activeCardIndex === 0 ? (
-                    <div>
-                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Overview</span>
-                      <h4 className="font-display font-bold text-base text-[#0C1D13] mt-1 mb-1">Getting Started</h4>
-                      <p className="text-xs text-[#0C1D13]/85 font-sans leading-relaxed">
-                        Scroll or select the progress dots below to inspect each crisis card.
-                      </p>
-                    </div>
-                  ) : (
-                    <div>
-                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                        Crisis [ {crisisCards[activeCardIndex - 1].index} ]
-                      </span>
-                      <h4 className="font-display font-bold text-base text-[#0C1D13] mt-1 mb-1">
-                        {crisisCards[activeCardIndex - 1].title}
-                      </h4>
-                      <p className="text-xs text-[#0C1D13]/85 font-sans leading-relaxed">
-                        {crisisCards[activeCardIndex - 1].desc}
-                      </p>
-                    </div>
-                  )}
+                  <div>
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                      Crisis [ {crisisCards[activeCardIndex - 1]?.index || "01"} ]
+                    </span>
+                    <h4 className="font-display font-bold text-base text-[#0C1D13] mt-1 mb-1">
+                      {crisisCards[activeCardIndex - 1]?.title}
+                    </h4>
+                    <p className="text-xs text-[#0C1D13]/85 font-sans leading-relaxed">
+                      {crisisCards[activeCardIndex - 1]?.desc}
+                    </p>
+                  </div>
                 </div>
 
                 {/* Progress Indicators */}
@@ -595,10 +584,10 @@ function App() {
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
                       Scroll or tap to view
                     </span>
-                    <span>{activeCardIndex === 0 ? "Overview" : `${activeCardIndex} / 6`}</span>
+                    <span>{`${activeCardIndex} / 6`}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    {[0, 1, 2, 3, 4, 5, 6].map((dotIdx) => (
+                    {[1, 2, 3, 4, 5, 6].map((dotIdx) => (
                       <button
                         key={dotIdx}
                         onClick={() => handleCardClick(dotIdx)}
