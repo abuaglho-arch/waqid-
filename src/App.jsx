@@ -105,18 +105,7 @@ function App() {
   const [activeFaq, setActiveFaq] = useState(null);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
-  
-  const crisisScrollRef = useRef(null);
 
-  const scrollCrisis = (direction) => {
-    if (crisisScrollRef.current) {
-      const cardWidth = 380 + 24; // Card width + gap
-      crisisScrollRef.current.scrollBy({
-        left: direction === 'left' ? -cardWidth : cardWidth,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -262,67 +251,56 @@ function App() {
       </motion.section>
 
       {/* 3. THE CRISIS WE CAN NO LONGER IGNORE */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="crisis" className="bg-[#F4F1E8] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="crisis" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
-            <div className="max-w-2xl text-left">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative">
+            
+            {/* Left sticky column */}
+            <div className="lg:col-span-5 lg:sticky lg:top-[120px] h-fit flex flex-col gap-4 text-left">
               <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                 The Crisis
               </span>
-              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3">
+              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight">
                 The Crisis We Can No Longer Ignore
               </h2>
-              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
+              <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans leading-relaxed">
                 Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
               </p>
             </div>
-            <div className="flex gap-3 shrink-0">
-              <button 
-                onClick={() => scrollCrisis('left')}
-                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
-                aria-label="Scroll Left"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button 
-                onClick={() => scrollCrisis('right')}
-                className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer"
-                aria-label="Scroll Right"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div> {/* Close max-w-7xl mx-auto px-6 */}
 
-        {/* HORIZONTAL SCROLL CARDS (Full bleed container) */}
-        <div className="w-full relative overflow-hidden">
-
-          <div 
-            ref={crisisScrollRef}
-            className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth w-full px-6 md:px-[calc((100vw-1280px)/2+1.5rem)]"
-            style={{ 
-              scrollPaddingLeft: 'max(1.5rem, calc((100vw - 1280px) / 2 + 1.5rem))' 
-            }}
-          >
+            {/* Right sticky stacking column */}
+            <div className="lg:col-span-7 flex flex-col gap-8 lg:gap-16 pb-24 relative items-center lg:items-start w-full">
               
-              {/* THE SCALE STATS (Key Metrics Card) */}
-              <div className="snap-center shrink-0 w-[85vw] sm:w-[420px] h-[460px] bg-[#FAF9F6] p-8 md:p-10 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between text-left card-hover">
+              {/* Card 1: Key Metrics Card */}
+              <div 
+                style={{ 
+                  position: 'sticky', 
+                  top: '120px',
+                  zIndex: 11
+                }}
+                className="w-full max-w-[480px] h-[450px] sm:h-[480px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left card-hover transition-all duration-300"
+              >
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
-                  <h3 className="text-3xl font-display font-black text-[#0C1D13] mt-2 mb-8 leading-tight">The Magnitude of the Problem</h3>
+                  <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2 mb-6 leading-tight">The Magnitude of the Problem</h3>
                 </div>
-                <div className="flex flex-col gap-6">
-                  <div className="border-b border-[#2E7D32]/10 pb-4">
-                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1"><Counter value="80" suffix="M+" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                <div className="flex flex-col gap-4">
+                  <div className="border-b border-[#2E7D32]/10 pb-3">
+                    <h4 className="text-3xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-1">
+                      <Counter value="80" suffix="M+" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-1.5">tonnes</span>
+                    </h4>
                     <p className="text-xs text-[#0C1D13]/70 font-sans">Palm biomass generated annually in Malaysia.</p>
                   </div>
-                  <div className="border-b border-[#2E7D32]/10 pb-4">
-                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1"><Counter value="22" prefix="20-" suffix="M" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span></h4>
+                  <div className="border-b border-[#2E7D32]/10 pb-3">
+                    <h4 className="text-3xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-1">
+                      <Counter value="22" prefix="20-" suffix="M" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-1.5">tonnes</span>
+                    </h4>
                     <p className="text-xs text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
                   </div>
                   <div>
-                    <h4 className="text-4xl font-serif font-bold text-[#2E7D32] mb-1"><Counter value="34" suffix="x" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50">threat</span></h4>
+                    <h4 className="text-3xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-1">
+                      <Counter value="34" suffix="x" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-1.5">threat</span>
+                    </h4>
                     <p className="text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
                   </div>
                 </div>
@@ -339,7 +317,12 @@ function App() {
               ].map((item, idx) => (
                 <div 
                   key={idx} 
-                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] h-[460px] rounded-3xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 relative group card-hover border border-[#2E7D32]/10"
+                  style={{ 
+                    position: 'sticky', 
+                    top: `${120 + (idx + 1) * 16}px`,
+                    zIndex: 12 + idx
+                  }}
+                  className="w-full max-w-[480px] h-[450px] sm:h-[480px] rounded-3xl overflow-hidden shadow-xl transition-all duration-300 relative group card-hover border border-[#2E7D32]/10"
                 >
                   {/* Image Background */}
                   <img 
@@ -354,15 +337,17 @@ function App() {
                   <div className="absolute bottom-0 left-0 right-0 p-8 text-left z-10">
                     <div className="flex items-center gap-2 mb-3">
                       <span className="text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
-                      <h4 className="font-display font-bold text-xl text-[#FAF9F6]">{item.title}</h4>
+                      <h4 className="font-display font-bold text-xl md:text-2xl text-[#FAF9F6]">{item.title}</h4>
                     </div>
                     <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
+
           </div>
-        </motion.section>
+        </div>
+      </motion.section>
 
       {/* 4. THE WAQID SOLUTION */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
@@ -605,7 +590,7 @@ function App() {
       </motion.section>
 
       {/* 7. WHAT WE MUST PROVE NEXT */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="assumptions" className="bg-[#F0EFEA] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="assumptions" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
