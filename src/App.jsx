@@ -114,11 +114,19 @@ const crisisCards = [
 
 const useCardTransforms = (scrollYProgress, index, isMobile, totalCards = 6) => {
   const dx = isMobile ? 6 : 12;
-  const step = 0.8 / totalCards;
-  const start = 0.1 + (index - 1) * step;
-  const end = 0.1 + index * step;
+  
+  if (index === 1) {
+    // Card 1 starts and stays in position so it reveals synchronously with the text
+    const x = useTransform(scrollYProgress, [0, 1], [dx, dx]);
+    return { x };
+  }
 
-  const x = useTransform(scrollYProgress, [start, end], [1200, index * dx]);
+  // Cards 2-6 start earlier, move faster, from a closer distance
+  const step = 0.85 / 5;
+  const start = 0.02 + (index - 2) * step;
+  const end = 0.02 + (index - 1) * step;
+
+  const x = useTransform(scrollYProgress, [start, end], [800, index * dx]);
 
   return { x };
 };
@@ -162,15 +170,15 @@ function App() {
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const totalCards = 6;
-    const step = 0.8 / totalCards;
+    const step = 0.85 / 5;
     
     let index = 0;
-    if (latest > 0.08) {
-      const cardStep = Math.floor((latest - 0.08) / step) + 1;
+    if (latest > 0.02) {
+      const cardStep = Math.floor((latest - 0.02) / step) + 2;
       index = Math.min(Math.max(cardStep, 1), totalCards);
     }
     
-    if (latest <= 0.05) {
+    if (latest <= 0.01) {
       index = 0;
     }
 
@@ -186,7 +194,7 @@ function App() {
       const sectionHeight = crisisSectionRef.current.clientHeight;
       const scrollableHeight = sectionHeight - window.innerHeight;
       
-      const targetProgress = index === 0 ? 0.0 : index === 6 ? 0.95 : (index / 6);
+      const targetProgress = index === 0 ? 0.0 : index === 1 ? 0.015 : 0.02 + ((index - 1) * (0.85 / 5));
       const targetScroll = sectionTop + (targetProgress * scrollableHeight);
       
       window.scrollTo({
@@ -536,7 +544,13 @@ function App() {
             <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center lg:items-center justify-between gap-4 lg:gap-8">
               
               {/* Left Column: Static Text & Reading Panel */}
-              <div className="w-full lg:w-[28%] flex flex-col justify-center gap-3 text-left shrink-0">
+              <motion.div 
+                variants={sectionReveal}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ once: true, margin: "-50px" }}
+                className="w-full lg:w-[28%] flex flex-col justify-center gap-3 text-left shrink-0"
+              >
                 <div>
                   <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                     The Crisis
@@ -598,10 +612,16 @@ function App() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Center Column: Static Key Metrics Panel */}
-              <div className="hidden lg:flex w-[24%] shrink-0">
+              <motion.div 
+                variants={sectionReveal}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ once: true, margin: "-50px" }}
+                className="hidden lg:flex w-[24%] shrink-0"
+              >
                 <div className="w-full bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.05)] flex flex-col justify-between text-left">
                   <div>
                     <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
@@ -628,10 +648,16 @@ function App() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Right Column: Stacking Crisis Cards Only */}
-              <div className="w-full lg:w-[42%] flex items-center justify-center relative">
+              <motion.div 
+                variants={sectionReveal}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ once: true, margin: "-50px" }}
+                className="w-full lg:w-[42%] flex items-center justify-center relative"
+              >
                 <div className="relative w-[85vw] sm:w-[360px] h-[360px] sm:h-[380px] max-w-[340px] sm:max-w-none overflow-visible">
                   
                   {/* Cards 1 to 6 — all fully solid, no transparency */}
@@ -680,9 +706,8 @@ function App() {
                       </motion.div>
                     );
                   })}
-
                 </div>
-              </div>
+              </motion.div>
 
             </div>
           </div>
