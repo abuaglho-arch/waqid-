@@ -257,7 +257,7 @@ function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] selection:bg-[#4CAF50]/30 selection:text-[#0C1D13] font-sans antialiased overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAF9F6] selection:bg-[#4CAF50]/30 selection:text-[#0C1D13] font-sans antialiased overflow-x-clip">
       {/* NAVBAR */}
       <nav className={`fixed w-full z-50 transition-all duration-500 border-b ${scrolled ? 'bg-[#0C1D13]/95 backdrop-blur-xl py-3 border-[#2E7D32]/20 shadow-lg' : 'bg-transparent py-6 border-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
