@@ -1290,7 +1290,7 @@ function App() {
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Join The Movement</h4>
               <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Partners & Team</p>
               <p className="text-sm text-[#FAF9F6]/70 leading-relaxed px-2 relative z-10">
-                We are actively seeking early adopter mills, research collaborators, and catalytic capital to scale our pilot.
+                We are actively looking for passionate operators, strategic partners, and early believers to help us complete this mission in any way possible.
               </p>
             </motion.div>
           </div>
