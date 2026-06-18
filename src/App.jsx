@@ -415,6 +415,9 @@ function App() {
               <div className="logo-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
               </div>
+              <div className="logo-card">
+                <img src="/images/new-ecosystem-logo.jpg" alt="Added Partner Logo" />
+              </div>
 
               {/* Set 2 — duplicate for seamless loop */}
               <div className="logo-card">
@@ -428,6 +431,9 @@ function App() {
               </div>
               <div className="logo-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              </div>
+              <div className="logo-card">
+                <img src="/images/new-ecosystem-logo.jpg" alt="Added Partner Logo" />
               </div>
             </div>
           </div>
@@ -1469,82 +1475,103 @@ function App() {
       </motion.section>
 
       {/* FOOTER */}
-      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-16 pb-12 border-t border-[#2E7D32]/20 relative overflow-hidden">
-
+      <footer className="bg-[#0C1D13] text-[#FAF9F6] pt-20 pb-12 border-t border-[#2E7D32]/25 relative overflow-hidden">
         {/* Soft background green glow */}
-        <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-[#2E7D32]/10 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#2E7D32]/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -top-12 -left-12 w-64 h-64 bg-[#4CAF50]/5 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-6 relative z-20">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+            
             {/* Logo and Description (5 columns) */}
-            <div className="lg:col-span-5 flex flex-col items-start gap-4">
+            <div className="lg:col-span-5 flex flex-col items-start gap-5">
               <button 
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="text-left cursor-pointer focus:outline-none"
+                className="text-left cursor-pointer focus:outline-none hover:opacity-85 transition-opacity"
               >
                 <img 
                   src="/images/waqid-logo-transparent.png" 
                   alt="WAQID Logo" 
-                  className="h-10 w-auto object-contain opacity-90"
+                  className="h-10 w-auto object-contain drop-shadow-lg"
                 />
               </button>
-              <p className="text-[#FAF9F6]/60 text-xs max-w-sm font-sans mt-2 leading-relaxed">
-                A circular system converting agricultural palm waste into affordable, soil-restoring biochar for smallholder farmers.
+              <p className="text-[#FAF9F6]/65 text-xs max-w-sm font-sans leading-relaxed">
+                WAQID is building circular pyrolysis and clean energy systems that turn unmanaged palm waste into permanent soil restoration and rural climate resilience.
               </p>
-              <span className="text-[10px] uppercase tracking-widest font-sans font-bold text-[#4CAF50] mt-2 block">
-                Circular Solutions for Soil and Energy.
-              </span>
-              <div className="flex gap-4 text-xs font-sans text-[#FAF9F6]/50 mt-1">
-                <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#4CAF50]" /> Malaysia</span>
-                <a href="mailto:Abuaglho@gmail.com" className="flex items-center gap-1.5 hover:text-[#4CAF50] transition-colors"><Mail className="w-3.5 h-3.5 text-[#4CAF50]" /> Abuaglho@gmail.com</a>
+              
+              <div className="flex flex-col gap-2.5 text-xs font-sans text-[#FAF9F6]/55 w-full">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#4CAF50] animate-pulse" />
+                  <span className="font-bold text-[#4CAF50] tracking-wide uppercase text-[10px]">Circular Solutions for Soil and Energy</span>
+                </div>
+                <div className="flex items-center gap-4 mt-1">
+                  <span className="flex items-center gap-2 bg-[#152E1E]/50 px-3 py-1.5 rounded-lg border border-[#2E7D32]/20">
+                    <MapPin className="w-3.5 h-3.5 text-[#4CAF50]" /> Malaysia
+                  </span>
+                  <a 
+                    href="mailto:Abuaglho@gmail.com" 
+                    className="flex items-center gap-2 bg-[#152E1E]/50 px-3 py-1.5 rounded-lg border border-[#2E7D32]/20 hover:border-[#4CAF50] hover:text-[#FAF9F6] transition-colors"
+                  >
+                    <Mail className="w-3.5 h-3.5 text-[#4CAF50]" /> Abuaglho@gmail.com
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Quick links (3 columns) */}
-            <div className="lg:col-span-3 flex flex-col items-start gap-4">
-              <h4 className="font-display font-bold text-xs uppercase tracking-widest text-[#4CAF50] mb-2">
-                Ecosystem
+            <div className="lg:col-span-3 flex flex-col items-start gap-5">
+              <h4 className="font-display font-black text-xs uppercase tracking-widest text-[#4CAF50] border-b border-[#2E7D32]/20 pb-2 w-full text-left">
+                Ecosystem Links
               </h4>
-              <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-xs font-sans text-[#FAF9F6]/70">
-                <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
-                  Home
-                </button>
-                <button onClick={() => document.getElementById("crisis")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
-                  Crisis
-                </button>
-                <button onClick={() => document.getElementById("solution")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
-                  Solution
-                </button>
-                <button onClick={() => document.getElementById("traction")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer focus:outline-none">
-                  Field Trials
-                </button>
-                <button onClick={() => document.getElementById("impact")?.scrollIntoView({ behavior: "smooth" })} className="text-left hover:text-[#4CAF50] transition-colors cursor-pointer col-span-2 focus:outline-none">
-                  Measurable Impact
-                </button>
+              <div className="flex flex-col gap-3 text-xs font-sans text-[#FAF9F6]/70 w-full text-left">
+                {[
+                  { id: 'crisis', label: 'Crisis Context' },
+                  { id: 'solution', label: 'Our Solution' },
+                  { id: 'impact', label: 'Measurable Impact' },
+                  { id: 'traction', label: 'Field Trials' },
+                  { id: 'revenue', label: 'Revenue Model' },
+                  { id: 'team', label: 'Team & Advisors' }
+                ].map((link) => (
+                  <button 
+                    key={link.id}
+                    onClick={() => document.getElementById(link.id)?.scrollIntoView({ behavior: "smooth" })} 
+                    className="text-left hover:text-[#4CAF50] hover:translate-x-1 transition-all duration-300 cursor-pointer focus:outline-none flex items-center gap-1.5 group"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    {link.label}
+                  </button>
+                ))}
               </div>
             </div>
 
             {/* Operational Credentials (4 columns) */}
-            <div className="lg:col-span-4 flex flex-col items-start gap-4">
-              <h4 className="font-display font-bold text-xs uppercase tracking-widest text-[#4CAF50] mb-2">
-                Operations
+            <div className="lg:col-span-4 flex flex-col items-start gap-5">
+              <h4 className="font-display font-black text-xs uppercase tracking-widest text-[#4CAF50] border-b border-[#2E7D32]/20 pb-2 w-full text-left">
+                Cooperative Framework
               </h4>
-              <div className="border border-[#2E7D32]/30 rounded-2xl p-6 bg-[#0C1D13] w-full max-w-sm">
-                <h5 className="font-display font-bold text-sm text-[#FAF9F6] mb-2">Cooperative Program: Wild Asia</h5>
-                <p className="text-xs text-[#FAF9F6]/60 font-sans leading-relaxed">
-                  Confirmed collaboration on decentralized pyrolysis reactor diagnostics and agronomic field validation.
+              <div className="border border-[#2E7D32]/35 rounded-2xl p-6 bg-[#152E1E]/40 w-full relative overflow-hidden shadow-inner group hover:border-[#4CAF50]/40 transition-all duration-300">
+                <span className="absolute top-4 right-4 text-[9px] font-sans font-black uppercase tracking-widest text-[#4CAF50] bg-[#4CAF50]/15 border border-[#4CAF50]/20 px-2.5 py-1.5 rounded-full">
+                  Active Partner
+                </span>
+                
+                <h5 className="font-display font-bold text-sm text-[#FAF9F6] mb-2 group-hover:text-[#4CAF50] transition-colors duration-300">
+                  Wild Asia Program
+                </h5>
+                <p className="text-xs text-[#FAF9F6]/65 font-sans leading-relaxed text-balance">
+                  Cooperative agreement confirmed for decentralized pyrolysis reactor diagnostics, operational scaling, and agronomic field validation.
                 </p>
               </div>
             </div>
+
           </div>
 
           {/* Bottom Copyright & Disclaimer */}
-          <div className="mt-12 pt-8 border-t border-[#2E7D32]/20 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-            <p className="text-xs text-[#FAF9F6]/40 font-sans text-center md:text-left">
-              &copy; 2026 Waqid. All rights reserved.
+          <div className="mt-16 pt-8 border-t border-[#2E7D32]/20 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <p className="text-xs text-[#FAF9F6]/45 font-sans text-center md:text-left">
+              &copy; 2026 WAQID Solutions. All rights reserved.
             </p>
-            <p className="text-[10px] text-[#FAF9F6]/30 max-w-xl font-sans text-center md:text-right leading-relaxed">
-              All statistics cited are sourced directly from peer-reviewed scientific databases, Malaysian Palm Oil Board reports, and Wild Asia farm interview registries (2024–2026).
+            <p className="text-[10px] text-[#FAF9F6]/35 max-w-xl font-sans text-center md:text-right leading-relaxed text-balance">
+              All statistics cited are sourced directly from peer-reviewed scientific databases, Malaysian Palm Oil Board reports, and Wild Asia farm registries (2024–2026).
             </p>
           </div>
         </div>
