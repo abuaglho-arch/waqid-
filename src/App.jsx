@@ -440,9 +440,12 @@ function App() {
                 Why WAQID Exists
               </h2>
             </div>
-            <div className="md:col-span-7">
+            <div className="md:col-span-7 flex flex-col gap-4">
               <p className="text-base md:text-xl text-[#0C1D13]/80 font-serif leading-relaxed italic border-l-4 border-[#2E7D32] pl-6 py-2">
                 "WAQID began from a simple contradiction: some communities lack affordable clean energy, while others burn valuable biomass as waste. We close this logic gap by turning waste into soil restoration, cleaner fuel, and local climate resilience."
+              </p>
+              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed pl-7">
+                Palm oil mills generate millions of tonnes of wet Empty Fruit Bunches (EFBs) annually, facing heavy waste disposal fees, logistics bottlenecks, and environment penalties for open decomposition. WAQID offers mills a circular, decentralized technology that bypasses landfill disposal and directly yields climate-friendly outputs.
               </p>
             </div>
           </div>
@@ -542,13 +545,15 @@ function App() {
                 scrollPaddingLeft: 'max(1.5rem, calc((100vw - 1280px) / 2 + 1.5rem))' 
               }}
             >
-              <div 
+              <motion.div 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
                 style={{ 
                   position: 'sticky', 
                   left: '1.5rem',
                   zIndex: 11
                 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[420px] h-[450px] sm:h-[480px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left card-hover transition-all duration-300"
+                className="snap-center shrink-0 w-[85vw] sm:w-[420px] h-[450px] sm:h-[480px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left cursor-pointer group"
               >
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
@@ -577,17 +582,19 @@ function App() {
                     <p className="text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {crisisCards.map((item, idx) => (
-                <div 
+                <motion.div 
                   key={idx} 
+                  whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                  whileTap={{ scale: 0.985 }}
                   style={{ 
                     position: 'sticky', 
                     left: `calc(1.5rem + ${(idx + 1) * 16}px)`,
                     zIndex: 12 + idx
                   }}
-                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] h-[450px] sm:h-[480px] rounded-3xl overflow-hidden shadow-xl transition-all duration-300 relative group card-hover border border-[#2E7D32]/10"
+                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] h-[450px] sm:h-[480px] rounded-3xl overflow-hidden shadow-xl relative group border border-[#2E7D32]/10 cursor-pointer"
                 >
                   <img 
                     src={item.image} 
@@ -603,7 +610,7 @@ function App() {
                     </div>
                     <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">{item.desc}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -794,8 +801,13 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <RotateCw className="w-6 h-6" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Waste Recovery</h4>
@@ -803,8 +815,13 @@ function App() {
                 Converts unmanaged palm biomass into useful outputs instead of burning or decomposition.
               </p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Flame className="w-6 h-6" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Clean Heat</h4>
@@ -812,8 +829,13 @@ function App() {
                 Produces thermal energy that can support mill or local operations.
               </p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Sprout className="w-6 h-6" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Soil Restoration</h4>
@@ -821,8 +843,13 @@ function App() {
                 Creates biochar-based soil products designed to improve soil health and reduce input dependency.
               </p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col card-hover">
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Hexagon className="w-6 h-6" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
@@ -1021,11 +1048,16 @@ function App() {
           <div className="text-center mb-8 mt-16">
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20 text-[#2E7D32] text-[10px] font-sans font-bold uppercase tracking-widest">
               <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
-              V3 Pilot Targets — Not Yet Achieved
+              V3 Demonstration Targets & Milestones
             </span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover relative overflow-hidden">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 relative overflow-hidden cursor-pointer group"
+            >
               <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
                 <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
               </div>
@@ -1034,7 +1066,12 @@ function App() {
               <p className="font-bold text-[#0C1D13] mb-4 text-sm">Palm Waste to Divert</p>
               <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Our first V3 pilot aims to divert 15,000 kg of palm waste from burning or decomposition.</p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover relative overflow-hidden">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 relative overflow-hidden cursor-pointer group"
+            >
               <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
                 <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
               </div>
@@ -1043,7 +1080,12 @@ function App() {
               <p className="font-bold text-[#0C1D13] mb-4 text-sm">Water Retention Goal</p>
               <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">We aim to improve soil water retention by approximately 18% based on established agronomic data and our early lab results.</p>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 card-hover relative overflow-hidden">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 relative overflow-hidden cursor-pointer group"
+            >
               <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
                 <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
               </div>
@@ -1078,8 +1120,13 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group hover:-translate-y-1 transition-transform">
-              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-105 transition-transform">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Users className="w-8 h-8" />
               </div>
               <div>
@@ -1090,8 +1137,13 @@ function App() {
               </div>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group hover:-translate-y-1 transition-transform">
-              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-105 transition-transform">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Flame className="w-8 h-8" />
               </div>
               <div>
@@ -1102,8 +1154,13 @@ function App() {
               </div>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group hover:-translate-y-1 transition-transform">
-              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-105 transition-transform">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Factory className="w-8 h-8" />
               </div>
               <div>
@@ -1114,8 +1171,13 @@ function App() {
               </div>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#2E7D32]/30 shadow-lg flex flex-col md:flex-row gap-6 items-start group hover:-translate-y-1 transition-transform">
-              <div className="w-16 h-16 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] shrink-0 border border-[#4CAF50]/30 shadow-inner group-hover:scale-105 transition-transform">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#152E1E] p-8 rounded-3xl border border-[#2E7D32]/30 shadow-lg flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
+            >
+              <div className="w-16 h-16 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] shrink-0 border border-[#4CAF50]/30 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Globe className="w-8 h-8" />
               </div>
               <div>
@@ -1129,7 +1191,7 @@ function App() {
         </div>
       </motion.section>
 
-      {/* 7. WHAT WE MUST PROVE NEXT */}
+      {/* 7. CORE HYPOTHESES & FIELD VALIDATION STATUS */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="assumptions" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -1137,17 +1199,22 @@ function App() {
               Prototype to Pilot
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
-              What We Must Prove Next
+              Core Hypotheses & Field Validation Status
             </h2>
             <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
-              We have defined our prototype roadmap. Now, we are raising funds to build the V3 Pilot and validate these core assumptions in the field.
+              We have established our prototype roadmap. During our upcoming pilot phase, we will systematically test these four core operational hypotheses in the field.
             </p>
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#2E7D32]">
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-3">Technical Assumption</h4>
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#2E7D32] cursor-pointer group"
+            >
+              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-3">Technical Hypothesis</h4>
               <p className="text-sm text-[#0C1D13]/80 font-sans leading-relaxed font-bold mb-2">
                 Can the TLUD kiln produce consistent biochar and briquettes?
               </p>
@@ -1156,8 +1223,13 @@ function App() {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#4CAF50]">
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-3">User Assumption</h4>
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#4CAF50] cursor-pointer group"
+            >
+              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-3">User Hypothesis</h4>
               <p className="text-sm text-[#0C1D13]/80 font-sans leading-relaxed font-bold mb-2">
                 Will farmers easily adopt pelletized biochar?
               </p>
@@ -1166,8 +1238,13 @@ function App() {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#2E7D32]">
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-3">Value Assumption</h4>
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#2E7D32] cursor-pointer group"
+            >
+              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-3">Value Hypothesis</h4>
               <p className="text-sm text-[#0C1D13]/80 font-sans leading-relaxed font-bold mb-2">
                 Will businesses switch to smokeless sustainable charcoal?
               </p>
@@ -1176,7 +1253,12 @@ function App() {
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUpVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-lg border-t-4 border-t-[#4CAF50] relative overflow-hidden">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-lg border-t-4 border-t-[#4CAF50] relative overflow-hidden cursor-pointer group"
+            >
               <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#4CAF50]/20 border border-[#4CAF50]/30">
                 <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Validated</span>
               </div>
@@ -1200,21 +1282,36 @@ function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">Built in the Dirt</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+            >
               <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                 <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
                 <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
               </div>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+            >
               <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                 <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
                 <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
               </div>
             </motion.div>
-            <motion.div variants={fadeUpVariant} className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3]">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+            >
               <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                 <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
@@ -1373,9 +1470,14 @@ function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {/* Card 1 */}
-            <motion.div variants={driftVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover flex flex-col justify-between min-h-[260px] group transition-all duration-300">
+            <motion.div 
+              variants={driftVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+            >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                   <Zap className="w-6 h-6" />
                 </div>
                 <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Service Model</h4>
@@ -1386,9 +1488,14 @@ function App() {
             </motion.div>
 
             {/* Card 2 */}
-            <motion.div variants={popVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover flex flex-col justify-between min-h-[260px] group transition-all duration-300">
+            <motion.div 
+              variants={popVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+            >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                   <Leaf className="w-6 h-6" />
                 </div>
                 <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Biochar Pellets</h4>
@@ -1399,9 +1506,14 @@ function App() {
             </motion.div>
 
             {/* Card 3 */}
-            <motion.div variants={blurFadeVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover flex flex-col justify-between min-h-[260px] group transition-all duration-300">
+            <motion.div 
+              variants={blurFadeVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+            >
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                   <Hexagon className="w-6 h-6" />
                 </div>
                 <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
@@ -1412,12 +1524,17 @@ function App() {
             </motion.div>
 
             {/* Card 4 - Highlighted Dark Green Card */}
-            <motion.div variants={driftVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl dark-card-hover flex flex-col justify-between min-h-[260px] relative overflow-hidden group transition-all duration-300">
+            <motion.div 
+              variants={driftVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
+            >
               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
               </div>
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] mb-6 border border-[#4CAF50]/30 shadow-inner group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] mb-6 border border-[#4CAF50]/30 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                   <ShieldCheck className="w-6 h-6" />
                 </div>
                 <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-3">Future Carbon</h4>
@@ -1460,9 +1577,14 @@ function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Osama M. Abuagla - Founder */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group dark-card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+            >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
                 <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
@@ -1471,9 +1593,14 @@ function App() {
             </motion.div>
 
             {/* Tim Asquith - Strategic Advisor */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group dark-card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+            >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
                 <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
@@ -1482,9 +1609,14 @@ function App() {
             </motion.div>
 
             {/* Joyce Zhang - Venture Coach */}
-            <motion.div variants={fadeUpVariant} className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group dark-card-hover flex flex-col items-center relative overflow-hidden shadow-xl">
+            <motion.div 
+              variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
+              className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+            >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
                 <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
@@ -1495,8 +1627,10 @@ function App() {
             {/* Join the Movement - Call to Action */}
             <motion.div 
               variants={fadeUpVariant} 
+              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+              whileTap={{ scale: 0.985 }}
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center dark-card-hover flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
+              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
             >
               <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
                 <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
