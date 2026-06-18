@@ -288,6 +288,57 @@ const reactorStages = [
   }
 ];
 
+const sdgGoals = [
+  {
+    label: "SDG 1",
+    title: "No Poverty",
+    image: "https://upload.wikimedia.org/wikipedia/commons/5/50/Sustainable_Development_Goal_01NoPoverty.svg",
+    description: "By supplying affordable biochar and briquettes, we help smallholder farmers reduce synthetic fertilizer expenses and satay vendors reduce fuel costs."
+  },
+  {
+    label: "SDG 2",
+    title: "Zero Hunger",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Sustainable_Development_Goal_02ZeroHunger.svg",
+    description: "Our biochar pellets act as a permanent soil sponge, retaining water and nutrients to restore degraded soils and boost crop yields."
+  },
+  {
+    label: "SDG 7",
+    title: "Affordable & Clean Energy",
+    image: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Sustainable_Development_Goal_07CleanEnergy.svg",
+    description: "We recover clean syngas and thermal energy to heat reactors and dry biomass, producing sustainable briquettes as a clean wood-charcoal alternative."
+  },
+  {
+    label: "SDG 8",
+    title: "Decent Work & Economic Growth",
+    image: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Sustainable_Development_Goal_08DecentWork.svg",
+    description: "We create rural economic value and local processing jobs by upcycling palm residues directly within farm districts."
+  },
+  {
+    label: "SDG 12",
+    title: "Responsible Consumption & Production",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Sustainable_Development_Goal_12ResponsibleConsumption.svg",
+    description: "We convert wet palm Empty Fruit Bunches (EFBs) and farm residues into high-value carbon products, closing the circular agricultural loop."
+  },
+  {
+    label: "SDG 13",
+    title: "Climate Action",
+    image: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Sustainable_Development_Goal_13Climate.svg",
+    description: "By carbonizing biomass, we prevent methane emissions from decaying crop wastes and sequester stable carbon in soils for hundreds of years."
+  },
+  {
+    label: "SDG 15",
+    title: "Life on Land",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/cc/Sustainable_Development_Goal_15LifeOnLand.svg",
+    description: "Our agricultural waste briquettes provide a sustainable alternative to traditional wood charcoal, directly reducing logging pressure on native forests."
+  },
+  {
+    label: "SDG 17",
+    title: "Partnerships for the Goals",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Sustainable_Development_Goal_17Partnerships.svg",
+    description: "We collaborate with local smallholders, palm oil mills, and regional partners (like Tzu Chi and Wild Asia) to validate circular biomass ecosystems."
+  }
+];
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -1597,6 +1648,100 @@ function App() {
         </div>
 
 
+      </motion.section>
+
+      {/* UN SDGs GLOBAL GOALS MARQUEE */}
+      <motion.section 
+        variants={sectionReveal} 
+        initial="initial" 
+        whileInView="whileInView" 
+        viewport={{ once: true, margin: "-50px" }} 
+        className="bg-[#0C1D13] py-20 text-left relative overflow-hidden border-b border-[#2E7D32]/10"
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,transparent_60%,#152E1E_100%)] pointer-events-none opacity-40" />
+        
+        {/* Floating Sparks/Embers overlay */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          <div className="ember animate-ember-2 left-[10%]" style={{ animationDelay: '1s', width: '2px', height: '2px' }} />
+          <div className="ember animate-ember-1 left-[35%]" style={{ animationDelay: '0s', width: '3px', height: '3px' }} />
+          <div className="ember animate-ember-3 left-[65%]" style={{ animationDelay: '4s', width: '4px', height: '4px' }} />
+          <div className="ember animate-ember-2 left-[85%]" style={{ animationDelay: '2s', width: '2px', height: '2px' }} />
+        </div>
+
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="mb-12 text-center">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
+              Global Sustainability Metrics
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] mt-3">
+              UN Sustainable Development Goals
+            </h2>
+            <p className="text-xs md:text-sm text-[#FAF9F6]/80 font-sans mt-4 max-w-2xl mx-auto leading-relaxed">
+              WAQID aligns its decentralized circular biomass systems directly with the United Nations 2030 Agenda for Sustainable Development.
+            </p>
+          </div>
+        </div>
+
+        {/* Infinite Moving Marquee */}
+        <div className="relative w-full overflow-hidden py-4 mask-marquee z-20">
+          <div className="flex w-max gap-6 animate-marquee-loop">
+            {/* Set 1 */}
+            {sdgGoals.map((sdg, idx) => (
+              <div 
+                key={`sdg-set1-${idx}`} 
+                className="w-[280px] md:w-[320px] bg-[#152E1E] p-6 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col justify-between shrink-0 hover:border-[#4CAF50]/40 hover:bg-[#1C3A27] transition-all duration-300 group cursor-pointer"
+              >
+                <div className="flex gap-4 items-start mb-4">
+                  <img 
+                    src={sdg.image} 
+                    alt={sdg.title} 
+                    className="w-14 h-14 rounded-xl object-contain bg-transparent border border-white/5 shadow-md group-hover:scale-105 transition-transform duration-300 shrink-0" 
+                    loading="lazy"
+                  />
+                  <div>
+                    <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] block">
+                      {sdg.label}
+                    </span>
+                    <h4 className="font-display font-bold text-sm text-[#FAF9F6] mt-0.5 leading-snug">
+                      {sdg.title}
+                    </h4>
+                  </div>
+                </div>
+                <p className="text-[11px] text-[#FAF9F6]/75 font-sans leading-relaxed">
+                  {sdg.description}
+                </p>
+              </div>
+            ))}
+
+            {/* Set 2 (Duplicate for loop) */}
+            {sdgGoals.map((sdg, idx) => (
+              <div 
+                key={`sdg-set2-${idx}`} 
+                className="w-[280px] md:w-[320px] bg-[#152E1E] p-6 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col justify-between shrink-0 hover:border-[#4CAF50]/40 hover:bg-[#1C3A27] transition-all duration-300 group cursor-pointer"
+              >
+                <div className="flex gap-4 items-start mb-4">
+                  <img 
+                    src={sdg.image} 
+                    alt={sdg.title} 
+                    className="w-14 h-14 rounded-xl object-contain bg-transparent border border-white/5 shadow-md group-hover:scale-105 transition-transform duration-300 shrink-0" 
+                    loading="lazy"
+                  />
+                  <div>
+                    <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] block">
+                      {sdg.label}
+                    </span>
+                    <h4 className="font-display font-bold text-sm text-[#FAF9F6] mt-0.5 leading-snug">
+                      {sdg.title}
+                    </h4>
+                  </div>
+                </div>
+                <p className="text-[11px] text-[#FAF9F6]/75 font-sans leading-relaxed">
+                  {sdg.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
       </motion.section>
 
       {/* 7. PROTOTYPE TO PILOT */}

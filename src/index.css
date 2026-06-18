@@ -386,3 +386,27 @@
   }
 }
 
+/* UN SDG Marquee Styles */
+@keyframes sdgMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-loop {
+  display: flex;
+  animation: sdgMarquee 40s linear infinite;
+  gap: 24px;
+}
+
+.animate-marquee-loop:hover {
+  animation-play-state: paused;
+}
+
+.mask-marquee {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
