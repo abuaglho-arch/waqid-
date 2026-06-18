@@ -415,9 +415,6 @@ function App() {
               <div className="logo-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
               </div>
-              <div className="logo-card">
-                <img src="/images/ecosystem-logo-added.png" alt="Added Partner" />
-              </div>
 
               {/* Set 2 — duplicate for seamless loop */}
               <div className="logo-card">
@@ -431,9 +428,6 @@ function App() {
               </div>
               <div className="logo-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
-              </div>
-              <div className="logo-card">
-                <img src="/images/ecosystem-logo-added.png" alt="Added Partner" />
               </div>
             </div>
           </div>
