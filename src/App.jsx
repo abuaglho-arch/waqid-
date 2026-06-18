@@ -387,29 +387,32 @@ function App() {
       </motion.section>
 
       {/* 2.5 ECOSYSTEM & SUPPORT NETWORK */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#ffffff] border-b border-[#2E7D32]/10">
-        <div className="ecosystem-logo-strip">
-          <div className="ecosystem-heading">
-            <span>ECOSYSTEM</span>
-            <h2>Ecosystem &amp; Support Network</h2>
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] border-b border-[#2E7D32]/10">
+        <div className="ecosystem-strip">
+          {/* Heading */}
+          <div className="relative z-[4] h-full flex flex-col justify-center pl-6 md:pl-[5vw] pr-7">
+            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#254D44]">
+              Ecosystem
+            </span>
+            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#19362F] leading-[1.04] tracking-tight">
+              Ecosystem &amp; Support Network
+            </h2>
           </div>
 
+          {/* Logo Marquee */}
           <div className="logo-flow">
             <div className="logo-line">
+              {/* Set 1 */}
+              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
 
-              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club logo" />
-              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support network logo" />
-              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP logo" />
-              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University logo" />
-              <img className="wide-logo" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support network logo" />
-
-              {/* Duplicate for smooth infinite loop */}
-              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club logo" />
-              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support network logo" />
-              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP logo" />
-              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University logo" />
-              <img className="wide-logo" src="https://d102smnvqbot52.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-d664d30128a78ec2565b1154565f0653.webp?Expires=1781098257&Signature=AFSHjKMrANQWJeKvZJUpi75Dhked8t29rAeqbp8oLoV3v2Lau42QSckUTZhXyTT~BjobpHwWMjuLIfXDerhdqau76tqVqDMCWE6TMSwrzo6MXFPwQStGy~i-2KKNosvUe9iegOmpnbHg~hEP~bKv9NsBHUyU2YtPRm07sC~Pl83zkNNX6rdQenyIRmZQ6rrmZN7FYjBrQ2Ygp-kddx6hmlJxvFBg~Sqla3FSgFkk9Usd3Ls3XspundXTTuf5uHg7l7H9-MlBgIkklr-LF-QIkKp5FCH9IHog7drUeyms11Xf01AwqYh43OYMsp64ZHJNsl6N8FpzL-jWr675UUW~OA__&Key-Pair-Id=K2FGAUSZJ303Q5" alt="Support network logo" />
-
+              {/* Set 2 — duplicate for seamless loop */}
+              <img className="green-logo" src="https://static.wixstatic.com/media/8b5fa1_35df3b37b25c48a1bf832807ef97d248~mv2.png" alt="GreenEers Club" />
+              <img className="medium-logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              <img className="medium-logo" src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              <img className="wide-logo" src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
             </div>
           </div>
         </div>
@@ -1243,8 +1246,8 @@ function App() {
                 <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
               </div>
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Founder</p>
-              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Built the V1 and V2 manual reactors. Driving WAQID's vision to scale circular field systems.</p>
+              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Founder & CEO</p>
+              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Driving the vision and technical execution of Waqid's decentralized pyrolysis infrastructure.</p>
             </motion.div>
 
             {/* Tim Asquith - Strategic Advisor */}
@@ -1255,7 +1258,7 @@ function App() {
               </div>
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
               <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Strategic Advisor</p>
-              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Providing commercial scaling insights, global agricultural advisory, and critical validation strategies for decentralized deployment.</p>
+              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Providing critical guidance on field validation, commercial scaling, and global agricultural economics.</p>
             </motion.div>
 
             {/* Joyce Zhang - Venture Coach */}
@@ -1266,7 +1269,7 @@ function App() {
               </div>
               <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
               <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Venture Coach</p>
-              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Guided WAQID in prototyping and designing with community.</p>
+              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Guiding WAQID's fundraising strategy and venture scaling architecture for global deployment.</p>
             </motion.div>
 
             {/* Join the Movement - Call to Action */}
