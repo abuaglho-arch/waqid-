@@ -179,6 +179,14 @@ const useCardTransforms = (scrollYProgress, index, isMobile, totalCards = 6) => 
   return { x };
 };
 
+const partnerLogos = [
+  { src: "/images/wild-asia.png", alt: "Wild Asia" },
+  { src: "/images/bevisioneers.png", alt: "beVisioneers" },
+  { src: "/images/tzuchi-logo.png", alt: "Tzu Chi Foundation" },
+  { src: "/images/albukhary-university.png", alt: "Albukhary International University" },
+  { src: "/images/iylp-logo.png", alt: "Tzu Chi IYLP" }
+];
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -456,41 +464,30 @@ function App() {
 
           {/* Logo Marquee */}
           <div className="logo-flow">
-            <div className="logo-line">
+            <motion.div 
+              animate={{ x: [0, "-50%"] }}
+              transition={{
+                ease: "linear",
+                duration: 25,
+                repeat: Infinity
+              }}
+              style={{ animation: 'none' }}
+              className="logo-line"
+            >
               {/* Set 1 */}
-              <div className="logo-card">
-                <img src="https://d1c2gz5q23tkk0.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-7ee7648422013bad05063180263a57e1.webp" alt="Ecosystem Partner" />
-              </div>
-              <div className="logo-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
-              </div>
-              <div className="logo-card">
-                <img src="/images/tzuchi-logo.png" alt="Tzu Chi Foundation" />
-              </div>
-              <div className="logo-card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
-              </div>
-              <div className="logo-card">
-                <img src="/images/new-ecosystem-logo.jpg" alt="Added Partner Logo" />
-              </div>
+              {partnerLogos.map((logo, idx) => (
+                <div key={`set1-${idx}`} className="logo-card">
+                  <img src={logo.src} alt={logo.alt} />
+                </div>
+              ))}
 
               {/* Set 2 — duplicate for seamless loop */}
-              <div className="logo-card">
-                <img src="https://d1c2gz5q23tkk0.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-7ee7648422013bad05063180263a57e1.webp" alt="Ecosystem Partner" />
-              </div>
-              <div className="logo-card">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
-              </div>
-              <div className="logo-card">
-                <img src="/images/tzuchi-logo.png" alt="Tzu Chi Foundation" />
-              </div>
-              <div className="logo-card">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
-              </div>
-              <div className="logo-card">
-                <img src="/images/new-ecosystem-logo.jpg" alt="Added Partner Logo" />
-              </div>
-            </div>
+              {partnerLogos.map((logo, idx) => (
+                <div key={`set2-${idx}`} className="logo-card">
+                  <img src={logo.src} alt={logo.alt} />
+                </div>
+              ))}
+            </motion.div>
           </div>
         </div>
       </motion.section>
