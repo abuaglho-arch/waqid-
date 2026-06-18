@@ -316,7 +316,7 @@ const sdgGoals = [
   {
     label: "SDG 12",
     title: "Responsible Consumption & Production",
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Sustainable_Development_Goal_12ResponsibleConsumption.svg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/65/Sustainable_Development_Goal_12ResponsibleConsumption.svg",
     description: "We convert wet palm Empty Fruit Bunches (EFBs) and farm residues into high-value carbon products, closing the circular agricultural loop."
   },
   {
@@ -328,13 +328,13 @@ const sdgGoals = [
   {
     label: "SDG 15",
     title: "Life on Land",
-    image: "https://upload.wikimedia.org/wikipedia/commons/c/cc/Sustainable_Development_Goal_15LifeOnLand.svg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Sustainable_Development_Goal_15LifeOnLand.svg",
     description: "Our agricultural waste briquettes provide a sustainable alternative to traditional wood charcoal, directly reducing logging pressure on native forests."
   },
   {
     label: "SDG 17",
     title: "Partnerships for the Goals",
-    image: "https://upload.wikimedia.org/wikipedia/commons/f/f2/Sustainable_Development_Goal_17Partnerships.svg",
+    image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Sustainable_Development_Goal_17Partnerships.svg",
     description: "We collaborate with local smallholders, palm oil mills, and regional partners (like Tzu Chi and Wild Asia) to validate circular biomass ecosystems."
   }
 ];
