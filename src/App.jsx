@@ -403,16 +403,38 @@ function App() {
           <div className="logo-flow">
             <div className="logo-line">
               {/* Set 1 */}
-              <img src="https://d1c2gz5q23tkk0.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-7ee7648422013bad05063180263a57e1.webp" alt="Ecosystem Partner" />
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
-              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              <div className="logo-card">
+                <img src="https://d1c2gz5q23tkk0.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-7ee7648422013bad05063180263a57e1.webp" alt="Ecosystem Partner" />
+              </div>
+              <div className="logo-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              </div>
+              <div className="logo-card">
+                <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              </div>
+              <div className="logo-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              </div>
+              <div className="logo-card">
+                <img src="/images/ecosystem-logo-added.png" alt="Added Partner" />
+              </div>
 
               {/* Set 2 — duplicate for seamless loop */}
-              <img src="https://d1c2gz5q23tkk0.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-7ee7648422013bad05063180263a57e1.webp" alt="Ecosystem Partner" />
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
-              <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
-              <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              <div className="logo-card">
+                <img src="https://d1c2gz5q23tkk0.cloudfront.net/shrine_store/uploads/networks/3234/networks/3234/wide-7ee7648422013bad05063180263a57e1.webp" alt="Ecosystem Partner" />
+              </div>
+              <div className="logo-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
+              </div>
+              <div className="logo-card">
+                <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+              </div>
+              <div className="logo-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
+              </div>
+              <div className="logo-card">
+                <img src="/images/ecosystem-logo-added.png" alt="Added Partner" />
+              </div>
             </div>
           </div>
         </div>
