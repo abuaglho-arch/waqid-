@@ -244,7 +244,7 @@
 .ecosystem-strip {
   position: relative;
   width: 100%;
-  height: 165px;
+  height: 180px;
   overflow: hidden;
   display: grid;
   grid-template-columns: 390px 1fr;
@@ -277,7 +277,7 @@
   content: "";
   position: absolute;
   top: 0;
-  width: 75px;
+  width: 80px;
   height: 100%;
   z-index: 5;
   pointer-events: none;
@@ -296,37 +296,54 @@
 .logo-line {
   display: flex;
   align-items: center;
-  gap: 70px;
+  gap: 24px;
   width: max-content;
-  padding-right: 70px;
+  padding-right: 24px;
   will-change: transform;
-  animation: logoFlowMove 28s linear infinite;
+  animation: logoFlowMove 30s linear infinite;
 }
 
-.logo-line img {
-  flex-shrink: 0;
+.logo-flow:hover .logo-line {
+  animation-play-state: paused;
+}
+
+.logo-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(46, 125, 50, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(12, 29, 19, 0.015);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 96px;
+  min-width: 200px;
+  backdrop-filter: blur(8px);
+}
+
+.logo-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(76, 175, 80, 0.35);
+  box-shadow: 0 12px 30px rgba(46, 125, 50, 0.08), 0 4px 10px rgba(12, 29, 19, 0.03);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.logo-card img {
+  height: 100%;
+  width: auto;
+  max-width: 150px;
   object-fit: contain;
-  display: block;
-  mix-blend-mode: multiply; /* Removes white backgrounds for clean integration */
+  mix-blend-mode: multiply;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+  filter: grayscale(100%) opacity(0.55);
+  transition: all 0.4s ease;
 }
 
-/* Specific heights ensure optical balance regardless of intrinsic ratios */
-.logo-line img.medium-logo {
-  height: 80px; 
-  width: auto;
-}
-
-.logo-line img.green-logo {
-  height: 90px;
-  width: auto;
-}
-
-.logo-line img.wide-logo {
-  height: 60px;
-  width: auto;
+.logo-card:hover img {
+  filter: grayscale(0%) opacity(1);
 }
 
 @keyframes logoFlowMove {
@@ -334,36 +351,38 @@
   to { transform: translateX(-50%); }
 }
 
+@media screen and (max-width: 1024px) {
+  .ecosystem-strip {
+    grid-template-columns: 1fr;
+    height: auto;
+    padding: 32px 0;
+    gap: 24px;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .ecosystem-strip {
-    height: 230px;
-    grid-template-columns: 1fr;
+    padding: 24px 0;
+  }
+
+  .logo-card {
+    height: 72px;
+    min-width: 160px;
+    padding: 10px 20px;
+    border-radius: 14px;
+  }
+
+  .logo-card img {
+    max-width: 110px;
   }
 
   .logo-flow {
-    height: 138px;
+    height: 100px;
   }
 
   .logo-line {
-    gap: 48px;
-    padding-right: 48px;
-    padding-left: 0;
-    animation-duration: 28s;
-  }
-
-  .logo-line img.medium-logo {
-    height: 60px;
-    width: auto;
-  }
-
-  .logo-line img.green-logo {
-    height: 68px;
-    width: auto;
-  }
-
-  .logo-line img.wide-logo {
-    height: 44px;
-    width: auto;
+    gap: 16px;
+    padding-right: 16px;
   }
 }
 
