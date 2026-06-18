@@ -123,12 +123,12 @@ const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
 };
 
 const crisisCards = [
-  { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Accumulates", desc: "Organic residues pile up when they are treated as waste instead of resources. Palm biomass, rice husks, and farm by-products are often left unused, creating pressure at farms and processing sites." },
-  { index: "02", image: "/images/methane-rises.png", title: "Methane Rises", desc: "When organic waste decomposes without proper management, it can release gases that make the climate problem worse. What looks like simple waste becomes part of a larger environmental cost." },
-  { index: "03", image: "/images/farmers-pay-more.jpg", title: "Farmers Pay More", desc: "Small farmers face rising costs for fertilizers, soil inputs, and fuel. As prices increase, maintaining productivity becomes harder, especially for communities already working with limited resources." },
-  { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Overused land gradually loses nutrients, structure, and fertility. Without better soil support, farms become less resilient and harvests become harder to sustain over time." },
-  { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "When systems depend on extracting more resources instead of reusing what already exists, natural ecosystems carry the burden. Forests, land, and biodiversity are affected by this pressure." },
-  { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability." }
+  { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Becomes a Burden", desc: "Palm biomass, rice husks, and farm by-products are often left unused, burned, or poorly managed. WAQID starts by treating this waste as feedstock, not as a disposal problem." },
+  { index: "02", image: "/images/methane-rises.png", title: "Methane Rises", desc: "When empty fruit bunches (EFBs) decay in wet piles, they release high-warming methane gases. WAQID intercepts these residue streams before anaerobic decomposition starts." },
+  { index: "03", image: "/images/farmers-pay-more.jpg", title: "Farmers Pay More", desc: "Smallholders face soaring chemical fertilizer prices and degrading soil productivity. WAQID converts palm biomass into affordable soil amendments that restore fertility." },
+  { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Intense farming strips Malaysian soils of essential moisture, nutrients, and carbon. WAQID's biochar acts as a permanent sponge, restoring structural health." },
+  { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "Clearing lands to offset falling yields threatens native ecosystems. By boosting existing farm productivity, WAQID limits the need to expand agricultural boundaries." },
+  { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Millions of tonnes of crop energy and carbon are wasted every season. WAQID closes this loop, converting raw residues into stable carbon, heat, and rural value." }
 ];
 
 const impactSteps = [
@@ -305,7 +305,7 @@ function App() {
       const rect = crisisSectionRef.current.getBoundingClientRect();
       const sectionTop = window.scrollY + rect.top;
       const sectionHeight = crisisSectionRef.current.clientHeight;
-      const scrollableHeight = sectionHeight - Math.min(window.innerHeight, 620);
+      const scrollableHeight = sectionHeight - Math.min(window.innerHeight, 720);
       
       // Scroll to exactly the point where the chosen card finishes entering
       const targetProgress = index === 1 ? 0.0 : 0.02 + ((index - 1) * (0.85 / 5));
@@ -576,10 +576,10 @@ function App() {
                   The Crisis
                 </span>
                 <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] leading-tight mt-3">
-                  The Crisis We Can No Longer Ignore
+                  Palm Waste Is Not the Problem. The Broken Loop Is.
                 </h2>
                 <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
-                  Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
+                  Every year, palm residues are treated as waste while farmers pay more to restore tired soils. What should become local soil and energy value is left to burn, rot, or create pressure across the system.
                 </p>
               </div>
               <div className="flex gap-3 shrink-0">
@@ -623,7 +623,7 @@ function App() {
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
                   <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2 mb-2 leading-tight">The Magnitude of the Problem</h3>
                   <p className="text-xs text-[#0C1D13]/70 font-sans leading-relaxed mb-4">
-                    Every year, millions of tonnes of agricultural residues are discarded or burned openly, causing massive greenhouse emissions while soils lose fertility and farmers face rising costs.
+                    Malaysia’s palm biomass challenge is not only a waste issue. It is linked to emissions, soil degradation, and lost rural value.
                   </p>
                 </div>
                 <div className="flex flex-col gap-4">
@@ -637,13 +637,13 @@ function App() {
                     <h4 className="text-3xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-1">
                       <Counter value="22" prefix="20-" suffix="M" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-1.5">tonnes</span>
                     </h4>
-                    <p className="text-xs text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged, burned, or underutilized each year.</p>
                   </div>
                   <div>
                     <h4 className="text-3xl md:text-4xl font-serif font-bold text-[#2E7D32] mb-1">
-                      <Counter value="34" suffix="x" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-1.5">threat</span>
+                      <Counter value="30" prefix="Around " suffix="x" /> <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-1.5">warming impact</span>
                     </h4>
-                    <p className="text-xs text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
+                    <p className="text-xs text-[#0C1D13]/70 font-sans">Methane can have around 27 to 30 times the warming impact of CO₂ over 100 years.</p>
                   </div>
                 </div>
               </motion.div>
@@ -665,7 +665,7 @@ function App() {
                     alt={item.title} 
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/40 to-transparent opacity-85 group-hover:opacity-90 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
                   
                   <div className="absolute bottom-0 left-0 right-0 p-8 text-left z-10">
                     <div className="flex items-center gap-2 mb-3">
@@ -685,7 +685,7 @@ function App() {
           id="crisis" 
           className="relative h-[240vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
-          <div className="sticky top-0 h-[100vh] max-h-[620px] w-full overflow-hidden flex items-center bg-[#FAF9F6]">
+          <div className="sticky top-0 h-[100vh] max-h-[720px] w-full overflow-hidden flex items-center bg-[#FAF9F6]">
             <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center lg:items-center justify-between gap-4 lg:gap-8">
               
               {/* Left Column: Static Text & Reading Panel */}
@@ -701,10 +701,10 @@ function App() {
                     The Crisis
                   </span>
                   <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-black text-[#0C1D13] leading-tight mt-1.5">
-                    The Crisis We Can No Longer Ignore
+                    Palm Waste Is Not the Problem. The Broken Loop Is.
                   </h2>
                   <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed mt-1.5">
-                    Every year, organic waste is left behind while farmers face rising costs, soils lose fertility, and natural ecosystems absorb the pressure.
+                    Every year, palm residues are treated as waste while farmers pay more to restore tired soils. What should become local soil and energy value is left to burn, rot, or create pressure across the system.
                   </p>
                 </div>
 
@@ -728,7 +728,7 @@ function App() {
                   <div className="flex justify-between text-[10px] font-sans font-bold uppercase tracking-wider text-[#0C1D13]/50">
                     <span className="flex items-center gap-1.5">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32] animate-pulse" />
-                      Scroll or tap to view
+                      Scroll through the broken loop
                     </span>
                     <span>{`${activeCardIndex} / 6`}</span>
                   </div>
@@ -757,12 +757,12 @@ function App() {
                 viewport={{ once: true, margin: "-50px" }}
                 className="hidden lg:flex w-[24%] shrink-0"
               >
-                <div className="w-full bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.05)] flex flex-col justify-between text-left">
+                <div className="w-full bg-gradient-to-br from-[#FAF9F6] to-[#FAF9F6]/80 p-6 rounded-3xl border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)] hover:border-[#2E7D32]/25 hover:shadow-[0_12px_40px_rgba(12,29,19,0.06)] transition-all duration-300 flex flex-col justify-between text-left">
                   <div>
                     <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
                     <h3 className="text-base lg:text-lg font-display font-black text-[#0C1D13] mt-1 mb-1.5 leading-tight">The Magnitude of the Problem</h3>
                     <p className="text-[10px] text-[#0C1D13]/70 font-sans leading-relaxed mb-3">
-                      Every year, millions of tonnes of agricultural residues are discarded or burned openly, causing massive greenhouse emissions while soils lose fertility.
+                      Malaysia’s palm biomass challenge is not only a waste issue. It is linked to emissions, soil degradation, and lost rural value.
                     </p>
                   </div>
                   <div className="flex flex-col gap-2.5">
@@ -776,13 +776,13 @@ function App() {
                       <h4 className="text-xl lg:text-2xl font-serif font-bold text-[#2E7D32] mb-0.5">
                         <Counter value="22" prefix="20-" suffix="M" /> <span className="text-[9px] font-sans font-normal text-[#0C1D13]/50 ml-1">tonnes</span>
                       </h4>
-                      <p className="text-[10px] text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged or burned openly each year.</p>
+                      <p className="text-[10px] text-[#0C1D13]/70 font-sans">Empty Fruit Bunches left unmanaged, burned, or underutilized each year.</p>
                     </div>
                     <div>
                       <h4 className="text-xl lg:text-2xl font-serif font-bold text-[#2E7D32] mb-0.5">
-                        <Counter value="34" suffix="x" /> <span className="text-[9px] font-sans font-normal text-[#0C1D13]/50 ml-1">threat</span>
+                        <Counter value="30" prefix="Around " suffix="x" /> <span className="text-[9px] font-sans font-normal text-[#0C1D13]/50 ml-1">warming impact</span>
                       </h4>
-                      <p className="text-[10px] text-[#0C1D13]/70 font-sans">Methane from rotting waste has 34x the warming power of CO2.</p>
+                      <p className="text-[10px] text-[#0C1D13]/70 font-sans">Methane can have around 27 to 30 times the warming impact of CO₂ over 100 years.</p>
                     </div>
                   </div>
                 </div>
@@ -796,7 +796,7 @@ function App() {
                 viewport={{ once: true, margin: "-50px" }}
                 className="w-full lg:w-[42%] flex items-center justify-center relative"
               >
-                <div className="relative w-[85vw] sm:w-[360px] h-[360px] sm:h-[380px] max-w-[340px] sm:max-w-none overflow-visible">
+                <div className="relative w-[85vw] sm:w-[380px] h-[360px] sm:h-[420px] max-w-[340px] sm:max-w-none overflow-visible">
                   
                   {/* Cards 1 to 6 — all fully solid, no transparency */}
                   {crisisCards.map((item, idx) => {
@@ -829,7 +829,7 @@ function App() {
                           className="absolute inset-0 w-full h-full object-cover"
                         />
                         {/* Dark Gradient Overlay for text readability */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13] via-[#0C1D13]/50 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
 
                         {/* Text content */}
                         <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6 text-left z-10">
