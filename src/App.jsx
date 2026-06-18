@@ -924,10 +924,13 @@ function App() {
           </div>
 
           {/* Animated Circular Value Pipeline */}
-          <div className="mt-20 border border-[#2E7D32]/10 bg-[#FAF9F6]/50 rounded-3xl p-6 md:p-10 max-w-6xl mx-auto relative overflow-hidden">
+          <motion.div 
+            variants={fadeUpVariant}
+            className="mt-20 border border-[#2E7D32]/10 bg-[#FAF9F6]/50 rounded-[2rem] p-4 md:p-8 max-w-5xl mx-auto relative overflow-hidden shadow-md"
+          >
             <div className="absolute top-0 right-0 w-80 h-80 bg-[#2E7D32]/5 rounded-full blur-[80px] pointer-events-none" />
             
-            <div className="text-center mb-12 max-w-xl mx-auto relative z-10">
+            <div className="text-center mb-8 max-w-xl mx-auto relative z-10">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32] bg-[#2E7D32]/10 px-3 py-1 rounded-full">
                 Value Flow Diagram
               </span>
@@ -935,112 +938,19 @@ function App() {
                 The WAQID Circular Carbon Loop
               </h3>
               <p className="text-xs text-[#0C1D13]/70 font-sans mt-2 leading-relaxed">
-                Trace how waste biomass from palm mills is transformed into climate-restoring agricultural and energy resources.
+                How palm biomass is transformed into soil-restoring and low-emission energy products.
               </p>
             </div>
 
-            {/* Pipeline Container */}
-            <div className="relative flex flex-col lg:flex-row items-stretch justify-between gap-6 lg:gap-4 z-10">
-              
-              {/* SVG Connectors (Desktop only) */}
-              <div className="absolute top-[32%] left-[10%] right-[10%] h-1 -translate-y-1/2 hidden lg:block z-0 pointer-events-none">
-                <svg className="w-full h-4 overflow-visible" fill="none">
-                  <motion.path 
-                    d="M 0 8 L 800 8" 
-                    stroke="#2E7D32" 
-                    strokeWidth="2" 
-                    strokeDasharray="6,6"
-                    animate={{ strokeDashoffset: [0, -40] }}
-                    transition={{ repeat: Infinity, ease: "linear", duration: 4 }}
-                  />
-                </svg>
-              </div>
-
-              {/* Stage 1: Biomass Source */}
-              <motion.div 
-                whileHover={{ scale: 1.03, y: -4 }}
-                className="relative z-10 w-full lg:w-[22%] bg-[#FAF9F6]/90 border border-[#2E7D32]/15 p-5 rounded-2xl shadow-sm text-left group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#152E1E] text-[#4CAF50] flex items-center justify-center mb-4 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                    <Factory className="w-5 h-5" />
-                  </div>
-                  <div className="text-[9px] font-sans font-bold text-[#2E7D32] uppercase tracking-wider">01. Input Source</div>
-                  <h4 className="font-display font-bold text-sm text-[#0C1D13] mt-1 mb-1.5">Palm Oil Mill</h4>
-                  <p className="text-[11px] text-[#0C1D13]/75 font-sans leading-relaxed">
-                    Wet Empty Fruit Bunches (EFBs) collected directly, avoiding logistics bottlenecks and mill regulatory penalties.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Arrow/Chevron Down on Mobile / Right on Desktop */}
-              <div className="flex justify-center items-center text-[#2E7D32] lg:rotate-0 rotate-90 my-2 z-10">
-                <ChevronRight className="w-5 h-5 animate-pulse" />
-              </div>
-
-              {/* Stage 2: Pyrolysis Process */}
-              <motion.div 
-                whileHover={{ scale: 1.03, y: -4 }}
-                className="relative z-10 w-full lg:w-[22%] bg-[#FAF9F6]/90 border border-[#2E7D32]/15 p-5 rounded-2xl shadow-sm text-left group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#152E1E] text-[#4CAF50] flex items-center justify-center mb-4 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                    <Flame className="w-5 h-5" />
-                  </div>
-                  <div className="text-[9px] font-sans font-bold text-[#2E7D32] uppercase tracking-wider">02. Processing</div>
-                  <h4 className="font-display font-bold text-sm text-[#0C1D13] mt-1 mb-1.5">TLUD Pyrolysis</h4>
-                  <p className="text-[11px] text-[#0C1D13]/75 font-sans leading-relaxed">
-                    Controlled low-oxygen carbonization drives off methane precursors, trapping carbon and extracting clean thermal energy.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Arrow/Chevron */}
-              <div className="flex justify-center items-center text-[#2E7D32] lg:rotate-0 rotate-90 my-2 z-10">
-                <ChevronRight className="w-5 h-5 animate-pulse" />
-              </div>
-
-              {/* Stage 3: Product Formulations */}
-              <motion.div 
-                whileHover={{ scale: 1.03, y: -4 }}
-                className="relative z-10 w-full lg:w-[22%] bg-[#FAF9F6]/90 border border-[#2E7D32]/15 p-5 rounded-2xl shadow-sm text-left group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#152E1E] text-[#4CAF50] flex items-center justify-center mb-4 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                    <Sprout className="w-5 h-5" />
-                  </div>
-                  <div className="text-[9px] font-sans font-bold text-[#2E7D32] uppercase tracking-wider">03. Formulation</div>
-                  <h4 className="font-display font-bold text-sm text-[#0C1D13] mt-1 mb-1.5">Circular Outputs</h4>
-                  <p className="text-[11px] text-[#0C1D13]/75 font-sans leading-relaxed">
-                    Stable biochar is blended with compost into dust-free agricultural pellets; remainder forms smokeless heating briquettes.
-                  </p>
-                </div>
-              </motion.div>
-
-              {/* Arrow/Chevron */}
-              <div className="flex justify-center items-center text-[#2E7D32] lg:rotate-0 rotate-90 my-2 z-10">
-                <ChevronRight className="w-5 h-5 animate-pulse" />
-              </div>
-
-              {/* Stage 4: Regional Application */}
-              <motion.div 
-                whileHover={{ scale: 1.03, y: -4 }}
-                className="relative z-10 w-full lg:w-[22%] bg-[#152E1E] border border-[#4CAF50]/30 p-5 rounded-2xl shadow-md text-left group flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-[#4CAF50]/20 text-[#4CAF50] flex items-center justify-center mb-4 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 border border-[#4CAF50]/20">
-                    <Globe className="w-5 h-5" />
-                  </div>
-                  <div className="text-[9px] font-sans font-bold text-[#4CAF50] uppercase tracking-wider">04. Local Application</div>
-                  <h4 className="font-display font-bold text-sm text-[#FAF9F6] mt-1 mb-1.5">Restored Soil & Energy</h4>
-                  <p className="text-[11px] text-[#FAF9F6]/80 font-sans leading-relaxed">
-                    Smallholders apply pellets to soil to lock carbon for centuries, and vendors burn clean fuel, reducing atmospheric burden.
-                  </p>
-                </div>
-              </motion.div>
-
+            {/* Graphic Container */}
+            <div className="relative z-10 flex justify-center items-center bg-white p-2 md:p-4 rounded-2xl border border-[#2E7D32]/10 shadow-inner">
+              <img 
+                src="/images/waqid-circular-carbon-loop.png" 
+                alt="The WAQID Circular Carbon Loop Flowchart" 
+                className="w-full h-auto object-contain rounded-xl max-h-[600px] select-none"
+              />
             </div>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
