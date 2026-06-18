@@ -112,6 +112,54 @@ const crisisCards = [
   { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Useful materials are often discarded before they can return value to the system. What is seen as waste could become part of a circular solution for soil, farming, and sustainability." }
 ];
 
+const impactSteps = [
+  {
+    num: "01",
+    tag: "Resource Recovery",
+    title: "Waste Diversion & Upcycling",
+    desc: "We divert palm waste, rice husks, and agricultural residues from open burning and natural decomposition, converting them into valuable resources.",
+    metric: "100% Upcycled Biomass",
+    detail: "Rather than letting residues pile up at palm oil processing mills, we intercept the waste streams to fuel local economic cycles.",
+    icon: Factory
+  },
+  {
+    num: "02",
+    tag: "Atmospheric Protection",
+    title: "Methane & Carbon Mitigation",
+    desc: "By pyrolyzing palm biomass instead of leaving it to rot in wet fields, we prevent the anaerobic decay that produces high-warming methane gases.",
+    metric: "Methane Decay Prevented",
+    detail: "Rotting palm empty fruit bunches (EFB) release methane, which holds 34x more heat than CO2. Our pyrolysis pathway mitigates this atmospheric release.",
+    icon: Wind
+  },
+  {
+    num: "03",
+    tag: "Carbon Storage",
+    title: "Soil Carbon Sequestration",
+    desc: "We lock stable carbon into a porous biochar structure that remains inert in agricultural soils for hundreds of years, preventing carbon return to the air.",
+    metric: "Centuries-Long Storage",
+    detail: "Biochar acts as a permanent soil sponge, holding water and nitrogen nutrients in place while keeping carbon out of the global carbon cycle.",
+    icon: Globe
+  },
+  {
+    num: "04",
+    tag: "Habitat Conservation",
+    title: "Reduced Deforestation Pressure",
+    desc: "Our briquette fuels are produced from agricultural waste, providing local industries and satay vendors with a direct substitute for wood charcoal.",
+    metric: "Alternative to Wood Fuel",
+    detail: "Traditional charcoal requires cutting down local trees. By using agricultural waste briquettes, we keep forests intact and preserve local biodiversity.",
+    icon: Trees
+  },
+  {
+    num: "05",
+    tag: "Social Benefits",
+    title: "Cleaner Local Air & Health",
+    desc: "We offer rural families and street food vendors a virtually smokeless combustion solution, reducing toxic particulate matter in the air.",
+    metric: "Smokeless Burning",
+    detail: "Replacing dirty biomass burning and traditional wood fuels improves indoor and ambient air quality, reducing respiratory health risks.",
+    icon: ShieldCheck
+  }
+];
+
 const useCardTransforms = (scrollYProgress, index, isMobile, totalCards = 6) => {
   const dx = isMobile ? 6 : 12;
   
@@ -167,6 +215,7 @@ function App() {
   });
 
   const [activeCardIndex, setActiveCardIndex] = useState(1);
+  const [activeImpactStep, setActiveImpactStep] = useState(0);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const totalCards = 6;
@@ -309,7 +358,13 @@ function App() {
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#4CAF50]/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen z-1" />
 
         <motion.div style={{ y: heroY }} className="absolute inset-0 opacity-55 z-0 scale-110">
-          <img src="/images/waqid_circular_restoration_hero.png" alt="WAQID Operations" className="w-full h-full object-cover object-center" />
+          <img 
+            src="/images/waqid_circular_restoration_hero.png" 
+            alt="WAQID Operations" 
+            className="w-full h-full object-cover object-center" 
+            fetchpriority="high"
+            loading="eager"
+          />
         </motion.div>
 
         {/* Floating Sparks/Embers overlay */}
@@ -410,7 +465,7 @@ function App() {
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
               </div>
               <div className="logo-card">
-                <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+                <img src="/images/tzuchi-logo.png" alt="Tzu Chi Foundation" />
               </div>
               <div className="logo-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
@@ -427,7 +482,7 @@ function App() {
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAbe3ABsVePiQMlFP8h2HV56YB8PB1zSl_2g&s" alt="Support Network" />
               </div>
               <div className="logo-card">
-                <img src="https://iylp.tzuchi.org/wp-content/uploads/2024/11/Logo-IYLP-2.png" alt="IYLP" />
+                <img src="/images/tzuchi-logo.png" alt="Tzu Chi Foundation" />
               </div>
               <div className="logo-card">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Albukhary_International_University_horizontal_logo_%28Black%29.png" alt="Albukhary International University" />
@@ -783,10 +838,18 @@ function App() {
       </motion.section>
 
       {/* 5. ENVIRONMENTAL IMPACT PATHWAY */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="impact" className="bg-[#0C1D13] py-16 md:py-24 relative overflow-hidden border-b border-[#2E7D32]/10">
+      <motion.section 
+        variants={sectionReveal} 
+        initial="initial" 
+        whileInView="whileInView" 
+        viewport={{ once: true, margin: "-50px" }} 
+        id="impact" 
+        className="bg-[#0C1D13] py-20 md:py-28 relative overflow-hidden border-b border-[#2E7D32]/10"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,transparent_40%,#152E1E_100%)] pointer-events-none opacity-50" />
         
-
+        {/* Grid pattern overlay */}
+        <div className="absolute inset-0 opacity-[0.015] bg-hero-pattern pointer-events-none" />
 
         {/* Floating Sparks/Embers overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
@@ -798,76 +861,161 @@ function App() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="mb-16">
+          <div className="mb-16 text-center max-w-2xl mx-auto">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-3">
               Measurable Outcomes
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] leading-tight">
               Environmental Impact Pathway
             </h2>
-            <div className="w-12 h-[1px] bg-[#4CAF50] mt-8 mb-4" />
+            <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans mt-4 max-w-lg mx-auto leading-relaxed">
+              Explore the five critical stages where WAQID redirects carbon flows to restore soil health, clean the air, and prevent deforestation.
+            </p>
+            <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6" />
           </div>
-        </div> {/* Close max-w-7xl */}
 
-        {/* Full-bleed marquee */}
-        <div className="w-full relative overflow-hidden my-4">
-          <div className="marquee-container w-full max-w-[100vw]">
-            <div className="marquee-content animate-marquee gap-6 items-stretch pr-6" style={{ animationDuration: '40s' }}>
-              {[1, 2].map((iteration) => (
-                <div key={iteration} className="flex gap-6 shrink-0">
-                  <motion.div variants={popVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
-                      <Factory className="w-6 h-6" />
+          {/* Interactive Stepper Grid on Desktop */}
+          <div className="hidden lg:grid grid-cols-12 gap-8 items-stretch mb-20 max-w-6xl mx-auto">
+            
+            {/* Step Selection Column (Span 5) */}
+            <div className="col-span-5 flex flex-col gap-4 justify-center">
+              {impactSteps.map((step, idx) => {
+                const IconComponent = step.icon;
+                const isActive = activeImpactStep === idx;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImpactStep(idx)}
+                    className={`flex items-center gap-4 p-5 rounded-2xl border text-left transition-all duration-300 group focus:outline-none cursor-pointer ${
+                      isActive 
+                        ? 'bg-[#152E1E] border-[#4CAF50] shadow-[0_0_20px_rgba(76,175,80,0.15)]' 
+                        : 'bg-[#152E1E]/30 border-[#2E7D32]/10 hover:border-[#2E7D32]/35 hover:bg-[#152E1E]/50'
+                    }`}
+                  >
+                    {/* Badge */}
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-display font-bold text-sm transition-all duration-300 ${
+                      isActive 
+                        ? 'bg-[#4CAF50] text-[#0C1D13] scale-105' 
+                        : 'bg-[#0C1D13] text-[#4CAF50]/65 group-hover:text-[#4CAF50] group-hover:scale-102'
+                    }`}>
+                      <IconComponent className="w-5 h-5" />
                     </div>
-                    <h3 className="text-xl font-display font-bold text-[#FAF9F6] mb-3">Waste Diverted</h3>
-                    <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                      Designed to convert palm waste and rice husks into useful outputs instead of letting them become emissions or haze.
-                    </p>
-                  </motion.div>
 
-                  <motion.div variants={driftVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
-                      <Wind className="w-6 h-6" />
+                    <div className="flex-grow">
+                      <div className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50]/55 mb-0.5">
+                        STAGE {step.num}
+                      </div>
+                      <h4 className={`font-display font-bold text-base transition-colors duration-300 ${
+                        isActive ? 'text-[#FAF9F6]' : 'text-[#FAF9F6]/70 group-hover:text-[#FAF9F6]'
+                      }`}>
+                        {step.title}
+                      </h4>
                     </div>
-                    <h3 className="text-xl font-display font-bold text-[#FAF9F6] mb-3">Methane Reduction</h3>
-                    <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                      Our pyrolysis pathway limits the decomposition of unmanaged biomass, directly mitigating the risk of methane release.
-                    </p>
-                  </motion.div>
-
-                  <motion.div variants={blurFadeVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
-                      <Globe className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-xl font-display font-bold text-[#FAF9F6] mb-3">Soil Carbon Pathway</h3>
-                    <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                      Validating the capacity for biochar to lock stable carbon into the soil while simultaneously improving water and nutrient retention.
-                    </p>
-                  </motion.div>
-
-                  <motion.div variants={driftVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
-                      <Trees className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-xl font-display font-bold text-[#FAF9F6] mb-3">Reduced Forest Pressure</h3>
-                    <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                      WAQID's briquettes are designed as a direct, forest-friendly alternative to traditional wood-based charcoal, reducing deforestation pressure.
-                    </p>
-                  </motion.div>
-
-                  <motion.div variants={blurFadeVariant} className="bg-[#152E1E]/50 border border-[#2E7D32]/20 p-8 rounded-3xl dark-card-hover group w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-500">
-                      <Wind className="w-6 h-6" />
-                    </div>
-                    <h3 className="text-xl font-display font-bold text-[#FAF9F6] mb-3">Cleaner Local Air</h3>
-                    <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                      Offers communities a smokeless alternative to open burning and traditional charcoal, improving local air quality.
-                    </p>
-                  </motion.div>
-                </div>
-              ))}
+                  </button>
+                );
+              })}
             </div>
+
+            {/* Display Detail Panel Column (Span 7) */}
+            <div className="col-span-7 flex">
+              <motion.div 
+                key={activeImpactStep}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="w-full bg-[#152E1E]/45 border border-[#2E7D32]/25 p-8 md:p-10 rounded-[2rem] flex flex-col justify-between relative overflow-hidden shadow-2xl"
+              >
+                {/* Large Background Step Number */}
+                <div className="text-[10rem] font-display font-black text-[#4CAF50]/5 absolute -top-8 -right-6 pointer-events-none select-none">
+                  {impactSteps[activeImpactStep].num}
+                </div>
+
+                <div className="relative z-10 text-left">
+                  <span className="px-3 py-1 rounded-full bg-[#4CAF50]/15 border border-[#4CAF50]/20 text-[9px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
+                    {impactSteps[activeImpactStep].tag}
+                  </span>
+                  
+                  <h3 className="font-display font-black text-2xl md:text-3xl text-[#FAF9F6] mt-6 mb-4">
+                    {impactSteps[activeImpactStep].title}
+                  </h3>
+                  
+                  <p className="text-sm text-[#FAF9F6]/80 font-sans leading-relaxed mb-6">
+                    {impactSteps[activeImpactStep].desc}
+                  </p>
+                </div>
+
+                <div className="relative z-10 border border-[#2E7D32]/35 bg-[#0C1D13]/60 rounded-2xl p-5 md:p-6 text-left">
+                  <div className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] mb-2 flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5" /> Environmental Indicator
+                  </div>
+                  <h4 className="font-display font-bold text-base text-[#FAF9F6] mb-1.5">
+                    {impactSteps[activeImpactStep].metric}
+                  </h4>
+                  <p className="text-xs text-[#FAF9F6]/65 font-sans leading-relaxed">
+                    {impactSteps[activeImpactStep].detail}
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+
           </div>
+
+          {/* Accordion List on Mobile & Tablet */}
+          <div className="lg:hidden flex flex-col gap-4 max-w-2xl mx-auto mb-16">
+            {impactSteps.map((step, idx) => {
+              const IconComponent = step.icon;
+              const isActive = activeImpactStep === idx;
+              return (
+                <div 
+                  key={idx} 
+                  className={`border rounded-2xl overflow-hidden transition-all duration-300 border-l-4 ${
+                    isActive ? 'border-[#4CAF50] bg-[#152E1E]' : 'border-[#2E7D32]/15 bg-[#152E1E]/15 border-l-transparent'
+                  }`}
+                >
+                  <button 
+                    onClick={() => setActiveImpactStep(isActive ? -1 : idx)}
+                    className="w-full flex items-center justify-between p-5 text-left focus:outline-none cursor-pointer"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-display font-bold text-xs ${
+                        isActive ? 'bg-[#4CAF50] text-[#0C1D13]' : 'bg-[#0C1D13] text-[#4CAF50]/70'
+                      }`}>
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <div className="text-[9px] font-sans font-bold uppercase tracking-wider text-[#4CAF50]/55">
+                          STAGE {step.num}
+                        </div>
+                        <span className="font-display font-bold text-[#FAF9F6] text-sm sm:text-base">{step.title}</span>
+                      </div>
+                    </div>
+                    <ChevronDown className={`w-5 h-5 text-[#4CAF50] transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} />
+                  </button>
+                  <div 
+                    className={`px-5 overflow-hidden transition-all duration-300 ease-in-out ${
+                      isActive ? 'max-h-[350px] pb-5 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                  >
+                    <div className="border-t border-[#2E7D32]/20 pt-4 flex flex-col gap-4 text-left">
+                      <p className="text-xs text-[#FAF9F6]/80 font-sans leading-relaxed">
+                        {step.desc}
+                      </p>
+                      
+                      <div className="border border-[#2E7D32]/30 bg-[#0C1D13]/40 rounded-xl p-4">
+                        <div className="text-[9px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] mb-1">
+                          {step.metric}
+                        </div>
+                        <p className="text-[11px] text-[#FAF9F6]/65 font-sans leading-relaxed">
+                          {step.detail}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
 
         {/* Re-open max-w-7xl container for stats */}
