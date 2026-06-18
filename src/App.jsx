@@ -369,8 +369,9 @@ function App() {
   };
 
   const handleCalculatorCTA = (role) => {
-    setSelectedFormRole(role);
-    const element = document.getElementById("ask");
+    const mappedRole = role === "Farm Cooperative" ? "Farmer / Cooperative" : role;
+    setSelectedFormRole(mappedRole);
+    const element = document.getElementById("contact");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -454,9 +455,9 @@ function App() {
             {[
               { id: 'crisis', name: 'Crisis' },
               { id: 'solution', name: 'Solution' },
+              { id: 'calculator', name: 'Calculator' },
               { id: 'impact', name: 'Impact' },
-              { id: 'assumptions', name: 'Roadmap' },
-              { id: 'traction', name: 'Field Trials' },
+              { id: 'prototype-to-pilot', name: 'Prototype to Pilot' },
               { id: 'team', name: 'Team' }
             ].map((item) => (
               <button 
@@ -570,49 +571,6 @@ function App() {
                 Palm oil mills generate millions of tonnes of wet Empty Fruit Bunches (EFBs) annually, facing heavy waste disposal fees, logistics bottlenecks, and environment penalties for open decomposition. Simultaneously, smallholder farmers face declining soil fertility and high chemical fertilizer prices. WAQID offers mills a circular, decentralized technology that bypasses landfill disposal, while equipping farms with nutrient-dense biochar pellets to restore agricultural soil, reduce chemical input costs, and improve crop resilience.
               </p>
             </div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* 2.5 ECOSYSTEM & SUPPORT NETWORK */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] border-b border-[#2E7D32]/10">
-        <div className="ecosystem-strip">
-          {/* Heading */}
-          <div className="relative z-[4] h-full flex flex-col justify-center pl-6 md:pl-[5vw] pr-7">
-            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#254D44]">
-              Ecosystem
-            </span>
-            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#19362F] leading-[1.04] tracking-tight">
-              Ecosystem &amp; Support Network
-            </h2>
-          </div>
-
-          {/* Logo Marquee */}
-          <div className="logo-flow">
-            <motion.div 
-              animate={{ x: [0, "-50%"] }}
-              transition={{
-                ease: "linear",
-                duration: 25,
-                repeat: Infinity
-              }}
-              style={{ animation: 'none' }}
-              className="logo-line"
-            >
-              {/* Set 1 */}
-              {partnerLogos.map((logo, idx) => (
-                <div key={`set1-${idx}`} className="logo-card">
-                  <img src={logo.src} alt={logo.alt} />
-                </div>
-              ))}
-
-              {/* Set 2 — duplicate for seamless loop */}
-              {partnerLogos.map((logo, idx) => (
-                <div key={`set2-${idx}`} className="logo-card">
-                  <img src={logo.src} alt={logo.alt} />
-                </div>
-              ))}
-            </motion.div>
           </div>
         </div>
       </motion.section>
@@ -1087,18 +1045,6 @@ function App() {
               </div>
             </div>
           </div>
-
-          {/* Circular Carbon Loop Infographic */}
-          <motion.div 
-            variants={fadeUpVariant}
-            className="mt-16 max-w-5xl mx-auto flex justify-center items-center"
-          >
-            <img 
-              src="/images/waqid-circular-carbon-loop.png" 
-              alt="The WAQID Circular Carbon Loop Flowchart" 
-              className="w-full h-auto object-contain select-none"
-            />
-          </motion.div>
         </div>
       </motion.section>
 
@@ -1371,7 +1317,24 @@ function App() {
         </div>
       </motion.section>
 
-      {/* 5. ENVIRONMENTAL IMPACT PATHWAY */}
+      {/* 5. CIRCULAR CARBON LOOP DIAGRAM */}
+      <motion.section 
+        variants={sectionReveal} 
+        initial="initial" 
+        whileInView="whileInView" 
+        viewport={{ once: true, margin: "-50px" }} 
+        className="bg-[#FAF9F6] py-12 border-b border-[#2E7D32]/10 text-center"
+      >
+        <div className="max-w-5xl mx-auto px-6 flex flex-col justify-center items-center">
+          <img 
+            src="/images/waqid-circular-carbon-loop.png" 
+            alt="The WAQID Circular Carbon Loop Flowchart" 
+            className="w-full h-auto object-contain select-none"
+          />
+        </div>
+      </motion.section>
+
+      {/* 6. ENVIRONMENTAL IMPACT PATHWAY */}
 
       <motion.section 
         variants={sectionReveal} 
@@ -1636,249 +1599,276 @@ function App() {
 
       </motion.section>
 
-      {/* 6. COMMUNITY IMPACT */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="community" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      {/* 7. PROTOTYPE TO PILOT */}
+      <motion.section 
+        variants={sectionReveal} 
+        initial="initial" 
+        whileInView="whileInView" 
+        viewport={{ once: true, margin: "-50px" }} 
+        id="prototype-to-pilot" 
+        className="bg-[#FAF9F6] py-20 md:py-28 border-b border-[#2E7D32]/10 text-left"
+      >
         <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-end mb-16">
-            <div className="md:col-span-8">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                Who Benefits
-              </span>
-              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3 leading-tight">
-                Community Impact
-              </h2>
-            </div>
-            <div className="md:col-span-4">
-              <p className="text-sm text-[#0C1D13]/80 font-sans leading-relaxed border-l-2 border-[#2E7D32] pl-4">
-                WAQID is not only reducing waste. It is helping communities turn a local burden into soil health, cleaner fuel, and economic value.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <Users className="w-8 h-8" />
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-2">Smallholder Farmers</h4>
-                <p className="text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  They face tired soil, fertilizer dependency, and rising input costs. WAQID provides locally produced biochar amendments to restore their land.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <Flame className="w-8 h-8" />
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-2">Local Food & Heat Businesses</h4>
-                <p className="text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Satay vendors, grill houses, and small industries need cleaner fuel. We offer a smokeless, sustainable alternative to wood charcoal.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] shrink-0 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <Factory className="w-8 h-8" />
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-2">Palm Mills & Cooperatives</h4>
-                <p className="text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  They need practical, decentralized waste-management solutions to handle daily biomass output without resorting to open burning.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#152E1E] p-8 rounded-3xl border border-[#2E7D32]/30 shadow-lg flex flex-col md:flex-row gap-6 items-start group cursor-pointer"
-            >
-              <div className="w-16 h-16 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] shrink-0 border border-[#4CAF50]/30 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <Globe className="w-8 h-8" />
-              </div>
-              <div>
-                <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-2">Rural Communities</h4>
-                <p className="text-sm text-[#FAF9F6]/80 font-sans leading-relaxed">
-                  They benefit from cleaner waste handling, locally manufactured products, and the circular economic value created directly in their district.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* 7. CORE HYPOTHESES & FIELD VALIDATION STATUS */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="assumptions" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          {/* Section Heading */}
+          <div className="text-center max-w-3xl mx-auto mb-20">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-              Prototype to Pilot
+              Milestone Pathway
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
-              Core Hypotheses & Field Validation Status
+              Prototype to Pilot
             </h2>
-            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
-              We have established our prototype roadmap. During our upcoming pilot phase, we will systematically test these four core operational hypotheses in the field.
+            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed max-w-2xl mx-auto">
+              WAQID is bridging the gap between low-cost prototypes and mill-scale systems. We are validating our technical systems, user adoption, and future business model through active field testing.
             </p>
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {hypotheses.map((item, idx) => {
-              const isDark = item.statusType === "validated";
-              
-              return (
-                <motion.div 
-                  key={idx}
-                  variants={fadeUpVariant} 
-                  whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-                  whileTap={{ scale: 0.985 }}
-                  className={`p-6 rounded-3xl border flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-colors duration-300 ${
-                    isDark 
-                      ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
-                      : "bg-[#F0EFEA] border-[#2E7D32]/10 shadow-sm text-[#0C1D13]"
-                  }`}
-                  style={{ borderTopWidth: "4px", borderTopColor: item.color }}
-                >
-                  <div>
-                    {/* Header: Icon / Title + Badge */}
-                    <div className="flex justify-between items-start gap-4 mb-4">
-                      <div className={`p-2.5 rounded-xl border flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${
-                        isDark 
-                          ? "bg-[#4CAF50]/20 border-[#4CAF50]/30 text-[#4CAF50]" 
-                          : "bg-[#152E1E] border-transparent text-[#4CAF50]"
-                      }`}>
-                        {idx === 0 && <Zap className="w-5 h-5" />}
-                        {idx === 1 && <Users className="w-5 h-5" />}
-                        {idx === 2 && <Flame className="w-5 h-5" />}
-                        {idx === 3 && <CheckCircle2 className="w-5 h-5" />}
+          {/* Sub-Section A: Built in the Dirt (Traction Gallery) */}
+          <div className="mb-20">
+            <div className="mb-8 text-center md:text-left">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                Traction & Hardware
+              </span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                Built in the Dirt
+              </h3>
+              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
+                Real testing, real materials. From manual oil drums to pilot reactor engineering.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <motion.div 
+                variants={fadeUpVariant} 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
+                className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+              >
+                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
+                  <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
+                  <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
+                </div>
+              </motion.div>
+              <motion.div 
+                variants={fadeUpVariant} 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
+                className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+              >
+                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
+                  <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
+                  <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
+                </div>
+              </motion.div>
+              <motion.div 
+                variants={fadeUpVariant} 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
+                className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+              >
+                <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
+                  <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
+                  <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Sub-Section B: Core Hypotheses & Field Validation Status */}
+          <div className="mb-20">
+            <div className="mb-8 text-center md:text-left">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                Scientific Method
+              </span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                Core Hypotheses & Field Validation Status
+              </h3>
+              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
+                Systematically addressing critical assumptions before building high-capacity infrastructure.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {hypotheses.map((item, idx) => {
+                const isDark = item.statusType === "validated";
+                
+                return (
+                  <motion.div 
+                    key={idx}
+                    variants={fadeUpVariant} 
+                    whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                    whileTap={{ scale: 0.985 }}
+                    className={`p-6 rounded-3xl border flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-colors duration-300 ${
+                      isDark 
+                        ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
+                        : "bg-[#F0EFEA] border-[#2E7D32]/10 shadow-sm text-[#0C1D13]"
+                    }`}
+                    style={{ borderTopWidth: "4px", borderTopColor: item.color }}
+                  >
+                    <div>
+                      <div className="flex justify-between items-start gap-4 mb-4">
+                        <div className={`p-2.5 rounded-xl border flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${
+                          isDark 
+                            ? "bg-[#4CAF50]/20 border-[#4CAF50]/30 text-[#4CAF50]" 
+                            : "bg-[#152E1E] border-transparent text-[#4CAF50]"
+                        }`}>
+                          {idx === 0 && <Zap className="w-5 h-5" />}
+                          {idx === 1 && <Users className="w-5 h-5" />}
+                          {idx === 2 && <Flame className="w-5 h-5" />}
+                          {idx === 3 && <CheckCircle2 className="w-5 h-5" />}
+                        </div>
+
+                        <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider border ${
+                          isDark
+                            ? "bg-[#4CAF50]/20 border-[#4CAF50]/30 text-[#4CAF50]"
+                            : "bg-[#2E7D32]/10 border-[#2E7D32]/20 text-[#2E7D32]"
+                        }`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#4CAF50] animate-pulse" : "bg-[#2E7D32]"}`} />
+                          {item.status}
+                        </span>
                       </div>
 
-                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider border ${
-                        isDark
-                          ? "bg-[#4CAF50]/20 border-[#4CAF50]/30 text-[#4CAF50]"
-                          : "bg-[#2E7D32]/10 border-[#2E7D32]/20 text-[#2E7D32]"
+                      <span className={`text-[10px] font-sans font-black uppercase tracking-widest block mb-2 ${
+                        isDark ? "text-[#4CAF50]" : "text-[#2E7D32]"
                       }`}>
-                        <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#4CAF50] animate-pulse" : "bg-[#2E7D32]"}`} />
-                        {item.status}
+                        {item.type}
                       </span>
-                    </div>
 
-                    <span className={`text-[10px] font-sans font-black uppercase tracking-widest block mb-2 ${
-                      isDark ? "text-[#4CAF50]" : "text-[#2E7D32]"
-                    }`}>
-                      {item.type}
-                    </span>
+                      <h4 className={`font-display font-bold text-base leading-snug mb-4 ${
+                        isDark ? "text-[#FAF9F6]" : "text-[#0C1D13]"
+                      }`}>
+                        {item.question}
+                      </h4>
 
-                    <h4 className={`font-display font-bold text-base leading-snug mb-4 ${
-                      isDark ? "text-[#FAF9F6]" : "text-[#0C1D13]"
-                    }`}>
-                      {item.question}
-                    </h4>
+                      <div className={`w-full h-[1px] my-4 ${isDark ? "bg-[#4CAF50]/15" : "bg-[#2E7D32]/10"}`} />
 
-                    {/* Divider */}
-                    <div className={`w-full h-[1px] my-4 ${isDark ? "bg-[#4CAF50]/15" : "bg-[#2E7D32]/10"}`} />
+                      <div className="space-y-3">
+                        <div>
+                          <span className={`text-[9px] font-sans font-bold uppercase tracking-wider block ${
+                            isDark ? "text-[#4CAF50]/75" : "text-[#2E7D32]/75"
+                          }`}>
+                            Validation Method
+                          </span>
+                          <p className={`text-xs font-sans mt-0.5 leading-relaxed ${
+                            isDark ? "text-[#FAF9F6]/80" : "text-[#0C1D13]/85"
+                          }`}>
+                            {item.method}
+                          </p>
+                        </div>
 
-                    {/* Metadata fields */}
-                    <div className="space-y-3">
-                      <div>
-                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider block ${
-                          isDark ? "text-[#4CAF50]/75" : "text-[#2E7D32]/75"
-                        }`}>
-                          Validation Method
-                        </span>
-                        <p className={`text-xs font-sans mt-0.5 leading-relaxed ${
-                          isDark ? "text-[#FAF9F6]/80" : "text-[#0C1D13]/85"
-                        }`}>
-                          {item.method}
-                        </p>
-                      </div>
-
-                      <div>
-                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider block ${
-                          isDark ? "text-[#4CAF50]/75" : "text-[#2E7D32]/75"
-                        }`}>
-                          Success Metric
-                        </span>
-                        <p className={`text-xs font-sans mt-0.5 leading-relaxed font-semibold ${
-                          isDark ? "text-[#FAF9F6]/90" : "text-[#0C1D13]/90"
-                        }`}>
-                          {item.metric}
-                        </p>
+                        <div>
+                          <span className={`text-[9px] font-sans font-bold uppercase tracking-wider block ${
+                            isDark ? "text-[#4CAF50]/75" : "text-[#2E7D32]/75"
+                          }`}>
+                            Success Metric
+                          </span>
+                          <p className={`text-xs font-sans mt-0.5 leading-relaxed font-semibold ${
+                            isDark ? "text-[#FAF9F6]/90" : "text-[#0C1D13]/90"
+                          }`}>
+                            {item.metric}
+                          </p>
+                        </div>
                       </div>
                     </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Sub-Section C: Commercial Viability Targets */}
+          <div>
+            <div className="mb-8 text-center md:text-left">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                Future Economics
+              </span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                Commercial Viability Targets
+              </h3>
+              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
+                Four key economic models that WAQID will test and validate during our pilot operations.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {/* Card 1 */}
+              <motion.div 
+                variants={driftVariant} 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
+                className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Zap className="w-6 h-6" />
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </motion.section>
+                  <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Service Model</h4>
+                  <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                    Viability target: co-locating units at palm oil mills to process biomass waste under long-term service agreements.
+                  </p>
+                </div>
+              </motion.div>
 
-      {/* 8. TRACTION GALLERY */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="traction" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-center">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-12">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Traction</span>
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">Built in the Dirt</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
-            >
-              <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
-                <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
-                <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
-              </div>
-            </motion.div>
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
-            >
-              <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
-                <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
-                <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
-              </div>
-            </motion.div>
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
-            >
-              <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
-                <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
-                <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
-              </div>
-            </motion.div>
+              {/* Card 2 */}
+              <motion.div 
+                variants={popVariant} 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
+                className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Leaf className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Biochar Pellets</h4>
+                  <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                    Viability target: formulating high-efficiency biochar-compost blends for direct commercial sale to estates and smallholder cooperatives.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Card 3 */}
+              <motion.div 
+                variants={blurFadeVariant} 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
+                className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+              >
+                <div>
+                  <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Hexagon className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
+                  <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                    Viability target: displacement testing of wood charcoal with local grill vendors, scaling to industrial biomass briquette distribution.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Card 4 - Highlighted Dark Green Card */}
+              <motion.div 
+                variants={driftVariant} 
+                whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                whileTap={{ scale: 0.985 }}
+                className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
+              >
+                <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                  <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
+                </div>
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] mb-6 border border-[#4CAF50]/30 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-3">Future Carbon</h4>
+                  <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">
+                    Viability target: validating carbon sequestration durability through life-cycle assessments (LCA) to qualify for future carbon removal credits.
+                  </p>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </motion.section>
@@ -2012,97 +2002,44 @@ function App() {
           </div>
         </div>
       </motion.section>
-
-      {/* 10. SCALABLE REVENUE MODEL */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="revenue" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-              Future Economics
+      {/* 9. ECOSYSTEM & SUPPORT NETWORK */}
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-12">
+        <div className="ecosystem-strip">
+          {/* Heading */}
+          <div className="relative z-[4] h-full flex flex-col justify-center pl-6 md:pl-[5vw] pr-7">
+            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#254D44]">
+              Ecosystem
             </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
-              Scalable Revenue Model
+            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#19362F] leading-[1.04] tracking-tight">
+              Ecosystem &amp; Support Network
             </h2>
-            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed max-w-xl mx-auto">
-              Once validated, WAQID will transition from a prototype project to a scalable venture with 4 clear revenue streams.
-            </p>
-            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {/* Card 1 */}
+          {/* Logo Marquee */}
+          <div className="logo-flow">
             <motion.div 
-              variants={driftVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+              animate={{ x: [0, "-50%"] }}
+              transition={{
+                ease: "linear",
+                duration: 25,
+                repeat: Infinity
+              }}
+              style={{ animation: 'none' }}
+              className="logo-line"
             >
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  <Zap className="w-6 h-6" />
+              {/* Set 1 */}
+              {partnerLogos.map((logo, idx) => (
+                <div key={`set1-${idx}`} className="logo-card">
+                  <img src={logo.src} alt={logo.alt} />
                 </div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Service Model</h4>
-                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Palm oil mills pay a recurring service fee to co-locate decentralized pyrolysis units that address biomass disposal.
-                </p>
-              </div>
-            </motion.div>
+              ))}
 
-            {/* Card 2 */}
-            <motion.div 
-              variants={popVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
-            >
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  <Leaf className="w-6 h-6" />
+              {/* Set 2 — duplicate for seamless loop */}
+              {partnerLogos.map((logo, idx) => (
+                <div key={`set2-${idx}`} className="logo-card">
+                  <img src={logo.src} alt={logo.alt} />
                 </div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Biochar Pellets</h4>
-                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  WAQID processes and sells biochar soil amendment products directly to farmers, estates, and agricultural co-ops.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Card 3 */}
-            <motion.div 
-              variants={blurFadeVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
-            >
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  <Hexagon className="w-6 h-6" />
-                </div>
-                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
-                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                  Revenue generated by selling smokeless solid fuel briquettes to local businesses as an alternative to wood charcoal.
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Card 4 - Highlighted Dark Green Card */}
-            <motion.div 
-              variants={driftVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
-            >
-              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
-              </div>
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] mb-6 border border-[#4CAF50]/30 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                  <ShieldCheck className="w-6 h-6" />
-                </div>
-                <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-3">Future Carbon</h4>
-                <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">
-                  Once pilot validation and LCAs are complete, WAQID aims to access verified carbon removal (dCOR) markets to unlock value.
-                </p>
-              </div>
+              ))}
             </motion.div>
           </div>
         </div>
@@ -2408,9 +2345,9 @@ function App() {
                 {[
                   { id: 'crisis', label: 'Crisis Context' },
                   { id: 'solution', label: 'Our Solution' },
+                  { id: 'calculator', label: 'Interactive Calculator' },
                   { id: 'impact', label: 'Measurable Impact' },
-                  { id: 'traction', label: 'Field Trials' },
-                  { id: 'revenue', label: 'Revenue Model' },
+                  { id: 'prototype-to-pilot', label: 'Prototype to Pilot' },
                   { id: 'team', label: 'Team & Advisors' }
                 ].map((link) => (
                   <button 
