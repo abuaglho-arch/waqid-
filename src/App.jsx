@@ -1087,87 +1087,128 @@ function App() {
         </div>
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
-          <div className="text-center mb-16">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-4">
-              Catalytic Support & Validation
-            </span>
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-[#FAF9F6] leading-tight mb-6">
-              What Support Unlocks
-            </h2>
-            <p className="text-base md:text-lg text-[#FAF9F6]/75 font-sans leading-relaxed max-w-3xl mx-auto text-balance">
-              WAQID is a prototype-stage venture seeking pilot support, validation partners, technical support, and catalytic funding to prove our circular systems in the field.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
             
-            {/* Card 1 */}
-            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Factory className="w-6 h-6" />
+            {/* Left Column: Progress Statement & Budget */}
+            <div className="w-full lg:w-[38%] shrink-0 lg:sticky lg:top-24">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-4">
+                Catalytic Support & Validation
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] leading-[1.15] mb-6">
+                What Support Unlocks
+              </h2>
+              <div className="border-l-2 border-[#4CAF50] pl-5 py-2 mb-8">
+                <p className="text-sm md:text-base text-[#FAF9F6]/85 font-sans leading-relaxed text-balance">
+                  WAQID has already begun early ground validation through biochar and compost application work with field partners. The next stage is to strengthen the pilot system, expand testing, and generate clearer data for farmers, funders, and future deployment partners.
+                </p>
               </div>
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Build the V3 Pilot Unit</h4>
-              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                Fabricate and test the next low-cost TLUD pyrolysis prototype.
-              </p>
+
+              <div className="flex flex-col gap-6 items-start">
+                <button
+                  onClick={() => handleTrackSelect("Strategic Partner")}
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs transition-colors border border-[#2E7D32]/20 shadow-lg"
+                >
+                  Partner With Us <ArrowUpRight className="w-4 h-4" />
+                </button>
+                
+                <div className="pt-4 border-t border-[#2E7D32]/15 text-left w-full">
+                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] block">
+                    Initial Pilot Budget
+                  </span>
+                  <span className="text-base font-display font-bold text-[#FAF9F6]/80 mt-1 block">
+                    approximately $30,000
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Card 2 */}
-            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Sprout className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Validate Biochar Performance</h4>
-              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                Run lab testing and small field trials to measure soil and water-retention impact.
-              </p>
+            {/* Right Column: Step timeline */}
+            <div className="w-full lg:w-[62%] flex-grow relative pl-12 md:pl-16">
+              {/* Timeline Line */}
+              <div className="absolute left-6 md:left-8 top-4 bottom-4 w-[1px] bg-gradient-to-b from-[#2E7D32] via-[#2E7D32]/30 to-[#2E7D32]/5 pointer-events-none" />
+              
+              <motion.div 
+                variants={staggerContainer} 
+                initial="hidden" 
+                whileInView="visible" 
+                viewport={{ once: true, margin: "-50px" }}
+                className="space-y-10"
+              >
+                {[
+                  {
+                    num: "01",
+                    title: "Build the V3 Pilot Unit",
+                    desc: "Fabricate and test the next low-cost TLUD pyrolysis prototype.",
+                    status: "Next milestone",
+                    icon: Factory
+                  },
+                  {
+                    num: "02",
+                    title: "Expand Biochar Field Validation",
+                    desc: "Run lab testing and small field trials to measure soil and water-retention impact.",
+                    status: "In progress",
+                    icon: Sprout
+                  },
+                  {
+                    num: "03",
+                    title: "Test Farmer Adoption",
+                    desc: "Validate whether pelletized biochar is practical and easy for smallholder farmers to apply.",
+                    status: "Field validation",
+                    icon: Users
+                  },
+                  {
+                    num: "04",
+                    title: "Develop Circular Fuel Products",
+                    desc: "Test cleaner briquettes with local heat users and small businesses.",
+                    status: "To be tested",
+                    icon: Flame
+                  },
+                  {
+                    num: "05",
+                    title: "Document Impact Data",
+                    desc: "Produce field evidence, pilot reports, and validation results for future partners.",
+                    status: "Reporting layer",
+                    icon: Activity
+                  }
+                ].map((step, idx) => {
+                  const IconComponent = step.icon;
+                  return (
+                    <motion.div 
+                      key={idx}
+                      variants={fadeUpVariant}
+                      className="relative flex flex-col gap-2 group text-left"
+                    >
+                      {/* Timeline Dot with Icon */}
+                      <div className="absolute left-6 md:left-8 -translate-x-1/2 top-1.5 w-10 h-10 rounded-full border border-[#2E7D32]/35 bg-[#0C1D13] flex items-center justify-center text-[#4CAF50] z-20 group-hover:border-[#4CAF50] transition-colors shadow-xl group-hover:bg-[#152E1E] duration-300">
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+
+                      {/* Step Number & Status Label */}
+                      <div className="flex flex-wrap items-center gap-3">
+                        <span className="text-xs font-sans font-black text-[#4CAF50] tracking-wider">
+                          STEP {step.num}
+                        </span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#2E7D32]/60" />
+                        <span className="px-2.5 py-0.5 rounded-full bg-[#152E1E] border border-[#2E7D32]/25 text-[9px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
+                          {step.status}
+                        </span>
+                      </div>
+
+                      {/* Step Title & Details */}
+                      <div>
+                        <h4 className="font-display font-black text-lg md:text-xl text-[#FAF9F6] mb-2 group-hover:text-[#4CAF50] transition-colors duration-300">
+                          {step.title}
+                        </h4>
+                        <p className="text-xs md:text-sm text-[#FAF9F6]/75 font-sans leading-relaxed max-w-2xl text-balance">
+                          {step.desc}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
             </div>
 
-            {/* Card 3 */}
-            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Users className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Test Farmer Adoption</h4>
-              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                Validate whether pelletized biochar is practical and easy for smallholder farmers to apply.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
-              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Flame className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Pilot Circular Fuel Products</h4>
-              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                Test cleaner briquettes with local heat users and small businesses.
-              </p>
-            </div>
-
-            {/* Card 5 */}
-            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300 md:col-span-2 lg:col-span-1">
-              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
-                <Activity className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Document Impact Data</h4>
-              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
-                Produce field evidence, pilot reports, and validation results for future partners.
-              </p>
-            </div>
-
-          </div>
-
-          <div className="text-center flex flex-col items-center gap-4">
-            <button
-              onClick={() => handleTrackSelect("Strategic Partner")}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs transition-colors border border-[#2E7D32]/20 shadow-lg"
-            >
-              Partner With Us <ArrowUpRight className="w-4 h-4" />
-            </button>
-            <span className="text-xs font-sans text-[#FAF9F6]/50 tracking-wide">
-              Initial pilot budget: approximately $30,000.
-            </span>
           </div>
         </div>
       </motion.section>
