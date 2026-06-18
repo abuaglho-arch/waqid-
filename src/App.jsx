@@ -247,7 +247,7 @@ function App() {
   const faqItems = [
     {
       q: "What stage is WAQID currently in?",
-      a: "WAQID is currently in the prototype stage. We have tested our manual V1 and V2 reactors and are raising $30k to build our semi-automated V3 Pilot Reactor to validate operations at the palm mill level."
+      a: "WAQID is currently in the prototype stage. We have tested our manual V1 and V2 reactors and are seeking catalytic funding and strategic partners to build our semi-automated V3 Pilot Reactor to validate operations at the palm mill level."
     },
     {
       q: "How does the TLUD Pyrolysis technology work?",
@@ -1089,7 +1089,7 @@ function App() {
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
             
-            {/* Left Column: Progress Statement & Budget */}
+            {/* Left Column: Progress Statement & CTA */}
             <div className="w-full lg:w-[38%] shrink-0 lg:sticky lg:top-24">
               <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-4">
                 Catalytic Support & Validation
@@ -1110,22 +1110,13 @@ function App() {
                 >
                   Partner With Us <ArrowUpRight className="w-4 h-4" />
                 </button>
-                
-                <div className="pt-4 border-t border-[#2E7D32]/15 text-left w-full">
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] block">
-                    Initial Pilot Budget
-                  </span>
-                  <span className="text-base font-display font-bold text-[#FAF9F6]/80 mt-1 block">
-                    approximately $30,000
-                  </span>
-                </div>
               </div>
             </div>
 
             {/* Right Column: Step timeline */}
-            <div className="w-full lg:w-[62%] flex-grow relative pl-12 md:pl-16">
+            <div className="w-full lg:w-[62%] flex-grow relative">
               {/* Timeline Line */}
-              <div className="absolute left-6 md:left-8 top-4 bottom-4 w-[1px] bg-gradient-to-b from-[#2E7D32] via-[#2E7D32]/30 to-[#2E7D32]/5 pointer-events-none" />
+              <div className="absolute left-[20px] top-4 bottom-4 w-[1px] bg-gradient-to-b from-[#2E7D32] via-[#2E7D32]/30 to-[#2E7D32]/5 pointer-events-none" />
               
               <motion.div 
                 variants={staggerContainer} 
@@ -1176,10 +1167,10 @@ function App() {
                     <motion.div 
                       key={idx}
                       variants={fadeUpVariant}
-                      className="relative flex flex-col gap-2 group text-left"
+                      className="relative flex flex-col gap-2 group text-left pl-12 md:pl-16"
                     >
                       {/* Timeline Dot with Icon */}
-                      <div className="absolute left-6 md:left-8 -translate-x-1/2 top-1.5 w-10 h-10 rounded-full border border-[#2E7D32]/35 bg-[#0C1D13] flex items-center justify-center text-[#4CAF50] z-20 group-hover:border-[#4CAF50] transition-colors shadow-xl group-hover:bg-[#152E1E] duration-300">
+                      <div className="absolute left-0 top-0.5 w-10 h-10 rounded-full border border-[#2E7D32]/35 bg-[#0C1D13] flex items-center justify-center text-[#4CAF50] z-20 group-hover:border-[#4CAF50] transition-colors shadow-xl group-hover:bg-[#152E1E] duration-300">
                         <IconComponent className="w-4 h-4" />
                       </div>
 
@@ -1216,71 +1207,74 @@ function App() {
       {/* 10. SCALABLE REVENUE MODEL */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="revenue" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center max-w-xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
               Future Economics
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
               Scalable Revenue Model
             </h2>
-            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
-              Once validated, WAQID will transition from a prototype project to a scalable venture with 3 clear revenue streams.
+            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed max-w-xl mx-auto">
+              Once validated, WAQID will transition from a prototype project to a scalable venture with 4 clear revenue streams.
             </p>
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6 mb-4" />
           </div>
-        </div> {/* Close max-w-7xl */}
 
-        {/* Full-bleed marquee */}
-        <div className="w-full relative overflow-hidden my-4">
-          <div className="marquee-container w-full max-w-[100vw]">
-            <div className="marquee-content animate-marquee gap-8 items-stretch pr-8" style={{ animationDuration: '35s' }}>
-              {[1, 2].map((iteration) => (
-                <div key={iteration} className="flex gap-8 shrink-0">
-                  <motion.div variants={driftVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
-                      <Zap className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Service Model</h4>
-                    <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                      Palm oil mills can pay a recurring service fee to deploy decentralized pyrolysis units that address biomass disposal.
-                    </p>
-                  </motion.div>
-
-                  <motion.div variants={popVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
-                      <Leaf className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Biochar Pellets</h4>
-                    <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                      WAQID will process and sell biochar soil restoring products to farmers, cooperatives, and agricultural partners.
-                    </p>
-                  </motion.div>
-
-                  <motion.div variants={blurFadeVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover w-[85vw] sm:w-[320px] shrink-0">
-                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner">
-                      <Hexagon className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
-                    <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                      Revenue generated by selling smokeless solid fuels to local businesses as an alternative to wood charcoal.
-                    </p>
-                  </motion.div>
-
-                  <motion.div variants={driftVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/40 shadow-xl dark-card-hover w-[85vw] sm:w-[320px] shrink-0 relative overflow-hidden group">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                      <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
-                    </div>
-                    <div className="w-12 h-12 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] mb-6 border border-[#4CAF50]/30 shadow-inner relative z-10">
-                      <ShieldCheck className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-3 relative z-10">Future Carbon Pathway</h4>
-                    <p className="text-xs md:text-sm text-[#FAF9F6]/80 font-sans leading-relaxed relative z-10">
-                      Once pilot validation and LCAs are complete, WAQID aims to access verified carbon removal markets to unlock further value.
-                    </p>
-                  </motion.div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {/* Card 1 */}
+            <motion.div variants={driftVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover flex flex-col justify-between min-h-[260px] group transition-all duration-300">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-105 transition-transform">
+                  <Zap className="w-6 h-6" />
                 </div>
-              ))}
-            </div>
+                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Service Model</h4>
+                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                  Palm oil mills pay a recurring service fee to co-locate decentralized pyrolysis units that address biomass disposal.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div variants={popVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover flex flex-col justify-between min-h-[260px] group transition-all duration-300">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-105 transition-transform">
+                  <Leaf className="w-6 h-6" />
+                </div>
+                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Biochar Pellets</h4>
+                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                  WAQID processes and sells biochar soil amendment products directly to farmers, estates, and agricultural co-ops.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Card 3 */}
+            <motion.div variants={blurFadeVariant} className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm card-hover flex flex-col justify-between min-h-[260px] group transition-all duration-300">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-105 transition-transform">
+                  <Hexagon className="w-6 h-6" />
+                </div>
+                <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
+                <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                  Revenue generated by selling smokeless solid fuel briquettes to local businesses as an alternative to wood charcoal.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Card 4 - Highlighted Dark Green Card */}
+            <motion.div variants={driftVariant} className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl dark-card-hover flex flex-col justify-between min-h-[260px] relative overflow-hidden group transition-all duration-300">
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
+              </div>
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-2xl bg-[#4CAF50]/20 flex items-center justify-center text-[#4CAF50] mb-6 border border-[#4CAF50]/30 shadow-inner group-hover:scale-105 transition-transform">
+                  <ShieldCheck className="w-6 h-6" />
+                </div>
+                <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-3">Future Carbon</h4>
+                <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">
+                  Once pilot validation and LCAs are complete, WAQID aims to access verified carbon removal (dCOR) markets to unlock value.
+                </p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </motion.section>
