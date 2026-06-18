@@ -1074,12 +1074,10 @@ function App() {
         </div>
       </motion.section>
 
-      {/* 9. WHAT FUNDING UNLOCKS */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="ask" className="bg-[#0C1D13] py-16 md:py-24 text-left relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(46,125,50,0.15)_0%,transparent_60%)] pointer-events-none" />
+      {/* 9. WHAT SUPPORT UNLOCKS */}
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="ask" className="bg-[#0C1D13] py-16 md:py-24 text-left relative overflow-hidden border-b border-[#2E7D32]/10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(46,125,50,0.12)_0%,transparent_60%)] pointer-events-none" />
         
-
-
         {/* Floating Sparks/Embers overlay */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
           <div className="ember animate-ember-2 left-[20%]" style={{ animationDelay: '2s', width: '2px', height: '2px' }} />
@@ -1091,73 +1089,87 @@ function App() {
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-4">
-              INVESTMENT & PARTNERSHIPS
+              Catalytic Support & Validation
             </span>
             <h2 className="text-3xl md:text-5xl font-display font-bold text-[#FAF9F6] leading-tight mb-6">
-              Current Ask: Raising $30k to build our V3 pilot reactor and secure strategic palm mill and farm partnerships across Malaysia.
+              What Support Unlocks
             </h2>
-            <p className="text-base md:text-lg text-[#FAF9F6]/60 font-sans leading-relaxed max-w-4xl mx-auto">
-              We are syndicating seed capital and strategic partnerships to validate, manufacture, and deploy our first decentralized pyrolysis pilot.
+            <p className="text-base md:text-lg text-[#FAF9F6]/75 font-sans leading-relaxed max-w-3xl mx-auto text-balance">
+              WAQID is a prototype-stage venture seeking pilot support, validation partners, technical support, and catalytic funding to prove our circular systems in the field.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
-            <div className="bg-[#152E1E] p-8 rounded-3xl border border-[#2E7D32]/30 shadow-lg">
-              <h4 className="text-[#4CAF50] font-sans font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-3">
-                <Coins className="w-5 h-5" /> Use of Funds ($30k)
-              </h4>
-              <ul className="space-y-4">
-                {[
-                  "Technical fabricator", 
-                  "TLUD kiln fabrication", 
-                  "Storage and operating space", 
-                  "Biomass transport", 
-                  "Lab testing", 
-                  "Farmer demo plots", 
-                  "Pelletization testing", 
-                  "Pilot operations"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-[#FAF9F6]/90 font-medium">
-                    <CheckCircle2 className="w-5 h-5 text-[#2E7D32] shrink-0" /> {item}
-                  </li>
-                ))}
-              </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+            
+            {/* Card 1 */}
+            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Factory className="w-6 h-6" />
+              </div>
+              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Build the V3 Pilot Unit</h4>
+              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                Fabricate and test the next low-cost TLUD pyrolysis prototype.
+              </p>
             </div>
 
-            <div className="bg-[#152E1E] p-8 rounded-3xl border border-[#2E7D32]/30 shadow-lg">
-              <h4 className="text-[#4CAF50] font-sans font-bold uppercase tracking-widest text-sm mb-6 flex items-center gap-3">
-                <Activity className="w-5 h-5" /> Measurable Milestones
-              </h4>
-              <ul className="space-y-4">
-                {[
-                  "Build and test V3 TLUD pilot unit", 
-                  "Process first batches of palm waste and rice husks", 
-                  "Produce test biochar and briquettes", 
-                  "Run farmer demo plots", 
-                  "Test biochar quality in lab", 
-                  "Validate pellet usability", 
-                  "Collect early adopter feedback", 
-                  "Prepare investor and partner pilot report"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-sm text-[#FAF9F6]/90 font-medium">
-                    <CheckCircle2 className="w-5 h-5 text-[#4CAF50] shrink-0" /> {item}
-                  </li>
-                ))}
-              </ul>
+            {/* Card 2 */}
+            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Sprout className="w-6 h-6" />
+              </div>
+              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Validate Biochar Performance</h4>
+              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                Run lab testing and small field trials to measure soil and water-retention impact.
+              </p>
             </div>
+
+            {/* Card 3 */}
+            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Users className="w-6 h-6" />
+              </div>
+              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Test Farmer Adoption</h4>
+              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                Validate whether pelletized biochar is practical and easy for smallholder farmers to apply.
+              </p>
+            </div>
+
+            {/* Card 4 */}
+            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Flame className="w-6 h-6" />
+              </div>
+              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Pilot Circular Fuel Products</h4>
+              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                Test cleaner briquettes with local heat users and small businesses.
+              </p>
+            </div>
+
+            {/* Card 5 */}
+            <div className="bg-[#152E1E]/50 p-8 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col dark-card-hover group transition-all duration-300 md:col-span-2 lg:col-span-1">
+              <div className="w-12 h-12 rounded-xl bg-[#2E7D32]/10 flex items-center justify-center text-[#4CAF50] mb-6 group-hover:scale-110 transition-transform duration-300">
+                <Activity className="w-6 h-6" />
+              </div>
+              <h4 className="font-display font-bold text-lg text-[#FAF9F6] mb-3">Document Impact Data</h4>
+              <p className="text-xs md:text-sm text-[#FAF9F6]/70 font-sans leading-relaxed">
+                Produce field evidence, pilot reports, and validation results for future partners.
+              </p>
+            </div>
+
           </div>
 
-          <div className="text-center">
+          <div className="text-center flex flex-col items-center gap-4">
             <button
-              onClick={() => handleTrackSelect("Investor / Pitch Deck Request")}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-sm transition-colors border border-[#2E7D32]/20 shadow-lg"
+              onClick={() => handleTrackSelect("Strategic Partner")}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs transition-colors border border-[#2E7D32]/20 shadow-lg"
             >
-              Request Pitch Deck <ArrowUpRight className="w-4 h-4" />
+              Partner With Us <ArrowUpRight className="w-4 h-4" />
             </button>
+            <span className="text-xs font-sans text-[#FAF9F6]/50 tracking-wide">
+              Initial pilot budget: approximately $30,000.
+            </span>
           </div>
         </div>
-
-
       </motion.section>
 
       {/* 10. SCALABLE REVENUE MODEL */}
