@@ -38,6 +38,25 @@ const blurFadeVariant = {
   visible: { opacity: 1, filter: "blur(0px)", transition: { duration: 0.8 } }
 };
 
+const staggerDetailContainer = {
+  hidden: { opacity: 0, scale: 0.98 },
+  visible: { 
+    opacity: 1, 
+    scale: 1,
+    transition: { 
+      staggerChildren: 0.1,
+      delayChildren: 0.05,
+      duration: 0.4,
+      ease: "easeOut"
+    } 
+  }
+};
+
+const staggerDetailItem = {
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+};
+
 const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
   const [count, setCount] = useState(0);
   const [inView, setInView] = useState(false);
@@ -187,6 +206,45 @@ const partnerLogos = [
   { src: "/images/iylp-logo.png", alt: "Tzu Chi IYLP" }
 ];
 
+const hypotheses = [
+  {
+    type: "Technical Hypothesis",
+    question: "Can the TLUD kiln produce consistent biochar & briquettes?",
+    method: "Continuous 24-hour throughput runs under real-world palm mill conditions.",
+    metric: "Carbon content > 75%, thermal efficiency > 40%.",
+    status: "Scheduled for V3 Pilot",
+    statusType: "scheduled",
+    color: "#2E7D32"
+  },
+  {
+    type: "User Hypothesis",
+    question: "Will smallholder farmers easily adopt pelletized biochar?",
+    method: "Field trials with 20+ smallholders applying pellets with standard fertilizer spreaders.",
+    metric: "Zero extra labor reported, > 80% willingness-to-recommend index.",
+    status: "Scheduled for V3 Pilot",
+    statusType: "scheduled",
+    color: "#4CAF50"
+  },
+  {
+    type: "Value Hypothesis",
+    question: "Will local businesses switch to smokeless sustainable charcoal?",
+    method: "Blind testing of heating value, burn-time, and smoke profile with 10 commercial satay vendors.",
+    metric: "Burn-time > 4 hours, equivalent heat output to wood charcoal.",
+    status: "Scheduled for V3 Pilot",
+    statusType: "scheduled",
+    color: "#2E7D32"
+  },
+  {
+    type: "Scientific Validation",
+    question: "Can biochar measurably improve water & nutrient retention?",
+    method: "Lab soil columns and early test-pot trials comparing biochar-compost mixtures against raw soil.",
+    metric: "Nutrient leaching reduced by 25-30%, water retention increased > 18%.",
+    status: "Validated in Lab",
+    statusType: "validated",
+    color: "#4CAF50"
+  }
+];
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -325,9 +383,15 @@ function App() {
       {/* NAVBAR */}
       <nav className={`fixed w-full z-50 transition-all duration-500 border-b ${scrolled ? 'bg-[#0C1D13]/95 backdrop-blur-xl py-3 border-[#2E7D32]/20 shadow-lg' : 'bg-transparent py-6 border-transparent'}`}>
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-3">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="flex items-center gap-3 cursor-pointer focus:outline-none bg-transparent border-transparent p-0"
+            aria-label="Scroll to top of WAQID"
+          >
             <img src="/images/waqid-logo-transparent.png" alt="WAQID Logo" className="h-8 md:h-10 object-contain drop-shadow-md" />
-          </div>
+          </motion.button>
           <div className="hidden md:flex items-center gap-8">
             {[
               { id: 'crisis', name: 'Crisis' },
@@ -910,14 +974,20 @@ function App() {
                   <button
                     key={idx}
                     onClick={() => setActiveImpactStep(idx)}
-                    className={`flex items-center gap-4 p-5 rounded-2xl border text-left transition-all duration-300 group focus:outline-none cursor-pointer ${
-                      isActive 
-                        ? 'bg-[#152E1E] border-[#4CAF50] shadow-[0_0_20px_rgba(76,175,80,0.15)]' 
-                        : 'bg-[#152E1E]/30 border-[#2E7D32]/10 hover:border-[#2E7D32]/35 hover:bg-[#152E1E]/50'
-                    }`}
+                    className="relative flex items-center gap-4 p-5 rounded-2xl border border-transparent text-left group focus:outline-none cursor-pointer overflow-hidden bg-transparent"
                   >
+                    {isActive ? (
+                      <motion.div
+                        layoutId="activeStepIndicator"
+                        className="absolute inset-0 bg-[#152E1E] border border-[#4CAF50] rounded-2xl shadow-[0_0_20px_rgba(76,175,80,0.15)] z-0"
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-[#152E1E]/30 border border-[#2E7D32]/10 rounded-2xl hover:border-[#2E7D32]/35 hover:bg-[#152E1E]/50 transition-all duration-300 z-0" />
+                    )}
+
                     {/* Badge */}
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-display font-bold text-sm transition-all duration-300 ${
+                    <div className={`relative z-10 w-10 h-10 rounded-xl flex items-center justify-center font-display font-bold text-sm transition-all duration-300 ${
                       isActive 
                         ? 'bg-[#4CAF50] text-[#0C1D13] scale-105' 
                         : 'bg-[#0C1D13] text-[#4CAF50]/65 group-hover:text-[#4CAF50] group-hover:scale-102'
@@ -925,7 +995,7 @@ function App() {
                       <IconComponent className="w-5 h-5" />
                     </div>
 
-                    <div className="flex-grow">
+                    <div className="relative z-10 flex-grow">
                       <div className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50]/55 mb-0.5">
                         STAGE {step.num}
                       </div>
@@ -944,31 +1014,49 @@ function App() {
             <div className="col-span-7 flex">
               <motion.div 
                 key={activeImpactStep}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                variants={staggerDetailContainer}
+                initial="hidden"
+                animate="visible"
                 className="w-full bg-[#152E1E]/45 border border-[#2E7D32]/25 p-8 md:p-10 rounded-[2rem] flex flex-col justify-between relative overflow-hidden shadow-2xl"
               >
                 {/* Large Background Step Number */}
-                <div className="text-[10rem] font-display font-black text-[#4CAF50]/5 absolute -top-8 -right-6 pointer-events-none select-none">
+                <motion.div 
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.8 },
+                    visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
+                  }}
+                  className="text-[10rem] font-display font-black text-[#4CAF50]/5 absolute -top-8 -right-6 pointer-events-none select-none"
+                >
                   {impactSteps[activeImpactStep].num}
-                </div>
+                </motion.div>
 
                 <div className="relative z-10 text-left">
-                  <span className="px-3 py-1 rounded-full bg-[#4CAF50]/15 border border-[#4CAF50]/20 text-[9px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
+                  <motion.span 
+                    variants={staggerDetailItem}
+                    className="inline-block px-3 py-1 rounded-full bg-[#4CAF50]/15 border border-[#4CAF50]/20 text-[9px] font-sans font-black text-[#4CAF50] uppercase tracking-widest"
+                  >
                     {impactSteps[activeImpactStep].tag}
-                  </span>
+                  </motion.span>
                   
-                  <h3 className="font-display font-black text-2xl md:text-3xl text-[#FAF9F6] mt-6 mb-4">
+                  <motion.h3 
+                    variants={staggerDetailItem}
+                    className="font-display font-black text-2xl md:text-3xl text-[#FAF9F6] mt-6 mb-4"
+                  >
                     {impactSteps[activeImpactStep].title}
-                  </h3>
+                  </motion.h3>
                   
-                  <p className="text-sm text-[#FAF9F6]/80 font-sans leading-relaxed mb-6">
+                  <motion.p 
+                    variants={staggerDetailItem}
+                    className="text-sm text-[#FAF9F6]/80 font-sans leading-relaxed mb-6"
+                  >
                     {impactSteps[activeImpactStep].desc}
-                  </p>
+                  </motion.p>
                 </div>
 
-                <div className="relative z-10 border border-[#2E7D32]/35 bg-[#0C1D13]/60 rounded-2xl p-5 md:p-6 text-left">
+                <motion.div 
+                  variants={staggerDetailItem}
+                  className="relative z-10 border border-[#2E7D32]/35 bg-[#0C1D13]/60 rounded-2xl p-5 md:p-6 text-left"
+                >
                   <div className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] mb-2 flex items-center gap-1.5">
                     <Activity className="w-3.5 h-3.5" /> Environmental Indicator
                   </div>
@@ -978,7 +1066,7 @@ function App() {
                   <p className="text-xs text-[#FAF9F6]/65 font-sans leading-relaxed">
                     {impactSteps[activeImpactStep].detail}
                   </p>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
 
@@ -1208,68 +1296,91 @@ function App() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#2E7D32] cursor-pointer group"
-            >
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-3">Technical Hypothesis</h4>
-              <p className="text-sm text-[#0C1D13]/80 font-sans leading-relaxed font-bold mb-2">
-                Can the TLUD kiln produce consistent biochar and briquettes?
-              </p>
-              <p className="text-xs text-[#0C1D13]/70 font-sans leading-relaxed">
-                We must validate the continuous throughput and yield ratios of the V3 reactor under real-world mill conditions.
-              </p>
-            </motion.div>
+            {hypotheses.map((item, idx) => {
+              const isDark = item.statusType === "validated";
+              
+              return (
+                <motion.div 
+                  key={idx}
+                  variants={fadeUpVariant} 
+                  whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                  whileTap={{ scale: 0.985 }}
+                  className={`p-6 rounded-3xl border flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-colors duration-300 ${
+                    isDark 
+                      ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
+                      : "bg-[#F0EFEA] border-[#2E7D32]/10 shadow-sm text-[#0C1D13]"
+                  }`}
+                  style={{ borderTopWidth: "4px", borderTopColor: item.color }}
+                >
+                  <div>
+                    {/* Header: Icon / Title + Badge */}
+                    <div className="flex justify-between items-start gap-4 mb-4">
+                      <div className={`p-2.5 rounded-xl border flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 ${
+                        isDark 
+                          ? "bg-[#4CAF50]/20 border-[#4CAF50]/30 text-[#4CAF50]" 
+                          : "bg-[#152E1E] border-transparent text-[#4CAF50]"
+                      }`}>
+                        {idx === 0 && <Zap className="w-5 h-5" />}
+                        {idx === 1 && <Users className="w-5 h-5" />}
+                        {idx === 2 && <Flame className="w-5 h-5" />}
+                        {idx === 3 && <CheckCircle2 className="w-5 h-5" />}
+                      </div>
 
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#4CAF50] cursor-pointer group"
-            >
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-3">User Hypothesis</h4>
-              <p className="text-sm text-[#0C1D13]/80 font-sans leading-relaxed font-bold mb-2">
-                Will farmers easily adopt pelletized biochar?
-              </p>
-              <p className="text-xs text-[#0C1D13]/70 font-sans leading-relaxed">
-                We must test our 3-6mm granular formulation in the field to ensure it fits existing farming practices without friction.
-              </p>
-            </motion.div>
+                      <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[9px] font-sans font-bold uppercase tracking-wider border ${
+                        isDark
+                          ? "bg-[#4CAF50]/20 border-[#4CAF50]/30 text-[#4CAF50]"
+                          : "bg-[#2E7D32]/10 border-[#2E7D32]/20 text-[#2E7D32]"
+                      }`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${isDark ? "bg-[#4CAF50] animate-pulse" : "bg-[#2E7D32]"}`} />
+                        {item.status}
+                      </span>
+                    </div>
 
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/20 shadow-sm border-t-4 border-t-[#2E7D32] cursor-pointer group"
-            >
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32] mb-3">Value Hypothesis</h4>
-              <p className="text-sm text-[#0C1D13]/80 font-sans leading-relaxed font-bold mb-2">
-                Will businesses switch to smokeless sustainable charcoal?
-              </p>
-              <p className="text-xs text-[#0C1D13]/70 font-sans leading-relaxed">
-                We must validate the burn-time and heat profile of our briquettes with early adopter grill houses and hospitality users.
-              </p>
-            </motion.div>
+                    <span className={`text-[10px] font-sans font-black uppercase tracking-widest block mb-2 ${
+                      isDark ? "text-[#4CAF50]" : "text-[#2E7D32]"
+                    }`}>
+                      {item.type}
+                    </span>
 
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-lg border-t-4 border-t-[#4CAF50] relative overflow-hidden cursor-pointer group"
-            >
-              <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#4CAF50]/20 border border-[#4CAF50]/30">
-                <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> Validated</span>
-              </div>
-              <h4 className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-3">Scientific Validation</h4>
-              <p className="text-sm text-[#FAF9F6] font-sans leading-relaxed font-bold mb-2">
-                Can biochar measurably improve water and nutrient retention?
-              </p>
-              <p className="text-xs text-[#FAF9F6]/70 font-sans leading-relaxed">
-                We have already conducted lab testing and established farmer demo plots that confirm biochar mixed with compost improves soil health. These early results validate our core hypothesis and provide the foundation for scaling our V3 pilot.
-              </p>
-            </motion.div>
+                    <h4 className="font-display font-bold text-base leading-snug mb-4">
+                      {item.question}
+                    </h4>
+
+                    {/* Divider */}
+                    <div className={`w-full h-[1px] my-4 ${isDark ? "bg-[#4CAF50]/15" : "bg-[#2E7D32]/10"}`} />
+
+                    {/* Metadata fields */}
+                    <div className="space-y-3">
+                      <div>
+                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider block ${
+                          isDark ? "text-[#4CAF50]/75" : "text-[#2E7D32]/75"
+                        }`}>
+                          Validation Method
+                        </span>
+                        <p className={`text-xs font-sans mt-0.5 leading-relaxed ${
+                          isDark ? "text-[#FAF9F6]/80" : "text-[#0C1D13]/85"
+                        }`}>
+                          {item.method}
+                        </p>
+                      </div>
+
+                      <div>
+                        <span className={`text-[9px] font-sans font-bold uppercase tracking-wider block ${
+                          isDark ? "text-[#4CAF50]/75" : "text-[#2E7D32]/75"
+                        }`}>
+                          Success Metric
+                        </span>
+                        <p className={`text-xs font-sans mt-0.5 leading-relaxed font-semibold ${
+                          isDark ? "text-[#FAF9F6]/90" : "text-[#0C1D13]/90"
+                        }`}>
+                          {item.metric}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </motion.section>
