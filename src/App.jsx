@@ -362,7 +362,7 @@ function App() {
   const faqItems = [
     {
       q: "What stage is WAQID currently in?",
-      a: "WAQID is currently in the prototype stage. We have tested our manual V1 and V2 reactors and are seeking catalytic funding and strategic partners to build our semi-automated V3 Pilot Reactor to validate operations at the palm mill level."
+      a: "WAQID is currently in the prototype stage. We have tested our manual V1 and V2 reactors and are seeking catalytic funding and strategic partners to build our semi-automated V3 Pilot Reactor to validate operations at the palm mill level and run field trials for biochar application directly with local smallholders."
     },
     {
       q: "How does the TLUD Pyrolysis technology work?",
@@ -509,7 +509,7 @@ function App() {
                 "WAQID began from a simple contradiction: some communities lack affordable clean energy, while others burn valuable biomass as waste. We close this logic gap by turning waste into soil restoration, cleaner fuel, and local climate resilience."
               </p>
               <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed pl-7">
-                Palm oil mills generate millions of tonnes of wet Empty Fruit Bunches (EFBs) annually, facing heavy waste disposal fees, logistics bottlenecks, and environment penalties for open decomposition. WAQID offers mills a circular, decentralized technology that bypasses landfill disposal and directly yields climate-friendly outputs.
+                Palm oil mills generate millions of tonnes of wet Empty Fruit Bunches (EFBs) annually, facing heavy waste disposal fees, logistics bottlenecks, and environment penalties for open decomposition. Simultaneously, smallholder farmers face declining soil fertility and high chemical fertilizer prices. WAQID offers mills a circular, decentralized technology that bypasses landfill disposal, while equipping farms with nutrient-dense biochar pellets to restore agricultural soil, reduce chemical input costs, and improve crop resilience.
               </p>
             </div>
           </div>
@@ -973,6 +973,7 @@ function App() {
                 return (
                   <button
                     key={idx}
+                    onMouseEnter={() => setActiveImpactStep(idx)}
                     onClick={() => setActiveImpactStep(idx)}
                     className="relative flex items-center gap-4 p-5 rounded-2xl border border-transparent text-left group focus:outline-none cursor-pointer overflow-hidden bg-transparent"
                   >
