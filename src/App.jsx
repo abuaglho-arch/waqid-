@@ -245,9 +245,59 @@ const hypotheses = [
   }
 ];
 
+const reactorStages = [
+  {
+    num: "01",
+    title: "Feedstock Preparation",
+    subtitle: "Drying & Sizing",
+    desc: "Raw palm Empty Fruit Bunches (EFBs), rice husks, and agricultural residues are shredded and pre-dried using reclaimed pyrolysis waste heat to achieve an optimal moisture level below 15%.",
+    metric: "Moisture < 15%",
+    temp: "Ambient to 100°C",
+    detail: "Pre-treatment is essential. Removing excess moisture ensures rapid heating in the reactor core and prevents energy-wasting steam formation.",
+    icon: RotateCw
+  },
+  {
+    num: "02",
+    title: "Oxygen-Depleted Pyrolysis",
+    subtitle: "Thermochemical Carbonization",
+    desc: "Biomass is fed into a sealed, oxygen-restricted pyrolysis chamber. Without oxygen, the organic matter carbonizes instead of burning, breaking down complex polymers.",
+    metric: "Carbon Content > 75%",
+    temp: "450°C - 600°C",
+    detail: "This is where the magic happens. Thermal heat vaporizes volatile elements, leaving behind a highly porous, stable solid carbon matrix (biochar).",
+    icon: Flame
+  },
+  {
+    num: "03",
+    title: "Clean Syngas Capture",
+    subtitle: "Self-Sustaining Energy",
+    desc: "Volatile gases (syngas) released during carbonization are captured, redirected, and burned in a high-temperature secondary combustion chamber to heat the reactor.",
+    metric: "Zero External Fuel",
+    temp: "800°C - 1000°C",
+    detail: "Once initialized, the pyrolysis process runs entirely on its own volatile by-products, requiring zero external fuel or electrical inputs.",
+    icon: Zap
+  },
+  {
+    num: "04",
+    title: "Biochar & Heat Output",
+    subtitle: "Circular Yields",
+    desc: "Stable biochar is discharged and cooled, locking carbon away permanently. The remaining clean, high-grade heat is harvested to dry new feedstock or offset agricultural energy needs.",
+    metric: "Dual Value Loop",
+    temp: "150°C Output",
+    detail: "The reactor yields agronomy-ready biochar to restore farms, while simultaneously venting clean thermal heat for local mill processes.",
+    icon: Sprout
+  }
+];
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
+  const [activeReactorStage, setActiveReactorStage] = useState(0);
+  const [selectedFormRole, setSelectedFormRole] = useState("Mill Operator");
+  const [calculatorRole, setCalculatorRole] = useState("Mill Operator");
+  const [millEFB, setMillEFB] = useState(25000);
+  const [disposalCost, setDisposalCost] = useState(50);
+  const [farmArea, setFarmArea] = useState(50);
+  const [fertilizerSpend, setFertilizerSpend] = useState(3000);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
   const crisisScrollRef = useRef(null);
@@ -315,6 +365,14 @@ function App() {
         top: targetScroll,
         behavior: 'smooth'
       });
+    }
+  };
+
+  const handleCalculatorCTA = (role) => {
+    setSelectedFormRole(role);
+    const element = document.getElementById("ask");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -923,6 +981,113 @@ function App() {
             </motion.div>
           </div>
 
+          {/* Reactor Explainer */}
+          <div className="mt-20 border-t border-[#2E7D32]/10 pt-16">
+            <div className="max-w-3xl mb-12">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Engineering Excellence</span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2 mb-4">Inside the V3 Pyrolysis Unit</h3>
+              <p className="text-sm text-[#0C1D13]/70 font-sans leading-relaxed">
+                Our Top-Lit Updraft (TLUD) reactor utilizes controlled thermochemical conversion to recycle carbon and energy out of raw residues, requiring zero external fuel inputs.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+              {/* Left Selector List */}
+              <div className="lg:col-span-5 flex flex-col gap-3 justify-center">
+                {reactorStages.map((stage, idx) => {
+                  const Icon = stage.icon;
+                  const isActive = activeReactorStage === idx;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveReactorStage(idx)}
+                      onMouseEnter={() => setActiveReactorStage(idx)}
+                      className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer ${
+                        isActive 
+                          ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
+                          : 'hover:bg-[#F0EFEA]/60 border border-transparent'
+                      }`}
+                    >
+                      {/* Active highlight background border indicator */}
+                      {isActive && (
+                        <motion.div 
+                          layoutId="activeReactorIndicator"
+                          className="absolute inset-y-0 left-0 w-1 bg-[#2E7D32] rounded-l-2xl" 
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        />
+                      )}
+                      
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
+                        isActive ? 'bg-[#152E1E] text-[#4CAF50]' : 'bg-[#0C1D13]/5 text-[#0C1D13]/60'
+                      }`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      
+                      <div>
+                        <span className="text-[10px] font-sans font-bold text-[#2E7D32]/60 uppercase tracking-widest block">
+                          Stage {stage.num}
+                        </span>
+                        <h4 className="font-display font-bold text-base text-[#0C1D13] mt-0.5 leading-tight">
+                          {stage.title}
+                        </h4>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Right Detail Card */}
+              <div className="lg:col-span-7">
+                <motion.div 
+                  key={activeReactorStage}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="h-full bg-[#0C1D13] text-[#FAF9F6] rounded-3xl p-8 border border-[#2E7D32]/25 shadow-xl relative overflow-hidden flex flex-col justify-between text-left"
+                >
+                  {/* Subtle Background Glow */}
+                  <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#4CAF50]/10 rounded-full blur-[60px] pointer-events-none" />
+                  
+                  <div>
+                    <div className="flex justify-between items-start mb-6">
+                      <span className="px-3 py-1 rounded-full bg-[#152E1E] border border-[#2E7D32]/30 text-[10px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
+                        {reactorStages[activeReactorStage].subtitle}
+                      </span>
+                      <span className="text-4xl font-serif font-bold text-[#4CAF50]/20">
+                        {reactorStages[activeReactorStage].num}
+                      </span>
+                    </div>
+
+                    <h4 className="font-display font-black text-2xl mb-4 leading-tight">
+                      {reactorStages[activeReactorStage].title}
+                    </h4>
+                    
+                    <p className="text-sm text-[#FAF9F6]/85 font-sans leading-relaxed mb-6">
+                      {reactorStages[activeReactorStage].desc}
+                    </p>
+
+                    <div className="border-l-2 border-[#4CAF50]/30 pl-4 py-1.5 mb-8">
+                      <p className="text-xs text-[#FAF9F6]/70 font-sans italic leading-relaxed">
+                        {reactorStages[activeReactorStage].detail}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 border-t border-[#FAF9F6]/10 pt-6">
+                    <div>
+                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Target Output Spec</span>
+                      <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage].metric}</span>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Temperature Profile</span>
+                      <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage].temp}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          </div>
+
           {/* Circular Carbon Loop Infographic */}
           <motion.div 
             variants={fadeUpVariant}
@@ -937,7 +1102,277 @@ function App() {
         </div>
       </motion.section>
 
+      {/* 4.5. WASTE-TO-VALUE CALCULATOR */}
+      <motion.section 
+        variants={sectionReveal} 
+        initial="initial" 
+        whileInView="whileInView" 
+        viewport={{ once: true, margin: "-50px" }} 
+        id="calculator" 
+        className="bg-[#FAF9F6] py-20 md:py-28 border-b border-[#2E7D32]/10 text-left relative overflow-hidden"
+      >
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2E7D32]/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+              Interactive Estimator
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3">
+              Waste-to-Value Calculator
+            </h2>
+            <p className="text-sm md:text-base text-[#0C1D13]/70 font-sans mt-4 leading-relaxed">
+              Select your stakeholder role below and toggle active operational parameters to see estimated carbon, resource, and value returns.
+            </p>
+            <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
+          </div>
+
+          <div className="max-w-5xl mx-auto bg-[#F0EFEA] rounded-[2.5rem] border border-[#2E7D32]/15 shadow-xl overflow-hidden p-8 md:p-12">
+            
+            {/* Stakeholder Switcher */}
+            <div className="flex justify-center gap-3 mb-12 flex-wrap">
+              <button
+                type="button"
+                onClick={() => setCalculatorRole("Mill Operator")}
+                className={`px-6 py-3 rounded-full text-xs font-sans font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  calculatorRole === "Mill Operator"
+                    ? 'bg-[#152E1E] text-[#FAF9F6] shadow-lg scale-105'
+                    : 'bg-[#FAF9F6] text-[#0C1D13] hover:bg-[#FAF9F6]/80 border border-[#2E7D32]/10'
+                }`}
+              >
+                I am a Palm Oil Mill Operator
+              </button>
+              <button
+                type="button"
+                onClick={() => setCalculatorRole("Farmer")}
+                className={`px-6 py-3 rounded-full text-xs font-sans font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  calculatorRole === "Farmer"
+                    ? 'bg-[#152E1E] text-[#FAF9F6] shadow-lg scale-105'
+                    : 'bg-[#FAF9F6] text-[#0C1D13] hover:bg-[#FAF9F6]/80 border border-[#2E7D32]/10'
+                }`}
+              >
+                I am a Farmer / Landowner
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+              
+              {/* Left Column: Sliders */}
+              <div className="lg:col-span-6 flex flex-col justify-center gap-8 text-left">
+                {calculatorRole === "Mill Operator" ? (
+                  <>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-baseline">
+                        <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
+                          Annual EFB Biomass Generated
+                        </label>
+                        <span className="text-xl font-serif font-black text-[#2E7D32]">
+                          {millEFB.toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50">tonnes</span>
+                        </span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="1000" 
+                        max="100000" 
+                        step="1000"
+                        value={millEFB}
+                        onChange={(e) => setMillEFB(Number(e.target.value))}
+                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                      />
+                      <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
+                        <span>1,000 t</span>
+                        <span>50,000 t</span>
+                        <span>100,000 t</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-baseline">
+                        <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
+                          Current Biomass Disposal Cost
+                        </label>
+                        <span className="text-xl font-serif font-black text-[#2E7D32]">
+                          RM {disposalCost} <span className="text-xs font-sans font-normal text-[#0C1D13]/50">/ tonne</span>
+                        </span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="10" 
+                        max="150" 
+                        step="5"
+                        value={disposalCost}
+                        onChange={(e) => setDisposalCost(Number(e.target.value))}
+                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                      />
+                      <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
+                        <span>RM 10</span>
+                        <span>RM 80</span>
+                        <span>RM 150</span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-baseline">
+                        <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
+                          Farm Crop Land Area
+                        </label>
+                        <span className="text-xl font-serif font-black text-[#2E7D32]">
+                          {farmArea} <span className="text-xs font-sans font-normal text-[#0C1D13]/50">hectares</span>
+                        </span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="1" 
+                        max="500" 
+                        step="1"
+                        value={farmArea}
+                        onChange={(e) => setFarmArea(Number(e.target.value))}
+                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                      />
+                      <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
+                        <span>1 ha</span>
+                        <span>250 ha</span>
+                        <span>500 ha</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-baseline">
+                        <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
+                          Chemical Fertilizer Spending
+                        </label>
+                        <span className="text-xl font-serif font-black text-[#2E7D32]">
+                          RM {fertilizerSpend.toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50">/ ha / yr</span>
+                        </span>
+                      </div>
+                      <input 
+                        type="range" 
+                        min="500" 
+                        max="10000" 
+                        step="250"
+                        value={fertilizerSpend}
+                        onChange={(e) => setFertilizerSpend(Number(e.target.value))}
+                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                      />
+                      <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
+                        <span>RM 500</span>
+                        <span>RM 5,250</span>
+                        <span>RM 10,000</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Right Column: Dynamic Outputs */}
+              <div className="lg:col-span-6 flex flex-col justify-between gap-6">
+                <div className="grid grid-cols-2 gap-4">
+                  {calculatorRole === "Mill Operator" ? (
+                    <>
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Estimated Biochar Yield
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          {(millEFB * 0.25).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">t/yr</span>
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Converted organic carbon pellets.</p>
+                      </div>
+
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Disposal Cost Savings
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          RM {(millEFB * disposalCost).toLocaleString()}
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Bypassing heavy tipping/logistics fees.</p>
+                      </div>
+
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Carbon Offset Potential
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          {(millEFB * 0.55).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">tCO2e</span>
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Methane decay & carbon lock avoidance.</p>
+                      </div>
+
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Clean Thermal Energy
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          {(millEFB * 1.5).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">MWh</span>
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Heat available for mill pre-heaters.</p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Biochar Dressing Needed
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          {(farmArea * 2.5).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">tonnes</span>
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Recommended 2.5t/ha soil amendment.</p>
+                      </div>
+
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Water Retention Boost
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          {(farmArea * 75000).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">Litres</span>
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Additional soil moisture absorption capacity.</p>
+                      </div>
+
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Fertilizer Cost Offset
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          RM {(farmArea * fertilizerSpend * 0.30).toLocaleString()}
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Up to 30% reduction in chemical inputs.</p>
+                      </div>
+
+                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                          Estimated Crop Yield
+                        </span>
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                          +15% - 25%
+                        </h4>
+                        <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Agronomic harvest improvement range.</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => handleCalculatorCTA(calculatorRole === "Mill Operator" ? "Mill Operator" : "Farm Cooperative")}
+                  className="w-full bg-[#152E1E] hover:bg-[#2E7D32] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs py-4 rounded-xl transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer border border-[#2E7D32]/25"
+                >
+                  Schedule validation run <ArrowUpRight className="w-4 h-4" />
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </motion.section>
+
       {/* 5. ENVIRONMENTAL IMPACT PATHWAY */}
+
       <motion.section 
         variants={sectionReveal} 
         initial="initial" 
@@ -1816,12 +2251,35 @@ function App() {
           <div className="bg-[#F0EFEA] rounded-[2rem] p-8 md:p-12 border border-[#2E7D32]/20 shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-[#4CAF50]/10 rounded-full blur-[80px] pointer-events-none" />
             <h3 className="text-2xl font-display font-black text-[#0C1D13] mb-2 relative z-10">Partner With Us to Scale the Impact</h3>
-            <p className="text-sm text-[#0C1D13]/70 font-sans mb-8 relative z-10">Waqid is seeking early-stage partners, agronomic advisors, and catalytic capital to move from prototype to pilot deployment and maintain our vital field research. Join us in building the infrastructure for a regenerative future.</p>
+            <p className="text-sm text-[#0C1D13]/70 font-sans mb-6 relative z-10">Waqid is seeking early-stage partners, agronomic advisors, and catalytic capital to move from prototype to pilot deployment and maintain our vital field research. Join us in building the infrastructure for a regenerative future.</p>
             
+            {/* Role Buttons */}
+            <div className="flex flex-wrap gap-2 mb-6 relative z-10">
+              {[
+                { key: "Mill Operator", label: "Palm Mill Operator" },
+                { key: "Farmer / Cooperative", label: "Farmer / Cooperatives" },
+                { key: "Investor / Partner", label: "Investor / Partner" }
+              ].map((role) => (
+                <button
+                  key={role.key}
+                  type="button"
+                  onClick={() => setSelectedFormRole(role.key)}
+                  className={`px-4 py-2 rounded-xl text-xs font-sans font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer border ${
+                    selectedFormRole === role.key 
+                      ? 'bg-[#2E7D32] text-[#FAF9F6] border-[#2E7D32] shadow-md scale-102' 
+                      : 'bg-[#FAF9F6] text-[#0C1D13] hover:bg-[#FAF9F6]/80 border-[#2E7D32]/10'
+                  }`}
+                >
+                  {role.label}
+                </button>
+              ))}
+            </div>
+
             <form action="https://api.web3forms.com/submit" method="POST" className="space-y-5 relative z-10">
               <input type="hidden" name="access_key" value="091c7841-f761-469b-980b-8d0afcceea0b" />
-              <input type="hidden" name="subject" value="New WAQID Partnership Inquiry" />
+              <input type="hidden" name="subject" value={`New WAQID Inquiry - ${selectedFormRole}`} />
               <input type="hidden" name="from_name" value="WAQID Website" />
+              <input type="hidden" name="inquiry_role" value={selectedFormRole} />
               
               <div className="space-y-4">
                 <input 
@@ -1849,9 +2307,21 @@ function App() {
                   name="interest"
                   id="partner-track"
                   required
+                  value={
+                    selectedFormRole === "Mill Operator" 
+                      ? "Mill Operator" 
+                      : selectedFormRole === "Farmer / Cooperative" 
+                        ? "Farm Cooperative" 
+                        : "Strategic Partner"
+                  }
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (val === "Mill Operator") setSelectedFormRole("Mill Operator");
+                    else if (val === "Farm Cooperative") setSelectedFormRole("Farmer / Cooperative");
+                    else setSelectedFormRole("Investor / Partner");
+                  }}
                   className="w-full bg-[#FAF9F6] border border-[#2E7D32]/20 text-[#0C1D13] px-4 py-3.5 rounded-xl text-sm font-sans focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors appearance-none cursor-pointer"
                 >
-                  <option value="" disabled selected>Select Track</option>
                   <option value="Investor / Pitch Deck Request">Investor / Pitch Deck Request</option>
                   <option value="Strategic Partner">Strategic Partner</option>
                   <option value="Mill Operator">Mill Operator</option>
@@ -1860,7 +2330,13 @@ function App() {
                 </select>
                 <textarea 
                   name="message" 
-                  placeholder="Tell us about your interest in WAQID..." 
+                  placeholder={
+                    selectedFormRole === "Mill Operator"
+                      ? "Tell us about your mill's annual EFB tonnage, current disposal challenges, and feedstock potential..."
+                      : selectedFormRole === "Farmer / Cooperative"
+                        ? "Tell us about your crops, acreage, average soil restoration goals, and fertilizer expenses..."
+                        : "Tell us about your partnership ideas, pitch deck requests, or how you would like to collaborate..."
+                  }
                   rows="3"
                   className="w-full bg-[#FAF9F6] border border-[#2E7D32]/20 text-[#0C1D13] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#0C1D13]/40 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors resize-none"
                 ></textarea>

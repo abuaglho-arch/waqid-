@@ -14,7 +14,7 @@ const Contact = () => {
     name: "",
     email: "",
     org: "",
-    role: "",
+    role: "Mill Operator (Pilot Interest)",
     message: ""
   });
 
@@ -131,7 +131,30 @@ const Contact = () => {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
+              <div>
+                {/* Role Selector Tabs */}
+                <div className="flex flex-wrap gap-2 mb-6 relative z-10">
+                  {[
+                    { key: "Mill Operator (Pilot Interest)", label: "Palm Mill Operator" },
+                    { key: "Farmer / Cooperative (Trial Interest)", label: "Farmer / Cooperatives" },
+                    { key: "Investor / Funder", label: "Investor / Partner" }
+                  ].map((role) => (
+                    <button
+                      key={role.key}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, role: role.key })}
+                      className={`px-4 py-2 rounded-xl text-xs font-sans font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer border ${
+                        formData.role === role.key 
+                          ? 'bg-[#2E7D32] text-[#FAF9F6] border-[#2E7D32] shadow-md scale-102' 
+                          : 'bg-[#FAF9F6] text-[#0C1D13] hover:bg-[#FAF9F6]/80 border-[#2E7D32]/10'
+                      }`}
+                    >
+                      {role.label}
+                    </button>
+                  ))}
+                </div>
+
+                <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
                 {submitError && (
                   <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-sans">
                     {submitError}
@@ -219,6 +242,13 @@ const Contact = () => {
                   <textarea
                     required
                     rows={5}
+                    placeholder={
+                      formData.role === "Mill Operator (Pilot Interest)"
+                        ? "Tell us about your mill's annual EFB tonnage, current disposal challenges, and feedstock potential..."
+                        : formData.role === "Farmer / Cooperative (Trial Interest)"
+                          ? "Tell us about your crops, acreage, average soil restoration goals, and fertilizer expenses..."
+                          : "Tell us about your partnership ideas, pitch deck requests, or how you would like to collaborate..."
+                    }
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="px-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans resize-none transition-colors"
@@ -246,7 +276,8 @@ const Contact = () => {
                   )}
                 </button>
               </form>
-            )}
+            </div>
+          )}
           </div>
         </div>
       </div>
