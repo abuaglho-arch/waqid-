@@ -923,33 +923,16 @@ function App() {
             </motion.div>
           </div>
 
-          {/* Animated Circular Value Pipeline */}
+          {/* Circular Carbon Loop Infographic */}
           <motion.div 
             variants={fadeUpVariant}
-            className="mt-20 border border-[#2E7D32]/10 bg-[#FAF9F6]/50 rounded-[2rem] p-4 md:p-8 max-w-5xl mx-auto relative overflow-hidden shadow-md"
+            className="mt-16 max-w-5xl mx-auto flex justify-center items-center"
           >
-            <div className="absolute top-0 right-0 w-80 h-80 bg-[#2E7D32]/5 rounded-full blur-[80px] pointer-events-none" />
-            
-            <div className="text-center mb-8 max-w-xl mx-auto relative z-10">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32] bg-[#2E7D32]/10 px-3 py-1 rounded-full">
-                Value Flow Diagram
-              </span>
-              <h3 className="font-display font-black text-2xl md:text-3xl text-[#0C1D13] mt-3">
-                The WAQID Circular Carbon Loop
-              </h3>
-              <p className="text-xs text-[#0C1D13]/70 font-sans mt-2 leading-relaxed">
-                How palm biomass is transformed into soil-restoring and low-emission energy products.
-              </p>
-            </div>
-
-            {/* Graphic Container */}
-            <div className="relative z-10 flex justify-center items-center bg-white p-2 md:p-4 rounded-2xl border border-[#2E7D32]/10 shadow-inner">
-              <img 
-                src="/images/waqid-circular-carbon-loop.png" 
-                alt="The WAQID Circular Carbon Loop Flowchart" 
-                className="w-full h-auto object-contain rounded-xl max-h-[600px] select-none"
-              />
-            </div>
+            <img 
+              src="/images/waqid-circular-carbon-loop.png" 
+              alt="The WAQID Circular Carbon Loop Flowchart" 
+              className="w-full h-auto object-contain select-none"
+            />
           </motion.div>
         </div>
       </motion.section>
