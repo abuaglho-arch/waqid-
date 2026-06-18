@@ -494,7 +494,10 @@ function App() {
               >
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
-                  <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2 mb-6 leading-tight">The Magnitude of the Problem</h3>
+                  <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2 mb-2 leading-tight">The Magnitude of the Problem</h3>
+                  <p className="text-xs text-[#0C1D13]/70 font-sans leading-relaxed mb-4">
+                    Every year, millions of tonnes of agricultural residues are discarded or burned openly, causing massive greenhouse emissions while soils lose fertility and farmers face rising costs.
+                  </p>
                 </div>
                 <div className="flex flex-col gap-4">
                   <div className="border-b border-[#2E7D32]/10 pb-3">
@@ -551,7 +554,7 @@ function App() {
         <section 
           ref={crisisSectionRef} 
           id="crisis" 
-          className="relative h-[150vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
+          className="relative h-[240vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
           <div className="sticky top-0 h-[100vh] max-h-[620px] w-full overflow-hidden flex items-center bg-[#FAF9F6]">
             <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center lg:items-center justify-between gap-4 lg:gap-8">
@@ -628,7 +631,10 @@ function App() {
                 <div className="w-full bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.05)] flex flex-col justify-between text-left">
                   <div>
                     <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
-                    <h3 className="text-base lg:text-lg font-display font-black text-[#0C1D13] mt-1 mb-3 leading-tight">The Magnitude of the Problem</h3>
+                    <h3 className="text-base lg:text-lg font-display font-black text-[#0C1D13] mt-1 mb-1.5 leading-tight">The Magnitude of the Problem</h3>
+                    <p className="text-[10px] text-[#0C1D13]/70 font-sans leading-relaxed mb-3">
+                      Every year, millions of tonnes of agricultural residues are discarded or burned openly, causing massive greenhouse emissions while soils lose fertility.
+                    </p>
                   </div>
                   <div className="flex flex-col gap-2.5">
                     <div className="border-b border-[#2E7D32]/10 pb-2">

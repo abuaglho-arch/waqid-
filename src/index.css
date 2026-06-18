@@ -300,7 +300,7 @@
   width: max-content;
   padding-right: 24px;
   will-change: transform;
-  animation: logoFlowMove 30s linear infinite;
+  animation: logoFlowMove 22s linear infinite;
 }
 
 .logo-flow:hover .logo-line {
@@ -316,16 +316,16 @@
   border: 1px solid rgba(46, 125, 50, 0.08);
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(12, 29, 19, 0.015);
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   height: 96px;
   min-width: 200px;
   backdrop-filter: blur(8px);
 }
 
 .logo-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px) scale(1.02);
   border-color: rgba(76, 175, 80, 0.35);
-  box-shadow: 0 12px 30px rgba(46, 125, 50, 0.08), 0 4px 10px rgba(12, 29, 19, 0.03);
+  box-shadow: 0 16px 36px rgba(46, 125, 50, 0.08), 0 4px 12px rgba(12, 29, 19, 0.03);
   background: rgba(255, 255, 255, 0.85);
 }
 
