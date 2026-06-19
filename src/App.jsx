@@ -2290,7 +2290,7 @@ function App() {
                     <motion.div 
                       whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
                       whileTap={{ scale: 0.98 }}
-                      className="glass-card-dark shrink-0 w-[280px] sm:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer h-[420px]"
+                      className="glass-card-dark shrink-0 w-[280px] sm:w-[320px] p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer h-[420px]"
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2327,7 +2327,7 @@ function App() {
                     <motion.div 
                       whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
                       whileTap={{ scale: 0.98 }}
-                      className="glass-card-dark shrink-0 w-[280px] sm:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer h-[420px]"
+                      className="glass-card-dark shrink-0 w-[280px] sm:w-[320px] p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer h-[420px]"
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
