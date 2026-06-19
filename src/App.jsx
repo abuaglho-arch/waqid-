@@ -351,23 +351,7 @@ function App() {
   const [fertilizerSpend, setFertilizerSpend] = useState(3000);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
-  const crisisScrollRef = useRef(null);
-  
-  const solutionCarouselRef = useRef(null);
-  const tractionCarouselRef = useRef(null);
-  const hypothesesCarouselRef = useRef(null);
-  const viabilityCarouselRef = useRef(null);
   const teamCarouselRef = useRef(null);
-
-  const scrollCarousel = (carouselRef, direction) => {
-    if (carouselRef.current) {
-      const scrollAmount = carouselRef.current.clientWidth * 0.8;
-      carouselRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth"
-      });
-    }
-  };
 
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.matchMedia("(max-width: 1024px)").matches : false
@@ -391,23 +375,11 @@ function App() {
     };
   }, []);
 
-  // Autoplay intervals for Traction and Team carousels
+  // Autoplay intervals for Team carousel
   useEffect(() => {
     if (prefersReducedMotion) return;
 
-    // Traction carousel autoplay (every 5 seconds)
-    const tractionTimer = setInterval(() => {
-      if (tractionCarouselRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = tractionCarouselRef.current;
-        if (scrollLeft + clientWidth >= scrollWidth - 15) {
-          tractionCarouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          tractionCarouselRef.current.scrollBy({ left: 384, behavior: 'smooth' });
-        }
-      }
-    }, 5000);
-
-    // Team carousel autoplay (every 4.5 seconds, slightly faster as requested: "make them and advisor moving a bit fast")
+    // Team carousel autoplay (every 4.5 seconds, slightly faster as requested)
     const teamTimer = setInterval(() => {
       if (teamCarouselRef.current) {
         const { scrollLeft, scrollWidth, clientWidth } = teamCarouselRef.current;
@@ -420,7 +392,6 @@ function App() {
     }, 4500);
 
     return () => {
-      clearInterval(tractionTimer);
       clearInterval(teamTimer);
     };
   }, [prefersReducedMotion]);
@@ -494,16 +465,6 @@ function App() {
     card5,
     card6
   ];
-
-  const scrollCrisis = (direction) => {
-    if (crisisScrollRef.current) {
-      const cardWidth = 380 + 24; // Card width + gap
-      crisisScrollRef.current.scrollBy({
-        left: direction === 'left' ? -cardWidth : cardWidth,
-        behavior: 'smooth'
-      });
-    }
-  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -677,25 +638,27 @@ function App() {
                 duration: 12,
                 repeat: Infinity
               }}
-              className="flex items-center gap-12 w-max"
+              className="flex items-center gap-6 w-max"
             >
               {/* Set 1 */}
               {partnerLogos.map((logo, idx) => (
-                <img 
-                  key={`trust-set1-${idx}`} 
-                  src={logo.src} 
-                  alt={logo.alt} 
-                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                />
+                <div key={`trust-set1-${idx}`} className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0">
+                  <img 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  />
+                </div>
               ))}
               {/* Set 2 */}
               {partnerLogos.map((logo, idx) => (
-                <img 
-                  key={`trust-set2-${idx}`} 
-                  src={logo.src} 
-                  alt={logo.alt} 
-                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                />
+                <div key={`trust-set2-${idx}`} className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0">
+                  <img 
+                    src={logo.src} 
+                    alt={logo.alt} 
+                    className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  />
+                </div>
               ))}
             </motion.div>
           </div>
@@ -727,7 +690,6 @@ function App() {
         </div>
       </motion.section>
 
-      {/* 3. THE CRISIS WE CAN NO LONGER IGNORE */}
       {prefersReducedMotion || isMobile ? (
         <motion.section 
           variants={sectionReveal} 
@@ -738,7 +700,7 @@ function App() {
           className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left"
         >
           <div className="max-w-7xl mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+            <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
               <div className="max-w-2xl text-left">
                 <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                   The Crisis
@@ -750,42 +712,13 @@ function App() {
                   Every year, palm residues are treated as waste while farmers pay more to restore tired soils. What should become local soil and energy value is left to burn, rot, or create pressure across the system.
                 </p>
               </div>
-              <div className="flex gap-3 shrink-0">
-                <button 
-                  onClick={() => scrollCrisis('left')}
-                  className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer z-20"
-                  aria-label="Scroll Left"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button 
-                  onClick={() => scrollCrisis('right')}
-                  className="w-12 h-12 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] bg-[#FAF9F6] hover:bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center transition-all duration-300 focus:outline-none cursor-pointer z-20"
-                  aria-label="Scroll Right"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
             </div>
-          </div>
 
-          <div className="w-full relative overflow-hidden">
-            <div 
-              ref={crisisScrollRef}
-              className="flex gap-6 overflow-x-auto pb-8 snap-x snap-mandatory hide-scrollbar scroll-smooth w-full px-6 md:px-[calc((100vw-1280px)/2+1.5rem)]"
-              style={{ 
-                scrollPaddingLeft: 'max(1.5rem, calc((100vw - 1280px) / 2 + 1.5rem))' 
-              }}
-            >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <motion.div 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                style={{ 
-                  position: 'sticky', 
-                  left: '1.5rem',
-                  zIndex: 11
-                }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[420px] h-[450px] sm:h-[480px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left cursor-pointer group"
+                className="w-full min-h-[450px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left cursor-pointer group"
               >
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
@@ -821,12 +754,7 @@ function App() {
                   key={idx} 
                   whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                   whileTap={{ scale: 0.985 }}
-                  style={{ 
-                    position: 'sticky', 
-                    left: `calc(1.5rem + ${(idx + 1) * 16}px)`,
-                    zIndex: 12 + idx
-                  }}
-                  className="snap-center shrink-0 w-[85vw] sm:w-[380px] h-[450px] sm:h-[480px] rounded-3xl overflow-hidden shadow-xl relative group border border-[#2E7D32]/10 cursor-pointer"
+                  className="w-full min-h-[450px] rounded-3xl overflow-hidden shadow-xl relative group border border-[#2E7D32]/10 cursor-pointer"
                 >
                   <img 
                     src={item.image} 
@@ -1030,41 +958,21 @@ function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3 leading-tight">
               A Circular System for Waste, Energy, and Soil
             </h2>
-            <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-6 mb-4" />
-            {/* Carousel navigation buttons */}
-            <div className="flex items-center gap-3">
-              <button 
-                type="button"
-                onClick={() => scrollCarousel(solutionCarouselRef, 'left')} 
-                className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                aria-label="Previous solution"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button 
-                type="button"
-                onClick={() => scrollCarousel(solutionCarouselRef, 'right')} 
-                className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                aria-label="Next solution"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+            <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-6" />
           </div>
 
           <motion.div 
-            ref={solutionCarouselRef}
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 scroll-smooth w-full"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
           >
             <motion.div 
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <RotateCw className="w-6 h-6" />
@@ -1078,7 +986,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Flame className="w-6 h-6" />
@@ -1092,7 +1000,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Sprout className="w-6 h-6" />
@@ -1106,7 +1014,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Hexagon className="w-6 h-6" />
@@ -1117,13 +1025,6 @@ function App() {
               </p>
             </motion.div>
           </motion.div>
-          
-          <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
-            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
-              <span>Swipe to explore</span>
-              <span>→</span>
-            </span>
-          </div>
 
           {/* Reactor Explainer */}
           <div className="mt-20 border-t border-[#2E7D32]/10 pt-16">
@@ -1920,40 +1821,20 @@ function App() {
                 Real testing, real materials. From manual oil drums to pilot reactor engineering.
               </p>
               <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-4 mb-4" />
-              {/* Carousel navigation buttons */}
-              <div className="flex items-center gap-3">
-                <button 
-                  type="button"
-                  onClick={() => scrollCarousel(tractionCarouselRef, 'left')} 
-                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                  aria-label="Previous traction card"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => scrollCarousel(tractionCarouselRef, 'right')} 
-                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                  aria-label="Next traction card"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
             </div>
             
             <motion.div 
-              ref={tractionCarouselRef}
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto scroll-smooth w-full"
+              className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"
             >
               <motion.div 
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-[360px] rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1965,7 +1846,7 @@ function App() {
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-[360px] rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1977,7 +1858,7 @@ function App() {
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-[360px] rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1986,13 +1867,6 @@ function App() {
                 </div>
               </motion.div>
             </motion.div>
-            
-            <div className="flex md:hidden items-center justify-center gap-1.5 mt-4">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
-                <span>Swipe to explore</span>
-                <span>→</span>
-              </span>
-            </div>
           </div>
 
           {/* Sub-Section B: Core Hypotheses & Field Validation Status */}
@@ -2008,34 +1882,14 @@ function App() {
                 Systematically addressing critical assumptions before building high-capacity infrastructure.
               </p>
               <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-4 mb-4" />
-              {/* Carousel navigation buttons */}
-              <div className="flex items-center gap-3">
-                <button 
-                  type="button"
-                  onClick={() => scrollCarousel(hypothesesCarouselRef, 'left')} 
-                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                  aria-label="Previous hypothesis"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => scrollCarousel(hypothesesCarouselRef, 'right')} 
-                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                  aria-label="Next hypothesis"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
             </div>
 
             <motion.div 
-              ref={hypothesesCarouselRef}
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 scroll-smooth w-full"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
             >
               {hypotheses.map((item, idx) => {
                 const isDark = item.statusType === "validated";
@@ -2046,7 +1900,7 @@ function App() {
                     variants={fadeUpVariant} 
                     whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                     whileTap={{ scale: 0.985 }}
-                    className={`snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-6 rounded-3xl flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-all duration-300 ${
+                    className={`w-full p-6 rounded-3xl flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-all duration-300 ${
                       isDark 
                         ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
                         : "glass-card text-[#0C1D13]"
@@ -2122,13 +1976,6 @@ function App() {
                 );
               })}
             </motion.div>
-            
-            <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
-                <span>Swipe to explore</span>
-                <span>→</span>
-              </span>
-            </div>
           </div>
 
           {/* Sub-Section C: Commercial Viability Targets */}
@@ -2388,26 +2235,7 @@ function App() {
             <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] mt-3">
               Built on Field Expertise
             </h2>
-            <div className="w-12 h-[1px] bg-[#4CAF50]/30 mx-auto mt-6 mb-4" />
-            {/* Carousel navigation buttons */}
-            <div className="flex items-center gap-3">
-              <button 
-                type="button"
-                onClick={() => scrollCarousel(teamCarouselRef, 'left')} 
-                className="w-10 h-10 rounded-full border border-[#4CAF50]/20 hover:border-[#4CAF50]/60 flex items-center justify-center text-[#4CAF50] hover:bg-[#4CAF50]/5 transition-all cursor-pointer"
-                aria-label="Previous team member"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button 
-                type="button"
-                onClick={() => scrollCarousel(teamCarouselRef, 'right')} 
-                className="w-10 h-10 rounded-full border border-[#4CAF50]/20 hover:border-[#4CAF50]/60 flex items-center justify-center text-[#4CAF50] hover:bg-[#4CAF50]/5 transition-all cursor-pointer"
-                aria-label="Next team member"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+            <div className="w-12 h-[1px] bg-[#4CAF50]/30 mx-auto mt-6" />
           </div>
 
           <motion.div 
