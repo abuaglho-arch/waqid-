@@ -572,7 +572,7 @@ function App() {
           <motion.h1 variants={fadeUpVariant} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black tracking-tight leading-[1.1] text-[#FAF9F6] text-balance mb-6">
             Restoring Land. <br />
             Closing the Loop. <br />
-            <span className="text-[#4CAF50]">Cooling the Planet.</span>
+            <span className="text-gradient-light">Cooling the Planet.</span>
           </motion.h1>
 
           <motion.p variants={fadeUpVariant} className="mt-4 text-[#FAF9F6]/85 font-sans text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed text-balance">
@@ -627,7 +627,7 @@ function App() {
       </motion.section>
 
       {/* 3. THE CRISIS WE CAN NO LONGER IGNORE */}
-      {prefersReducedMotion ? (
+      {prefersReducedMotion || isMobile ? (
         <motion.section 
           variants={sectionReveal} 
           initial="initial" 
@@ -931,12 +931,12 @@ function App() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0">
             <motion.div 
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <RotateCw className="w-6 h-6" />
@@ -950,7 +950,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Flame className="w-6 h-6" />
@@ -964,7 +964,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Sprout className="w-6 h-6" />
@@ -978,7 +978,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Hexagon className="w-6 h-6" />
@@ -988,6 +988,13 @@ function App() {
                 Produces smokeless solid fuels as a direct, forest-friendly alternative to wood charcoal.
               </p>
             </motion.div>
+          </div>
+          
+          <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
+            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
+              <span>Swipe to explore</span>
+              <span>→</span>
+            </span>
           </div>
 
           {/* Reactor Explainer */}
@@ -1002,7 +1009,7 @@ function App() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
               {/* Left Selector List */}
-              <div className="lg:col-span-5 flex flex-col gap-3 justify-center">
+              <div className="lg:col-span-5 flex flex-row overflow-x-auto snap-x hide-scrollbar lg:flex-col gap-3 justify-start lg:justify-center -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0">
                 {reactorStages.map((stage, idx) => {
                   const Icon = stage.icon;
                   const isActive = activeReactorStage === idx;
@@ -1011,7 +1018,7 @@ function App() {
                       key={idx}
                       onClick={() => setActiveReactorStage(idx)}
                       onMouseEnter={() => setActiveReactorStage(idx)}
-                      className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer ${
+                      className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer snap-center shrink-0 w-[65vw] sm:w-[220px] lg:w-auto ${
                         isActive 
                           ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
                           : 'hover:bg-[#F0EFEA]/60 border border-transparent'
@@ -1021,7 +1028,7 @@ function App() {
                       {isActive && (
                         <motion.div 
                           layoutId="activeReactorIndicator"
-                          className="absolute inset-y-0 left-0 w-1 bg-[#2E7D32] rounded-l-2xl" 
+                          className="absolute bg-[#2E7D32] bottom-0 left-0 right-0 h-[3px] lg:h-auto lg:inset-y-0 lg:left-0 lg:w-1 rounded-b-2xl lg:rounded-l-2xl lg:rounded-br-none" 
                           transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         />
                       )}
@@ -1786,12 +1793,12 @@ function App() {
               </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 max-w-6xl mx-auto">
               <motion.div 
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[350px] md:w-auto rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1803,7 +1810,7 @@ function App() {
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[350px] md:w-auto rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1815,7 +1822,7 @@ function App() {
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[350px] md:w-auto rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1823,6 +1830,13 @@ function App() {
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
                 </div>
               </motion.div>
+            </div>
+            
+            <div className="flex md:hidden items-center justify-center gap-1.5 mt-4">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
+                <span>Swipe to explore</span>
+                <span>→</span>
+              </span>
             </div>
           </div>
 
@@ -1840,7 +1854,7 @@ function App() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0">
               {hypotheses.map((item, idx) => {
                 const isDark = item.statusType === "validated";
                 
@@ -1850,7 +1864,7 @@ function App() {
                     variants={fadeUpVariant} 
                     whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                     whileTap={{ scale: 0.985 }}
-                    className={`p-6 rounded-3xl border flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-colors duration-300 ${
+                    className={`snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-6 rounded-3xl border flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-colors duration-300 ${
                       isDark 
                         ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
                         : "bg-[#F0EFEA] border-[#2E7D32]/10 shadow-sm text-[#0C1D13]"
@@ -1926,6 +1940,13 @@ function App() {
                 );
               })}
             </div>
+            
+            <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
+                <span>Swipe to explore</span>
+                <span>→</span>
+              </span>
+            </div>
           </div>
 
           {/* Sub-Section C: Commercial Viability Targets */}
@@ -1942,13 +1963,13 @@ function App() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto">
               {/* Card 1 */}
               <motion.div 
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -1966,7 +1987,7 @@ function App() {
                 variants={popVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -1984,7 +2005,7 @@ function App() {
                 variants={blurFadeVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2002,7 +2023,7 @@ function App() {
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
@@ -2017,6 +2038,13 @@ function App() {
                   </p>
                 </div>
               </motion.div>
+            </div>
+            
+            <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
+              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
+                <span>Swipe to explore</span>
+                <span>→</span>
+              </span>
             </div>
           </div>
         </div>
@@ -2222,13 +2250,13 @@ function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6 mb-4" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0">
             {/* Osama M. Abuagla - Founder */}
             <motion.div 
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2244,7 +2272,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2260,7 +2288,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2277,7 +2305,7 @@ function App() {
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-              className="bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
+              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
             >
               <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
                 <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
@@ -2288,6 +2316,13 @@ function App() {
                 We are actively looking for passionate operators, strategic partners, and early believers to help us complete this mission in any way possible.
               </p>
             </motion.div>
+          </div>
+
+          <div className="flex lg:hidden items-center justify-center gap-1.5 mt-6">
+            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50]/60 animate-pulse flex items-center gap-1">
+              <span>Swipe to explore</span>
+              <span>→</span>
+            </span>
           </div>
         </div>
 
