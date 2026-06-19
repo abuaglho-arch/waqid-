@@ -352,6 +352,22 @@ function App() {
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
   const crisisScrollRef = useRef(null);
+  
+  const solutionCarouselRef = useRef(null);
+  const tractionCarouselRef = useRef(null);
+  const hypothesesCarouselRef = useRef(null);
+  const viabilityCarouselRef = useRef(null);
+  const teamCarouselRef = useRef(null);
+
+  const scrollCarousel = (carouselRef, direction) => {
+    if (carouselRef.current) {
+      const scrollAmount = carouselRef.current.clientWidth * 0.8;
+      carouselRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth"
+      });
+    }
+  };
 
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.matchMedia("(max-width: 1024px)").matches : false
@@ -602,12 +618,20 @@ function App() {
       </section>
 
       {/* TRUST RAIL */}
-      <div className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-6">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]/60 whitespace-nowrap">
-            Supported by &amp; Collaborating with:
-          </span>
-          <div className="w-full overflow-hidden relative">
+      <div className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-8 lg:py-0 lg:h-[180px] flex items-center overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left: Title and subtitle */}
+          <div className="lg:col-span-5 text-left">
+            <h3 className="text-xs font-sans font-bold text-[#2E7D32] uppercase tracking-widest mb-1.5">
+              Ecosystem &amp; Support Network
+            </h3>
+            <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans leading-relaxed">
+              WAQID is shaped by early field learning, venture mentorship, and community engagement across climate, agriculture, and youth innovation networks.
+            </p>
+          </div>
+          
+          {/* Right: Scrolling logos marquee */}
+          <div className="lg:col-span-7 w-full overflow-hidden relative flex items-center">
             {/* Fade masks */}
             <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
@@ -616,7 +640,7 @@ function App() {
               animate={{ x: [0, "-50%"] }}
               transition={{
                 ease: "linear",
-                duration: 20,
+                duration: 25,
                 repeat: Infinity
               }}
               className="flex items-center gap-12 w-max"
@@ -965,27 +989,49 @@ function App() {
       {/* 4. THE WAQID SOLUTION */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-xl mb-16">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-              The WAQID Solution
-            </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3 leading-tight">
-              A Circular System for Waste, Energy, and Soil
-            </h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="max-w-xl">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                The WAQID Solution
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3 leading-tight">
+                A Circular System for Waste, Energy, and Soil
+              </h2>
+            </div>
+            {/* Carousel navigation buttons */}
+            <div className="hidden md:flex items-center gap-3">
+              <button 
+                type="button"
+                onClick={() => scrollCarousel(solutionCarouselRef, 'left')} 
+                className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                aria-label="Previous solution"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                type="button"
+                onClick={() => scrollCarousel(solutionCarouselRef, 'right')} 
+                className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                aria-label="Next solution"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           <motion.div 
+            ref={solutionCarouselRef}
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0"
+            className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 scroll-smooth w-full"
           >
             <motion.div 
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <RotateCw className="w-6 h-6" />
@@ -999,7 +1045,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Flame className="w-6 h-6" />
@@ -1013,7 +1059,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Sprout className="w-6 h-6" />
@@ -1027,7 +1073,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Hexagon className="w-6 h-6" />
@@ -1830,30 +1876,52 @@ function App() {
 
           {/* Sub-Section A: Built in the Dirt (Traction Gallery) */}
           <div className="mb-20">
-            <div className="mb-8 text-center md:text-left">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                Traction & Hardware
-              </span>
-              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
-                Built in the Dirt
-              </h3>
-              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
-                Real testing, real materials. From manual oil drums to pilot reactor engineering.
-              </p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
+              <div className="text-center md:text-left">
+                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                  Traction &amp; Hardware
+                </span>
+                <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                  Built in the Dirt
+                </h3>
+                <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
+                  Real testing, real materials. From manual oil drums to pilot reactor engineering.
+                </p>
+              </div>
+              {/* Carousel navigation buttons */}
+              <div className="hidden md:flex items-center gap-3">
+                <button 
+                  type="button"
+                  onClick={() => scrollCarousel(tractionCarouselRef, 'left')} 
+                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                  aria-label="Previous traction card"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollCarousel(tractionCarouselRef, 'right')} 
+                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                  aria-label="Next traction card"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
             
             <motion.div 
+              ref={tractionCarouselRef}
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 max-w-6xl mx-auto"
+              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto scroll-smooth w-full"
             >
               <motion.div 
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[350px] md:w-auto rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-[360px] rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1865,7 +1933,7 @@ function App() {
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[350px] md:w-auto rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-[360px] rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
                 <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
@@ -1877,9 +1945,9 @@ function App() {
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[350px] md:w-auto rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-[360px] rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
@@ -1897,24 +1965,46 @@ function App() {
 
           {/* Sub-Section B: Core Hypotheses & Field Validation Status */}
           <div className="mb-20">
-            <div className="mb-8 text-center md:text-left">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                Scientific Method
-              </span>
-              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
-                Core Hypotheses & Field Validation Status
-              </h3>
-              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
-                Systematically addressing critical assumptions before building high-capacity infrastructure.
-              </p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
+              <div className="text-center md:text-left">
+                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                  Scientific Method
+                </span>
+                <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                  Core Hypotheses &amp; Field Validation Status
+                </h3>
+                <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
+                  Systematically addressing critical assumptions before building high-capacity infrastructure.
+                </p>
+              </div>
+              {/* Carousel navigation buttons */}
+              <div className="hidden md:flex items-center gap-3">
+                <button 
+                  type="button"
+                  onClick={() => scrollCarousel(hypothesesCarouselRef, 'left')} 
+                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                  aria-label="Previous hypothesis"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollCarousel(hypothesesCarouselRef, 'right')} 
+                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                  aria-label="Next hypothesis"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             <motion.div 
+              ref={hypothesesCarouselRef}
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0"
+              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 scroll-smooth w-full"
             >
               {hypotheses.map((item, idx) => {
                 const isDark = item.statusType === "validated";
@@ -1925,7 +2015,7 @@ function App() {
                     variants={fadeUpVariant} 
                     whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                     whileTap={{ scale: 0.985 }}
-                    className={`snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-6 rounded-3xl flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-all duration-300 ${
+                    className={`snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-6 rounded-3xl flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-all duration-300 ${
                       isDark 
                         ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
                         : "glass-card text-[#0C1D13]"
@@ -2012,31 +2102,53 @@ function App() {
 
           {/* Sub-Section C: Commercial Viability Targets */}
           <div>
-            <div className="mb-8 text-center md:text-left">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                Future Economics
-              </span>
-              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
-                Commercial Viability Targets
-              </h3>
-              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
-                Four key economic models that WAQID will test and validate during our pilot operations.
-              </p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
+              <div className="text-center md:text-left">
+                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                  Future Economics
+                </span>
+                <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                  Commercial Viability Targets
+                </h3>
+                <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
+                  Four key economic models that WAQID will test and validate during our pilot operations.
+                </p>
+              </div>
+              {/* Carousel navigation buttons */}
+              <div className="hidden md:flex items-center gap-3">
+                <button 
+                  type="button"
+                  onClick={() => scrollCarousel(viabilityCarouselRef, 'left')} 
+                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                  aria-label="Previous viability model"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button 
+                  type="button"
+                  onClick={() => scrollCarousel(viabilityCarouselRef, 'right')} 
+                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
+                  aria-label="Next viability model"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             <motion.div 
+              ref={viabilityCarouselRef}
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto"
+              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto scroll-smooth w-full"
             >
               {/* Card 1 */}
               <motion.div 
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2054,7 +2166,7 @@ function App() {
                 variants={popVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2072,7 +2184,7 @@ function App() {
                 variants={blurFadeVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2090,7 +2202,7 @@ function App() {
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
@@ -2266,29 +2378,50 @@ function App() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
-              Team & Advisors
-            </span>
-            <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] mt-3">
-              Built on Field Expertise
-            </h2>
-            <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6 mb-4" />
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="text-center md:text-left max-w-2xl">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
+                Team &amp; Advisors
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] mt-3">
+                Built on Field Expertise
+              </h2>
+            </div>
+            {/* Carousel navigation buttons */}
+            <div className="hidden md:flex items-center gap-3">
+              <button 
+                type="button"
+                onClick={() => scrollCarousel(teamCarouselRef, 'left')} 
+                className="w-10 h-10 rounded-full border border-[#4CAF50]/20 hover:border-[#4CAF50]/60 flex items-center justify-center text-[#4CAF50] hover:bg-[#4CAF50]/5 transition-all cursor-pointer"
+                aria-label="Previous team member"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button 
+                type="button"
+                onClick={() => scrollCarousel(teamCarouselRef, 'right')} 
+                className="w-10 h-10 rounded-full border border-[#4CAF50]/20 hover:border-[#4CAF50]/60 flex items-center justify-center text-[#4CAF50] hover:bg-[#4CAF50]/5 transition-all cursor-pointer"
+                aria-label="Next team member"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           <motion.div 
+            ref={teamCarouselRef}
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
-            className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0"
+            className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 scroll-smooth w-full"
           >
             {/* Osama M. Abuagla - Founder */}
             <motion.div 
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
+              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2304,7 +2437,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
+              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2320,7 +2453,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
+              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2337,7 +2470,7 @@ function App() {
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229]/80 transition-all duration-300 relative overflow-hidden group shadow-xl"
+              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229]/80 transition-all duration-300 relative overflow-hidden group shadow-xl"
             >
               <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
                 <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
