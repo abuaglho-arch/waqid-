@@ -1220,13 +1220,11 @@ function App() {
               </button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
-              
-              {/* Left Column: Sliders */}
-              <div className="lg:col-span-6 flex flex-col justify-center gap-8 text-left">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">              {/* Left Column: Sliders */}
+              <div className="lg:col-span-6 flex flex-col justify-center gap-6 text-left">
                 {calculatorRole === "Mill Operator" ? (
                   <>
-                    <div className="space-y-4">
+                    <div className="bg-white/80 p-6 rounded-2xl border border-[#2E7D32]/10 shadow-[0_4px_20px_rgba(12,29,19,0.02)] space-y-4">
                       <div className="flex justify-between items-baseline">
                         <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
                           Annual EFB Biomass Generated
@@ -1242,7 +1240,7 @@ function App() {
                         step="1000"
                         value={millEFB}
                         onChange={(e) => setMillEFB(Number(e.target.value))}
-                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                        className="calculator-slider"
                       />
                       <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
                         <span>1,000 t</span>
@@ -1251,13 +1249,13 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="bg-white/80 p-6 rounded-2xl border border-[#2E7D32]/10 shadow-[0_4px_20px_rgba(12,29,19,0.02)] space-y-4">
                       <div className="flex justify-between items-baseline">
                         <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
                           Current Biomass Disposal Cost
                         </label>
                         <span className="text-xl font-serif font-black text-[#2E7D32]">
-                          RM {disposalCost} <span className="text-xs font-sans font-normal text-[#0C1D13]/50">/ tonne</span>
+                          RM {disposalCost} <span className="text-xs font-sans font-normal text-[#0C1D13]/50">/ EFB t</span>
                         </span>
                       </div>
                       <input 
@@ -1267,7 +1265,7 @@ function App() {
                         step="5"
                         value={disposalCost}
                         onChange={(e) => setDisposalCost(Number(e.target.value))}
-                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                        className="calculator-slider"
                       />
                       <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
                         <span>RM 10</span>
@@ -1278,7 +1276,7 @@ function App() {
                   </>
                 ) : (
                   <>
-                    <div className="space-y-4">
+                    <div className="bg-white/80 p-6 rounded-2xl border border-[#2E7D32]/10 shadow-[0_4px_20px_rgba(12,29,19,0.02)] space-y-4">
                       <div className="flex justify-between items-baseline">
                         <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
                           Farm Crop Land Area
@@ -1294,7 +1292,7 @@ function App() {
                         step="1"
                         value={farmArea}
                         onChange={(e) => setFarmArea(Number(e.target.value))}
-                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                        className="calculator-slider"
                       />
                       <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
                         <span>1 ha</span>
@@ -1303,7 +1301,7 @@ function App() {
                       </div>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="bg-white/80 p-6 rounded-2xl border border-[#2E7D32]/10 shadow-[0_4px_20px_rgba(12,29,19,0.02)] space-y-4">
                       <div className="flex justify-between items-baseline">
                         <label className="text-xs font-sans font-bold uppercase tracking-widest text-[#0C1D13]/70">
                           Chemical Fertilizer Spending
@@ -1319,7 +1317,7 @@ function App() {
                         step="250"
                         value={fertilizerSpend}
                         onChange={(e) => setFertilizerSpend(Number(e.target.value))}
-                        className="w-full h-1.5 bg-[#FAF9F6] rounded-lg appearance-none cursor-pointer accent-[#2E7D32] focus:outline-none"
+                        className="calculator-slider"
                       />
                       <div className="flex justify-between text-[10px] text-[#0C1D13]/40 font-sans font-bold">
                         <span>RM 500</span>
@@ -1336,41 +1334,41 @@ function App() {
                 <div className="grid grid-cols-2 gap-4">
                   {calculatorRole === "Mill Operator" ? (
                     <>
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Estimated Biochar Yield
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           {(millEFB * 0.25).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">t/yr</span>
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Converted organic carbon pellets.</p>
                       </div>
 
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Disposal Cost Savings
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           RM {(millEFB * disposalCost).toLocaleString()}
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Bypassing heavy tipping/logistics fees.</p>
                       </div>
 
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Carbon Offset Potential
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           {(millEFB * 0.55).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">tCO2e</span>
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Methane decay & carbon lock avoidance.</p>
                       </div>
 
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Clean Thermal Energy
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           {(millEFB * 1.5).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">MWh</span>
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Heat available for mill pre-heaters.</p>
@@ -1378,41 +1376,41 @@ function App() {
                     </>
                   ) : (
                     <>
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Biochar Dressing Needed
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           {(farmArea * 2.5).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">tonnes</span>
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Recommended 2.5t/ha soil amendment.</p>
                       </div>
 
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Water Retention Boost
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           {(farmArea * 75000).toLocaleString()} <span className="text-xs font-sans font-normal text-[#0C1D13]/50 ml-0.5">Litres</span>
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Additional soil moisture absorption capacity.</p>
                       </div>
 
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Fertilizer Cost Offset
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           RM {(farmArea * fertilizerSpend * 0.30).toLocaleString()}
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Up to 30% reduction in chemical inputs.</p>
                       </div>
 
-                      <div className="glass-card p-5 rounded-2xl text-left">
-                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
+                      <div className="metric-card p-5 text-left">
+                        <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/60 block mb-1.5">
                           Estimated Crop Yield
                         </span>
-                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1">
+                        <h4 className="text-xl md:text-2xl font-serif font-black text-[#2E7D32] leading-none mb-1.5">
                           +15% - 25%
                         </h4>
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Agronomic harvest improvement range.</p>
