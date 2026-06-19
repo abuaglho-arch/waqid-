@@ -206,6 +206,36 @@ const partnerLogos = [
   { src: "/images/iylp-logo.png", alt: "Tzu Chi IYLP" }
 ];
 
+const teamMembers = [
+  {
+    name: "Osama M. Abuagla",
+    role: "Founder & CEO",
+    img: "/images/founder.jpg",
+    desc: "Driving the vision and technical execution of Waqid's decentralized pyrolysis infrastructure.",
+    isCTA: false
+  },
+  {
+    name: "Tim Asquith",
+    role: "Strategic Advisor",
+    img: "/images/tim-asquith.png",
+    desc: "Providing critical guidance on field validation, commercial scaling, and global agricultural economics.",
+    isCTA: false
+  },
+  {
+    name: "Joyce Zhang",
+    role: "Venture Coach",
+    img: "/images/joyce.jpg",
+    desc: "Guiding WAQID's fundraising strategy and venture scaling architecture for global deployment.",
+    isCTA: false
+  },
+  {
+    name: "Join The Movement",
+    role: "Partners & Team",
+    desc: "We are actively looking for passionate operators, strategic partners, and early believers to help us complete this mission in any way possible.",
+    isCTA: true
+  }
+];
+
 const hypotheses = [
   {
     type: "Technical Hypothesis",
@@ -351,8 +381,6 @@ function App() {
   const [fertilizerSpend, setFertilizerSpend] = useState(3000);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
-  const teamCarouselRef = useRef(null);
-
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.matchMedia("(max-width: 1024px)").matches : false
   );
@@ -374,27 +402,6 @@ function App() {
       motionQuery.removeEventListener("change", motionListener);
     };
   }, []);
-
-  // Autoplay intervals for Team carousel
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    // Team carousel autoplay (every 4.5 seconds, slightly faster as requested)
-    const teamTimer = setInterval(() => {
-      if (teamCarouselRef.current) {
-        const { scrollLeft, scrollWidth, clientWidth } = teamCarouselRef.current;
-        if (scrollLeft + clientWidth >= scrollWidth - 15) {
-          teamCarouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          teamCarouselRef.current.scrollBy({ left: 344, behavior: 'smooth' });
-        }
-      }
-    }, 4500);
-
-    return () => {
-      clearInterval(teamTimer);
-    };
-  }, [prefersReducedMotion]);
 
   const crisisSectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -642,23 +649,31 @@ function App() {
             >
               {/* Set 1 */}
               {partnerLogos.map((logo, idx) => (
-                <div key={`trust-set1-${idx}`} className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0">
+                <motion.div 
+                  key={`trust-set1-${idx}`} 
+                  whileHover={{ y: -6, scale: 1.08, transition: { duration: 0.2, ease: "easeOut" } }}
+                  className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0 cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
                   <img 
                     src={logo.src} 
                     alt={logo.alt} 
                     className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
-                </div>
+                </motion.div>
               ))}
               {/* Set 2 */}
               {partnerLogos.map((logo, idx) => (
-                <div key={`trust-set2-${idx}`} className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0">
+                <motion.div 
+                  key={`trust-set2-${idx}`} 
+                  whileHover={{ y: -6, scale: 1.08, transition: { duration: 0.2, ease: "easeOut" } }}
+                  className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0 cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300"
+                >
                   <img 
                     src={logo.src} 
                     alt={logo.alt} 
                     className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </div>
@@ -2238,86 +2253,94 @@ function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50]/30 mx-auto mt-6" />
           </div>
 
-          <motion.div 
-            ref={teamCarouselRef}
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 scroll-smooth w-full"
-          >
-            {/* Osama M. Abuagla - Founder */}
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
-            >
-              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                <img src="/images/founder.jpg" alt="Osama M. Abuagla" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Osama M. Abuagla</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Founder & CEO</p>
-              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Driving the vision and technical execution of Waqid's decentralized pyrolysis infrastructure.</p>
-            </motion.div>
+          <div className="w-full overflow-hidden relative flex items-center">
+            {/* Fade masks */}
+            <div className="absolute inset-y-0 left-0 w-8 md:w-16 bg-gradient-to-r from-[#0C1D13] to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-8 md:w-16 bg-gradient-to-l from-[#0C1D13] to-transparent z-10 pointer-events-none" />
 
-            {/* Tim Asquith - Strategic Advisor */}
             <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
+              animate={{ x: [0, "-50%"] }}
+              transition={{
+                ease: "linear",
+                duration: 25,
+                repeat: Infinity
+              }}
+              className="flex items-center gap-6 w-max py-4"
             >
-              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                <img src="/images/tim-asquith.png" alt="Tim Asquith" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Tim Asquith</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Strategic Advisor</p>
-              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Providing critical guidance on field validation, commercial scaling, and global agricultural economics.</p>
-            </motion.div>
+              {/* Set 1 */}
+              {teamMembers.map((member, idx) => (
+                <div key={`team-set1-${idx}`}>
+                  {member.isCTA ? (
+                    <motion.div 
+                      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
+                      className="shrink-0 w-[280px] sm:w-[320px] bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229]/80 transition-all duration-300 relative overflow-hidden group shadow-xl h-[420px]"
+                    >
+                      <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
+                        <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
+                      </div>
+                      <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
+                      <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
+                      <p className="text-sm text-[#FAF9F6]/70 leading-relaxed px-2 relative z-10">
+                        {member.desc}
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div 
+                      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
+                      whileTap={{ scale: 0.98 }}
+                      className="glass-card-dark shrink-0 w-[280px] sm:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer h-[420px]"
+                    >
+                      <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
+                      <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
+                        <img src={member.img} alt={member.name} className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                      </div>
+                      <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
+                      <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
+                      <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">{member.desc}</p>
+                    </motion.div>
+                  )}
+                </div>
+              ))}
 
-            {/* Joyce Zhang - Venture Coach */}
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
-            >
-              <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
-              <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                <img src="/images/joyce.jpg" alt="Joyce Zhang" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Joyce Zhang</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Venture Coach</p>
-              <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">Guiding WAQID's fundraising strategy and venture scaling architecture for global deployment.</p>
+              {/* Set 2 */}
+              {teamMembers.map((member, idx) => (
+                <div key={`team-set2-${idx}`}>
+                  {member.isCTA ? (
+                    <motion.div 
+                      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
+                      className="shrink-0 w-[280px] sm:w-[320px] bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229]/80 transition-all duration-300 relative overflow-hidden group shadow-xl h-[420px]"
+                    >
+                      <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
+                        <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
+                      </div>
+                      <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
+                      <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
+                      <p className="text-sm text-[#FAF9F6]/70 leading-relaxed px-2 relative z-10">
+                        {member.desc}
+                      </p>
+                    </motion.div>
+                  ) : (
+                    <motion.div 
+                      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.3, ease: "easeOut" } }}
+                      whileTap={{ scale: 0.98 }}
+                      className="glass-card-dark shrink-0 w-[280px] sm:w-[320px] p-8 text-center group flex flex-col items-center relative overflow-hidden cursor-pointer h-[420px]"
+                    >
+                      <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
+                      <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
+                        <img src={member.img} alt={member.name} className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                      </div>
+                      <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
+                      <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
+                      <p className="text-sm text-[#FAF9F6]/75 leading-relaxed px-2 relative z-10">{member.desc}</p>
+                    </motion.div>
+                  )}
+                </div>
+              ))}
             </motion.div>
-
-            {/* Join the Movement - Call to Action */}
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-[320px] bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229]/80 transition-all duration-300 relative overflow-hidden group shadow-xl"
-            >
-              <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
-                <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">Join The Movement</h4>
-              <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">Partners & Team</p>
-              <p className="text-sm text-[#FAF9F6]/70 leading-relaxed px-2 relative z-10">
-                We are actively looking for passionate operators, strategic partners, and early believers to help us complete this mission in any way possible.
-              </p>
-            </motion.div>
-          </motion.div>
-
-          <div className="flex lg:hidden items-center justify-center gap-1.5 mt-6">
-            <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50]/60 animate-pulse flex items-center gap-1">
-              <span>Swipe to explore</span>
-              <span>→</span>
-            </span>
           </div>
         </div>
 
