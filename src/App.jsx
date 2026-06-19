@@ -392,11 +392,152 @@ const sdgGoals = [
   }
 ];
 
+function ReactorExplainer() {
+  const [activeReactorStage, setActiveReactorStage] = useState(0);
+  const [isReactorAutoPlaying, setIsReactorAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isReactorAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveReactorStage((prev) => (prev + 1) % reactorStages.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isReactorAutoPlaying]);
+
+  return (
+    <div 
+      className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+      onMouseEnter={() => setIsReactorAutoPlaying(false)}
+      onMouseLeave={() => setIsReactorAutoPlaying(true)}
+      onTouchStart={() => setIsReactorAutoPlaying(false)}
+    >
+      {/* Left Selector List */}
+      <div className="lg:col-span-5 flex flex-col justify-center">
+        <div className="flex flex-row overflow-x-auto snap-x hide-scrollbar lg:flex-col gap-3 justify-start lg:justify-center -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0">
+          {reactorStages.map((stage, idx) => {
+            const Icon = stage.icon;
+            const isActive = activeReactorStage === idx;
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  setActiveReactorStage(idx);
+                  setIsReactorAutoPlaying(false);
+                }}
+                onMouseEnter={() => {
+                  setActiveReactorStage(idx);
+                  setIsReactorAutoPlaying(false);
+                }}
+                className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer snap-center shrink-0 w-[65vw] sm:w-[220px] lg:w-auto ${
+                  isActive 
+                    ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
+                    : 'hover:bg-[#F0EFEA]/60 border border-transparent'
+                }`}
+              >
+                {/* Active highlight background border indicator */}
+                {isActive && (
+                  <motion.div 
+                    layoutId="activeReactorIndicator"
+                    className="absolute bg-[#2E7D32] bottom-0 left-0 right-0 h-[3px] lg:h-auto lg:inset-y-0 lg:left-0 lg:w-1 rounded-b-2xl lg:rounded-l-2xl lg:rounded-br-none" 
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
+                  isActive ? 'bg-[#152E1E] text-[#4CAF50]' : 'bg-[#0C1D13]/5 text-[#0C1D13]/60'
+                }`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                
+                <div>
+                  <span className="text-[10px] font-sans font-bold text-[#2E7D32]/60 uppercase tracking-widest block">
+                    Stage {stage.num}
+                  </span>
+                  <h4 className="font-display font-bold text-base text-[#0C1D13] mt-0.5 leading-tight">
+                    {stage.title}
+                  </h4>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Mobile indicators dot row */}
+        <div className="flex lg:hidden justify-center gap-2 mt-4 mb-2">
+          {reactorStages.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setActiveReactorStage(idx);
+                setIsReactorAutoPlaying(false);
+              }}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activeReactorStage === idx 
+                  ? 'w-6 bg-[#2E7D32]' 
+                  : 'w-1.5 bg-[#2E7D32]/25'
+              }`}
+              aria-label={`Go to stage ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Right Detail Card */}
+      <div className="lg:col-span-7">
+        <motion.div 
+          key={activeReactorStage}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="h-full bg-[#0C1D13] text-[#FAF9F6] rounded-3xl p-8 border border-[#2E7D32]/25 shadow-xl relative overflow-hidden flex flex-col justify-between text-left"
+        >
+          {/* Subtle Background Glow */}
+          <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#4CAF50]/10 rounded-full blur-[60px] pointer-events-none" />
+          
+          <div>
+            <div className="flex justify-between items-start mb-6">
+              <span className="px-3 py-1 rounded-full bg-[#152E1E] border border-[#2E7D32]/30 text-[10px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
+                {reactorStages[activeReactorStage]?.subtitle}
+              </span>
+              <span className="text-4xl font-serif font-bold text-[#4CAF50]/20">
+                {reactorStages[activeReactorStage]?.num}
+              </span>
+            </div>
+
+            <h4 className="font-display font-black text-2xl mb-4 leading-tight">
+              {reactorStages[activeReactorStage]?.title}
+            </h4>
+            
+            <p className="text-sm text-[#FAF9F6]/85 font-sans leading-relaxed mb-6">
+              {reactorStages[activeReactorStage]?.desc}
+            </p>
+
+            <div className="border-l-2 border-[#4CAF50]/30 pl-4 py-1.5 mb-8">
+              <p className="text-xs text-[#FAF9F6]/70 font-sans italic leading-relaxed">
+                {reactorStages[activeReactorStage]?.detail}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 border-t border-[#FAF9F6]/10 pt-6">
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Target Output Spec</span>
+              <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage]?.metric}</span>
+            </div>
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Temperature Profile</span>
+              <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage]?.temp}</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
-  const [activeReactorStage, setActiveReactorStage] = useState(0);
-  const [isReactorAutoPlaying, setIsReactorAutoPlaying] = useState(true);
   const [selectedFormRole, setSelectedFormRole] = useState("Mill Operator");
   const [calculatorRole, setCalculatorRole] = useState("Mill Operator");
   const [millEFB, setMillEFB] = useState(25000);
@@ -426,14 +567,6 @@ function App() {
       motionQuery.removeEventListener("change", motionListener);
     };
   }, []);
-
-  useEffect(() => {
-    if (!isReactorAutoPlaying) return;
-    const interval = setInterval(() => {
-      setActiveReactorStage((prev) => (prev + 1) % 5);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [isReactorAutoPlaying]);
 
   const crisisSectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -593,7 +726,7 @@ function App() {
 
         <motion.div style={{ y: heroY }} className="absolute inset-0 opacity-55 z-0 scale-110">
           <img 
-            src="/images/waqid_circular_restoration_hero.png" 
+            src="/images/waqid_circular_restoration_hero.jpg" 
             alt="WAQID Operations" 
             className="w-full h-full object-cover object-center" 
             fetchpriority="high"
@@ -1082,7 +1215,7 @@ function App() {
                 return (
                   <div 
                     key={`sol-set1-${idx}`} 
-                    className="w-[280px] bg-[#FAF9F6] border border-[#2E7D32]/10 p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
+                    className="glass-card w-[280px] p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
                   >
                     <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <Icon className="w-6 h-6" />
@@ -1100,7 +1233,7 @@ function App() {
                 return (
                   <div 
                     key={`sol-set2-${idx}`} 
-                    className="w-[280px] bg-[#FAF9F6] border border-[#2E7D32]/10 p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
+                    className="glass-card w-[280px] p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
                   >
                     <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                       <Icon className="w-6 h-6" />
@@ -1125,133 +1258,7 @@ function App() {
               </p>
             </div>
 
-            <div 
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
-              onMouseEnter={() => setIsReactorAutoPlaying(false)}
-              onMouseLeave={() => setIsReactorAutoPlaying(true)}
-              onTouchStart={() => setIsReactorAutoPlaying(false)}
-            >
-              {/* Left Selector List */}
-              <div className="lg:col-span-5 flex flex-col justify-center">
-                <div className="flex flex-row overflow-x-auto snap-x hide-scrollbar lg:flex-col gap-3 justify-start lg:justify-center -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0">
-                  {reactorStages.map((stage, idx) => {
-                    const Icon = stage.icon;
-                    const isActive = activeReactorStage === idx;
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          setActiveReactorStage(idx);
-                          setIsReactorAutoPlaying(false);
-                        }}
-                        onMouseEnter={() => {
-                          setActiveReactorStage(idx);
-                          setIsReactorAutoPlaying(false);
-                        }}
-                        className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer snap-center shrink-0 w-[65vw] sm:w-[220px] lg:w-auto ${
-                          isActive 
-                            ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
-                            : 'hover:bg-[#F0EFEA]/60 border border-transparent'
-                        }`}
-                      >
-                        {/* Active highlight background border indicator */}
-                        {isActive && (
-                          <motion.div 
-                            layoutId="activeReactorIndicator"
-                            className="absolute bg-[#2E7D32] bottom-0 left-0 right-0 h-[3px] lg:h-auto lg:inset-y-0 lg:left-0 lg:w-1 rounded-b-2xl lg:rounded-l-2xl lg:rounded-br-none" 
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          />
-                        )}
-                        
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                          isActive ? 'bg-[#152E1E] text-[#4CAF50]' : 'bg-[#0C1D13]/5 text-[#0C1D13]/60'
-                        }`}>
-                          <Icon className="w-5 h-5" />
-                        </div>
-                        
-                        <div>
-                          <span className="text-[10px] font-sans font-bold text-[#2E7D32]/60 uppercase tracking-widest block">
-                            Stage {stage.num}
-                          </span>
-                          <h4 className="font-display font-bold text-base text-[#0C1D13] mt-0.5 leading-tight">
-                            {stage.title}
-                          </h4>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Mobile indicators dot row */}
-                <div className="flex lg:hidden justify-center gap-2 mt-4 mb-2">
-                  {reactorStages.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setActiveReactorStage(idx);
-                        setIsReactorAutoPlaying(false);
-                      }}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        activeReactorStage === idx 
-                          ? 'w-6 bg-[#2E7D32]' 
-                          : 'w-1.5 bg-[#2E7D32]/25'
-                      }`}
-                      aria-label={`Go to stage ${idx + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Right Detail Card */}
-              <div className="lg:col-span-7">
-                <motion.div 
-                  key={activeReactorStage}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="h-full bg-[#0C1D13] text-[#FAF9F6] rounded-3xl p-8 border border-[#2E7D32]/25 shadow-xl relative overflow-hidden flex flex-col justify-between text-left"
-                >
-                  {/* Subtle Background Glow */}
-                  <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#4CAF50]/10 rounded-full blur-[60px] pointer-events-none" />
-                  
-                  <div>
-                    <div className="flex justify-between items-start mb-6">
-                      <span className="px-3 py-1 rounded-full bg-[#152E1E] border border-[#2E7D32]/30 text-[10px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
-                        {reactorStages[activeReactorStage].subtitle}
-                      </span>
-                      <span className="text-4xl font-serif font-bold text-[#4CAF50]/20">
-                        {reactorStages[activeReactorStage].num}
-                      </span>
-                    </div>
-
-                    <h4 className="font-display font-black text-2xl mb-4 leading-tight">
-                      {reactorStages[activeReactorStage].title}
-                    </h4>
-                    
-                    <p className="text-sm text-[#FAF9F6]/85 font-sans leading-relaxed mb-6">
-                      {reactorStages[activeReactorStage].desc}
-                    </p>
-
-                    <div className="border-l-2 border-[#4CAF50]/30 pl-4 py-1.5 mb-8">
-                      <p className="text-xs text-[#FAF9F6]/70 font-sans italic leading-relaxed">
-                        {reactorStages[activeReactorStage].detail}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 border-t border-[#FAF9F6]/10 pt-6">
-                    <div>
-                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Target Output Spec</span>
-                      <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage].metric}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Temperature Profile</span>
-                      <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage].temp}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
+            <ReactorExplainer />
           </div>
         </div>
       </motion.section>
