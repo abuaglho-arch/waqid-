@@ -411,6 +411,8 @@ function App() {
 
   const [activeCardIndex, setActiveCardIndex] = useState(1);
   const [activeImpactStep, setActiveImpactStep] = useState(0);
+  const [showAllCrisisMobile, setShowAllCrisisMobile] = useState(false);
+  const [activeMilestoneTab, setActiveMilestoneTab] = useState("traction");
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const totalCards = 6;
@@ -661,6 +663,7 @@ function App() {
                   <img 
                     src={logo.src} 
                     alt={logo.alt} 
+                    loading="lazy"
                     className="h-11 md:h-13 object-contain mix-blend-multiply opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
                 </motion.div>
@@ -675,6 +678,7 @@ function App() {
                   <img 
                     src={logo.src} 
                     alt={logo.alt} 
+                    loading="lazy"
                     className="h-11 md:h-13 object-contain mix-blend-multiply opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
                 </motion.div>
@@ -772,29 +776,44 @@ function App() {
                 </div>
               </motion.div>
 
-              {crisisCards.map((item, idx) => (
-                <motion.div 
-                  key={idx} 
-                  whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-                  whileTap={{ scale: 0.985 }}
-                  className="w-full min-h-[450px] rounded-3xl overflow-hidden shadow-xl relative group border border-[#2E7D32]/10 cursor-pointer"
-                >
-                  <img 
-                    src={item.image} 
-                    alt={item.title} 
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
-                  
-                  <div className="absolute bottom-0 left-0 right-0 p-8 text-left z-10">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
-                      <h4 className="font-display font-bold text-xl md:text-2xl text-[#FAF9F6]">{item.title}</h4>
+              {crisisCards.map((item, idx) => {
+                const isHiddenOnMobile = idx >= 2 && !showAllCrisisMobile;
+                return (
+                  <motion.div 
+                    key={idx} 
+                    whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                    whileTap={{ scale: 0.985 }}
+                    className={`w-full min-h-[450px] rounded-3xl overflow-hidden shadow-xl relative group border border-[#2E7D32]/10 cursor-pointer ${isHiddenOnMobile ? "hidden md:block" : ""}`}
+                  >
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
+                    
+                    <div className="absolute bottom-0 left-0 right-0 p-8 text-left z-10">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs font-sans font-bold text-[#4CAF50]">[ {item.index} ]</span>
+                        <h4 className="font-display font-bold text-xl md:text-2xl text-[#FAF9F6]">{item.title}</h4>
+                      </div>
+                      <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">{item.desc}</p>
                     </div>
-                    <p className="text-xs md:text-sm text-[#FAF9F6]/85 font-sans leading-relaxed">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Mobile Only: Show More / Show Less Button */}
+            <div className="flex justify-center mt-8 md:hidden relative z-10">
+              <button
+                type="button"
+                onClick={() => setShowAllCrisisMobile(!showAllCrisisMobile)}
+                className="px-6 py-3 rounded-xl border border-[#2E7D32]/25 text-[#2E7D32] hover:bg-[#2E7D32]/5 text-xs font-sans font-bold uppercase tracking-wider transition-colors focus:outline-none"
+              >
+                {showAllCrisisMobile ? "Show Less Context" : "Show Full Context (+4)"}
+              </button>
             </div>
           </div>
         </motion.section>
@@ -949,6 +968,7 @@ function App() {
                         <img 
                           src={item.image} 
                           alt={item.title} 
+                          loading="lazy"
                           className="absolute inset-0 w-full h-full object-cover"
                         />
                         {/* Dark Gradient Overlay for text readability */}
@@ -1446,6 +1466,7 @@ function App() {
           <img 
             src="/images/waqid-circular-carbon-loop.png" 
             alt="The WAQID Circular Carbon Loop Flowchart" 
+            loading="lazy"
             className="w-full h-auto object-contain select-none"
           />
         </div>
@@ -1842,8 +1863,26 @@ function App() {
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
+          {/* Mobile Only Tab Selector */}
+          <div className="flex md:hidden justify-center gap-1.5 p-1 bg-[#F0EFEA] border border-[#2E7D32]/10 rounded-2xl mb-12 max-w-sm mx-auto overflow-x-auto relative z-10">
+            {["traction", "hypotheses", "viability"].map((tab) => (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setActiveMilestoneTab(tab)}
+                className={`flex-1 text-center py-2 px-3 rounded-xl text-[10px] font-sans font-bold uppercase tracking-wider transition-all duration-300 ${
+                  activeMilestoneTab === tab
+                    ? "bg-[#2E7D32] text-[#FAF9F6] shadow-sm font-bold"
+                    : "text-[#0C1D13]/60 hover:bg-[#2E7D32]/5 font-semibold"
+                }`}
+              >
+                {tab === "traction" ? "Traction" : tab === "hypotheses" ? "Hypotheses" : "Viability"}
+              </button>
+            ))}
+          </div>
+
           {/* Sub-Section A: Built in the Dirt (Traction Gallery) */}
-          <div className="mb-20">
+          <div className={`mb-20 ${activeMilestoneTab === "traction" ? "block" : "hidden md:block"}`}>
             <div className="text-center max-w-2xl mx-auto mb-8 flex flex-col items-center">
               <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                 Traction &amp; Hardware
@@ -1870,7 +1909,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
@@ -1882,7 +1921,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
@@ -1894,7 +1933,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/organic-biochar.png" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
@@ -1904,7 +1943,7 @@ function App() {
           </div>
 
           {/* Sub-Section B: Core Hypotheses & Field Validation Status */}
-          <div className="mb-20">
+          <div className={`mb-20 ${activeMilestoneTab === "hypotheses" ? "block" : "hidden md:block"}`}>
             <div className="text-center max-w-2xl mx-auto mb-8 flex flex-col items-center">
               <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                 Scientific Method
@@ -2013,7 +2052,7 @@ function App() {
           </div>
 
           {/* Sub-Section C: Commercial Viability Targets */}
-          <div>
+          <div className={activeMilestoneTab === "viability" ? "block" : "hidden md:block"}>
             <div className="text-center max-w-3xl mx-auto mb-12">
               <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
                 Future Economics
@@ -2313,7 +2352,7 @@ function App() {
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                        <img src={member.img} alt={member.name} className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                       </div>
                       <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
                       <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
@@ -2350,7 +2389,7 @@ function App() {
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                        <img src={member.img} alt={member.name} className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
                       </div>
                       <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
                       <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
@@ -2505,6 +2544,7 @@ function App() {
                 <img 
                   src="/images/waqid-logo-transparent.png" 
                   alt="WAQID Logo" 
+                  loading="lazy"
                   className="h-10 w-auto object-contain drop-shadow-lg"
                 />
               </button>
