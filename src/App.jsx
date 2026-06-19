@@ -391,6 +391,40 @@ function App() {
     };
   }, []);
 
+  // Autoplay intervals for Traction and Team carousels
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    // Traction carousel autoplay (every 5 seconds)
+    const tractionTimer = setInterval(() => {
+      if (tractionCarouselRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = tractionCarouselRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          tractionCarouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          tractionCarouselRef.current.scrollBy({ left: 384, behavior: 'smooth' });
+        }
+      }
+    }, 5000);
+
+    // Team carousel autoplay (every 4.5 seconds, slightly faster as requested: "make them and advisor moving a bit fast")
+    const teamTimer = setInterval(() => {
+      if (teamCarouselRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = teamCarouselRef.current;
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          teamCarouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          teamCarouselRef.current.scrollBy({ left: 344, behavior: 'smooth' });
+        }
+      }
+    }, 4500);
+
+    return () => {
+      clearInterval(tractionTimer);
+      clearInterval(teamTimer);
+    };
+  }, [prefersReducedMotion]);
+
   const crisisSectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: crisisSectionRef,
@@ -640,7 +674,7 @@ function App() {
               animate={{ x: [0, "-50%"] }}
               transition={{
                 ease: "linear",
-                duration: 25,
+                duration: 12,
                 repeat: Infinity
               }}
               className="flex items-center gap-12 w-max"
@@ -651,7 +685,7 @@ function App() {
                   key={`trust-set1-${idx}`} 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-55 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 />
               ))}
               {/* Set 2 */}
@@ -660,7 +694,7 @@ function App() {
                   key={`trust-set2-${idx}`} 
                   src={logo.src} 
                   alt={logo.alt} 
-                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-55 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 />
               ))}
             </motion.div>
@@ -989,17 +1023,16 @@ function App() {
       {/* 4. THE WAQID SOLUTION */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div className="max-w-xl">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                The WAQID Solution
-              </span>
-              <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3 leading-tight">
-                A Circular System for Waste, Energy, and Soil
-              </h2>
-            </div>
+          <div className="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+              The WAQID Solution
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#0C1D13] mt-3 leading-tight">
+              A Circular System for Waste, Energy, and Soil
+            </h2>
+            <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-6 mb-4" />
             {/* Carousel navigation buttons */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <button 
                 type="button"
                 onClick={() => scrollCarousel(solutionCarouselRef, 'left')} 
@@ -1876,20 +1909,19 @@ function App() {
 
           {/* Sub-Section A: Built in the Dirt (Traction Gallery) */}
           <div className="mb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
-              <div className="text-center md:text-left">
-                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                  Traction &amp; Hardware
-                </span>
-                <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
-                  Built in the Dirt
-                </h3>
-                <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
-                  Real testing, real materials. From manual oil drums to pilot reactor engineering.
-                </p>
-              </div>
+            <div className="text-center max-w-2xl mx-auto mb-8 flex flex-col items-center">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                Traction &amp; Hardware
+              </span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                Built in the Dirt
+              </h3>
+              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2 max-w-lg mx-auto">
+                Real testing, real materials. From manual oil drums to pilot reactor engineering.
+              </p>
+              <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-4 mb-4" />
               {/* Carousel navigation buttons */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <button 
                   type="button"
                   onClick={() => scrollCarousel(tractionCarouselRef, 'left')} 
@@ -1947,7 +1979,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="snap-center shrink-0 w-[85vw] sm:w-[350px] lg:w-[360px] rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/organic-biochar.png" alt="Granular Pellets" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
@@ -1965,20 +1997,19 @@ function App() {
 
           {/* Sub-Section B: Core Hypotheses & Field Validation Status */}
           <div className="mb-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
-              <div className="text-center md:text-left">
-                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                  Scientific Method
-                </span>
-                <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
-                  Core Hypotheses &amp; Field Validation Status
-                </h3>
-                <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
-                  Systematically addressing critical assumptions before building high-capacity infrastructure.
-                </p>
-              </div>
+            <div className="text-center max-w-2xl mx-auto mb-8 flex flex-col items-center">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                Scientific Method
+              </span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                Core Hypotheses &amp; Field Validation Status
+              </h3>
+              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2 max-w-lg mx-auto">
+                Systematically addressing critical assumptions before building high-capacity infrastructure.
+              </p>
+              <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-4 mb-4" />
               {/* Carousel navigation buttons */}
-              <div className="hidden md:flex items-center gap-3">
+              <div className="flex items-center gap-3">
                 <button 
                   type="button"
                   onClick={() => scrollCarousel(hypothesesCarouselRef, 'left')} 
@@ -2102,53 +2133,32 @@ function App() {
 
           {/* Sub-Section C: Commercial Viability Targets */}
           <div>
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
-              <div className="text-center md:text-left">
-                <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
-                  Future Economics
-                </span>
-                <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
-                  Commercial Viability Targets
-                </h3>
-                <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans mt-2">
-                  Four key economic models that WAQID will test and validate during our pilot operations.
-                </p>
-              </div>
-              {/* Carousel navigation buttons */}
-              <div className="hidden md:flex items-center gap-3">
-                <button 
-                  type="button"
-                  onClick={() => scrollCarousel(viabilityCarouselRef, 'left')} 
-                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                  aria-label="Previous viability model"
-                >
-                  <ChevronLeft className="w-5 h-5" />
-                </button>
-                <button 
-                  type="button"
-                  onClick={() => scrollCarousel(viabilityCarouselRef, 'right')} 
-                  className="w-10 h-10 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32]/60 flex items-center justify-center text-[#2E7D32] hover:bg-[#2E7D32]/5 transition-all cursor-pointer"
-                  aria-label="Next viability model"
-                >
-                  <ChevronRight className="w-5 h-5" />
-                </button>
-              </div>
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
+                Future Economics
+              </span>
+              <h3 className="text-2xl md:text-3xl font-display font-black text-[#0C1D13] mt-2">
+                Commercial Viability Targets
+              </h3>
+              <div className="w-12 h-[1px] bg-[#2E7D32]/35 mx-auto mt-4 mb-4" />
+              <p className="text-xs md:text-sm text-[#0C1D13]/70 font-sans max-w-xl mx-auto">
+                Four key economic models that WAQID will test and validate during our pilot operations.
+              </p>
             </div>
 
             <motion.div 
-              ref={viabilityCarouselRef}
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-50px" }}
-              className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto scroll-smooth w-full"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
             >
               {/* Card 1 */}
               <motion.div 
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card w-full p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2166,7 +2176,7 @@ function App() {
                 variants={popVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card w-full p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2184,7 +2194,7 @@ function App() {
                 variants={blurFadeVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card w-full p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2202,7 +2212,7 @@ function App() {
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-[300px] bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
+                className="w-full bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
@@ -2218,13 +2228,6 @@ function App() {
                 </div>
               </motion.div>
             </motion.div>
-            
-            <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
-              <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
-                <span>Swipe to explore</span>
-                <span>→</span>
-              </span>
-            </div>
           </div>
         </div>
       </motion.section>
@@ -2378,17 +2381,16 @@ function App() {
         </div>
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div className="text-center md:text-left max-w-2xl">
-              <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
-                Team &amp; Advisors
-              </span>
-              <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] mt-3">
-                Built on Field Expertise
-              </h2>
-            </div>
+          <div className="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
+            <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
+              Team &amp; Advisors
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-black text-[#FAF9F6] mt-3">
+              Built on Field Expertise
+            </h2>
+            <div className="w-12 h-[1px] bg-[#4CAF50]/30 mx-auto mt-6 mb-4" />
             {/* Carousel navigation buttons */}
-            <div className="hidden md:flex items-center gap-3">
+            <div className="flex items-center gap-3">
               <button 
                 type="button"
                 onClick={() => scrollCarousel(teamCarouselRef, 'left')} 
@@ -2534,26 +2536,29 @@ function App() {
           </div>
 
           {/* Form Card */}
-          <div className="bg-[#F0EFEA] rounded-[2rem] p-8 md:p-12 border border-[#2E7D32]/20 shadow-xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#4CAF50]/10 rounded-full blur-[80px] pointer-events-none" />
-            <h3 className="text-2xl font-display font-black text-[#0C1D13] mb-2 relative z-10">Partner With Us to Scale the Impact</h3>
-            <p className="text-sm text-[#0C1D13]/70 font-sans mb-6 relative z-10">Waqid is seeking early-stage partners, agronomic advisors, and catalytic capital to move from prototype to pilot deployment and maintain our vital field research. Join us in building the infrastructure for a regenerative future.</p>
+          <div className="bg-[#112417]/95 backdrop-blur-md rounded-[2rem] p-8 md:p-12 border border-[#2E7D32]/35 shadow-[0_20px_50px_rgba(12,29,19,0.3)] relative overflow-hidden text-[#FAF9F6]">
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#4CAF50]/15 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#2E7D32]/10 rounded-full blur-[100px] pointer-events-none" />
+            <h3 className="text-2xl font-display font-black text-[#FAF9F6] mb-2 relative z-10">Partner With Us</h3>
+            <p className="text-sm text-[#FAF9F6]/75 font-sans mb-6 relative z-10 leading-relaxed">
+              WAQID is seeking palm mill operators, cooperative leaders, and strategic venture partners to scale our pyrolytic systems. Select your path below to connect.
+            </p>
             
             {/* Role Buttons */}
             <div className="flex flex-wrap gap-2 mb-6 relative z-10">
               {[
-                { key: "Mill Operator", label: "Palm Mill Operator" },
-                { key: "Farmer / Cooperative", label: "Farmer / Cooperatives" },
-                { key: "Investor / Partner", label: "Investor / Partner" }
+                { key: "Mill Operator", label: "Palm Mill" },
+                { key: "Farmer / Cooperative", label: "Farmer / Co-op" },
+                { key: "Investor / Partner", label: "Strategic Partner" }
               ].map((role) => (
                 <button
                   key={role.key}
                   type="button"
                   onClick={() => setSelectedFormRole(role.key)}
-                  className={`px-4 py-2 rounded-xl text-xs font-sans font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer border ${
+                  className={`px-4 py-2.5 rounded-xl text-xs font-sans font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer border ${
                     selectedFormRole === role.key 
-                      ? 'bg-[#2E7D32] text-[#FAF9F6] border-[#2E7D32] shadow-md scale-102' 
-                      : 'bg-[#FAF9F6] text-[#0C1D13] hover:bg-[#FAF9F6]/80 border-[#2E7D32]/10'
+                      ? 'bg-[#4CAF50] text-[#0C1D13] border-[#4CAF50] shadow-lg shadow-[#4CAF50]/10 scale-102' 
+                      : 'bg-[#FAF9F6]/5 text-[#FAF9F6]/80 hover:bg-[#FAF9F6]/10 border-[#FAF9F6]/10'
                   }`}
                 >
                   {role.label}
@@ -2561,7 +2566,7 @@ function App() {
               ))}
             </div>
 
-            <form action="https://api.web3forms.com/submit" method="POST" className="space-y-5 relative z-10">
+            <form action="https://api.web3forms.com/submit" method="POST" className="space-y-4 relative z-10">
               <input type="hidden" name="access_key" value="091c7841-f761-469b-980b-8d0afcceea0b" />
               <input type="hidden" name="subject" value={`New WAQID Inquiry - ${selectedFormRole}`} />
               <input type="hidden" name="from_name" value="WAQID Website" />
@@ -2573,47 +2578,15 @@ function App() {
                   name="name" 
                   placeholder="Your Name" 
                   required
-                  className="w-full bg-[#FAF9F6] border border-[#2E7D32]/20 text-[#0C1D13] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#0C1D13]/40 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors"
+                  className="w-full bg-[#FAF9F6]/5 border border-[#4CAF50]/20 text-[#FAF9F6] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#FAF9F6]/30 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors"
                 />
                 <input 
                   type="email" 
                   name="email" 
                   placeholder="Your Email" 
                   required
-                  className="w-full bg-[#FAF9F6] border border-[#2E7D32]/20 text-[#0C1D13] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#0C1D13]/40 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors"
+                  className="w-full bg-[#FAF9F6]/5 border border-[#4CAF50]/20 text-[#FAF9F6] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#FAF9F6]/30 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors"
                 />
-                <input 
-                  type="text" 
-                  name="organization" 
-                  placeholder="Organization / Fund Name" 
-                  required
-                  className="w-full bg-[#FAF9F6] border border-[#2E7D32]/20 text-[#0C1D13] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#0C1D13]/40 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors"
-                />
-                <select 
-                  name="interest"
-                  id="partner-track"
-                  required
-                  value={
-                    selectedFormRole === "Mill Operator" 
-                      ? "Mill Operator" 
-                      : selectedFormRole === "Farmer / Cooperative" 
-                        ? "Farm Cooperative" 
-                        : "Strategic Partner"
-                  }
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (val === "Mill Operator") setSelectedFormRole("Mill Operator");
-                    else if (val === "Farm Cooperative") setSelectedFormRole("Farmer / Cooperative");
-                    else setSelectedFormRole("Investor / Partner");
-                  }}
-                  className="w-full bg-[#FAF9F6] border border-[#2E7D32]/20 text-[#0C1D13] px-4 py-3.5 rounded-xl text-sm font-sans focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors appearance-none cursor-pointer"
-                >
-                  <option value="Investor / Pitch Deck Request">Investor / Pitch Deck Request</option>
-                  <option value="Strategic Partner">Strategic Partner</option>
-                  <option value="Mill Operator">Mill Operator</option>
-                  <option value="Farm Cooperative">Farm Cooperative</option>
-                  <option value="Other">Other</option>
-                </select>
                 <textarea 
                   name="message" 
                   placeholder={
@@ -2624,7 +2597,7 @@ function App() {
                         : "Tell us about your partnership ideas, pitch deck requests, or how you would like to collaborate..."
                   }
                   rows="3"
-                  className="w-full bg-[#FAF9F6] border border-[#2E7D32]/20 text-[#0C1D13] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#0C1D13]/40 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors resize-none"
+                  className="w-full bg-[#FAF9F6]/5 border border-[#4CAF50]/20 text-[#FAF9F6] px-4 py-3.5 rounded-xl text-sm font-sans placeholder:text-[#FAF9F6]/30 focus:outline-none focus:border-[#4CAF50] focus:ring-1 focus:ring-[#4CAF50] transition-colors resize-none"
                 ></textarea>
               </div>
 
@@ -2632,7 +2605,7 @@ function App() {
 
               <button 
                 type="submit" 
-                className="btn-hover-shadow w-full bg-[#152E1E] hover:bg-[#2E7D32] hover:text-[#FAF9F6] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer border border-[#2E7D32]/25 group"
+                className="btn-hover-shadow w-full bg-[#4CAF50] hover:bg-[#FAF9F6] text-[#0C1D13] hover:text-[#0C1D13] font-sans font-bold uppercase tracking-wider text-xs py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer border border-[#4CAF50]/20 group"
               >
                 Submit Inquiry <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
               </button>
