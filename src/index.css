@@ -285,12 +285,12 @@
 
 .logo-flow::before {
   left: 0;
-  background: linear-gradient(to right, #FAF9F6, rgba(250, 249, 246, 0));
+  background: linear-gradient(to right, #09150E, rgba(9, 21, 14, 0));
 }
 
 .logo-flow::after {
   right: 0;
-  background: linear-gradient(to left, #FAF9F6, rgba(250, 249, 246, 0));
+  background: linear-gradient(to left, #09150E, rgba(9, 21, 14, 0));
 }
 
 .logo-line {
@@ -337,12 +337,12 @@
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-  filter: grayscale(100%) brightness(200%) opacity(0.6);
+  filter: brightness(0) invert(1) opacity(0.65);
   transition: all 0.4s ease;
 }
 
 .logo-card:hover img {
-  filter: grayscale(0%) brightness(100%) opacity(1);
+  filter: brightness(1) invert(0) opacity(1);
 }
 
 @keyframes logoFlowMove {
