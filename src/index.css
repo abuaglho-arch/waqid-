@@ -312,21 +312,21 @@
   align-items: center;
   justify-content: center;
   padding: 14px 28px;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(46, 125, 50, 0.08);
+  background: rgba(13, 31, 20, 0.6);
+  border: 1px solid rgba(46, 125, 50, 0.2);
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(12, 29, 19, 0.015);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   height: 96px;
   min-width: 200px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(12px);
 }
 
 .logo-card:hover {
   transform: translateY(-8px) scale(1.02);
-  border-color: rgba(76, 175, 80, 0.35);
-  box-shadow: 0 16px 36px rgba(46, 125, 50, 0.08), 0 4px 12px rgba(12, 29, 19, 0.03);
-  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(76, 175, 80, 0.5);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(46, 125, 50, 0.2);
+  background: rgba(21, 46, 30, 0.85);
 }
 
 .logo-card img {
@@ -334,16 +334,15 @@
   width: auto;
   max-width: 150px;
   object-fit: contain;
-  mix-blend-mode: multiply;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
-  filter: grayscale(100%) opacity(0.55);
+  filter: grayscale(100%) brightness(200%) opacity(0.6);
   transition: all 0.4s ease;
 }
 
 .logo-card:hover img {
-  filter: grayscale(0%) opacity(1);
+  filter: grayscale(0%) brightness(100%) opacity(1);
 }
 
 @keyframes logoFlowMove {

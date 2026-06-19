@@ -292,49 +292,49 @@ const sdgGoals = [
   {
     label: "SDG 1",
     title: "No Poverty",
-    image: "https://upload.wikimedia.org/wikipedia/commons/5/50/Sustainable_Development_Goal_01NoPoverty.svg",
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-01.jpg",
     description: "By supplying affordable biochar and briquettes, we help smallholder farmers reduce synthetic fertilizer expenses and satay vendors reduce fuel costs."
   },
   {
     label: "SDG 2",
     title: "Zero Hunger",
-    image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Sustainable_Development_Goal_02ZeroHunger.svg",
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-02.jpg",
     description: "Our biochar pellets act as a permanent soil sponge, retaining water and nutrients to restore degraded soils and boost crop yields."
   },
   {
     label: "SDG 7",
     title: "Affordable & Clean Energy",
-    image: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Sustainable_Development_Goal_07CleanEnergy.svg",
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-07.jpg",
     description: "We recover clean syngas and thermal energy to heat reactors and dry biomass, producing sustainable briquettes as a clean wood-charcoal alternative."
   },
   {
     label: "SDG 8",
     title: "Decent Work & Economic Growth",
-    image: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Sustainable_Development_Goal_08DecentWork.svg",
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-08.jpg",
     description: "We create rural economic value and local processing jobs by upcycling palm residues directly within farm districts."
   },
   {
     label: "SDG 12",
     title: "Responsible Consumption & Production",
-    image: "https://upload.wikimedia.org/wikipedia/commons/6/65/Sustainable_Development_Goal_12ResponsibleConsumption.svg",
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-12.jpg",
     description: "We convert wet palm Empty Fruit Bunches (EFBs) and farm residues into high-value carbon products, closing the circular agricultural loop."
   },
   {
     label: "SDG 13",
     title: "Climate Action",
-    image: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Sustainable_Development_Goal_13Climate.svg",
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg",
     description: "By carbonizing biomass, we prevent methane emissions from decaying crop wastes and sequester stable carbon in soils for hundreds of years."
   },
   {
     label: "SDG 15",
     title: "Life on Land",
-    image: "https://upload.wikimedia.org/wikipedia/commons/0/0f/Sustainable_Development_Goal_15LifeOnLand.svg",
-    description: "Our agricultural waste briquettes provide a sustainable alternative to traditional wood charcoal, directly reducing logging pressure on native forests."
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg",
+    description: "We transform harmful waste into stable carbon, rehabilitating ecosystems by replacing toxic chemical fertilizers with natural soil amendments."
   },
   {
     label: "SDG 17",
     title: "Partnerships for the Goals",
-    image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Sustainable_Development_Goal_17Partnerships.svg",
+    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-17.jpg",
     description: "We collaborate with local smallholders, palm oil mills, and regional partners (like Tzu Chi and Wild Asia) to validate circular biomass ecosystems."
   }
 ];
@@ -1689,25 +1689,27 @@ function App() {
             {sdgGoals.map((sdg, idx) => (
               <div 
                 key={`sdg-set1-${idx}`} 
-                className="w-[280px] md:w-[320px] bg-[#152E1E] p-6 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col justify-between shrink-0 hover:border-[#4CAF50]/40 hover:bg-[#1C3A27] transition-all duration-300 group cursor-pointer"
+                className="w-[300px] md:w-[340px] bg-[#0D1F14]/80 backdrop-blur-md p-6 rounded-[2rem] border border-[#2E7D32]/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex flex-col justify-between shrink-0 hover:border-[#4CAF50]/50 hover:bg-[#152E1E] hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
               >
-                <div className="flex gap-4 items-start mb-4">
-                  <img 
-                    src={sdg.image} 
-                    alt={sdg.title} 
-                    className="w-14 h-14 rounded-xl object-contain bg-transparent border border-white/5 shadow-md group-hover:scale-105 transition-transform duration-300 shrink-0" 
-                    loading="lazy"
-                  />
+                <div className="flex gap-5 items-center mb-5">
+                  <div className="w-16 h-16 shrink-0 rounded-xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 group-hover:shadow-[#4CAF50]/20 transition-all duration-300">
+                    <img 
+                      src={sdg.image} 
+                      alt={sdg.title} 
+                      className="w-full h-full object-cover" 
+                      loading="lazy"
+                    />
+                  </div>
                   <div>
-                    <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] block">
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">
                       {sdg.label}
                     </span>
-                    <h4 className="font-display font-bold text-sm text-[#FAF9F6] mt-0.5 leading-snug">
+                    <h4 className="font-display font-bold text-base text-[#FAF9F6] leading-snug">
                       {sdg.title}
                     </h4>
                   </div>
                 </div>
-                <p className="text-[11px] text-[#FAF9F6]/75 font-sans leading-relaxed">
+                <p className="text-[13px] text-[#FAF9F6]/80 font-sans leading-relaxed mt-auto">
                   {sdg.description}
                 </p>
               </div>
@@ -1717,25 +1719,27 @@ function App() {
             {sdgGoals.map((sdg, idx) => (
               <div 
                 key={`sdg-set2-${idx}`} 
-                className="w-[280px] md:w-[320px] bg-[#152E1E] p-6 rounded-3xl border border-[#2E7D32]/25 shadow-lg flex flex-col justify-between shrink-0 hover:border-[#4CAF50]/40 hover:bg-[#1C3A27] transition-all duration-300 group cursor-pointer"
+                className="w-[300px] md:w-[340px] bg-[#0D1F14]/80 backdrop-blur-md p-6 rounded-[2rem] border border-[#2E7D32]/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex flex-col justify-between shrink-0 hover:border-[#4CAF50]/50 hover:bg-[#152E1E] hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
               >
-                <div className="flex gap-4 items-start mb-4">
-                  <img 
-                    src={sdg.image} 
-                    alt={sdg.title} 
-                    className="w-14 h-14 rounded-xl object-contain bg-transparent border border-white/5 shadow-md group-hover:scale-105 transition-transform duration-300 shrink-0" 
-                    loading="lazy"
-                  />
+                <div className="flex gap-5 items-center mb-5">
+                  <div className="w-16 h-16 shrink-0 rounded-xl overflow-hidden shadow-lg border border-white/10 group-hover:scale-105 group-hover:shadow-[#4CAF50]/20 transition-all duration-300">
+                    <img 
+                      src={sdg.image} 
+                      alt={sdg.title} 
+                      className="w-full h-full object-cover" 
+                      loading="lazy"
+                    />
+                  </div>
                   <div>
-                    <span className="text-[9px] font-sans font-bold uppercase tracking-wider text-[#4CAF50] block">
+                    <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">
                       {sdg.label}
                     </span>
-                    <h4 className="font-display font-bold text-sm text-[#FAF9F6] mt-0.5 leading-snug">
+                    <h4 className="font-display font-bold text-base text-[#FAF9F6] leading-snug">
                       {sdg.title}
                     </h4>
                   </div>
                 </div>
-                <p className="text-[11px] text-[#FAF9F6]/75 font-sans leading-relaxed">
+                <p className="text-[13px] text-[#FAF9F6]/80 font-sans leading-relaxed mt-auto">
                   {sdg.description}
                 </p>
               </div>
@@ -2148,14 +2152,14 @@ function App() {
         </div>
       </motion.section>
       {/* 9. ECOSYSTEM & SUPPORT NETWORK */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-12">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#09150E] border-y border-[#2E7D32]/20 py-12">
         <div className="ecosystem-strip">
           {/* Heading */}
           <div className="relative z-[4] h-full flex flex-col justify-center pl-6 md:pl-[5vw] pr-7">
-            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#254D44]">
+            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#4CAF50]">
               Ecosystem
             </span>
-            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#19362F] leading-[1.04] tracking-tight">
+            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#FAF9F6] leading-[1.04] tracking-tight">
               Ecosystem &amp; Support Network
             </h2>
           </div>
