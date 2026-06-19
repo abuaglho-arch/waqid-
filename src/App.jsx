@@ -2152,14 +2152,14 @@ function App() {
         </div>
       </motion.section>
       {/* 9. ECOSYSTEM & SUPPORT NETWORK */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#09150E] border-y border-[#2E7D32]/20 py-4">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-12">
         <div className="ecosystem-strip">
           {/* Heading */}
           <div className="relative z-[4] h-full flex flex-col justify-center pl-6 md:pl-[5vw] pr-7">
-            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#4CAF50]">
+            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#254D44]">
               Ecosystem
             </span>
-            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#FAF9F6] leading-[1.04] tracking-tight">
+            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#19362F] leading-[1.04] tracking-tight">
               Ecosystem &amp; Support Network
             </h2>
           </div>
