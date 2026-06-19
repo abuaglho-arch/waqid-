@@ -50,7 +50,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-[#0C1D13] antialiased font-sans flex flex-col pt-6 pb-20 px-6">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#0C1D13] antialiased font-sans flex flex-col pt-6 pb-20 px-6 relative overflow-hidden">
+      {/* Ambient Background Glows */}
+      <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
       
       {/* Top Navigation / Back Button */}
       <div className="max-w-6xl mx-auto w-full mb-12 flex justify-start">
@@ -67,7 +70,8 @@ const Contact = () => {
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left: Proposal Copy (5 columns) */}
-          <div className="lg:col-span-5 bg-[#0C1D13] text-[#FAF9F6] p-8 md:p-12 rounded-[2rem] shadow-xl flex flex-col justify-between min-h-[500px]">
+          <div className="lg:col-span-5 glass-card-dark text-[#FAF9F6] p-8 md:p-12 rounded-[2rem] flex flex-col justify-between min-h-[500px] relative overflow-hidden">
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#4CAF50]/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="relative z-10">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
                 Scale The Impact
@@ -107,7 +111,8 @@ const Contact = () => {
           </div>
 
           {/* Right: Contact Form (7 columns) */}
-          <div className="lg:col-span-7 bg-[#F0EFEA] p-8 md:p-12 rounded-[2rem] border border-[#2E7D32]/5 shadow-sm">
+          <div className="lg:col-span-7 glass-card p-8 md:p-12 rounded-[2rem] relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#2E7D32]/5 to-transparent pointer-events-none" />
             {formSubmitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -173,7 +178,7 @@ const Contact = () => {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans transition-all"
                       />
                     </div>
                   </div>
@@ -188,7 +193,7 @@ const Contact = () => {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans transition-all"
                       />
                     </div>
                   </div>
@@ -205,7 +210,7 @@ const Contact = () => {
                         type="text"
                         value={formData.org}
                         onChange={(e) => setFormData({ ...formData, org: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans transition-all"
                       />
                     </div>
                   </div>
@@ -219,7 +224,7 @@ const Contact = () => {
                         required
                         value={formData.role}
                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans cursor-pointer transition-colors appearance-none"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans cursor-pointer transition-all appearance-none"
                       >
                         <option value="" disabled>Select track...</option>
                         <option value="Investor / Funder">Investor / Funder</option>
@@ -251,7 +256,7 @@ const Contact = () => {
                     }
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="px-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans resize-none transition-colors"
+                    className="px-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans resize-none transition-all"
                   />
                 </div>
 

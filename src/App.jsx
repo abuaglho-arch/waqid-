@@ -620,8 +620,12 @@ function App() {
       </section>
 
       {/* TRUST RAIL */}
-      <div className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-8 lg:py-0 lg:h-[180px] flex items-center overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <div className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-8 lg:py-0 lg:h-[180px] flex items-center overflow-hidden relative">
+        {/* Ambient Background Glows */}
+        <div className="absolute -left-32 top-0 w-96 h-96 bg-[#4CAF50]/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -right-32 bottom-0 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
           {/* Left: Title and subtitle */}
           <div className="lg:col-span-5 text-left">
             <h3 className="text-xs font-sans font-bold text-[#2E7D32] uppercase tracking-widest mb-1.5">
@@ -651,13 +655,13 @@ function App() {
               {partnerLogos.map((logo, idx) => (
                 <motion.div 
                   key={`trust-set1-${idx}`} 
-                  whileHover={{ y: -6, scale: 1.08, transition: { duration: 0.2, ease: "easeOut" } }}
-                  className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0 cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300"
+                  whileHover={{ y: -8, scale: 1.1, transition: { duration: 0.2, ease: "easeOut" } }}
+                  className="glass-card flex items-center justify-center p-5 rounded-2xl h-24 w-52 shrink-0 cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <img 
                     src={logo.src} 
                     alt={logo.alt} 
-                    className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className="h-11 md:h-13 object-contain mix-blend-multiply opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
                 </motion.div>
               ))}
@@ -665,13 +669,13 @@ function App() {
               {partnerLogos.map((logo, idx) => (
                 <motion.div 
                   key={`trust-set2-${idx}`} 
-                  whileHover={{ y: -6, scale: 1.08, transition: { duration: 0.2, ease: "easeOut" } }}
-                  className="glass-card flex items-center justify-center p-4 rounded-2xl h-16 w-36 shrink-0 cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300"
+                  whileHover={{ y: -8, scale: 1.1, transition: { duration: 0.2, ease: "easeOut" } }}
+                  className="glass-card flex items-center justify-center p-5 rounded-2xl h-24 w-52 shrink-0 cursor-pointer shadow-sm hover:shadow-md transition-shadow duration-300"
                 >
                   <img 
                     src={logo.src} 
                     alt={logo.alt} 
-                    className="h-7 md:h-8 object-contain mix-blend-multiply opacity-80 md:opacity-85 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className="h-11 md:h-13 object-contain mix-blend-multiply opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
                 </motion.div>
               ))}
@@ -680,9 +684,9 @@ function App() {
         </div>
       </div>
 
-      {/* 2. WHY WAQID EXISTS */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="why-waqid" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left relative overflow-hidden">
-        <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/8 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/6 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
             <div className="md:col-span-5">
@@ -712,9 +716,13 @@ function App() {
           whileInView="whileInView" 
           viewport={{ once: true, margin: "-50px" }} 
           id="crisis" 
-          className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left"
+          className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left relative overflow-hidden"
         >
-          <div className="max-w-7xl mx-auto px-6">
+          {/* Ambient Background Glows */}
+          <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
+
+          <div className="max-w-7xl mx-auto px-6 relative z-10">
             <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
               <div className="max-w-2xl text-left">
                 <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
@@ -733,7 +741,7 @@ function App() {
               <motion.div 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="w-full min-h-[450px] bg-[#FAF9F6] p-6 md:p-8 rounded-3xl border border-[#2E7D32]/10 shadow-xl flex flex-col justify-between text-left cursor-pointer group"
+                className="glass-card w-full min-h-[450px] p-6 md:p-8 rounded-3xl flex flex-col justify-between text-left cursor-pointer group"
               >
                 <div>
                   <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
@@ -796,8 +804,12 @@ function App() {
           id="crisis" 
           className="relative h-[240vh] bg-[#FAF9F6] border-b border-[#2E7D32]/10 text-left"
         >
-          <div className="sticky top-0 h-[100vh] max-h-[720px] w-full overflow-hidden flex items-center bg-[#FAF9F6]">
-            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center lg:items-center justify-between gap-4 lg:gap-8">
+          <div className="sticky top-0 h-[100vh] max-h-[720px] w-full overflow-hidden flex items-center bg-[#FAF9F6] relative">
+            {/* Ambient Background Glows */}
+            <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[100px] pointer-events-none" />
+            <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
+            
+            <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row items-center lg:items-center justify-between gap-4 lg:gap-8 relative z-10">
               
               {/* Left Column: Static Text & Reading Panel */}
               <motion.div 
@@ -868,7 +880,7 @@ function App() {
                 viewport={{ once: true, margin: "-50px" }}
                 className="hidden lg:flex w-[24%] shrink-0"
               >
-                <div className="w-full bg-gradient-to-br from-[#FAF9F6] to-[#FAF9F6]/80 p-6 rounded-3xl border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)] hover:border-[#2E7D32]/25 hover:shadow-[0_12px_40px_rgba(12,29,19,0.06)] transition-all duration-300 flex flex-col justify-between text-left">
+                <div className="glass-card w-full p-6 rounded-3xl flex flex-col justify-between text-left">
                   <div>
                     <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Key Metrics</span>
                     <h3 className="text-base lg:text-lg font-display font-black text-[#0C1D13] mt-1 mb-1.5 leading-tight">The Magnitude of the Problem</h3>
@@ -931,7 +943,7 @@ function App() {
                           opacity: 1
                         }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden shadow-[0_16px_40px_rgba(12,29,19,0.12)] border border-[#2E7D32]/10 bg-[#0C1D13] cursor-pointer group select-none"
+                        className="absolute top-0 left-0 w-full h-full rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(12,29,19,0.2)] border border-[#2E7D32]/25 bg-[#0C1D13] cursor-pointer group select-none"
                       >
                         {/* Image Background */}
                         <img 
@@ -964,7 +976,10 @@ function App() {
       )}
 
       {/* 4. THE WAQID SOLUTION */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left">
+      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="solution" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left relative overflow-hidden">
+        {/* Ambient Background Glows */}
+        <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
             <span className="text-xs font-sans font-bold uppercase tracking-widest text-[#2E7D32]">
@@ -1160,6 +1175,7 @@ function App() {
         className="bg-[#FAF9F6] py-20 md:py-28 border-b border-[#2E7D32]/10 text-left relative overflow-hidden"
       >
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2E7D32]/5 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[140px] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -1175,7 +1191,8 @@ function App() {
             <div className="w-12 h-[1px] bg-[#2E7D32] mx-auto mt-6" />
           </div>
 
-          <div className="max-w-5xl mx-auto bg-[#F0EFEA] rounded-[2.5rem] border border-[#2E7D32]/15 shadow-xl overflow-hidden p-8 md:p-12">
+          <div className="max-w-5xl mx-auto glass-card rounded-[2.5rem] border border-[#2E7D32]/15 shadow-xl overflow-hidden p-8 md:p-12 relative">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#2E7D32]/5 to-transparent pointer-events-none" />
             
             {/* Stakeholder Switcher */}
             <div className="flex justify-center gap-3 mb-12 flex-wrap">
@@ -1319,7 +1336,7 @@ function App() {
                 <div className="grid grid-cols-2 gap-4">
                   {calculatorRole === "Mill Operator" ? (
                     <>
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Estimated Biochar Yield
                         </span>
@@ -1329,7 +1346,7 @@ function App() {
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Converted organic carbon pellets.</p>
                       </div>
 
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Disposal Cost Savings
                         </span>
@@ -1339,7 +1356,7 @@ function App() {
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Bypassing heavy tipping/logistics fees.</p>
                       </div>
 
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Carbon Offset Potential
                         </span>
@@ -1349,7 +1366,7 @@ function App() {
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Methane decay & carbon lock avoidance.</p>
                       </div>
 
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Clean Thermal Energy
                         </span>
@@ -1361,7 +1378,7 @@ function App() {
                     </>
                   ) : (
                     <>
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Biochar Dressing Needed
                         </span>
@@ -1371,7 +1388,7 @@ function App() {
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Recommended 2.5t/ha soil amendment.</p>
                       </div>
 
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Water Retention Boost
                         </span>
@@ -1381,7 +1398,7 @@ function App() {
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Additional soil moisture absorption capacity.</p>
                       </div>
 
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Fertilizer Cost Offset
                         </span>
@@ -1391,7 +1408,7 @@ function App() {
                         <p className="text-[10px] text-[#0C1D13]/60 font-sans leading-tight">Up to 30% reduction in chemical inputs.</p>
                       </div>
 
-                      <div className="bg-[#FAF9F6] p-5 rounded-2xl border border-[#2E7D32]/10 text-left">
+                      <div className="glass-card p-5 rounded-2xl text-left">
                         <span className="text-[9px] font-sans font-bold uppercase tracking-widest text-[#0C1D13]/50 block mb-1">
                           Estimated Crop Yield
                         </span>
@@ -1657,7 +1674,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 relative overflow-hidden cursor-pointer group"
+              className="glass-card w-full p-8 rounded-3xl relative overflow-hidden cursor-pointer group"
             >
               <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
                 <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
@@ -1671,7 +1688,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 relative overflow-hidden cursor-pointer group"
+              className="glass-card w-full p-8 rounded-3xl relative overflow-hidden cursor-pointer group"
             >
               <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
                 <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
@@ -1685,7 +1702,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="bg-[#FAF9F6] p-8 rounded-3xl border border-[#2E7D32]/10 relative overflow-hidden cursor-pointer group"
+              className="glass-card w-full p-8 rounded-3xl relative overflow-hidden cursor-pointer group"
             >
               <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/20">
                 <span className="text-[8px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Target</span>
@@ -1806,8 +1823,12 @@ function App() {
         whileInView="whileInView" 
         viewport={{ once: true, margin: "-50px" }} 
         id="prototype-to-pilot" 
-        className="bg-[#FAF9F6] py-20 md:py-28 border-b border-[#2E7D32]/10 text-left"
+        className="bg-[#FAF9F6] py-20 md:py-28 border-b border-[#2E7D32]/10 text-left relative overflow-hidden"
       >
+        {/* Ambient Background Glows */}
+        <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute left-1/3 top-1/2 -translate-y-1/2 w-96 h-96 bg-[#4CAF50]/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6">
           {/* Section Heading */}
           <div className="text-center max-w-3xl mx-auto mb-20">
@@ -1917,7 +1938,7 @@ function App() {
                     whileTap={{ scale: 0.985 }}
                     className={`w-full p-6 rounded-3xl flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-all duration-300 ${
                       isDark 
-                        ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
+                        ? "glass-card-dark text-[#FAF9F6]" 
                         : "glass-card text-[#0C1D13]"
                     }`}
                     style={{ borderTopWidth: "4px", borderTopColor: item.color }}
@@ -2074,7 +2095,7 @@ function App() {
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="w-full bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
+                className="glass-card-dark w-full p-8 rounded-3xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
@@ -2349,6 +2370,9 @@ function App() {
 
       {/* 12. FAQ & FORM */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="contact" className="bg-[#FAF9F6] py-16 md:py-24 relative overflow-hidden">
+        {/* Ambient Background Glows */}
+        <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
           
           {/* FAQ Section */}

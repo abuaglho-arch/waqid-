@@ -436,27 +436,29 @@
 
 /* Glassmorphism cards */
 .glass-card {
-  background: rgba(250, 249, 246, 0.65) !important;
-  border: 1px solid rgba(46, 125, 50, 0.08) !important;
-  box-shadow: 0 4px 30px rgba(12, 29, 19, 0.015) !important;
-  backdrop-filter: blur(8px);
+  background: rgba(250, 249, 246, 0.92) !important;
+  border: 1.5px solid rgba(46, 125, 50, 0.22) !important;
+  box-shadow: 0 12px 35px rgba(12, 29, 19, 0.055) !important;
+  backdrop-filter: blur(16px);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .glass-card:hover {
-  border-color: rgba(46, 125, 50, 0.25) !important;
-  box-shadow: 0 16px 40px rgba(12, 29, 19, 0.04) !important;
+  border-color: rgba(46, 125, 50, 0.45) !important;
+  box-shadow: 0 22px 50px rgba(12, 29, 19, 0.12) !important;
+  transform: translateY(-5px);
 }
 
 .glass-card-dark {
-  background: rgba(30, 34, 41, 0.65) !important;
-  border: 1px solid rgba(76, 175, 80, 0.12) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15) !important;
-  backdrop-filter: blur(12px);
+  background: rgba(21, 30, 24, 0.88) !important;
+  border: 1.5px solid rgba(76, 175, 80, 0.32) !important;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(20px);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .glass-card-dark:hover {
-  border-color: rgba(76, 175, 80, 0.35) !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3) !important;
+  border-color: rgba(76, 175, 80, 0.55) !important;
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.45) !important;
+  transform: translateY(-5px);
 }
