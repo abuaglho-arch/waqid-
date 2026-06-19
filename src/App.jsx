@@ -124,11 +124,11 @@ const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
 
 const crisisCards = [
   { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Becomes a Burden", desc: "Palm biomass, rice husks, and farm by-products are often left unused, burned, or poorly managed. WAQID starts by treating this waste as feedstock, not as a disposal problem." },
-  { index: "02", image: "/images/methane-rises.png", title: "Methane Rises", desc: "When empty fruit bunches (EFBs) decay in wet piles, they release high-warming methane gases. WAQID intercepts these residue streams before anaerobic decomposition starts." },
+  { index: "02", image: "/images/methane-rises.jpg", title: "Methane Rises", desc: "When empty fruit bunches (EFBs) decay in wet piles, they release high-warming methane gases. WAQID intercepts these residue streams before anaerobic decomposition starts." },
   { index: "03", image: "/images/farmers-pay-more.jpg", title: "Farmers Pay More", desc: "Smallholders face soaring chemical fertilizer prices and degrading soil productivity. WAQID converts palm biomass into affordable soil amendments that restore fertility." },
-  { index: "04", image: "/images/problem_cracked_soil_1780739623976.png", title: "Soils Decline", desc: "Intense farming strips Malaysian soils of essential moisture, nutrients, and carbon. WAQID's biochar acts as a permanent sponge, restoring structural health." },
+  { index: "04", image: "/images/problem_cracked_soil_1780739623976.jpg", title: "Soils Decline", desc: "Intense farming strips Malaysian soils of essential moisture, nutrients, and carbon. WAQID's biochar acts as a permanent sponge, restoring structural health." },
   { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "Clearing lands to offset falling yields threatens native ecosystems. By boosting existing farm productivity, WAQID limits the need to expand agricultural boundaries." },
-  { index: "06", image: "/images/problem-visual.png", title: "Value is Lost", desc: "Millions of tonnes of crop energy and carbon are wasted every season. WAQID closes this loop, converting raw residues into stable carbon, heat, and rural value." }
+  { index: "06", image: "/images/problem-visual.jpg", title: "Value is Lost", desc: "Millions of tonnes of crop energy and carbon are wasted every season. WAQID closes this loop, converting raw residues into stable carbon, heat, and rural value." }
 ];
 
 const impactSteps = [
@@ -206,6 +206,29 @@ const partnerLogos = [
   { src: "/images/iylp-logo.png", alt: "Tzu Chi IYLP" }
 ];
 
+const solutionCards = [
+  {
+    icon: RotateCw,
+    title: "Waste Recovery",
+    desc: "Converts unmanaged palm biomass into useful outputs instead of burning or decomposition."
+  },
+  {
+    icon: Flame,
+    title: "Clean Heat",
+    desc: "Produces thermal energy that can support mill or local operations."
+  },
+  {
+    icon: Sprout,
+    title: "Soil Restoration",
+    desc: "Creates biochar-based soil products designed to improve soil health and reduce input dependency."
+  },
+  {
+    icon: Hexagon,
+    title: "Sustainable Briquettes",
+    desc: "Produces smokeless solid fuels as a direct, forest-friendly alternative to wood charcoal."
+  }
+];
+
 const teamMembers = [
   {
     name: "Osama M. Abuagla",
@@ -217,7 +240,7 @@ const teamMembers = [
   {
     name: "Tim Asquith",
     role: "Strategic Advisor",
-    img: "/images/tim-asquith.png",
+    img: "/images/tim-asquith.jpg",
     desc: "Providing critical guidance on field validation, commercial scaling, and global agricultural economics.",
     isCTA: false
   },
@@ -373,6 +396,7 @@ function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
   const [activeReactorStage, setActiveReactorStage] = useState(0);
+  const [isReactorAutoPlaying, setIsReactorAutoPlaying] = useState(true);
   const [selectedFormRole, setSelectedFormRole] = useState("Mill Operator");
   const [calculatorRole, setCalculatorRole] = useState("Mill Operator");
   const [millEFB, setMillEFB] = useState(25000);
@@ -402,6 +426,14 @@ function App() {
       motionQuery.removeEventListener("change", motionListener);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isReactorAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveReactorStage((prev) => (prev + 1) % 5);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isReactorAutoPlaying]);
 
   const crisisSectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -1011,70 +1043,77 @@ function App() {
             <div className="w-12 h-[1px] bg-[#2E7D32]/30 mx-auto mt-6" />
           </div>
 
+          {/* Desktop/Tablet Grid Layout */}
           <motion.div 
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+            className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
           >
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <RotateCw className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Waste Recovery</h4>
-              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                Converts unmanaged palm biomass into useful outputs instead of burning or decomposition.
-              </p>
-            </motion.div>
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <Flame className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Clean Heat</h4>
-              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                Produces thermal energy that can support mill or local operations.
-              </p>
-            </motion.div>
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <Sprout className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Soil Restoration</h4>
-              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                Creates biochar-based soil products designed to improve soil health and reduce input dependency.
-              </p>
-            </motion.div>
-            <motion.div 
-              variants={fadeUpVariant} 
-              whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
-              whileTap={{ scale: 0.985 }}
-              className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                <Hexagon className="w-6 h-6" />
-              </div>
-              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
-              <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                Produces smokeless solid fuels as a direct, forest-friendly alternative to wood charcoal.
-              </p>
-            </motion.div>
+            {solutionCards.map((card, idx) => {
+              const Icon = card.icon;
+              return (
+                <motion.div 
+                  key={idx} 
+                  variants={fadeUpVariant} 
+                  whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
+                  whileTap={{ scale: 0.985 }}
+                  className="glass-card w-full p-8 rounded-3xl flex flex-col group cursor-pointer"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <Icon className="w-6 h-6" />
+                  </div>
+                  <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{card.title}</h4>
+                  <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
+                    {card.desc}
+                  </p>
+                </motion.div>
+              );
+            })}
           </motion.div>
+
+          {/* Mobile Only Moving Marquee Layout */}
+          <div className="md:hidden relative w-full overflow-hidden py-4 mask-marquee z-20">
+            <div className="flex w-max gap-6 animate-marquee-loop">
+              {/* Set 1 */}
+              {solutionCards.map((card, idx) => {
+                const Icon = card.icon;
+                return (
+                  <div 
+                    key={`sol-set1-${idx}`} 
+                    className="w-[280px] bg-[#FAF9F6] border border-[#2E7D32]/10 p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{card.title}</h4>
+                    <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+                );
+              })}
+              {/* Set 2 (Duplicate for loop) */}
+              {solutionCards.map((card, idx) => {
+                const Icon = card.icon;
+                return (
+                  <div 
+                    key={`sol-set2-${idx}`} 
+                    className="w-[280px] bg-[#FAF9F6] border border-[#2E7D32]/10 p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{card.title}</h4>
+                    <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed">
+                      {card.desc}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
           {/* Reactor Explainer */}
           <div className="mt-20 border-t border-[#2E7D32]/10 pt-16">
@@ -1086,49 +1125,81 @@ function App() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            <div 
+              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+              onMouseEnter={() => setIsReactorAutoPlaying(false)}
+              onMouseLeave={() => setIsReactorAutoPlaying(true)}
+              onTouchStart={() => setIsReactorAutoPlaying(false)}
+            >
               {/* Left Selector List */}
-              <div className="lg:col-span-5 flex flex-row overflow-x-auto snap-x hide-scrollbar lg:flex-col gap-3 justify-start lg:justify-center -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0">
-                {reactorStages.map((stage, idx) => {
-                  const Icon = stage.icon;
-                  const isActive = activeReactorStage === idx;
-                  return (
+              <div className="lg:col-span-5 flex flex-col justify-center">
+                <div className="flex flex-row overflow-x-auto snap-x hide-scrollbar lg:flex-col gap-3 justify-start lg:justify-center -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0">
+                  {reactorStages.map((stage, idx) => {
+                    const Icon = stage.icon;
+                    const isActive = activeReactorStage === idx;
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          setActiveReactorStage(idx);
+                          setIsReactorAutoPlaying(false);
+                        }}
+                        onMouseEnter={() => {
+                          setActiveReactorStage(idx);
+                          setIsReactorAutoPlaying(false);
+                        }}
+                        className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer snap-center shrink-0 w-[65vw] sm:w-[220px] lg:w-auto ${
+                          isActive 
+                            ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
+                            : 'hover:bg-[#F0EFEA]/60 border border-transparent'
+                        }`}
+                      >
+                        {/* Active highlight background border indicator */}
+                        {isActive && (
+                          <motion.div 
+                            layoutId="activeReactorIndicator"
+                            className="absolute bg-[#2E7D32] bottom-0 left-0 right-0 h-[3px] lg:h-auto lg:inset-y-0 lg:left-0 lg:w-1 rounded-b-2xl lg:rounded-l-2xl lg:rounded-br-none" 
+                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                          />
+                        )}
+                        
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
+                          isActive ? 'bg-[#152E1E] text-[#4CAF50]' : 'bg-[#0C1D13]/5 text-[#0C1D13]/60'
+                        }`}>
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        
+                        <div>
+                          <span className="text-[10px] font-sans font-bold text-[#2E7D32]/60 uppercase tracking-widest block">
+                            Stage {stage.num}
+                          </span>
+                          <h4 className="font-display font-bold text-base text-[#0C1D13] mt-0.5 leading-tight">
+                            {stage.title}
+                          </h4>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Mobile indicators dot row */}
+                <div className="flex lg:hidden justify-center gap-2 mt-4 mb-2">
+                  {reactorStages.map((_, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setActiveReactorStage(idx)}
-                      onMouseEnter={() => setActiveReactorStage(idx)}
-                      className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer snap-center shrink-0 w-[65vw] sm:w-[220px] lg:w-auto ${
-                        isActive 
-                          ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
-                          : 'hover:bg-[#F0EFEA]/60 border border-transparent'
+                      onClick={() => {
+                        setActiveReactorStage(idx);
+                        setIsReactorAutoPlaying(false);
+                      }}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        activeReactorStage === idx 
+                          ? 'w-6 bg-[#2E7D32]' 
+                          : 'w-1.5 bg-[#2E7D32]/25'
                       }`}
-                    >
-                      {/* Active highlight background border indicator */}
-                      {isActive && (
-                        <motion.div 
-                          layoutId="activeReactorIndicator"
-                          className="absolute bg-[#2E7D32] bottom-0 left-0 right-0 h-[3px] lg:h-auto lg:inset-y-0 lg:left-0 lg:w-1 rounded-b-2xl lg:rounded-l-2xl lg:rounded-br-none" 
-                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        />
-                      )}
-                      
-                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                        isActive ? 'bg-[#152E1E] text-[#4CAF50]' : 'bg-[#0C1D13]/5 text-[#0C1D13]/60'
-                      }`}>
-                        <Icon className="w-5 h-5" />
-                      </div>
-                      
-                      <div>
-                        <span className="text-[10px] font-sans font-bold text-[#2E7D32]/60 uppercase tracking-widest block">
-                          Stage {stage.num}
-                        </span>
-                        <h4 className="font-display font-bold text-base text-[#0C1D13] mt-0.5 leading-tight">
-                          {stage.title}
-                        </h4>
-                      </div>
-                    </button>
-                  );
-                })}
+                      aria-label={`Go to stage ${idx + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
 
               {/* Right Detail Card */}
@@ -1933,7 +2004,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/organic-biochar.png" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/organic-biochar.jpg" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
