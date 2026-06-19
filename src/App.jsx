@@ -601,6 +601,49 @@ function App() {
 
       </section>
 
+      {/* TRUST RAIL */}
+      <div className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-6">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]/60 whitespace-nowrap">
+            Supported by &amp; Collaborating with:
+          </span>
+          <div className="w-full overflow-hidden relative">
+            {/* Fade masks */}
+            <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
+            
+            <motion.div 
+              animate={{ x: [0, "-50%"] }}
+              transition={{
+                ease: "linear",
+                duration: 20,
+                repeat: Infinity
+              }}
+              className="flex items-center gap-12 w-max"
+            >
+              {/* Set 1 */}
+              {partnerLogos.map((logo, idx) => (
+                <img 
+                  key={`trust-set1-${idx}`} 
+                  src={logo.src} 
+                  alt={logo.alt} 
+                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-55 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                />
+              ))}
+              {/* Set 2 */}
+              {partnerLogos.map((logo, idx) => (
+                <img 
+                  key={`trust-set2-${idx}`} 
+                  src={logo.src} 
+                  alt={logo.alt} 
+                  className="h-7 md:h-8 object-contain mix-blend-multiply opacity-55 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                />
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
       {/* 2. WHY WAQID EXISTS */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="why-waqid" className="bg-[#FAF9F6] py-16 md:py-24 border-b border-[#2E7D32]/10 text-left relative overflow-hidden">
         <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/5 rounded-full blur-[100px] pointer-events-none" />
@@ -931,12 +974,18 @@ function App() {
             </h2>
           </div>
 
-          <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0"
+          >
             <motion.div 
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <RotateCw className="w-6 h-6" />
@@ -950,7 +999,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Flame className="w-6 h-6" />
@@ -964,7 +1013,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Sprout className="w-6 h-6" />
@@ -978,7 +1027,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col group cursor-pointer"
+              className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col group cursor-pointer"
             >
               <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                 <Hexagon className="w-6 h-6" />
@@ -988,7 +1037,7 @@ function App() {
                 Produces smokeless solid fuels as a direct, forest-friendly alternative to wood charcoal.
               </p>
             </motion.div>
-          </div>
+          </motion.div>
           
           <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
             <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
@@ -1363,9 +1412,9 @@ function App() {
                 <button
                   type="button"
                   onClick={() => handleCalculatorCTA(calculatorRole === "Mill Operator" ? "Mill Operator" : "Farm Cooperative")}
-                  className="w-full bg-[#152E1E] hover:bg-[#2E7D32] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs py-4 rounded-xl transition-colors shadow-lg flex items-center justify-center gap-2 cursor-pointer border border-[#2E7D32]/25"
+                  className="btn-hover-shadow w-full bg-[#152E1E] hover:bg-[#2E7D32] hover:text-[#FAF9F6] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 cursor-pointer border border-[#2E7D32]/25 group"
                 >
-                  Schedule validation run <ArrowUpRight className="w-4 h-4" />
+                  Schedule validation run <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                 </button>
               </div>
 
@@ -1793,7 +1842,13 @@ function App() {
               </p>
             </div>
             
-            <div className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 max-w-6xl mx-auto">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="flex md:grid overflow-x-auto md:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 md:pb-0 -mx-6 px-6 md:mx-0 md:px-0 max-w-6xl mx-auto"
+            >
               <motion.div 
                 variants={fadeUpVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
@@ -1830,7 +1885,7 @@ function App() {
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
             
             <div className="flex md:hidden items-center justify-center gap-1.5 mt-4">
               <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
@@ -1854,7 +1909,13 @@ function App() {
               </p>
             </div>
 
-            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0"
+            >
               {hypotheses.map((item, idx) => {
                 const isDark = item.statusType === "validated";
                 
@@ -1864,10 +1925,10 @@ function App() {
                     variants={fadeUpVariant} 
                     whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                     whileTap={{ scale: 0.985 }}
-                    className={`snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-6 rounded-3xl border flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-colors duration-300 ${
+                    className={`snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-6 rounded-3xl flex flex-col justify-between min-h-[360px] relative overflow-hidden cursor-pointer group transition-all duration-300 ${
                       isDark 
                         ? "bg-[#152E1E] border-[#4CAF50]/30 shadow-lg text-[#FAF9F6]" 
-                        : "bg-[#F0EFEA] border-[#2E7D32]/10 shadow-sm text-[#0C1D13]"
+                        : "glass-card text-[#0C1D13]"
                     }`}
                     style={{ borderTopWidth: "4px", borderTopColor: item.color }}
                   >
@@ -1939,7 +2000,7 @@ function App() {
                   </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
             
             <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
               <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
@@ -1963,13 +2024,19 @@ function App() {
               </p>
             </div>
 
-            <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto">
+            <motion.div 
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0 max-w-6xl mx-auto"
+            >
               {/* Card 1 */}
               <motion.div 
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -1987,7 +2054,7 @@ function App() {
                 variants={popVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2005,7 +2072,7 @@ function App() {
                 variants={blurFadeVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#F0EFEA] p-8 rounded-3xl border border-[#2E7D32]/10 shadow-sm flex flex-col justify-between min-h-[260px] group cursor-pointer"
+                className="glass-card snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto p-8 rounded-3xl flex flex-col justify-between min-h-[260px] group cursor-pointer"
               >
                 <div>
                   <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
@@ -2023,7 +2090,7 @@ function App() {
                 variants={driftVariant} 
                 whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
                 whileTap={{ scale: 0.985 }}
-                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
+                className="snap-center shrink-0 w-[85vw] sm:w-[280px] lg:w-auto bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 shadow-xl flex flex-col justify-between min-h-[260px] relative overflow-hidden group cursor-pointer"
               >
                 <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                   <ShieldCheck className="w-24 h-24 text-[#4CAF50]" />
@@ -2038,7 +2105,7 @@ function App() {
                   </p>
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
             
             <div className="flex lg:hidden items-center justify-center gap-1.5 mt-4">
               <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32]/60 animate-pulse flex items-center gap-1">
@@ -2082,9 +2149,9 @@ function App() {
               <div className="flex flex-col gap-6 items-start">
                 <button
                   onClick={() => handleTrackSelect("Strategic Partner")}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs transition-colors border border-[#2E7D32]/20 shadow-lg"
+                  className="btn-hover-shadow inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs border border-[#2E7D32]/20 shadow-lg group"
                 >
-                  Partner With Us <ArrowUpRight className="w-4 h-4" />
+                  Partner With Us <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
                 </button>
               </div>
             </div>
@@ -2179,48 +2246,7 @@ function App() {
           </div>
         </div>
       </motion.section>
-      {/* 9. ECOSYSTEM & SUPPORT NETWORK */}
-      <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} className="bg-[#FAF9F6] border-b border-[#2E7D32]/10 py-12">
-        <div className="ecosystem-strip">
-          {/* Heading */}
-          <div className="relative z-[4] h-full flex flex-col justify-center pl-6 md:pl-[5vw] pr-7">
-            <span className="block mb-2 text-[10.5px] font-sans font-black uppercase tracking-[2px] text-[#254D44]">
-              Ecosystem
-            </span>
-            <h2 className="m-0 max-w-[330px] text-[25px] font-display font-black text-[#19362F] leading-[1.04] tracking-tight">
-              Ecosystem &amp; Support Network
-            </h2>
-          </div>
 
-          {/* Logo Marquee */}
-          <div className="logo-flow">
-            <motion.div 
-              animate={{ x: [0, "-50%"] }}
-              transition={{
-                ease: "linear",
-                duration: 25,
-                repeat: Infinity
-              }}
-              style={{ animation: 'none' }}
-              className="logo-line"
-            >
-              {/* Set 1 */}
-              {partnerLogos.map((logo, idx) => (
-                <div key={`set1-${idx}`} className="logo-card">
-                  <img src={logo.src} alt={logo.alt} />
-                </div>
-              ))}
-
-              {/* Set 2 — duplicate for seamless loop */}
-              {partnerLogos.map((logo, idx) => (
-                <div key={`set2-${idx}`} className="logo-card">
-                  <img src={logo.src} alt={logo.alt} />
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-      </motion.section>
 
       {/* 11. TEAM & ADVISORS */}
       <motion.section variants={sectionReveal} initial="initial" whileInView="whileInView" viewport={{ once: true, margin: "-50px" }} id="team" className="bg-[#0C1D13] py-16 md:py-24 text-left text-[#FAF9F6] relative overflow-hidden">
@@ -2250,13 +2276,19 @@ function App() {
             <div className="w-12 h-[1px] bg-[#4CAF50] mx-auto mt-6 mb-4" />
           </div>
 
-          <div className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0">
+          <motion.div 
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            className="flex lg:grid overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory hide-scrollbar gap-6 pb-6 lg:pb-0 -mx-6 px-6 lg:mx-0 lg:px-0"
+          >
             {/* Osama M. Abuagla - Founder */}
             <motion.div 
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2272,7 +2304,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2288,7 +2320,7 @@ function App() {
               variants={fadeUpVariant} 
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
-              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#1E2229] p-8 rounded-3xl border border-[#2E7D32]/15 text-center group flex flex-col items-center relative overflow-hidden shadow-xl cursor-pointer"
+              className="glass-card-dark snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto p-8 rounded-3xl text-center group flex flex-col items-center relative overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
               <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
@@ -2305,7 +2337,7 @@ function App() {
               whileHover={{ y: -8, scale: 1.015, transition: { duration: 0.3, ease: "easeOut" } }}
               whileTap={{ scale: 0.985 }}
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })} 
-              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#152E1E] p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229] transition-all duration-300 relative overflow-hidden group shadow-xl"
+              className="snap-center shrink-0 w-[85vw] sm:w-[300px] lg:w-auto bg-[#152E1E]/80 backdrop-blur-md p-8 rounded-3xl border border-[#4CAF50]/30 border-dashed text-center flex flex-col items-center justify-center cursor-pointer hover:bg-[#1E2229]/80 transition-all duration-300 relative overflow-hidden group shadow-xl"
             >
               <div className="w-24 h-24 rounded-full border-2 border-[#4CAF50]/50 border-dashed mb-6 flex items-center justify-center bg-[#0C1D13] group-hover:scale-105 transition-transform duration-500">
                 <span className="text-[#4CAF50] font-display text-3xl font-bold group-hover:scale-110 transition-transform">+</span>
@@ -2316,7 +2348,7 @@ function App() {
                 We are actively looking for passionate operators, strategic partners, and early believers to help us complete this mission in any way possible.
               </p>
             </motion.div>
-          </div>
+          </motion.div>
 
           <div className="flex lg:hidden items-center justify-center gap-1.5 mt-6">
             <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#4CAF50]/60 animate-pulse flex items-center gap-1">
@@ -2467,9 +2499,9 @@ function App() {
 
               <button 
                 type="submit" 
-                className="w-full bg-[#152E1E] hover:bg-[#2E7D32] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs py-4 rounded-xl transition-colors shadow-lg flex items-center justify-center gap-2 mt-4"
+                className="btn-hover-shadow w-full bg-[#152E1E] hover:bg-[#2E7D32] hover:text-[#FAF9F6] text-[#FAF9F6] font-sans font-bold uppercase tracking-wider text-xs py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 mt-4 cursor-pointer border border-[#2E7D32]/25 group"
               >
-                Submit Inquiry <ArrowUpRight className="w-4 h-4" />
+                Submit Inquiry <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
               </button>
             </form>
           </div>
