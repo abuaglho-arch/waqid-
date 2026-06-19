@@ -21,6 +21,7 @@ export default function Counter({ value, duration = 1.5, suffix = "" }) {
       const upper = parseFloat(upperStr);
       
       if (isNaN(lower) || isNaN(upper)) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setCount(value);
         return;
       }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   MapPin, Flame, Leaf, Mail, Send, 
@@ -14,7 +14,7 @@ const Contact = () => {
     name: "",
     email: "",
     org: "",
-    role: "",
+    role: "Mill Operator (Pilot Interest)",
     message: ""
   });
 
@@ -42,7 +42,7 @@ const Contact = () => {
       } else {
         setSubmitError("Failed to submit form. Please try again or email directly.");
       }
-    } catch (error) {
+    } catch {
       setSubmitError("Network error. Please try again or email directly.");
     } finally {
       setIsSubmitting(false);
@@ -50,7 +50,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF9F6] text-[#0C1D13] antialiased font-sans flex flex-col pt-6 pb-20 px-6">
+    <div className="min-h-screen bg-[#FAF9F6] text-[#0C1D13] antialiased font-sans flex flex-col pt-6 pb-20 px-6 relative overflow-hidden">
+      {/* Ambient Background Glows */}
+      <div className="absolute -left-32 top-10 w-96 h-96 bg-[#4CAF50]/6 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute -right-32 bottom-10 w-96 h-96 bg-[#2E7D32]/4 rounded-full blur-[100px] pointer-events-none" />
       
       {/* Top Navigation / Back Button */}
       <div className="max-w-6xl mx-auto w-full mb-12 flex justify-start">
@@ -67,7 +70,8 @@ const Contact = () => {
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left: Proposal Copy (5 columns) */}
-          <div className="lg:col-span-5 bg-[#0C1D13] text-[#FAF9F6] p-8 md:p-12 rounded-[2rem] shadow-xl flex flex-col justify-between min-h-[500px]">
+          <div className="lg:col-span-5 glass-card-dark text-[#FAF9F6] p-8 md:p-12 rounded-[2rem] flex flex-col justify-between min-h-[500px] relative overflow-hidden">
+            <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#4CAF50]/10 rounded-full blur-[100px] pointer-events-none" />
             <div className="relative z-10">
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50]">
                 Scale The Impact
@@ -107,7 +111,8 @@ const Contact = () => {
           </div>
 
           {/* Right: Contact Form (7 columns) */}
-          <div className="lg:col-span-7 bg-[#F0EFEA] p-8 md:p-12 rounded-[2rem] border border-[#2E7D32]/5 shadow-sm">
+          <div className="lg:col-span-7 glass-card p-8 md:p-12 rounded-[2rem] relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#2E7D32]/5 to-transparent pointer-events-none" />
             {formSubmitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -131,7 +136,30 @@ const Contact = () => {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
+              <div>
+                {/* Role Selector Tabs */}
+                <div className="flex flex-wrap gap-2 mb-6 relative z-10">
+                  {[
+                    { key: "Mill Operator (Pilot Interest)", label: "Palm Mill Operator" },
+                    { key: "Farmer / Cooperative (Trial Interest)", label: "Farmer / Cooperatives" },
+                    { key: "Investor / Funder", label: "Investor / Partner" }
+                  ].map((role) => (
+                    <button
+                      key={role.key}
+                      type="button"
+                      onClick={() => setFormData({ ...formData, role: role.key })}
+                      className={`px-4 py-2 rounded-xl text-xs font-sans font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer border ${
+                        formData.role === role.key 
+                          ? 'bg-[#2E7D32] text-[#FAF9F6] border-[#2E7D32] shadow-md scale-102' 
+                          : 'bg-[#FAF9F6] text-[#0C1D13] hover:bg-[#FAF9F6]/80 border-[#2E7D32]/10'
+                      }`}
+                    >
+                      {role.label}
+                    </button>
+                  ))}
+                </div>
+
+                <form onSubmit={handleFormSubmit} className="flex flex-col gap-6">
                 {submitError && (
                   <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm font-sans">
                     {submitError}
@@ -150,7 +178,7 @@ const Contact = () => {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans transition-all"
                       />
                     </div>
                   </div>
@@ -165,7 +193,7 @@ const Contact = () => {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans transition-all"
                       />
                     </div>
                   </div>
@@ -182,7 +210,7 @@ const Contact = () => {
                         type="text"
                         value={formData.org}
                         onChange={(e) => setFormData({ ...formData, org: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans transition-colors"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans transition-all"
                       />
                     </div>
                   </div>
@@ -196,7 +224,7 @@ const Contact = () => {
                         required
                         value={formData.role}
                         onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans cursor-pointer transition-colors appearance-none"
+                        className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans cursor-pointer transition-all appearance-none"
                       >
                         <option value="" disabled>Select track...</option>
                         <option value="Investor / Funder">Investor / Funder</option>
@@ -219,16 +247,23 @@ const Contact = () => {
                   <textarea
                     required
                     rows={5}
+                    placeholder={
+                      formData.role === "Mill Operator (Pilot Interest)"
+                        ? "Tell us about your mill's annual EFB tonnage, current disposal challenges, and feedstock potential..."
+                        : formData.role === "Farmer / Cooperative (Trial Interest)"
+                          ? "Tell us about your crops, acreage, average soil restoration goals, and fertilizer expenses..."
+                          : "Tell us about your partnership ideas, pitch deck requests, or how you would like to collaborate..."
+                    }
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="px-4 py-3.5 rounded-xl bg-[#FAF9F6] border border-[#2E7D32]/15 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] text-sm font-sans resize-none transition-colors"
+                    className="px-4 py-3.5 rounded-xl bg-[#FAF9F6]/60 backdrop-blur-sm border border-[#2E7D32]/25 text-[#0C1D13] focus:outline-none focus:border-[#2E7D32] focus:bg-[#FAF9F6] text-sm font-sans resize-none transition-all"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full mt-4 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-widest text-xs transition-colors duration-300 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group"
+                  className="btn-hover-shadow w-full mt-4 py-4 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] hover:text-[#0C1D13] text-[#FAF9F6] font-sans font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group border border-[#2E7D32]/20"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -246,7 +281,8 @@ const Contact = () => {
                   )}
                 </button>
               </form>
-            )}
+            </div>
+          )}
           </div>
         </div>
       </div>
