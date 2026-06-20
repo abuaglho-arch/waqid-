@@ -2,9 +2,52 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   MapPin, Flame, Leaf, Mail, Send, 
-  Users, Factory, Sparkles, ChevronDown, ArrowLeft 
+  Users, Factory, Sparkles, ChevronDown, ArrowLeft,
+  CheckCircle2, Download, ArrowRight, FileText, Calendar
 } from "lucide-react";
 import { Link } from 'react-router-dom';
+
+const getSuccessMessage = (role) => {
+  switch(role) {
+    case "Investor / Funder":
+      return {
+        title: "Investor Track Activated",
+        subtitle: "Thank you for supporting our climate-tech initiative. We've queued your request and are compiling the investor deck and financials.",
+        step2: "Technical Dossier Review",
+        step2Desc: "Generating pilot economics, carbon model summaries, and financial brief PDFs for your team.",
+      };
+    case "Mill Operator (Pilot Interest)":
+      return {
+        title: "Mill Integration Initiated",
+        subtitle: "We've received your request to explore V3 Pyrolysis Unit integration at your facility. Our project team will prepare a capacity report.",
+        step2: "Feedstock Yield Assessment",
+        step2Desc: "Evaluating palm oil mill EFB capacity, local logistics, and decentralized grid/heat integration.",
+      };
+    case "Farmer / Cooperative (Trial Interest)":
+      return {
+        title: "Trial Request Registered",
+        subtitle: "We're thrilled to connect with forward-thinking growers. We've queued your trial request and will prepare a custom soil proposal.",
+        step2: "Trial Parameters Review",
+        step2Desc: "Reviewing acreage, crop parameters, and soil restoration goals for Kedah/Perak trials.",
+      };
+    case "Strategic Partner / Advisor":
+    case "Grant Program / NGO":
+    case "Academic / Researcher":
+      return {
+        title: "Collaboration Track Active",
+        subtitle: "Thank you for reaching out to collaborate! We are eager to explore partnership avenues, academic research links, or grant initiatives.",
+        step2: "Alignment & Review",
+        step2Desc: "Assessing partnership parameters and reviewing collaboration framework opportunities.",
+      };
+    default:
+      return {
+        title: "Inquiry Received Successfully",
+        subtitle: "Thank you for reaching out! We have successfully logged your message and will get back to you shortly.",
+        step2: "Inquiry Assessment",
+        step2Desc: "Categorizing your inquiry and routing it to the appropriate project team member.",
+      };
+  }
+};
 
 const Contact = () => {
   useEffect(() => {
@@ -129,23 +172,163 @@ const Contact = () => {
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="h-full flex flex-col items-center justify-center text-center py-12"
+                className="h-full flex flex-col items-center justify-center text-center py-6 relative z-10"
               >
-                <div className="w-20 h-20 rounded-full bg-[#2E7D32]/10 text-[#2E7D32] flex items-center justify-center mb-6 border border-[#2E7D32]/20">
-                  <Send className="w-8 h-8" />
+                {/* Sparkles / Leaves particles floating around */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute bg-[#2E7D32]/5 rounded-full flex items-center justify-center"
+                      style={{
+                        width: 24,
+                        height: 24,
+                        left: `${15 + (i * 15) + Math.random() * 10}%`,
+                        top: `${40 + (i % 2 === 0 ? 15 : -15)}%`,
+                      }}
+                      animate={{
+                        y: [-10, -90],
+                        x: [0, (i % 2 === 0 ? 25 : -25)],
+                        opacity: [0, 0.6, 0],
+                        scale: [0.6, 1.2, 0.6],
+                      }}
+                      transition={{
+                        duration: 4 + Math.random() * 2,
+                        repeat: Infinity,
+                        delay: i * 0.6,
+                        ease: "easeOut"
+                      }}
+                    >
+                      {i % 2 === 0 
+                        ? <Leaf className="w-3.5 h-3.5 text-[#2E7D32]/20" /> 
+                        : <Sparkles className="w-3.5 h-3.5 text-[#4CAF50]/20" />
+                      }
+                    </motion.div>
+                  ))}
                 </div>
-                <h3 className="font-display font-extrabold text-3xl text-[#0C1D13] mb-4">
-                  Inquiry Received
-                </h3>
-                <p className="text-base text-[#0C1D13]/75 font-sans max-w-sm mb-2 leading-relaxed">
-                  Thank you for reaching out! We have successfully received your inquiry and will be in touch with you shortly.
-                </p>
-                <button
-                  onClick={() => setFormSubmitted(false)}
-                  className="mt-10 px-8 py-3 rounded-full border border-[#2E7D32]/20 hover:border-[#2E7D32] text-[#2E7D32] text-xs font-sans font-bold uppercase tracking-wider transition-colors"
-                >
-                  Send Another Inquiry
-                </button>
+
+                <div className="relative mb-6">
+                  {/* Ripple pulse rings */}
+                  <motion.div 
+                    animate={{ scale: [1, 1.4, 1], opacity: [0.15, 0.4, 0.15] }}
+                    transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+                    className="absolute inset-0 rounded-full bg-[#2E7D32]/10 border border-[#2E7D32]/10 scale-125"
+                  />
+                  <div className="w-20 h-20 rounded-full bg-[#2E7D32] text-[#FAF9F6] flex items-center justify-center relative z-10 border-2 border-[#FAF9F6] shadow-[0_8px_30px_rgb(46,125,50,0.25)]">
+                    <CheckCircle2 className="w-10 h-10" />
+                  </div>
+                </div>
+
+                {(() => {
+                  const trackInfo = getSuccessMessage(formData.role);
+                  
+                  const handleDownloadBrief = () => {
+                    const content = `WAQID SOLUTIONS - PROJECT BRIEFING DOSSIER\n\nThank you for your interest in WAQID Solutions.\nTrack: ${formData.role}\nInquiry Name: ${formData.name}\n\nWAQID is a climate-tech venture developing decentralized biochar and clean heat systems that convert palm biomass waste (EFB) into soil restoration and rural climate resilience.\n\nFor questions or direct collaborations, please email: Abuaglho@gmail.com`;
+                    const blob = new Blob([content], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = `WAQID_Project_Brief_${formData.role.replace(/[^a-z0-9]/gi, '_')}.txt`;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                  };
+
+                  return (
+                    <>
+                      <h3 className="font-display font-black text-2xl md:text-3xl text-[#0C1D13] mb-4">
+                        {trackInfo.title}
+                      </h3>
+                      <p className="text-sm md:text-base text-[#0C1D13]/75 font-sans max-w-lg mb-8 leading-relaxed">
+                        {trackInfo.subtitle}
+                      </p>
+
+                      {/* Visual Timeline tracker */}
+                      <div className="w-full max-w-md bg-[#FAF9F6]/85 border border-[#2E7D32]/15 rounded-2xl p-5 text-left mb-8 shadow-sm">
+                        <h4 className="text-[10px] font-sans font-bold uppercase tracking-wider text-[#2E7D32] mb-4 flex items-center gap-2">
+                          <Calendar className="w-3.5 h-3.5" /> What Happens Next?
+                        </h4>
+                        
+                        <div className="flex flex-col gap-4 relative pl-4 border-l-2 border-[#2E7D32]/20">
+                          {/* Step 1 */}
+                          <div className="relative">
+                            <span className="absolute -left-[21px] top-1 w-2 h-2 rounded-full bg-[#2E7D32]" />
+                            <h5 className="text-xs font-sans font-bold text-[#0C1D13] flex items-center gap-1.5">
+                              Inquiry Logged <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-[#2E7D32]/10 text-[#2E7D32] uppercase tracking-wider font-extrabold">Done</span>
+                            </h5>
+                            <p className="text-[11px] text-[#0C1D13]/65 font-sans mt-0.5">
+                              Your details are securely received at <span className="font-semibold text-[#2E7D32]">Abuaglho@gmail.com</span>.
+                            </p>
+                          </div>
+
+                          {/* Step 2 */}
+                          <div className="relative">
+                            <span className="absolute -left-[21px] top-1 w-2 h-2 rounded-full bg-[#2E7D32] animate-ping" />
+                            <span className="absolute -left-[21px] top-1 w-2 h-2 rounded-full bg-[#2E7D32]/80" />
+                            <h5 className="text-xs font-sans font-bold text-[#0C1D13] flex items-center gap-1.5">
+                              {trackInfo.step2} <span className="text-[8px] px-1.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 uppercase tracking-wider font-extrabold">Active</span>
+                            </h5>
+                            <p className="text-[11px] text-[#0C1D13]/65 font-sans mt-0.5">
+                              {trackInfo.step2Desc}
+                            </p>
+                          </div>
+
+                          {/* Step 3 */}
+                          <div className="relative">
+                            <span className="absolute -left-[21px] top-1 w-2 h-2 rounded-full bg-[#0C1D13]/15" />
+                            <h5 className="text-xs font-sans font-bold text-[#0C1D13]/50">
+                              Direct Outreach
+                            </h5>
+                            <p className="text-[11px] text-[#0C1D13]/45 font-sans mt-0.5">
+                              Project Lead will email you directly within 48 hours to schedule a 30-minute introductory sync.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Resource Download Card */}
+                      <div className="w-full max-w-md bg-white border border-[#2E7D32]/15 rounded-2xl p-4 flex items-center justify-between mb-8 shadow-sm group hover:border-[#2E7D32] transition-colors">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-[#2E7D32]/5 text-[#2E7D32] flex items-center justify-center flex-shrink-0">
+                            <FileText className="w-5 h-5" />
+                          </div>
+                          <div className="text-left">
+                            <h5 className="text-xs font-sans font-bold text-[#0C1D13] leading-none">
+                              WAQID Project Dossier
+                            </h5>
+                            <p className="text-[10px] text-[#0C1D13]/55 font-sans mt-1">
+                              TEXT BRIEF • 1.2 KB • Pilot Specifications
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <button 
+                          onClick={handleDownloadBrief}
+                          className="p-2.5 rounded-xl bg-[#2E7D32]/5 hover:bg-[#2E7D32] text-[#2E7D32] hover:text-[#FAF9F6] transition-all flex items-center justify-center cursor-pointer"
+                          title="Download Briefing"
+                        >
+                          <Download className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </>
+                  );
+                })()}
+
+                <div className="flex flex-col sm:flex-row gap-3 w-full justify-center">
+                  <button
+                    onClick={() => setFormSubmitted(false)}
+                    className="px-6 py-3 rounded-xl border border-[#2E7D32]/25 text-[#2E7D32] hover:bg-[#2E7D32]/5 text-xs font-sans font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  >
+                    Send Another Inquiry
+                  </button>
+                  <Link
+                    to="/"
+                    className="px-6 py-3 rounded-xl bg-[#2E7D32] hover:bg-[#4CAF50] text-[#FAF9F6] hover:text-[#0C1D13] text-xs font-sans font-bold uppercase tracking-wider transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    Back to Homepage <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </motion.div>
             ) : (
               <div>
