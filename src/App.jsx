@@ -823,9 +823,10 @@ function App() {
           <img 
             src="/images/waqid_circular_restoration_hero.jpg" 
             alt="WAQID Operations" 
-            className="w-full h-full object-cover object-center" 
+            className="w-full h-full object-cover object-center opacity-0 transition-opacity duration-700" 
             fetchpriority="high"
             loading="eager"
+            onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
           />
         </motion.div>
 
@@ -1049,7 +1050,8 @@ function App() {
                       src={item.image} 
                       alt={item.title} 
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0"
+                      onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
                     
@@ -1229,7 +1231,8 @@ function App() {
                           src={item.image} 
                           alt={item.title} 
                           loading="lazy"
-                          className="absolute inset-0 w-full h-full object-cover"
+                          className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
+                          onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                         />
                         {/* Dark Gradient Overlay for text readability */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
@@ -1601,7 +1604,8 @@ function App() {
             src="/images/waqid-circular-carbon-loop.png" 
             alt="The WAQID Circular Carbon Loop Flowchart" 
             loading="lazy"
-            className="w-full h-auto object-contain select-none"
+            className="w-full h-auto object-contain select-none opacity-0 transition-opacity duration-700"
+            onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
           />
         </div>
       </motion.section>
@@ -1917,8 +1921,9 @@ function App() {
                     <img 
                       src={sdg.image} 
                       alt={sdg.title} 
-                      className="w-full h-full object-cover" 
+                      className="w-full h-full object-cover opacity-0 transition-opacity duration-700" 
                       loading="lazy"
+                      onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                     />
                   </div>
                   <div>
@@ -1947,8 +1952,9 @@ function App() {
                     <img 
                       src={sdg.image} 
                       alt={sdg.title} 
-                      className="w-full h-full object-cover" 
+                      className="w-full h-full object-cover opacity-0 transition-opacity duration-700" 
                       loading="lazy"
+                      onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                     />
                   </div>
                   <div>
@@ -2043,7 +2049,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
@@ -2055,7 +2061,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
@@ -2067,7 +2073,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/organic-biochar.jpg" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/organic-biochar.jpg" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
@@ -2486,7 +2492,7 @@ function App() {
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                       </div>
                       <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
                       <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
@@ -2523,7 +2529,7 @@ function App() {
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                       </div>
                       <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
                       <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
