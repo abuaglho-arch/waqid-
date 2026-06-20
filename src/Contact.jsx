@@ -28,25 +28,33 @@ const Contact = () => {
     setSubmitError(null);
 
     try {
-      const response = await fetch("https://formspree.io/f/xyzkypqz", {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
         body: JSON.stringify({
+          access_key: "091c7841-f761-469b-980b-8d0afcceea0b",
           name: formData.name,
           email: formData.email,
           organisation: formData.org,
           partnership_track: formData.role,
           message: formData.message,
+          subject: `New WAQID Contact Form Inquiry - ${formData.role}`,
+          from_name: "WAQID Contact Page Form"
         }),
       });
 
-      if (response.ok) {
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         setFormSubmitted(true);
-        setFormData({ name: "", email: "", org: "", role: "", message: "" });
+        setFormData({ name: "", email: "", org: "", role: "Mill Operator (Pilot Interest)", message: "" });
       } else {
-        setSubmitError("Failed to submit form. Please try again or email directly.");
+        setSubmitError(data.message || "Failed to submit form. Please try again or email directly.");
       }
-    } catch {
+    } catch (err) {
       setSubmitError("Network error. Please try again or email directly.");
     } finally {
       setIsSubmitting(false);
