@@ -648,6 +648,7 @@ function App() {
   );
 
   useEffect(() => {
+    document.title = "WAQID | Biochar & Biomass Solutions";
     const mobileQuery = window.matchMedia("(max-width: 1024px)");
     const mobileListener = (e) => setIsMobile(e.matches);
     mobileQuery.addEventListener("change", mobileListener);

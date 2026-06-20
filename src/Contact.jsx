@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   MapPin, Flame, Leaf, Mail, Send, 
@@ -7,6 +7,10 @@ import {
 import { Link } from 'react-router-dom';
 
 const Contact = () => {
+  useEffect(() => {
+    document.title = "Contact WAQID | Biochar & Biomass Solutions";
+  }, []);
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState(null);
