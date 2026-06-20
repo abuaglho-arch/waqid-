@@ -232,9 +232,9 @@ const solutionCards = [
 const teamMembers = [
   {
     name: "Osama M. Abuagla",
-    role: "Founder & CEO",
+    role: "Founder & Project Lead",
     img: "/images/founder.jpg",
-    desc: "Driving the vision and technical execution of Waqid's decentralized pyrolysis infrastructure.",
+    desc: "Leading WAQID’s vision, field partnerships, pilot development, and early validation pathway for decentralized biochar and biomass solutions.",
     isCTA: false
   },
   {
