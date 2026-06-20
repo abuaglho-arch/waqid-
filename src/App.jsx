@@ -535,6 +535,100 @@ function ReactorExplainer() {
   );
 }
 
+function SolutionScroller() {
+  const scrollRef = useRef(null);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const interactionTimeoutRef = useRef(null);
+
+  const handleInteractionStart = () => {
+    setIsInteracting(true);
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+  };
+
+  const handleInteractionEnd = () => {
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+    // Resume auto-scroll after 2.5 seconds of inactivity to account for scroll momentum
+    interactionTimeoutRef.current = setTimeout(() => {
+      setIsInteracting(false);
+    }, 2500);
+  };
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let animationFrameId;
+    let lastTime = performance.now();
+    const speed = 35; // Pixels per second
+
+    const animate = (time) => {
+      if (!isInteracting) {
+        const delta = (time - lastTime) / 1000;
+        container.scrollLeft += speed * delta;
+
+        // Loop wrapping: since we duplicate the list of cards,
+        // we reset scrollLeft back by half of the scrollWidth.
+        const halfWidth = container.scrollWidth / 2;
+        if (container.scrollLeft >= halfWidth) {
+          container.scrollLeft -= halfWidth;
+        }
+      }
+      lastTime = time;
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      if (interactionTimeoutRef.current) {
+        clearTimeout(interactionTimeoutRef.current);
+      }
+    };
+  }, [isInteracting]);
+
+  const doubleCards = [...solutionCards, ...solutionCards];
+
+  return (
+    <div 
+      className="md:hidden relative w-full overflow-hidden py-4 mask-marquee z-20"
+      onTouchStart={handleInteractionStart}
+      onTouchEnd={handleInteractionEnd}
+      onMouseDown={handleInteractionStart}
+      onMouseUp={handleInteractionEnd}
+      onMouseLeave={handleInteractionEnd}
+    >
+      <div 
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing select-none"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
+        {doubleCards.map((card, idx) => {
+          const Icon = card.icon;
+          return (
+            <div 
+              key={`sol-scroller-${idx}`} 
+              className="glass-card w-[280px] p-8 rounded-3xl flex flex-col shrink-0 relative group shadow-md snap-center"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 pointer-events-none">
+                <Icon className="w-6 h-6" />
+              </div>
+              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3 pointer-events-none">{card.title}</h4>
+              <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed pointer-events-none">
+                {card.desc}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -1207,46 +1301,7 @@ function App() {
           </motion.div>
 
           {/* Mobile Only Moving Marquee Layout */}
-          <div className="md:hidden relative w-full overflow-hidden py-4 mask-marquee z-20">
-            <div className="flex w-max gap-6 animate-marquee-loop">
-              {/* Set 1 */}
-              {solutionCards.map((card, idx) => {
-                const Icon = card.icon;
-                return (
-                  <div 
-                    key={`sol-set1-${idx}`} 
-                    className="glass-card w-[280px] p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
-                  >
-                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{card.title}</h4>
-                    <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed">
-                      {card.desc}
-                    </p>
-                  </div>
-                );
-              })}
-              {/* Set 2 (Duplicate for loop) */}
-              {solutionCards.map((card, idx) => {
-                const Icon = card.icon;
-                return (
-                  <div 
-                    key={`sol-set2-${idx}`} 
-                    className="glass-card w-[280px] p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
-                  >
-                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{card.title}</h4>
-                    <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed">
-                      {card.desc}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <SolutionScroller />
 
           {/* Reactor Explainer */}
           <div className="mt-20 border-t border-[#2E7D32]/10 pt-16">
