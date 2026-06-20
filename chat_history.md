@@ -33,9 +33,9 @@ This document provides a complete summary of the work done in this session, the 
 ### 4. Mobile Viewport Layout Optimizations
 * **Crisis Collapsible Grid**: Shows only 3 cards by default on mobile (the key metrics panel + the first 2 crisis cards). The rest are hidden (`hidden md:block`) with a centered toggle button to reveal ("Show Full Context (+4)") or hide them.
 * **Milestone Pathway Tabs**: Added a mobile-only button group `[Traction] [Hypotheses] [Viability]` to toggle between three Prototype to Pilot sub-sections, preventing long scrolling on mobile screens.
-* **Solution Marquee**: The 4 WAQID Solution cards scroll as an infinite horizontal marquee on mobile viewports instead of stacking vertically, pausing on touch/hover.
-* **Autoplay Reactor Stages**: The 5 reactor stages auto-advance every 2 seconds. Users can pause the loop by hovering on desktop, touching on mobile, or selecting a stage.
-* **Reactor Stage Indicators**: Added 5 visual pagination indicator dots under the horizontal stages list on mobile viewports.
+* **Solution Scroller**: The 4 WAQID Solution cards auto-scroll smoothly on mobile using a custom `requestAnimationFrame` loop (pausing instantly on touch drag/swipe gestures, and resuming after 2.5 seconds of inactivity).
+* **Autoplay Reactor Stages**: The 4 reactor stages auto-advance every 2 seconds inside an isolated `ReactorExplainer` component. Users can swipe left/right on the details card on mobile to cycle stages, tap selector buttons, or pause autoplay.
+* **Reactor Stage Indicators**: Added visual pagination indicator dots under the horizontal stages list on mobile viewports.
 
 ---
 

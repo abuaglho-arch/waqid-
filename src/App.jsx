@@ -232,9 +232,9 @@ const solutionCards = [
 const teamMembers = [
   {
     name: "Osama M. Abuagla",
-    role: "Founder & CEO",
+    role: "Founder & Project Lead",
     img: "/images/founder.jpg",
-    desc: "Driving the vision and technical execution of Waqid's decentralized pyrolysis infrastructure.",
+    desc: "Leading WAQID’s vision, field partnerships, pilot development, and early validation pathway for decentralized biochar and biomass solutions.",
     isCTA: false
   },
   {
@@ -392,11 +392,246 @@ const sdgGoals = [
   }
 ];
 
+function ReactorExplainer() {
+  const [activeReactorStage, setActiveReactorStage] = useState(0);
+  const [isReactorAutoPlaying, setIsReactorAutoPlaying] = useState(true);
+
+  useEffect(() => {
+    if (!isReactorAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveReactorStage((prev) => (prev + 1) % reactorStages.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [isReactorAutoPlaying]);
+
+  return (
+    <div 
+      className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
+      onMouseEnter={() => setIsReactorAutoPlaying(false)}
+      onMouseLeave={() => setIsReactorAutoPlaying(true)}
+      onTouchStart={() => setIsReactorAutoPlaying(false)}
+    >
+      {/* Left Selector List */}
+      <div className="lg:col-span-5 flex flex-col justify-center">
+        <div className="flex flex-row overflow-x-auto snap-x hide-scrollbar lg:flex-col gap-3 justify-start lg:justify-center -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0">
+          {reactorStages.map((stage, idx) => {
+            const Icon = stage.icon;
+            const isActive = activeReactorStage === idx;
+            return (
+              <button
+                key={idx}
+                onClick={() => {
+                  setActiveReactorStage(idx);
+                  setIsReactorAutoPlaying(false);
+                }}
+                onMouseEnter={() => {
+                  setActiveReactorStage(idx);
+                  setIsReactorAutoPlaying(false);
+                }}
+                className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer snap-center shrink-0 w-[65vw] sm:w-[220px] lg:w-auto ${
+                  isActive 
+                    ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
+                    : 'hover:bg-[#F0EFEA]/60 border border-transparent'
+                }`}
+              >
+                {/* Active highlight background border indicator */}
+                {isActive && (
+                  <motion.div 
+                    layoutId="activeReactorIndicator"
+                    className="absolute bg-[#2E7D32] bottom-0 left-0 right-0 h-[3px] lg:h-auto lg:inset-y-0 lg:left-0 lg:w-1 rounded-b-2xl lg:rounded-l-2xl lg:rounded-br-none" 
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+                
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
+                  isActive ? 'bg-[#152E1E] text-[#4CAF50]' : 'bg-[#0C1D13]/5 text-[#0C1D13]/60'
+                }`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                
+                <div>
+                  <span className="text-[10px] font-sans font-bold text-[#2E7D32]/60 uppercase tracking-widest block">
+                    Stage {stage.num}
+                  </span>
+                  <h4 className="font-display font-bold text-base text-[#0C1D13] mt-0.5 leading-tight">
+                    {stage.title}
+                  </h4>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Mobile indicators dot row */}
+        <div className="flex lg:hidden justify-center gap-2 mt-4 mb-2">
+          {reactorStages.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setActiveReactorStage(idx);
+                setIsReactorAutoPlaying(false);
+              }}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activeReactorStage === idx 
+                  ? 'w-6 bg-[#2E7D32]' 
+                  : 'w-1.5 bg-[#2E7D32]/25'
+              }`}
+              aria-label={`Go to stage ${idx + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Right Detail Card */}
+      <div className="lg:col-span-7">
+        <motion.div 
+          key={activeReactorStage}
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="h-full bg-[#0C1D13] text-[#FAF9F6] rounded-3xl p-8 border border-[#2E7D32]/25 shadow-xl relative overflow-hidden flex flex-col justify-between text-left"
+        >
+          {/* Subtle Background Glow */}
+          <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#4CAF50]/10 rounded-full blur-[60px] pointer-events-none" />
+          
+          <div>
+            <div className="flex justify-between items-start mb-6">
+              <span className="px-3 py-1 rounded-full bg-[#152E1E] border border-[#2E7D32]/30 text-[10px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
+                {reactorStages[activeReactorStage]?.subtitle}
+              </span>
+              <span className="text-4xl font-serif font-bold text-[#4CAF50]/20">
+                {reactorStages[activeReactorStage]?.num}
+              </span>
+            </div>
+
+            <h4 className="font-display font-black text-2xl mb-4 leading-tight">
+              {reactorStages[activeReactorStage]?.title}
+            </h4>
+            
+            <p className="text-sm text-[#FAF9F6]/85 font-sans leading-relaxed mb-6">
+              {reactorStages[activeReactorStage]?.desc}
+            </p>
+
+            <div className="border-l-2 border-[#4CAF50]/30 pl-4 py-1.5 mb-8">
+              <p className="text-xs text-[#FAF9F6]/70 font-sans italic leading-relaxed">
+                {reactorStages[activeReactorStage]?.detail}
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 border-t border-[#FAF9F6]/10 pt-6">
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Target Output Spec</span>
+              <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage]?.metric}</span>
+            </div>
+            <div>
+              <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Temperature Profile</span>
+              <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage]?.temp}</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function SolutionScroller() {
+  const scrollRef = useRef(null);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const interactionTimeoutRef = useRef(null);
+
+  const handleInteractionStart = () => {
+    setIsInteracting(true);
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+  };
+
+  const handleInteractionEnd = () => {
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+    // Resume auto-scroll after 2.5 seconds of inactivity to account for scroll momentum
+    interactionTimeoutRef.current = setTimeout(() => {
+      setIsInteracting(false);
+    }, 2500);
+  };
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container) return;
+
+    let animationFrameId;
+    let lastTime = performance.now();
+    const speed = 35; // Pixels per second
+
+    const animate = (time) => {
+      if (!isInteracting) {
+        const delta = (time - lastTime) / 1000;
+        container.scrollLeft += speed * delta;
+
+        // Loop wrapping: since we duplicate the list of cards,
+        // we reset scrollLeft back by half of the scrollWidth.
+        const halfWidth = container.scrollWidth / 2;
+        if (container.scrollLeft >= halfWidth) {
+          container.scrollLeft -= halfWidth;
+        }
+      }
+      lastTime = time;
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      if (interactionTimeoutRef.current) {
+        clearTimeout(interactionTimeoutRef.current);
+      }
+    };
+  }, [isInteracting]);
+
+  const doubleCards = [...solutionCards, ...solutionCards];
+
+  return (
+    <div 
+      className="md:hidden relative w-full overflow-hidden py-4 mask-marquee z-20"
+      onTouchStart={handleInteractionStart}
+      onTouchEnd={handleInteractionEnd}
+      onMouseDown={handleInteractionStart}
+      onMouseUp={handleInteractionEnd}
+      onMouseLeave={handleInteractionEnd}
+    >
+      <div 
+        ref={scrollRef}
+        className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing select-none"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
+        {doubleCards.map((card, idx) => {
+          const Icon = card.icon;
+          return (
+            <div 
+              key={`sol-scroller-${idx}`} 
+              className="glass-card w-[280px] p-8 rounded-3xl flex flex-col shrink-0 relative group shadow-md snap-center"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 pointer-events-none">
+                <Icon className="w-6 h-6" />
+              </div>
+              <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3 pointer-events-none">{card.title}</h4>
+              <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed pointer-events-none">
+                {card.desc}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function App() {
   const [scrolled, setScrolled] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
-  const [activeReactorStage, setActiveReactorStage] = useState(0);
-  const [isReactorAutoPlaying, setIsReactorAutoPlaying] = useState(true);
   const [selectedFormRole, setSelectedFormRole] = useState("Mill Operator");
   const [calculatorRole, setCalculatorRole] = useState("Mill Operator");
   const [millEFB, setMillEFB] = useState(25000);
@@ -413,6 +648,7 @@ function App() {
   );
 
   useEffect(() => {
+    document.title = "WAQID | Biochar & Biomass Solutions";
     const mobileQuery = window.matchMedia("(max-width: 1024px)");
     const mobileListener = (e) => setIsMobile(e.matches);
     mobileQuery.addEventListener("change", mobileListener);
@@ -426,14 +662,6 @@ function App() {
       motionQuery.removeEventListener("change", motionListener);
     };
   }, []);
-
-  useEffect(() => {
-    if (!isReactorAutoPlaying) return;
-    const interval = setInterval(() => {
-      setActiveReactorStage((prev) => (prev + 1) % 5);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [isReactorAutoPlaying]);
 
   const crisisSectionRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -593,11 +821,12 @@ function App() {
 
         <motion.div style={{ y: heroY }} className="absolute inset-0 opacity-55 z-0 scale-110">
           <img 
-            src="/images/waqid_circular_restoration_hero.png" 
+            src="/images/waqid_circular_restoration_hero.jpg" 
             alt="WAQID Operations" 
-            className="w-full h-full object-cover object-center" 
+            className="w-full h-full object-cover object-center opacity-0 transition-opacity duration-700" 
             fetchpriority="high"
             loading="eager"
+            onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
           />
         </motion.div>
 
@@ -821,7 +1050,8 @@ function App() {
                       src={item.image} 
                       alt={item.title} 
                       loading="lazy"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0"
+                      onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
                     
@@ -1001,7 +1231,8 @@ function App() {
                           src={item.image} 
                           alt={item.title} 
                           loading="lazy"
-                          className="absolute inset-0 w-full h-full object-cover"
+                          className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
+                          onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                         />
                         {/* Dark Gradient Overlay for text readability */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0C1D13]/95 via-[#0C1D13]/55 to-transparent transition-opacity duration-300" />
@@ -1074,46 +1305,7 @@ function App() {
           </motion.div>
 
           {/* Mobile Only Moving Marquee Layout */}
-          <div className="md:hidden relative w-full overflow-hidden py-4 mask-marquee z-20">
-            <div className="flex w-max gap-6 animate-marquee-loop">
-              {/* Set 1 */}
-              {solutionCards.map((card, idx) => {
-                const Icon = card.icon;
-                return (
-                  <div 
-                    key={`sol-set1-${idx}`} 
-                    className="w-[280px] bg-[#FAF9F6] border border-[#2E7D32]/10 p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
-                  >
-                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{card.title}</h4>
-                    <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed">
-                      {card.desc}
-                    </p>
-                  </div>
-                );
-              })}
-              {/* Set 2 (Duplicate for loop) */}
-              {solutionCards.map((card, idx) => {
-                const Icon = card.icon;
-                return (
-                  <div 
-                    key={`sol-set2-${idx}`} 
-                    className="w-[280px] bg-[#FAF9F6] border border-[#2E7D32]/10 p-8 rounded-3xl flex flex-col shrink-0 relative group cursor-pointer shadow-md"
-                  >
-                    <div className="w-12 h-12 rounded-2xl bg-[#152E1E] flex items-center justify-center text-[#4CAF50] mb-6 shadow-inner group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">{card.title}</h4>
-                    <p className="text-xs text-[#0C1D13]/75 font-sans leading-relaxed">
-                      {card.desc}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <SolutionScroller />
 
           {/* Reactor Explainer */}
           <div className="mt-20 border-t border-[#2E7D32]/10 pt-16">
@@ -1125,133 +1317,7 @@ function App() {
               </p>
             </div>
 
-            <div 
-              className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch"
-              onMouseEnter={() => setIsReactorAutoPlaying(false)}
-              onMouseLeave={() => setIsReactorAutoPlaying(true)}
-              onTouchStart={() => setIsReactorAutoPlaying(false)}
-            >
-              {/* Left Selector List */}
-              <div className="lg:col-span-5 flex flex-col justify-center">
-                <div className="flex flex-row overflow-x-auto snap-x hide-scrollbar lg:flex-col gap-3 justify-start lg:justify-center -mx-6 px-6 lg:mx-0 lg:px-0 pb-4 lg:pb-0">
-                  {reactorStages.map((stage, idx) => {
-                    const Icon = stage.icon;
-                    const isActive = activeReactorStage === idx;
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          setActiveReactorStage(idx);
-                          setIsReactorAutoPlaying(false);
-                        }}
-                        onMouseEnter={() => {
-                          setActiveReactorStage(idx);
-                          setIsReactorAutoPlaying(false);
-                        }}
-                        className={`relative flex items-center gap-4 p-5 rounded-2xl text-left transition-all duration-300 cursor-pointer snap-center shrink-0 w-[65vw] sm:w-[220px] lg:w-auto ${
-                          isActive 
-                            ? 'bg-[#FAF9F6] border border-[#2E7D32]/10 shadow-[0_8px_30px_rgba(12,29,19,0.04)]' 
-                            : 'hover:bg-[#F0EFEA]/60 border border-transparent'
-                        }`}
-                      >
-                        {/* Active highlight background border indicator */}
-                        {isActive && (
-                          <motion.div 
-                            layoutId="activeReactorIndicator"
-                            className="absolute bg-[#2E7D32] bottom-0 left-0 right-0 h-[3px] lg:h-auto lg:inset-y-0 lg:left-0 lg:w-1 rounded-b-2xl lg:rounded-l-2xl lg:rounded-br-none" 
-                            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                          />
-                        )}
-                        
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300 ${
-                          isActive ? 'bg-[#152E1E] text-[#4CAF50]' : 'bg-[#0C1D13]/5 text-[#0C1D13]/60'
-                        }`}>
-                          <Icon className="w-5 h-5" />
-                        </div>
-                        
-                        <div>
-                          <span className="text-[10px] font-sans font-bold text-[#2E7D32]/60 uppercase tracking-widest block">
-                            Stage {stage.num}
-                          </span>
-                          <h4 className="font-display font-bold text-base text-[#0C1D13] mt-0.5 leading-tight">
-                            {stage.title}
-                          </h4>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-
-                {/* Mobile indicators dot row */}
-                <div className="flex lg:hidden justify-center gap-2 mt-4 mb-2">
-                  {reactorStages.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setActiveReactorStage(idx);
-                        setIsReactorAutoPlaying(false);
-                      }}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        activeReactorStage === idx 
-                          ? 'w-6 bg-[#2E7D32]' 
-                          : 'w-1.5 bg-[#2E7D32]/25'
-                      }`}
-                      aria-label={`Go to stage ${idx + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Right Detail Card */}
-              <div className="lg:col-span-7">
-                <motion.div 
-                  key={activeReactorStage}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="h-full bg-[#0C1D13] text-[#FAF9F6] rounded-3xl p-8 border border-[#2E7D32]/25 shadow-xl relative overflow-hidden flex flex-col justify-between text-left"
-                >
-                  {/* Subtle Background Glow */}
-                  <div className="absolute -top-24 -right-24 w-48 h-48 bg-[#4CAF50]/10 rounded-full blur-[60px] pointer-events-none" />
-                  
-                  <div>
-                    <div className="flex justify-between items-start mb-6">
-                      <span className="px-3 py-1 rounded-full bg-[#152E1E] border border-[#2E7D32]/30 text-[10px] font-sans font-black text-[#4CAF50] uppercase tracking-widest">
-                        {reactorStages[activeReactorStage].subtitle}
-                      </span>
-                      <span className="text-4xl font-serif font-bold text-[#4CAF50]/20">
-                        {reactorStages[activeReactorStage].num}
-                      </span>
-                    </div>
-
-                    <h4 className="font-display font-black text-2xl mb-4 leading-tight">
-                      {reactorStages[activeReactorStage].title}
-                    </h4>
-                    
-                    <p className="text-sm text-[#FAF9F6]/85 font-sans leading-relaxed mb-6">
-                      {reactorStages[activeReactorStage].desc}
-                    </p>
-
-                    <div className="border-l-2 border-[#4CAF50]/30 pl-4 py-1.5 mb-8">
-                      <p className="text-xs text-[#FAF9F6]/70 font-sans italic leading-relaxed">
-                        {reactorStages[activeReactorStage].detail}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4 border-t border-[#FAF9F6]/10 pt-6">
-                    <div>
-                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Target Output Spec</span>
-                      <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage].metric}</span>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] block mb-1">Temperature Profile</span>
-                      <span className="text-sm font-display font-bold text-[#FAF9F6]">{reactorStages[activeReactorStage].temp}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
+            <ReactorExplainer />
           </div>
         </div>
       </motion.section>
@@ -1538,7 +1604,8 @@ function App() {
             src="/images/waqid-circular-carbon-loop.png" 
             alt="The WAQID Circular Carbon Loop Flowchart" 
             loading="lazy"
-            className="w-full h-auto object-contain select-none"
+            className="w-full h-auto object-contain select-none opacity-0 transition-opacity duration-700"
+            onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
           />
         </div>
       </motion.section>
@@ -1854,8 +1921,9 @@ function App() {
                     <img 
                       src={sdg.image} 
                       alt={sdg.title} 
-                      className="w-full h-full object-cover" 
+                      className="w-full h-full object-cover opacity-0 transition-opacity duration-700" 
                       loading="lazy"
+                      onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                     />
                   </div>
                   <div>
@@ -1884,8 +1952,9 @@ function App() {
                     <img 
                       src={sdg.image} 
                       alt={sdg.title} 
-                      className="w-full h-full object-cover" 
+                      className="w-full h-full object-cover opacity-0 transition-opacity duration-700" 
                       loading="lazy"
+                      onLoad={(e) => e.currentTarget.classList.remove('opacity-0')}
                     />
                   </div>
                   <div>
@@ -1980,7 +2049,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
@@ -1992,7 +2061,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
@@ -2004,7 +2073,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/organic-biochar.jpg" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <img src="/images/organic-biochar.jpg" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
@@ -2423,7 +2492,7 @@ function App() {
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                       </div>
                       <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
                       <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
@@ -2460,7 +2529,7 @@ function App() {
                     >
                       <div className="absolute top-0 right-0 w-28 h-28 bg-gradient-to-br from-[#2E7D32]/15 to-transparent pointer-events-none rounded-bl-full" />
                       <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-[#4CAF50] mb-6 relative z-10 group-hover:scale-105 transition-transform duration-500">
-                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" />
+                        <img src={member.img} alt={member.name} loading="lazy" className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                       </div>
                       <h4 className="font-display font-bold text-xl text-[#FAF9F6] mb-1 relative z-10">{member.name}</h4>
                       <p className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#4CAF50] mb-4 relative z-10">{member.role}</p>
