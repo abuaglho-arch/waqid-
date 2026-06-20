@@ -29,13 +29,15 @@ This document provides a complete summary of the work done in this session, the 
 ### 3. Mobile Performance & Speed Fixes
 * **Image Compression**: Converted heavy PNG files to optimized JPEGs at 75% quality using macOS `sips` (e.g. Hero image went from 1.13 MB to 480 KB, Methane image from 349 KB to 51 KB, Advisor Tim's avatar from 599 KB to 84 KB). This solved the slow loading/refresh times on mobile.
 * **Lazy Loading**: Set `loading="lazy"` on all images below the fold (marquee logos, crisis cards, circular loop diagram, team avatars, footer logo) while keeping the hero image on eager load.
+* **Reactor Render Isolation**: Moved the auto-playing pyrolysis reactor stages state and interval loop into an isolated `ReactorExplainer` component, stopping full-page re-renders and preventing the React out-of-bounds index crash.
 
 ### 4. Mobile Viewport Layout Optimizations
 * **Crisis Collapsible Grid**: Shows only 3 cards by default on mobile (the key metrics panel + the first 2 crisis cards). The rest are hidden (`hidden md:block`) with a centered toggle button to reveal ("Show Full Context (+4)") or hide them.
 * **Milestone Pathway Tabs**: Added a mobile-only button group `[Traction] [Hypotheses] [Viability]` to toggle between three Prototype to Pilot sub-sections, preventing long scrolling on mobile screens.
-* **Solution Marquee**: The 4 WAQID Solution cards scroll as an infinite horizontal marquee on mobile viewports instead of stacking vertically, pausing on touch/hover.
-* **Autoplay Reactor Stages**: The 5 reactor stages auto-advance every 2 seconds. Users can pause the loop by hovering on desktop, touching on mobile, or selecting a stage.
-* **Reactor Stage Indicators**: Added 5 visual pagination indicator dots under the horizontal stages list on mobile viewports.
+* **Solution Marquee Carousel**: The 4 WAQID Solution cards scroll horizontally on mobile via the `SolutionScroller` component. Users can drag/swipe cards to halt auto-play, resuming automatic animation after 2.5 seconds of idle time.
+* **Autoplay Reactor Stages**: The 4 reactor stages auto-advance every 2 seconds. Users can pause the loop by hovering on desktop, touching on mobile, or selecting a stage.
+* **Reactor Stage Indicators**: Added 4 visual pagination indicator dots under the horizontal stages list on mobile viewports.
+* **Founder & Project Lead Info**: Osama M. Abuagla's role title was updated to "Founder & Project Lead" with new copy describing pilot development and partnership vision.
 
 ---
 
