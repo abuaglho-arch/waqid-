@@ -345,49 +345,49 @@ const sdgGoals = [
   {
     label: "SDG 1",
     title: "No Poverty",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-01.jpg",
+    image: "/images/sdgs/sdg-01.jpg",
     description: "By supplying affordable biochar and briquettes, we help smallholder farmers reduce synthetic fertilizer expenses and satay vendors reduce fuel costs."
   },
   {
     label: "SDG 2",
     title: "Zero Hunger",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-02.jpg",
+    image: "/images/sdgs/sdg-02.jpg",
     description: "Our biochar pellets act as a permanent soil sponge, retaining water and nutrients to restore degraded soils and boost crop yields."
   },
   {
     label: "SDG 7",
     title: "Affordable & Clean Energy",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-07.jpg",
+    image: "/images/sdgs/sdg-07.jpg",
     description: "We recover clean syngas and thermal energy to heat reactors and dry biomass, producing sustainable briquettes as a clean wood-charcoal alternative."
   },
   {
     label: "SDG 8",
     title: "Decent Work & Economic Growth",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-08.jpg",
+    image: "/images/sdgs/sdg-08.jpg",
     description: "We create rural economic value and local processing jobs by upcycling palm residues directly within farm districts."
   },
   {
     label: "SDG 12",
     title: "Responsible Consumption & Production",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-12.jpg",
+    image: "/images/sdgs/sdg-12.jpg",
     description: "We convert wet palm Empty Fruit Bunches (EFBs) and farm residues into high-value carbon products, closing the circular agricultural loop."
   },
   {
     label: "SDG 13",
     title: "Climate Action",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-13.jpg",
+    image: "/images/sdgs/sdg-13.jpg",
     description: "By carbonizing biomass, we prevent methane emissions from decaying crop wastes and sequester stable carbon in soils for hundreds of years."
   },
   {
     label: "SDG 15",
     title: "Life on Land",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-15.jpg",
+    image: "/images/sdgs/sdg-15.jpg",
     description: "We transform harmful waste into stable carbon, rehabilitating ecosystems by replacing toxic chemical fertilizers with natural soil amendments."
   },
   {
     label: "SDG 17",
     title: "Partnerships for the Goals",
-    image: "https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-17.jpg",
+    image: "/images/sdgs/sdg-17.jpg",
     description: "We collaborate with local smallholders, palm oil mills, and regional partners (like Tzu Chi and Wild Asia) to validate circular biomass ecosystems."
   }
 ];
