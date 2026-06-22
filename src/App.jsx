@@ -123,12 +123,12 @@ const Counter = ({ value, duration = 2, prefix = "", suffix = "" }) => {
 };
 
 const crisisCards = [
-  { index: "01", image: "/images/waste-accumulates.jpg", title: "Waste Becomes a Burden", desc: "Palm biomass, rice husks, and farm by-products are often left unused, burned, or poorly managed. WAQID starts by treating this waste as feedstock, not as a disposal problem." },
-  { index: "02", image: "/images/methane-rises.jpg", title: "Methane Rises", desc: "When empty fruit bunches (EFBs) decay in wet piles, they release high-warming methane gases. WAQID intercepts these residue streams before anaerobic decomposition starts." },
-  { index: "03", image: "/images/farmers-pay-more.jpg", title: "Farmers Pay More", desc: "Smallholders face soaring chemical fertilizer prices and degrading soil productivity. WAQID converts palm biomass into affordable soil amendments that restore fertility." },
-  { index: "04", image: "/images/problem_cracked_soil_1780739623976.jpg", title: "Soils Decline", desc: "Intense farming strips Malaysian soils of essential moisture, nutrients, and carbon. WAQID's biochar acts as a permanent sponge, restoring structural health." },
-  { index: "05", image: "/images/forests-suffer.jpg", title: "Forests Suffer", desc: "Clearing lands to offset falling yields threatens native ecosystems. By boosting existing farm productivity, WAQID limits the need to expand agricultural boundaries." },
-  { index: "06", image: "/images/problem-visual.jpg", title: "Value is Lost", desc: "Millions of tonnes of crop energy and carbon are wasted every season. WAQID closes this loop, converting raw residues into stable carbon, heat, and rural value." }
+  { index: "01", image: "/images/waste-accumulates.avif", title: "Waste Becomes a Burden", desc: "Palm biomass, rice husks, and farm by-products are often left unused, burned, or poorly managed. WAQID starts by treating this waste as feedstock, not as a disposal problem." },
+  { index: "02", image: "/images/methane-rises.avif", title: "Methane Rises", desc: "When empty fruit bunches (EFBs) decay in wet piles, they release high-warming methane gases. WAQID intercepts these residue streams before anaerobic decomposition starts." },
+  { index: "03", image: "/images/farmers-pay-more.avif", title: "Farmers Pay More", desc: "Smallholders face soaring chemical fertilizer prices and degrading soil productivity. WAQID converts palm biomass into affordable soil amendments that restore fertility." },
+  { index: "04", image: "/images/problem_cracked_soil_1780739623976.avif", title: "Soils Decline", desc: "Intense farming strips Malaysian soils of essential moisture, nutrients, and carbon. WAQID's biochar acts as a permanent sponge, restoring structural health." },
+  { index: "05", image: "/images/forests-suffer.avif", title: "Forests Suffer", desc: "Clearing lands to offset falling yields threatens native ecosystems. By boosting existing farm productivity, WAQID limits the need to expand agricultural boundaries." },
+  { index: "06", image: "/images/problem-visual.avif", title: "Value is Lost", desc: "Millions of tonnes of crop energy and carbon are wasted every season. WAQID closes this loop, converting raw residues into stable carbon, heat, and rural value." }
 ];
 
 const impactSteps = [
@@ -199,11 +199,11 @@ const useCardTransforms = (scrollYProgress, index, isMobile, totalCards = 6) => 
 };
 
 const partnerLogos = [
-  { src: "/images/wild-asia.png", alt: "Wild Asia" },
-  { src: "/images/bevisioneers.png", alt: "beVisioneers" },
-  { src: "/images/tzuchi-logo.png", alt: "Tzu Chi Foundation" },
-  { src: "/images/albukhary-university.png", alt: "Albukhary International University" },
-  { src: "/images/iylp-logo.png", alt: "Tzu Chi IYLP" }
+  { src: "/images/wild-asia.avif", alt: "Wild Asia" },
+  { src: "/images/bevisioneers.avif", alt: "beVisioneers" },
+  { src: "/images/tzuchi-logo.avif", alt: "Tzu Chi Foundation" },
+  { src: "/images/albukhary-university.avif", alt: "Albukhary International University" },
+  { src: "/images/iylp-logo.avif", alt: "Tzu Chi IYLP" }
 ];
 
 const solutionCards = [
@@ -233,21 +233,21 @@ const teamMembers = [
   {
     name: "Osama M. Abuagla",
     role: "Founder & Project Lead",
-    img: "/images/founder.jpg",
+    img: "/images/founder.avif",
     desc: "Leading WAQID’s vision, field partnerships, pilot development, and early validation pathway for decentralized biochar and biomass solutions.",
     isCTA: false
   },
   {
     name: "Tim Asquith",
     role: "Strategic Advisor",
-    img: "/images/tim-asquith.jpg",
+    img: "/images/tim-asquith.avif",
     desc: "Providing critical guidance on field validation, commercial scaling, and global agricultural economics.",
     isCTA: false
   },
   {
     name: "Joyce Zhang",
     role: "Venture Coach",
-    img: "/images/joyce.jpg",
+    img: "/images/joyce.avif",
     desc: "Guiding WAQID's fundraising strategy and venture scaling architecture for global deployment.",
     isCTA: false
   },
@@ -780,7 +780,7 @@ function App() {
             className="flex items-center gap-3 cursor-pointer focus:outline-none bg-transparent border-transparent p-0"
             aria-label="Scroll to top of WAQID"
           >
-            <img src="/images/waqid-logo-transparent.png" alt="WAQID Logo" className="h-8 md:h-10 object-contain drop-shadow-md" />
+            <img src="/images/waqid-logo-transparent.avif" alt="WAQID Logo" className="h-8 md:h-10 object-contain drop-shadow-md" />
           </motion.button>
           <div className="hidden md:flex items-center gap-8">
             {[
@@ -821,7 +821,7 @@ function App() {
 
         <motion.div style={{ y: heroY }} className="absolute inset-0 opacity-55 z-0 scale-110">
           <img 
-            src="/images/waqid_circular_restoration_hero.jpg" 
+            src="/images/waqid_circular_restoration_hero.avif" 
             alt="WAQID Operations" 
             className="w-full h-full object-cover object-center opacity-0 transition-opacity duration-700" 
             fetchpriority="high"
@@ -1601,7 +1601,7 @@ function App() {
       >
         <div className="max-w-5xl mx-auto px-6 flex flex-col justify-center items-center">
           <img 
-            src="/images/waqid-circular-carbon-loop.png" 
+            src="/images/waqid-circular-carbon-loop.avif" 
             alt="The WAQID Circular Carbon Loop Flowchart" 
             loading="lazy"
             className="w-full h-auto object-contain select-none opacity-0 transition-opacity duration-700"
@@ -2049,7 +2049,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v1-pyrolysis-unit.jpg" alt="V1 Pyrolysis Unit" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
+                <img src="/images/v1-pyrolysis-unit.avif" alt="V1 Pyrolysis Unit" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">V1 Pyrolysis Unit</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Manual oil drum TLUD reactor tested in Perak.</p>
@@ -2061,7 +2061,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/v3-reactor-real.jpg" alt="V3 Pyrolysis Reactor" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
+                <img src="/images/v3-reactor-real.avif" alt="V3 Pyrolysis Reactor" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Mobile Biochar Pyrolysis</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">Semi-automated V3 Pilot Unit.</p>
@@ -2073,7 +2073,7 @@ function App() {
                 whileTap={{ scale: 0.985 }}
                 className="w-full rounded-3xl overflow-hidden border border-[#2E7D32]/20 shadow-lg relative group aspect-[4/3] cursor-pointer"
               >
-                <img src="/images/organic-biochar.jpg" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
+                <img src="/images/organic-biochar.avif" alt="Granular Pellets" loading="lazy" className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 opacity-0" onLoad={(e) => e.currentTarget.classList.remove('opacity-0')} />
                 <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#0C1D13] to-transparent p-6 pt-20 text-left">
                   <h4 className="text-[#FAF9F6] font-display font-bold text-xl">Granular Pellets</h4>
                   <p className="text-[#FAF9F6]/80 text-sm font-sans mt-1">3–6mm dust-free biochar-compost blend.</p>
@@ -2682,7 +2682,7 @@ function App() {
                 className="text-left cursor-pointer focus:outline-none hover:opacity-85 transition-opacity"
               >
                 <img 
-                  src="/images/waqid-logo-transparent.png" 
+                  src="/images/waqid-logo-transparent.avif" 
                   alt="WAQID Logo" 
                   loading="lazy"
                   className="h-10 w-auto object-contain drop-shadow-lg"
