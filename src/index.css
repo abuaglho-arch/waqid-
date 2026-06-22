@@ -300,6 +300,8 @@
   width: max-content;
   padding-right: 24px;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
   animation: logoFlowMove 22s linear infinite;
 }
 
@@ -319,6 +321,7 @@
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   height: 96px;
   min-width: 200px;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
@@ -400,6 +403,9 @@
   display: flex;
   animation: sdgMarquee 40s linear infinite;
   gap: 24px;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
 }
 
 .animate-marquee-loop:hover {
@@ -439,6 +445,7 @@
   background: rgba(250, 249, 246, 0.92) !important;
   border: 1.5px solid rgba(46, 125, 50, 0.22) !important;
   box-shadow: 0 12px 35px rgba(12, 29, 19, 0.055) !important;
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -453,6 +460,7 @@
   background: rgba(21, 30, 24, 0.88) !important;
   border: 1.5px solid rgba(76, 175, 80, 0.32) !important;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3) !important;
+  -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }

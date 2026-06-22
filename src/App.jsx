@@ -604,7 +604,7 @@ function SolutionScroller() {
     >
       <div 
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing select-none"
+        className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing select-none"
         style={{ WebkitOverflowScrolling: 'touch' }}
       >
         {doubleCards.map((card, idx) => {
