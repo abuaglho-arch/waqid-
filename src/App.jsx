@@ -538,7 +538,6 @@ function ReactorExplainer() {
 function SolutionScroller() {
   const scrollRef = useRef(null);
   const [isInteracting, setIsInteracting] = useState(false);
-  const [isInView, setIsInView] = useState(false);
   const interactionTimeoutRef = useRef(null);
 
   const handleInteractionStart = () => {
@@ -558,22 +557,9 @@ function SolutionScroller() {
     }, 2500);
   };
 
-  // Monitor visibility of the scroller to pause background animation loops when offscreen
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
-
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsInView(entry.isIntersecting);
-    }, { threshold: 0.05 });
-
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container || !isInView) return; // Halt loop when scroller is offscreen
 
     let animationFrameId;
     let lastTime = performance.now();
@@ -603,23 +589,19 @@ function SolutionScroller() {
         clearTimeout(interactionTimeoutRef.current);
       }
     };
-  }, [isInteracting, isInView]);
+  }, [isInteracting]);
 
   const doubleCards = [...solutionCards, ...solutionCards];
 
   return (
     <div 
-      className="md:hidden relative w-full overflow-hidden py-4 z-20"
+      className="md:hidden relative w-full overflow-hidden py-4 mask-marquee z-20"
       onTouchStart={handleInteractionStart}
       onTouchEnd={handleInteractionEnd}
       onMouseDown={handleInteractionStart}
       onMouseUp={handleInteractionEnd}
       onMouseLeave={handleInteractionEnd}
     >
-      {/* Left/Right Edge Fade Overlays (replaces expensive CSS mask-image) */}
-      <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#FAF9F6] to-transparent pointer-events-none z-30" />
-      <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#FAF9F6] to-transparent pointer-events-none z-30" />
-
       <div 
         ref={scrollRef}
         className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing select-none"
@@ -657,7 +639,7 @@ function App() {
   const [farmArea, setFarmArea] = useState(50);
   const [fertilizerSpend, setFertilizerSpend] = useState(3000);
   const { scrollY } = useScroll();
-  const heroY = useTransform(scrollY, [0, 1000], [0, isMobile ? 0 : 250]);
+  const heroY = useTransform(scrollY, [0, 1000], [0, 250]);
   const [isMobile, setIsMobile] = useState(
     typeof window !== "undefined" ? window.matchMedia("(max-width: 1024px)").matches : false
   );
@@ -667,53 +649,17 @@ function App() {
 
   useEffect(() => {
     document.title = "WAQID | Biochar & Biomass Solutions";
-    
-    // Explicitly query client states on mount to resolve mobile hydration delays
     const mobileQuery = window.matchMedia("(max-width: 1024px)");
-    setIsMobile(mobileQuery.matches);
-    
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(motionQuery.matches);
-
     const mobileListener = (e) => setIsMobile(e.matches);
     mobileQuery.addEventListener("change", mobileListener);
 
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const motionListener = (e) => setPrefersReducedMotion(e.matches);
     motionQuery.addEventListener("change", motionListener);
-
-    // Global correction for Safari cached image onLoad bug
-    const checkImages = () => {
-      document.querySelectorAll('img').forEach((img) => {
-        if (img.complete) {
-          if (img.classList.contains('opacity-0')) {
-            img.classList.remove('opacity-0');
-          }
-        } else {
-          // Dynamic fallback listener
-          img.addEventListener('load', () => {
-            if (img.classList.contains('opacity-0')) {
-              img.classList.remove('opacity-0');
-            }
-          }, { once: true });
-        }
-      });
-    };
-
-    // Run immediately on client mount
-    checkImages();
-
-    // Scan the DOM for lazy-loaded images (tabs, scrollers, FAQ items, etc.)
-    const observer = new MutationObserver(checkImages);
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    // Periodic sweep for safety
-    const interval = setInterval(checkImages, 300);
 
     return () => {
       mobileQuery.removeEventListener("change", mobileListener);
       motionQuery.removeEventListener("change", motionListener);
-      observer.disconnect();
-      clearInterval(interval);
     };
   }, []);
 
@@ -959,7 +905,15 @@ function App() {
             <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
             
-            <div className="animate-marquee-trust flex items-center gap-6 w-max">
+            <motion.div 
+              animate={{ x: [0, "-50%"] }}
+              transition={{
+                ease: "linear",
+                duration: 12,
+                repeat: Infinity
+              }}
+              className="flex items-center gap-6 w-max"
+            >
               {/* Set 1 */}
               {partnerLogos.map((logo, idx) => (
                 <motion.div 
@@ -990,7 +944,7 @@ function App() {
                   />
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -1954,10 +1908,7 @@ function App() {
         </div>
 
         {/* Infinite Moving Marquee */}
-        <div className="relative w-full overflow-hidden py-4 z-20">
-          {/* Left/Right Edge Fade Overlays (replaces expensive CSS mask-image) */}
-          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0C1D13] to-transparent pointer-events-none z-30" />
-          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0C1D13] to-transparent pointer-events-none z-30" />
+        <div className="relative w-full overflow-hidden py-4 mask-marquee z-20">
           <div className="flex w-max gap-6 animate-marquee-loop">
             {/* Set 1 */}
             {sdgGoals.map((sdg, idx) => (
