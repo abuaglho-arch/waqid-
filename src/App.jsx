@@ -200,9 +200,9 @@ const useCardTransforms = (scrollYProgress, index, isMobile, totalCards = 6) => 
 
 const partnerLogos = [
   { src: "/images/wild-asia.avif", alt: "Wild Asia" },
-  { src: "/images/bevisioneers.avif", alt: "beVisioneers" },
+  { src: "/images/bevisioneers.png", alt: "beVisioneers" },
   { src: "/images/tzuchi-logo.avif", alt: "Tzu Chi Foundation" },
-  { src: "/images/albukhary-university.avif", alt: "Albukhary International University" },
+  { src: "/images/albukhary-university.png", alt: "Albukhary International University" },
   { src: "/images/iylp-logo.avif", alt: "Tzu Chi IYLP" }
 ];
 
