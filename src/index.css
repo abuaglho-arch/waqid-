@@ -337,7 +337,6 @@
   width: auto;
   max-width: 150px;
   object-fit: contain;
-  mix-blend-mode: multiply;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;

@@ -958,7 +958,7 @@ function App() {
                     src={logo.src} 
                     alt={logo.alt} 
                     loading="lazy"
-                    className="h-11 md:h-13 object-contain mix-blend-multiply opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className="h-11 md:h-13 object-contain opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
                 </motion.div>
               ))}
@@ -973,7 +973,7 @@ function App() {
                     src={logo.src} 
                     alt={logo.alt} 
                     loading="lazy"
-                    className="h-11 md:h-13 object-contain mix-blend-multiply opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className="h-11 md:h-13 object-contain opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                   />
                 </motion.div>
               ))}
