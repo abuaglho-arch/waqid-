@@ -538,6 +538,7 @@ function ReactorExplainer() {
 function SolutionScroller() {
   const scrollRef = useRef(null);
   const [isInteracting, setIsInteracting] = useState(false);
+  const [isInView, setIsInView] = useState(true); // Default to true as a fail-safe measure
   const interactionTimeoutRef = useRef(null);
 
   const handleInteractionStart = () => {
@@ -557,9 +558,22 @@ function SolutionScroller() {
     }, 2500);
   };
 
+  // Monitor visibility of the scroller to pause background animation loops when offscreen
   useEffect(() => {
     const container = scrollRef.current;
     if (!container) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsInView(entry.isIntersecting);
+    }, { threshold: 0.05 });
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const container = scrollRef.current;
+    if (!container || !isInView) return; // Halt loop when scroller is offscreen
 
     let animationFrameId;
     let lastTime = performance.now();
@@ -589,19 +603,23 @@ function SolutionScroller() {
         clearTimeout(interactionTimeoutRef.current);
       }
     };
-  }, [isInteracting]);
+  }, [isInteracting, isInView]);
 
   const doubleCards = [...solutionCards, ...solutionCards];
 
   return (
     <div 
-      className="md:hidden relative w-full overflow-hidden py-4 mask-marquee z-20"
+      className="md:hidden relative w-full overflow-hidden py-4 z-20"
       onTouchStart={handleInteractionStart}
       onTouchEnd={handleInteractionEnd}
       onMouseDown={handleInteractionStart}
       onMouseUp={handleInteractionEnd}
       onMouseLeave={handleInteractionEnd}
     >
+      {/* Left/Right Edge Fade Overlays (replaces expensive CSS mask-image) */}
+      <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#FAF9F6] to-transparent pointer-events-none z-30" />
+      <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#FAF9F6] to-transparent pointer-events-none z-30" />
+
       <div 
         ref={scrollRef}
         className="flex gap-6 overflow-x-auto snap-x snap-mandatory hide-scrollbar cursor-grab active:cursor-grabbing select-none"
@@ -649,17 +667,40 @@ function App() {
 
   useEffect(() => {
     document.title = "WAQID | Biochar & Biomass Solutions";
+    
+    // Explicitly query client states on mount to resolve mobile hydration delays
     const mobileQuery = window.matchMedia("(max-width: 1024px)");
+    setIsMobile(mobileQuery.matches);
+    
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(motionQuery.matches);
+
     const mobileListener = (e) => setIsMobile(e.matches);
     mobileQuery.addEventListener("change", mobileListener);
 
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const motionListener = (e) => setPrefersReducedMotion(e.matches);
     motionQuery.addEventListener("change", motionListener);
+
+    // Safely scan for completed cached images once on client mount (Safari onLoad bug fix)
+    // Runs exactly once to avoid infinite CPU loops or React hydration mismatches
+    const checkImagesOnce = () => {
+      document.querySelectorAll('img').forEach((img) => {
+        if (img.complete) {
+          if (img.classList.contains('opacity-0')) {
+            img.classList.remove('opacity-0');
+          }
+        }
+      });
+    };
+    checkImagesOnce();
+    
+    // Sweep once more shortly after rendering to catch slightly delayed dynamic content
+    const timer = setTimeout(checkImagesOnce, 150);
 
     return () => {
       mobileQuery.removeEventListener("change", mobileListener);
       motionQuery.removeEventListener("change", motionListener);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -819,7 +860,7 @@ function App() {
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-[#2E7D32]/20 rounded-full blur-[120px] pointer-events-none mix-blend-screen z-1" />
         <div className="absolute bottom-1/4 right-1/4 w-[600px] h-[600px] bg-[#4CAF50]/10 rounded-full blur-[150px] pointer-events-none mix-blend-screen z-1" />
 
-        <motion.div style={{ y: heroY }} className="absolute inset-0 opacity-55 z-0 scale-110">
+        <motion.div style={{ y: isMobile ? 0 : heroY }} className="absolute inset-0 opacity-55 z-0 scale-110">
           <img 
             src="/images/waqid_circular_restoration_hero.avif" 
             alt="WAQID Operations" 
@@ -905,15 +946,7 @@ function App() {
             <div className="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
             <div className="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-[#FAF9F6] to-transparent z-10 pointer-events-none" />
             
-            <motion.div 
-              animate={{ x: [0, "-50%"] }}
-              transition={{
-                ease: "linear",
-                duration: 12,
-                repeat: Infinity
-              }}
-              className="flex items-center gap-6 w-max"
-            >
+            <div className="animate-marquee-trust flex items-center gap-6 w-max">
               {/* Set 1 */}
               {partnerLogos.map((logo, idx) => (
                 <motion.div 
@@ -944,7 +977,7 @@ function App() {
                   />
                 </motion.div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
@@ -1908,7 +1941,10 @@ function App() {
         </div>
 
         {/* Infinite Moving Marquee */}
-        <div className="relative w-full overflow-hidden py-4 mask-marquee z-20">
+        <div className="relative w-full overflow-hidden py-4 z-20">
+          {/* Left/Right Edge Fade Overlays (replaces expensive CSS mask-image) */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-r from-[#0C1D13] to-transparent pointer-events-none z-30" />
+          <div className="absolute right-0 top-0 bottom-0 w-12 md:w-24 bg-gradient-to-l from-[#0C1D13] to-transparent pointer-events-none z-30" />
           <div className="flex w-max gap-6 animate-marquee-loop">
             {/* Set 1 */}
             {sdgGoals.map((sdg, idx) => (
