@@ -248,7 +248,7 @@ const teamMembers = [
     name: "Joyce Zhang",
     role: "Venture Coach",
     img: "/images/joyce.avif",
-    desc: "Guiding WAQID's fundraising strategy and venture scaling architecture for global deployment.",
+    desc: "Guided WAQID in prototyping and designing with community.",
     isCTA: false
   },
   {
