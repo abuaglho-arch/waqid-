@@ -204,7 +204,7 @@ const partnerLogos = [
   { src: "/images/tzuchi-logo.avif", alt: "Tzu Chi Foundation" },
   { src: "/images/albukhary-university.png", alt: "Albukhary International University" },
   { src: "/images/iylp-logo.avif", alt: "Tzu Chi IYLP" },
-  { src: "/images/new-partner.png", alt: "Regenerasi Malaysia" }
+  { src: "/images/regenerasi-malaysia.png", alt: "Regenerasi Malaysia", isSquare: true }
 ];
 
 const solutionCards = [
@@ -959,7 +959,7 @@ function App() {
                     src={logo.src} 
                     alt={logo.alt} 
                     loading="lazy"
-                    className="h-11 md:h-13 object-contain opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className={`${logo.isSquare ? "h-16 md:h-18" : "h-11 md:h-13"} object-contain opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none`}
                   />
                 </motion.div>
               ))}
@@ -974,7 +974,7 @@ function App() {
                     src={logo.src} 
                     alt={logo.alt} 
                     loading="lazy"
-                    className="h-11 md:h-13 object-contain opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    className={`${logo.isSquare ? "h-16 md:h-18" : "h-11 md:h-13"} object-contain opacity-85 md:opacity-90 hover:opacity-100 transition-opacity duration-300 pointer-events-none`}
                   />
                 </motion.div>
               ))}
