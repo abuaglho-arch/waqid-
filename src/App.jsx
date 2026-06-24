@@ -204,7 +204,7 @@ const partnerLogos = [
   { src: "/images/tzuchi-logo.avif", alt: "Tzu Chi Foundation" },
   { src: "/images/albukhary-university.png", alt: "Albukhary International University" },
   { src: "/images/iylp-logo.avif", alt: "Tzu Chi IYLP" },
-  { src: "/images/new-partner.png", alt: "Cooperative Partner" }
+  { src: "/images/new-partner.png", alt: "Regenerasi Malaysia" }
 ];
 
 const solutionCards = [
