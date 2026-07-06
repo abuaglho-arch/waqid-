@@ -161,20 +161,20 @@ const impactSteps = [
   },
   {
     num: "04",
-    tag: "Habitat Conservation",
-    title: "Reduced Deforestation Pressure",
-    desc: "Our briquette fuels are produced from agricultural waste, providing local industries and satay vendors with a direct substitute for wood charcoal.",
-    metric: "Alternative to Wood Fuel",
-    detail: "Traditional charcoal requires cutting down local trees. By using agricultural waste briquettes, we keep forests intact and preserve local biodiversity.",
+    tag: "Industrial Coal Displacement",
+    title: "Large-Scale Fossil & Wood Fuel Substitution",
+    desc: "Our high-density biomass briquettes provide manufacturing boilers and processing mills with a direct, drop-in replacement for coal and wood-derived charcoal.",
+    metric: "Industrial Fuel Displacement",
+    detail: "Traditional heating relies on fossil coal or forestry wood. By utilizing agricultural residues, we lower Scope 1 emissions and eliminate deforestation pressure.",
     icon: Trees
   },
   {
     num: "05",
-    tag: "Social Benefits",
-    title: "Cleaner Local Air & Health",
-    desc: "We offer rural families and street food vendors a virtually smokeless combustion solution, reducing toxic particulate matter in the air.",
-    metric: "Smokeless Burning",
-    detail: "Replacing dirty biomass burning and traditional wood fuels improves indoor and ambient air quality, reducing respiratory health risks.",
+    tag: "Process Emissions Control",
+    title: "Cleaner Industrial Combustion",
+    desc: "By providing clean-burning bio-fuels to industrial processing mills, we mitigate heavy particulate matter and smoke emissions at source.",
+    metric: "Particulate Matter (PM) Mitigation",
+    detail: "Replacing unrefined crop burning with processed, low-ash briquettes reduces sulfur and toxic particulate emissions, improving factory-floor and regional air quality.",
     icon: ShieldCheck
   }
 ];
@@ -281,9 +281,9 @@ const hypotheses = [
   },
   {
     type: "Value Hypothesis",
-    question: "Will local businesses switch to smokeless sustainable charcoal?",
-    method: "Blind testing of heating value, burn-time, and smoke profile with 10 commercial satay vendors.",
-    metric: "Burn-time > 4 hours, equivalent heat output to wood charcoal.",
+    question: "Will industrial operations switch to sustainable biomass briquettes?",
+    method: "Testing heating value, ash residue, and combustion profile with local industrial boiler operators and processing plants.",
+    metric: "Calorific value > 4,000 kcal/kg, meeting industrial boiler specifications.",
     status: "Scheduled for V3 Pilot",
     statusType: "scheduled",
     color: "#2E7D32"
@@ -347,7 +347,7 @@ const sdgGoals = [
     label: "SDG 1",
     title: "No Poverty",
     image: "/images/sdgs/sdg-01.jpg",
-    description: "By supplying affordable biochar and briquettes, we help smallholder farmers reduce synthetic fertilizer expenses and satay vendors reduce fuel costs."
+    description: "By supplying high-efficiency biochar and biomass briquettes, we help smallholder farmers reduce synthetic fertilizer expenses and small-scale industrial processors lower thermal energy costs."
   },
   {
     label: "SDG 2",
@@ -359,7 +359,7 @@ const sdgGoals = [
     label: "SDG 7",
     title: "Affordable & Clean Energy",
     image: "/images/sdgs/sdg-07.jpg",
-    description: "We recover clean syngas and thermal energy to heat reactors and dry biomass, producing sustainable briquettes as a clean wood-charcoal alternative."
+    description: "We recover clean syngas and waste heat to power operations, producing high-density briquettes as a zero-carbon alternative to coal and wood fuel."
   },
   {
     label: "SDG 8",
@@ -2299,7 +2299,7 @@ function App() {
                   </div>
                   <h4 className="font-display font-bold text-xl text-[#0C1D13] mb-3">Sustainable Briquettes</h4>
                   <p className="text-xs md:text-sm text-[#0C1D13]/75 font-sans leading-relaxed">
-                    Viability target: displacement testing of wood charcoal with local grill vendors, scaling to industrial biomass briquette distribution.
+                    Viability target: displacement testing of coal and wood fuel with industrial boiler operators, scaling to regional commercial bioenergy distribution.
                   </p>
                 </div>
               </motion.div>
@@ -2405,7 +2405,7 @@ function App() {
                   {
                     num: "04",
                     title: "Develop Circular Fuel Products",
-                    desc: "Test cleaner briquettes with local heat users and small businesses.",
+                    desc: "Test high-density biomass briquettes with industrial boilers and commercial thermal processors.",
                     status: "To be tested",
                     icon: Flame
                   },
