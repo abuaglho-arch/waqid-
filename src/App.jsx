@@ -136,45 +136,45 @@ const impactSteps = [
     num: "01",
     tag: "Resource Recovery",
     title: "Waste Diversion & Upcycling",
-    desc: "We divert palm waste, rice husks, and agricultural residues from open burning and natural decomposition, converting them into valuable resources.",
-    metric: "100% Upcycled Biomass",
-    detail: "Rather than letting residues pile up at palm oil processing mills, we intercept the waste streams to fuel local economic cycles.",
+    desc: "Our systems are designed to divert palm waste, rice husks, and agricultural residues from open burning and natural decomposition, upcycling them into valuable inputs.",
+    metric: "Feedstock Target: 100% Upcycled",
+    detail: "By intercepting residue streams directly at palm oil mills, we aim to route 100% of incoming biomass into circular value chains.",
     icon: Factory
   },
   {
     num: "02",
     tag: "Atmospheric Protection",
     title: "Methane & Carbon Mitigation",
-    desc: "By pyrolyzing palm biomass instead of leaving it to rot in wet fields, we prevent the anaerobic decay that produces high-warming methane gases.",
-    metric: "Methane Decay Prevented",
-    detail: "Rotting palm empty fruit bunches (EFB) release methane, which holds 34x more heat than CO2. Our pyrolysis pathway mitigates this atmospheric release.",
+    desc: "By pyrolyzing palm biomass instead of leaving it to rot in wet fields, we target the elimination of anaerobic decay that produces high-warming methane gases.",
+    metric: "Methane Avoidance Potential",
+    detail: "Decaying empty fruit bunches (EFB) release methane, which has high global warming potential. The pyrolysis pathway is engineered to prevent this atmospheric release.",
     icon: Wind
   },
   {
     num: "03",
     tag: "Carbon Storage",
     title: "Soil Carbon Sequestration",
-    desc: "We lock stable carbon into a porous biochar structure that remains inert in agricultural soils for hundreds of years, preventing carbon return to the air.",
-    metric: "Centuries-Long Storage",
-    detail: "Biochar acts as a permanent soil sponge, holding water and nitrogen nutrients in place while keeping carbon out of the global carbon cycle.",
+    desc: "We convert unstable biomass carbon into a porous biochar structure designed to remain inert in agricultural soils for centuries.",
+    metric: "Centuries-Long Stability Target",
+    detail: "Biochar acts as a stable soil carbon sink, holding water and nitrogen nutrients in place while keeping carbon out of the active atmospheric cycle.",
     icon: Globe
   },
   {
     num: "04",
     tag: "Industrial Coal Displacement",
     title: "Large-Scale Fossil & Wood Fuel Substitution",
-    desc: "Our high-density biomass briquettes provide manufacturing boilers and processing mills with a direct, drop-in replacement for coal and wood-derived charcoal.",
-    metric: "Industrial Fuel Displacement",
-    detail: "Traditional heating relies on fossil coal or forestry wood. By utilizing agricultural residues, we lower Scope 1 emissions and eliminate deforestation pressure.",
+    desc: "Our high-density biomass briquettes are developed to provide manufacturing boilers and processing mills with a direct, drop-in replacement for coal and wood-derived charcoal.",
+    metric: "Fossil Fuel Substitution Potential",
+    detail: "By utilizing agricultural residues to displace fossil coal or forestry wood, we aim to lower industrial Scope 1 emissions and eliminate deforestation pressure.",
     icon: Trees
   },
   {
     num: "05",
     tag: "Process Emissions Control",
     title: "Cleaner Industrial Combustion",
-    desc: "By providing clean-burning bio-fuels to industrial processing mills, we mitigate heavy particulate matter and smoke emissions at source.",
-    metric: "Particulate Matter (PM) Mitigation",
-    detail: "Replacing unrefined crop burning with processed, low-ash briquettes reduces sulfur and toxic particulate emissions, improving factory-floor and regional air quality.",
+    desc: "By providing clean-burning bio-fuels to industrial processing mills, we aim to mitigate heavy particulate matter and smoke emissions at source.",
+    metric: "Particulate Mitigation Potential",
+    detail: "Substituting unrefined agricultural burning with processed, low-ash briquettes is designed to reduce sulfur and toxic particulate emissions.",
     icon: ShieldCheck
   }
 ];
