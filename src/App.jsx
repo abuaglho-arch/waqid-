@@ -304,10 +304,10 @@ const reactorStages = [
     num: "01",
     title: "Feedstock Preparation",
     subtitle: "Drying & Sizing",
-    desc: "Raw palm Empty Fruit Bunches (EFBs), rice husks, and agricultural residues are shredded and pre-dried using reclaimed pyrolysis waste heat to achieve an optimal moisture level below 15%.",
+    desc: "For our initial pilot, feedstock is restricted exclusively to Palm Kernel Shells (PKS) or dry, pre-shredded Mesocarp Fiber. PKS arrives with low, manageable moisture (~15–20%) and superior lignin density, avoiding the heat loss of processing raw Empty Fruit Bunches (EFBs).",
     metric: "Moisture < 15%",
     temp: "Ambient to 100°C",
-    detail: "Pre-treatment is essential. Removing excess moisture ensures rapid heating in the reactor core and prevents energy-wasting steam formation.",
+    detail: "Fresh EFB contains 50–60% water, acting as a wet sponge that stalls mobile units by wasting thermal heat on boiling water rather than carbonization. Transitioning to PKS/fiber ensures immediate, high-grade carbon output.",
     icon: RotateCw
   },
   {
@@ -371,7 +371,7 @@ const sdgGoals = [
     label: "SDG 12",
     title: "Responsible Consumption & Production",
     image: "/images/sdgs/sdg-12.jpg",
-    description: "We convert wet palm Empty Fruit Bunches (EFBs) and farm residues into high-value carbon products, closing the circular agricultural loop."
+    description: "We convert dry palm residues (like PKS and Mesocarp Fiber) and agricultural byproducts into high-value carbon products, closing the circular agricultural loop."
   },
   {
     label: "SDG 13",
@@ -1872,8 +1872,8 @@ function App() {
               </div>
               <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-[#2E7D32]">Residue Diversion</span>
               <h3 className="text-4xl font-serif font-bold text-[#0C1D13] mt-4 mb-1"><Counter value="15000" /> <span className="text-xl font-sans font-normal text-[#0C1D13]/50">kg</span></h3>
-              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Palm Waste to Divert</p>
-              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Our first V3 pilot aims to divert 15,000 kg of palm waste from burning or decomposition.</p>
+              <p className="font-bold text-[#0C1D13] mb-4 text-sm">Palm Residues to Process</p>
+              <p className="text-xs text-[#0C1D13]/60 font-sans leading-relaxed">Our first V3 pilot aims to process 15,000 kg of dry palm residues, specifically Palm Kernel Shells (PKS) and dry Mesocarp Fiber.</p>
             </motion.div>
             <motion.div 
               variants={fadeUpVariant} 
